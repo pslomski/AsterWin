@@ -1,0 +1,9 @@
+target_sources(${ASTER_EXE}
+  PRIVATE
+    HighScoreState.cpp
+    MenuState.cpp
+    OptionsState.cpp
+    GameState.cpp
+    State.cpp
+    StateManager.cpp
+)

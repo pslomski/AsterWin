@@ -1,0 +1,272 @@
+#include "Object.hpp"
+#include <algorithm>
+#include <cassert>
+#include "Consts.hpp"
+#include "World.hpp"
+#include "utils/Tools.hpp"
+
+Float Object::dt = 0.0;
+
+Float calculateDistance(Object* pO1, Object* pO2)
+{
+    Float dx = pO2->fx - pO1->fx;
+    Float dy = pO2->fy - pO1->fy;
+
+    return sqrt(dx * dx + dy * dy);
+}
+
+Object::Object()
+{
+    scoreReward = 0;
+    geometryType = GeometryType::Point;
+    glList = 0;
+    setColor();
+    angle = 0.0;
+    omega = 0.0;
+    setXY(0.0, 0.0);
+    setA(0.0);
+    setV(0.0);
+    KDec = 0.0;
+}
+
+void Object::setA(Float aa)
+{
+    fa = aa;
+    fax = Float(fa * cos(angle * GE_PIover180));
+    fay = Float(fa * sin(angle * GE_PIover180));
+}
+
+void Object::setV(Float av)
+{
+    fv = av;
+    fvx = Float(fv * cos(angle * GE_PIover180));
+    fvy = Float(fv * sin(angle * GE_PIover180));
+}
+
+void Object::setVA(Float av, Float alfa)
+{
+    fv = av;
+    fvx = Float(fv * cos(alfa * GE_PIover180));
+    fvy = Float(fv * sin(alfa * GE_PIover180));
+}
+
+void Object::setRandV(Float vmin, Float vmax)
+{
+    Float vRand = rand() % int(vmax - vmin) + vmin;
+    Float alfa = rand() % 360;
+    Float vx = vRand * cos(alfa * GE_PIover180);
+    Float vy = vRand * sin(alfa * GE_PIover180);
+    setV(vx, vy);
+}
+
+Float Object::correctAlfa(Float alfa)
+{
+    while (alfa < 0.0)
+        alfa += 360.0;
+    while (alfa > 360.0)
+        alfa -= 360.0;
+    return alfa;
+}
+
+void Object::move()
+{
+    xp = fx;
+    yp = fy;
+    alphap = angle;
+
+    angle += omega * dt;
+    if (abs(KDec) > 1e-6)
+    {
+        fvx += (fax - KDec * fvx * abs(fvx)) * dt;
+        fvy += (fay - KDec * fvy * abs(fvy)) * dt;
+    }
+    else
+    {
+        fvx += fax * dt;
+        fvy += fay * dt;
+    }
+    fx += fvx * dt;
+    fy += fvy * dt;
+
+    if (fx < geWorld.bounds.x0)
+    {
+        fx += geWorld.bounds.x1;
+        xp += geWorld.bounds.x1;
+    }
+    if (fx > geWorld.bounds.x1)
+    {
+        fx -= geWorld.bounds.x1;
+        xp -= geWorld.bounds.x1;
+    }
+    if (fy < geWorld.bounds.y0)
+    {
+        fy += geWorld.bounds.y1;
+        yp += geWorld.bounds.y1;
+    }
+    if (fy > geWorld.bounds.y1)
+    {
+        fy -= geWorld.bounds.y1;
+        yp -= geWorld.bounds.y1;
+    }
+}
+
+BoxF Object::transform(const BoxF& seg)
+{
+    BoxF res;
+    Float sinalfa = sin(-angle * GE_PIover180);
+    Float cosalfa = cos(-angle * GE_PIover180);
+    res.x0 = fx + seg.x0 * cosalfa + seg.y0 * sinalfa;
+    res.y0 = fy - seg.x0 * sinalfa + seg.y0 * cosalfa;
+    res.x1 = fx + seg.x1 * cosalfa + seg.y1 * sinalfa;
+    res.y1 = fy - seg.x1 * sinalfa + seg.y1 * cosalfa;
+    return res;
+}
+
+bool _CheckPolygWithPoint(Object* pObjPoint, Object* pObjPolyg)
+{
+    BoxF o1;
+    Float x, y;
+    // bierzemy wektor przesuniecia punktu
+    BoxF o2 = BoxF(pObjPoint->xp, pObjPoint->yp, pObjPoint->getX(), pObjPoint->getY());
+    for (unsigned int i1 = 0; i1 < pObjPolyg->verts.size(); ++i1)
+    {
+        if (0 == i1)
+            o1 = pObjPolyg->transform(BoxF(
+                pObjPolyg->verts[0].x,
+                pObjPolyg->verts[0].y,
+                pObjPolyg->verts[pObjPolyg->verts.size() - 1].x,
+                pObjPolyg->verts[pObjPolyg->verts.size() - 1].y));
+        else
+            o1 = pObjPolyg->transform(BoxF(
+                pObjPolyg->verts[i1 - 1].x,
+                pObjPolyg->verts[i1 - 1].y,
+                pObjPolyg->verts[i1].x,
+                pObjPolyg->verts[i1].y));
+        if (linesIntersection(o1, o2, x, y) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            PointF pt(pObjPoint->getX() - pObjPolyg->getX(), pObjPoint->getY() - pObjPolyg->getY());
+            pt = geRotate(pt, -pObjPolyg->getAlfa());
+            return isPointInPolygon(pObjPolyg->verts.size(), pObjPolyg->verts, pt.x, pt.y);
+        }
+    }
+    return false;
+}
+
+bool Object::checkCollision(Object* pObiekt)
+{
+    assert(nullptr != pObiekt);
+
+    if (((getX() + bounds.x0) > (pObiekt->getX() + pObiekt->bounds.x1)) ||
+        ((getX() + bounds.x1) < (pObiekt->getX() + pObiekt->bounds.x0)) ||
+        ((getY() + bounds.y0) > (pObiekt->getY() + pObiekt->bounds.y1)) ||
+        ((getY() + bounds.y1) < (pObiekt->getY() + pObiekt->bounds.y0)))
+        return false;
+    else
+    {
+        if (GeometryType::Polyg == geometryType)
+        {
+            BoxF o1, o2;
+            Float _x, _y;
+            if (GeometryType::Polyg == pObiekt->geometryType)
+            {
+                for (unsigned int i1 = 0; i1 < verts.size(); ++i1)
+                {
+                    if (0 == i1)
+                        o1 = transform(
+                            BoxF(verts[0].x, verts[0].y, verts[verts.size() - 1].x, verts[verts.size() - 1].y));
+                    else
+                        o1 = transform(BoxF(verts[i1 - 1].x, verts[i1 - 1].y, verts[i1].x, verts[i1].y));
+                    for (unsigned int i2 = 0; i2 < pObiekt->verts.size(); ++i2)
+                    {
+                        if (0 == i2)
+                            o2 = pObiekt->transform(BoxF(
+                                pObiekt->verts[0].x,
+                                pObiekt->verts[0].y,
+                                pObiekt->verts[pObiekt->verts.size() - 1].x,
+                                pObiekt->verts[pObiekt->verts.size() - 1].y));
+                        else
+                            o2 = pObiekt->transform(BoxF(
+                                pObiekt->verts[i2 - 1].x,
+                                pObiekt->verts[i2 - 1].y,
+                                pObiekt->verts[i2].x,
+                                pObiekt->verts[i2].y));
+                        if (linesIntersection(o1, o2, _x, _y) == 0) return true;
+                    }
+                }
+            }
+            else if (GeometryType::Point == pObiekt->geometryType)
+            {
+                if (_CheckPolygWithPoint(pObiekt, this)) return true;
+            }
+            else
+            {
+                return true; // przyjmyjemy przeciecie Bounds za kolizje
+            }
+        }
+        else if (GeometryType::Point == geometryType)
+        {
+            if (GeometryType::Polyg == pObiekt->geometryType)
+            {
+                if (_CheckPolygWithPoint(this, pObiekt)) return true;
+            }
+            else
+                return true; // w przypadku 2 punktow przyjmyjemy przeciecie Bounds za
+                             // kolizje
+        }
+        else
+        {
+            return true; // przyjmyjemy przeciecie Bounds za kolizje
+        }
+        return false;
+    }
+}
+
+void Object::draw()
+{
+    Float minterp = 1.0 - geWorld.interp;
+    Float x = fx * geWorld.interp + xp * minterp;
+    Float y = fy * geWorld.interp + yp * minterp;
+    Float alfa = angle * geWorld.interp + alphap * minterp;
+    glPushMatrix();
+    glTranslated(x, y, 0.0);
+    glRotated(alfa, 0.0, 0.0, 1.0);
+    OnRender();
+    glPopMatrix();
+}
+
+void Object::render()
+{
+    OnRender();
+}
+
+void Object::calcBounds(const PointsF& points)
+{
+    Float max = 0.0;
+    for (const auto& point : points)
+    {
+        max = std::max(max, abs((point).x));
+        max = std::max(max, abs((point).y));
+    }
+    bounds.x0 = -max;
+    bounds.x1 = max;
+    bounds.y0 = -max;
+    bounds.y1 = max;
+}
+
+TempObject::TempObject() : Object() {}
+
+TempObject::TempObject(const Float lifeTime) : lifeTime(lifeTime) {}
+
+bool TempObject::expired()
+{
+    return lifeTime.Inc(dt);
+}
+
+void TempObject::setExpired()
+{
+    lifeTime.SetExpired();
+}
