@@ -145,7 +145,7 @@ void CMenuState::enterState()
     geWorld.isGameRunning = false;
     // Checks whether there is a current game active
     SetBlinkText(m_iCurrentSelection, false);
-    if (!m_pCurrentGame or m_pCurrentGame->IsGameOver())
+    if (!m_pCurrentGame or m_pCurrentGame->isGameOver())
     {
         if (1 == m_iCurrentSelection) m_iCurrentSelection = 0;
         m_pResumeGameText->setTextColor(0.3f, 0.3f, 0.3f);
@@ -192,7 +192,7 @@ void CMenuState::SelectionUp()
     // the "Resume game" item.
     if (m_iCurrentSelection == 1)
     {
-        if (!m_pCurrentGame || m_pCurrentGame->IsGameOver()) m_iCurrentSelection--;
+        if (!m_pCurrentGame || m_pCurrentGame->isGameOver()) m_iCurrentSelection--;
     }
     SetBlinkText(m_iCurrentSelection, true);
 }
@@ -207,7 +207,7 @@ void CMenuState::SelectionDown()
     // the "Resume game" item.
     if (m_iCurrentSelection == 1)
     {
-        if (!m_pCurrentGame || m_pCurrentGame->IsGameOver()) m_iCurrentSelection++;
+        if (!m_pCurrentGame || m_pCurrentGame->isGameOver()) m_iCurrentSelection++;
     }
     SetBlinkText(m_iCurrentSelection, true);
 }
@@ -218,7 +218,7 @@ void CMenuState::SelectionChosen()
     {
         case 0:
             if (!m_pCurrentGame) m_pCurrentGame = GameState::GetInstance(stateManager);
-            m_pCurrentGame->Reset();
+            m_pCurrentGame->reset();
             SetBlinkText(m_iCurrentSelection, false);
             m_iCurrentSelection = 1;
             SetBlinkText(m_iCurrentSelection, true);
@@ -226,7 +226,7 @@ void CMenuState::SelectionChosen()
             break;
 
         case 1:
-            if (m_pCurrentGame && !m_pCurrentGame->IsGameOver()) changeState(m_pCurrentGame);
+            if (m_pCurrentGame && !m_pCurrentGame->isGameOver()) changeState(m_pCurrentGame);
             break;
 
         case 2:

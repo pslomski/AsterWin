@@ -19,18 +19,18 @@ public:
     void draw() override;
     void enterState() override;
     void leaveState() override;
-    bool IsGameOver() { return AsterGame.isGameOver(); }
-    void Reset();
+    bool isGameOver() { return asterGame.isGameOver(); }
+    void reset();
     static GameState* GetInstance(StateManager* pManager);
 
 protected:
     GameState(StateManager* pManager);
 
 private:
-    Font* m_pFontSmall;
-    Font* m_pFontLarge;
-    TextControl* m_pGameOverText;
-    ge::Game AsterGame;
-    bool m_bDispFPS;
+    Font* fontSmall;
+    Font* fontLarge;
+    TextControl* textGameOver;
+    ge::Game asterGame;
+    bool isDisplayFps;
 };
 } // namespace ui

@@ -10,25 +10,25 @@ namespace ui
 #define FNTSIZESMALL 15
 #define FNTSIZELARGE 25
 
-GameState::GameState(StateManager* pManager) : State(pManager), m_pFontSmall(nullptr), m_pFontLarge(nullptr)
+GameState::GameState(StateManager* pManager) : State(pManager), fontSmall(nullptr), fontLarge(nullptr)
 {
-    m_bDispFPS = false;
-    m_pFontSmall = new Font;
-    m_pFontSmall->createFont(FNTSIZESMALL, FW_NORMAL);
+    isDisplayFps = false;
+    fontSmall = new Font;
+    fontSmall->createFont(FNTSIZESMALL, FW_NORMAL);
 
-    m_pFontLarge = new Font;
-    m_pFontLarge->createFont(FNTSIZELARGE, FW_NORMAL);
+    fontLarge = new Font;
+    fontLarge->createFont(FNTSIZELARGE, FW_NORMAL);
 
-    m_pGameOverText = new TextControl(m_pFontLarge, ui::Rectanglei(0, geWorld.scrHeight, 0, geWorld.scrWidth));
-    m_pGameOverText->setAlignement(TextControl::TextAlignement::center);
-    m_pGameOverText->setText("Game Over");
+    textGameOver = new TextControl(fontLarge, ui::Rectanglei(0, geWorld.scrHeight, 0, geWorld.scrWidth));
+    textGameOver->setAlignement(TextControl::TextAlignement::center);
+    textGameOver->setText("Game Over");
 }
 
 GameState::~GameState()
 {
-    delete m_pFontSmall;
-    delete m_pFontLarge;
-    delete m_pGameOverText;
+    delete fontSmall;
+    delete fontLarge;
+    delete textGameOver;
 }
 
 GameState* GameState::GetInstance(StateManager* pManager)
@@ -39,42 +39,42 @@ GameState* GameState::GetInstance(StateManager* pManager)
 
 void GameState::enterState()
 {
-    AsterGame.enterState();
+    asterGame.enterState();
     geWorld.isGameRunning = true;
-    AsterGame.isMusic = geMusic.GetVolume() > 0.001;
+    asterGame.isMusic = geMusic.GetVolume() > 0.001;
     geSound.Unmute();
     if (geMusic.IsStarted()) geMusic.Play();
 }
 
 void GameState::leaveState()
 {
-    AsterGame.leaveState();
+    asterGame.leaveState();
     geSound.Mute();
-    if (AsterGame.isGameOver())
+    if (asterGame.isGameOver())
         geMusic.Stop();
     else
         geMusic.Pause();
 }
 
-void GameState::Reset()
+void GameState::reset()
 {
-    AsterGame.reset();
+    asterGame.reset();
 }
 
 void GameState::onKeyDown(WPARAM wKey)
 {
-    AsterGame.key[wKey] = true;
+    asterGame.key[wKey] = true;
     switch (wKey)
     {
         case 'F':
-            m_bDispFPS = !m_bDispFPS;
+            isDisplayFps = !isDisplayFps;
         case VK_ESCAPE:
         case VK_RETURN:
-            if (AsterGame.isGameOver())
+            if (asterGame.isGameOver())
             {
                 CHighScoreState* pHighScores = CHighScoreState::GetInstance(stateManager);
-                pHighScores->SetNewHighScore(AsterGame.scoreCounter.get());
-                AsterGame.clear();
+                pHighScores->SetNewHighScore(asterGame.scoreCounter.get());
+                asterGame.clear();
                 changeState(pHighScores);
             }
             else
@@ -87,19 +87,19 @@ void GameState::onKeyDown(WPARAM wKey)
 
 void GameState::onKeyUp(WPARAM wKey)
 {
-    AsterGame.key[wKey] = false;
+    asterGame.key[wKey] = false;
 }
 
 void GameState::onResize(int cx, int cy) {}
 
 void GameState::update(double timeStep)
 {
-    AsterGame.update();
+    asterGame.update();
 }
 
 void GameState::draw()
 {
-    AsterGame.draw();
+    asterGame.draw();
 
     glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
     glLoadIdentity(); // Reset The Projection Matrix
@@ -112,23 +112,23 @@ void GameState::draw()
     GLint h = GLint(geWorld.scrHeight);
     GLint y = FNTSIZESMALL + 5;
     // glRasterPos2i(10, y);
-    m_pFontSmall->drawTextFmt(10, y, "Level: %d", AsterGame.gameLevel);
+    fontSmall->drawTextFmt(10, y, "Level: %d", asterGame.gameLevel);
 
     // glRasterPos2i(w / 2 - 80, y);
-    m_pFontSmall->drawTextFmt(w / 2 - 80, y, "Score: %d", AsterGame.scoreCounter.get());
+    fontSmall->drawTextFmt(w / 2 - 80, y, "Score: %d", asterGame.scoreCounter.get());
 
     // glRasterPos2i(w - 150, y);
-    m_pFontSmall->drawTextFmt(w - 150, y, "Lives: %d", AsterGame.lives);
+    fontSmall->drawTextFmt(w - 150, y, "Lives: %d", asterGame.lives);
 
-    if (m_bDispFPS)
+    if (isDisplayFps)
     {
         // glRasterPos2i(w / 2 - 80, y + 20);
-        m_pFontSmall->drawTextFmt(w / 2 - 80, y + 20, "FPS: %.0f", AsterGame.fps);
+        fontSmall->drawTextFmt(w / 2 - 80, y + 20, "FPS: %.0f", asterGame.fps);
     }
 
-    if (IsGameOver())
+    if (isGameOver())
     {
-        m_pGameOverText->draw();
+        textGameOver->draw();
     }
 }
 } // namespace ui
