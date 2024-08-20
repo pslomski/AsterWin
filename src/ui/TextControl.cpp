@@ -42,7 +42,8 @@ void TextControl::draw()
     {
         fFact = GLfloat(0.25 * (2.0 + sin(2.0 * GE_PI * tiBlink.Ratio())));
     }
-    font->drawText(text, xPos, yPos, fFact * color.red, fFact * color.green, fFact * color.blue);
+    gl::Color glColor(fFact * color.red, fFact * color.green, fFact * color.blue);
+    font->drawText(text, xPos, yPos, glColor);
 }
 
 void TextControl::setTextColor(Float fRed, Float fGreen, Float fBlue)

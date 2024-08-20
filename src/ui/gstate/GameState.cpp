@@ -101,31 +101,23 @@ void GameState::draw()
 {
     asterGame.draw();
 
-    glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
-    glLoadIdentity(); // Reset The Projection Matrix
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
     glOrtho(0, geWorld.scrWidth, geWorld.scrHeight, 0, -1, 1);
-    glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
-    glLoadIdentity(); // Reset The Modelview Matrix
-
-    glColor3f(1.0, 1.0, 1.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glColor4fv(gl::colorWhite);
     GLint w = GLint(geWorld.scrWidth);
     GLint h = GLint(geWorld.scrHeight);
     GLint y = FNTSIZESMALL + 5;
-    // glRasterPos2i(10, y);
-    fontSmall->drawTextFmt(10, y, "Level: %d", asterGame.gameLevel);
-
-    // glRasterPos2i(w / 2 - 80, y);
-    fontSmall->drawTextFmt(w / 2 - 80, y, "Score: %d", asterGame.scoreCounter.get());
-
-    // glRasterPos2i(w - 150, y);
-    fontSmall->drawTextFmt(w - 150, y, "Lives: %d", asterGame.lives);
-
+    gl::Color color(1.0, 1.0, 1.0);
+    fontSmall->drawTextFmt(10, y, color, "Level: %d", asterGame.gameLevel);
+    fontSmall->drawTextFmt(w / 2 - 80, y, color, "Score: %d", asterGame.scoreCounter.get());
+    fontSmall->drawTextFmt(w - 150, y, color, "Lives: %d", asterGame.lives);
     if (isDisplayFps)
     {
-        // glRasterPos2i(w / 2 - 80, y + 20);
-        fontSmall->drawTextFmt(w / 2 - 80, y + 20, "FPS: %.0f", asterGame.fps);
+        fontSmall->drawTextFmt(w / 2 - 80, y + 20, color, "FPS: %.0f", asterGame.fps);
     }
-
     if (isGameOver())
     {
         textGameOver->draw();

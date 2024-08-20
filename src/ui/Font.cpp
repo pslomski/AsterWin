@@ -61,9 +61,9 @@ ui::Rectanglei Font::GetTextSize(const std::string& strText) const
     return newTextSize;
 }
 
-void Font::drawText(const std::string& text, int x, int y, GLfloat red, GLfloat green, GLfloat blue) const
+void Font::drawText(const std::string& text, int x, int y, const gl::Color& color) const
 {
-    glColor3f(red, green, blue);
+    glColor4fv(color);
     glRasterPos2i(x, y);
     glPushAttrib(GL_LIST_BIT);
     glListBase(listBase);
@@ -71,7 +71,7 @@ void Font::drawText(const std::string& text, int x, int y, GLfloat red, GLfloat 
     glPopAttrib();
 }
 
-void Font::drawTextFmt(const int x, const int y, const char* fmt, ...) const
+void Font::drawTextFmt(const int x, const int y, const gl::Color& color, const char* fmt, ...) const
 {
     if (fmt == nullptr)
     {
@@ -82,5 +82,5 @@ void Font::drawTextFmt(const int x, const int y, const char* fmt, ...) const
     va_start(list, fmt);
     vsprintf_s(text, fmt, list);
     va_end(list);
-    drawText(std::string(text), x, y, 1, 1, 1);
+    drawText(std::string(text), x, y, color);
 }
