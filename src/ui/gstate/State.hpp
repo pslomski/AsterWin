@@ -24,6 +24,6 @@ public:
 protected:
     void changeState(State* newState);
 
-    StateManager* stateManager;
+    StateManager* stateManager{nullptr};
 };
 } // namespace ui

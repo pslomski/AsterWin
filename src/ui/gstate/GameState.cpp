@@ -31,7 +31,7 @@ GameState::~GameState()
     delete textGameOver;
 }
 
-GameState* GameState::GetInstance(StateManager* pManager)
+GameState* GameState::getInstance(StateManager* pManager)
 {
     static GameState Instance(pManager);
     return &Instance;
@@ -72,7 +72,7 @@ void GameState::onKeyDown(WPARAM wKey)
         case VK_RETURN:
             if (asterGame.isGameOver())
             {
-                CHighScoreState* pHighScores = CHighScoreState::GetInstance(stateManager);
+                HighScoreState* pHighScores = HighScoreState::GetInstance(stateManager);
                 pHighScores->SetNewHighScore(asterGame.scoreCounter.get());
                 asterGame.clear();
                 changeState(pHighScores);

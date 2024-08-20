@@ -21,7 +21,7 @@ public:
     void leaveState() override;
     bool isGameOver() { return asterGame.isGameOver(); }
     void reset();
-    static GameState* GetInstance(StateManager* pManager);
+    static GameState* getInstance(StateManager* pManager);
 
 protected:
     GameState(StateManager* pManager);

@@ -9,10 +9,10 @@
 
 namespace ui
 {
-class CHighScoreState : public State
+class HighScoreState : public State
 {
 public:
-    ~CHighScoreState();
+    ~HighScoreState();
 
     void SetNewHighScore(ULONG NewHighScore) { mNewHighScore = NewHighScore; }
 
@@ -21,22 +21,23 @@ public:
     void draw() override;
     void enterState() override;
 
-    static CHighScoreState* GetInstance(StateManager* pManager);
+    static HighScoreState* GetInstance(StateManager* pManager);
 
 protected:
-    CHighScoreState(StateManager* pManager);
+    HighScoreState(StateManager* pManager);
 
 private:
     void SaveScores();
     void AddNewScore(const std::string& strName, ULONG ulScore);
 
-    struct HighScoreData
+    struct HighScore
     {
         std::string strPlayer;
         ULONG ulScore;
-        HighScoreData() : strPlayer(), ulScore(0) {}
-        bool operator<(const HighScoreData& other) { return ulScore > other.ulScore; }
+        HighScore() : strPlayer(), ulScore(0) {}
+        bool operator<(const HighScore& other) { return ulScore > other.ulScore; }
     };
+    using HighScores = std::vector<HighScore>;
 
     ULONG mNewHighScore;
     bool mEnterName;
@@ -44,8 +45,7 @@ private:
     int mNameIndex;
     Font* mFont;
     Font* mFontSmall;
-    typedef std::vector<HighScoreData> THighScoreTable;
-    THighScoreTable mHighScores;
+    HighScores mHighScores;
     TextControl* mHighScore;
     ui::Rectanglei mHighScoreRect;
     ui::Rectanglei mEntriesRect;

@@ -217,7 +217,7 @@ void CMenuState::SelectionChosen()
     switch (m_iCurrentSelection)
     {
         case 0:
-            if (!m_pCurrentGame) m_pCurrentGame = GameState::GetInstance(stateManager);
+            if (!m_pCurrentGame) m_pCurrentGame = GameState::getInstance(stateManager);
             m_pCurrentGame->reset();
             SetBlinkText(m_iCurrentSelection, false);
             m_iCurrentSelection = 1;
@@ -234,7 +234,7 @@ void CMenuState::SelectionChosen()
             break;
 
         case 3:
-            changeState(CHighScoreState::GetInstance(stateManager));
+            changeState(HighScoreState::GetInstance(stateManager));
             break;
 
         case 4:

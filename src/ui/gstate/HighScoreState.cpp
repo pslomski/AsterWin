@@ -9,7 +9,7 @@
 namespace ui
 {
 
-CHighScoreState::CHighScoreState(StateManager* pManager)
+HighScoreState::HighScoreState(StateManager* pManager)
     : State(pManager), mNewHighScore(0), mEnterName(false), mFont(nullptr), mNameIndex(0), mHighScores(10)
 {
     mFont = new Font;
@@ -40,20 +40,20 @@ CHighScoreState::CHighScoreState(StateManager* pManager)
     mEntriesRect.right = right + left / 2;
 }
 
-CHighScoreState::~CHighScoreState()
+HighScoreState::~HighScoreState()
 {
     delete mHighScore;
     delete mFont;
     delete mFontSmall;
 }
 
-CHighScoreState* CHighScoreState::GetInstance(StateManager* pManager)
+HighScoreState* HighScoreState::GetInstance(StateManager* pManager)
 {
-    static CHighScoreState Instance(pManager);
+    static HighScoreState Instance(pManager);
     return &Instance;
 }
 
-void CHighScoreState::onKeyDown(WPARAM wKey)
+void HighScoreState::onKeyDown(WPARAM wKey)
 {
     if (mEnterName)
     {
@@ -92,7 +92,7 @@ void CHighScoreState::onKeyDown(WPARAM wKey)
     }
 }
 
-void CHighScoreState::onChar(WPARAM wChar)
+void HighScoreState::onChar(WPARAM wChar)
 {
     if (mEnterName && (mNameIndex < 25))
     {
@@ -106,7 +106,7 @@ void CHighScoreState::onChar(WPARAM wChar)
     }
 }
 
-void CHighScoreState::draw()
+void HighScoreState::draw()
 {
     glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
     glLoadIdentity(); // Reset The Projection Matrix
@@ -121,8 +121,7 @@ void CHighScoreState::draw()
     rcTxt.left = mEntriesRect.left + 60;
     int iCount = 1;
     char buf[256];
-    THighScoreTable::iterator iter = mHighScores.begin();
-    for (iter; iter != mHighScores.end(); iter++)
+    for (auto iter = mHighScores.begin(); iter != mHighScores.end(); iter++)
     {
         _itoa_s(iCount, buf, 10);
         TextControl txtEntryN(mFont, rcNum);
@@ -178,7 +177,7 @@ void CHighScoreState::draw()
     }
 }
 
-void CHighScoreState::enterState()
+void HighScoreState::enterState()
 {
     geWorld.isGameRunning = false;
     mHighScores.clear();
@@ -191,7 +190,7 @@ void CHighScoreState::enterState()
 
     // Read all entries from the file
     std::string line;
-    HighScoreData newScore;
+    HighScore newScore;
     std::basic_string<char>::size_type idx;
     while (!inputFile.eof())
     {
@@ -204,7 +203,7 @@ void CHighScoreState::enterState()
         mHighScores.push_back(newScore);
     }
     while (mHighScores.size() < 10)
-        mHighScores.push_back(HighScoreData());
+        mHighScores.push_back(HighScore());
 
     // Sort the table
     sort(mHighScores.begin(), mHighScores.end());
@@ -217,29 +216,27 @@ void CHighScoreState::enterState()
     if (mNewHighScore && mNewHighScore > lastScore) mEnterName = true;
 }
 
-void CHighScoreState::SaveScores()
+void HighScoreState::SaveScores()
 {
-    // Create the file
     std::ofstream outputFile("HighScores.txt");
-    if (outputFile.fail()) return;
-
-    // Write all the entries in the file.
-    THighScoreTable::iterator iter = mHighScores.begin();
-    for (iter; iter != mHighScores.end(); iter++)
+    if (outputFile.fail())
+    {
+        return;
+    }
+    for (auto iter = mHighScores.begin(); iter != mHighScores.end(); iter++)
     {
         outputFile << iter->strPlayer << ";" << iter->ulScore << '\n';
     }
 }
 
-void CHighScoreState::AddNewScore(const std::string& strName, ULONG ulScore)
+void HighScoreState::AddNewScore(const std::string& strName, ULONG ulScore)
 {
     // Create a new high-score and push it into the table
-    HighScoreData newData;
+    HighScore newData;
     newData.strPlayer = strName;
     newData.ulScore = ulScore;
     mHighScores.push_back(newData);
 
-    // Sort the table
     sort(mHighScores.begin(), mHighScores.end());
 
     // If too much elements, remove the last one.
