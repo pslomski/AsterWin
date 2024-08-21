@@ -3,7 +3,7 @@ target_sources(${ASTER_EXE}
     HighScoreState.cpp
     MenuState.cpp
     OptionsState.cpp
-    GameState.cpp
+    PlayState.cpp
     State.cpp
     StateManager.cpp
 )

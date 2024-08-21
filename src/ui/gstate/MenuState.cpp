@@ -1,10 +1,11 @@
 #include "MenuState.hpp"
-#include "GameState.hpp"
 #include "HighScoreState.hpp"
 #include "OptionsState.hpp"
+#include "PlayState.hpp"
 #include "StateManager.hpp"
 #include "game/Consts.hpp"
 #include "game/World.hpp"
+
 
 namespace ui
 {
@@ -217,7 +218,7 @@ void CMenuState::SelectionChosen()
     switch (m_iCurrentSelection)
     {
         case 0:
-            if (!m_pCurrentGame) m_pCurrentGame = GameState::getInstance(stateManager);
+            if (!m_pCurrentGame) m_pCurrentGame = PlayState::getInstance(stateManager);
             m_pCurrentGame->reset();
             SetBlinkText(m_iCurrentSelection, false);
             m_iCurrentSelection = 1;

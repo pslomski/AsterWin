@@ -1,4 +1,4 @@
-#include "GameState.hpp"
+#include "PlayState.hpp"
 #include "HighScoreState.hpp"
 #include "MenuState.hpp"
 #include "StateManager.hpp"
@@ -10,7 +10,7 @@ namespace ui
 #define FNTSIZESMALL 15
 #define FNTSIZELARGE 25
 
-GameState::GameState(StateManager* pManager) : State(pManager), fontSmall(nullptr), fontLarge(nullptr)
+PlayState::PlayState(StateManager* pManager) : State(pManager), fontSmall(nullptr), fontLarge(nullptr)
 {
     isDisplayFps = false;
     fontSmall = new Font;
@@ -24,20 +24,20 @@ GameState::GameState(StateManager* pManager) : State(pManager), fontSmall(nullpt
     textGameOver->setText("Game Over");
 }
 
-GameState::~GameState()
+PlayState::~PlayState()
 {
     delete fontSmall;
     delete fontLarge;
     delete textGameOver;
 }
 
-GameState* GameState::getInstance(StateManager* pManager)
+PlayState* PlayState::getInstance(StateManager* pManager)
 {
-    static GameState Instance(pManager);
+    static PlayState Instance(pManager);
     return &Instance;
 }
 
-void GameState::enterState()
+void PlayState::enterState()
 {
     asterGame.enterState();
     geWorld.isGameRunning = true;
@@ -46,7 +46,7 @@ void GameState::enterState()
     if (geMusic.IsStarted()) geMusic.Play();
 }
 
-void GameState::leaveState()
+void PlayState::leaveState()
 {
     asterGame.leaveState();
     geSound.Mute();
@@ -56,12 +56,12 @@ void GameState::leaveState()
         geMusic.Pause();
 }
 
-void GameState::reset()
+void PlayState::reset()
 {
     asterGame.reset();
 }
 
-void GameState::onKeyDown(WPARAM wKey)
+void PlayState::onKeyDown(WPARAM wKey)
 {
     asterGame.key[wKey] = true;
     switch (wKey)
@@ -85,19 +85,19 @@ void GameState::onKeyDown(WPARAM wKey)
     }
 }
 
-void GameState::onKeyUp(WPARAM wKey)
+void PlayState::onKeyUp(WPARAM wKey)
 {
     asterGame.key[wKey] = false;
 }
 
-void GameState::onResize(int cx, int cy) {}
+void PlayState::onResize(int cx, int cy) {}
 
-void GameState::update(double timeStep)
+void PlayState::update(double timeStep)
 {
     asterGame.update();
 }
 
-void GameState::draw()
+void PlayState::draw()
 {
     asterGame.draw();
 

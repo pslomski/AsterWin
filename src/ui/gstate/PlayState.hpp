@@ -7,10 +7,10 @@
 
 namespace ui
 {
-class GameState : public State
+class PlayState : public State
 {
 public:
-    ~GameState();
+    ~PlayState();
 
     void onKeyDown(WPARAM wKey) override;
     void onKeyUp(WPARAM) override;
@@ -21,10 +21,10 @@ public:
     void leaveState() override;
     bool isGameOver() { return asterGame.isGameOver(); }
     void reset();
-    static GameState* getInstance(StateManager* pManager);
+    static PlayState* getInstance(StateManager* pManager);
 
 protected:
-    GameState(StateManager* pManager);
+    PlayState(StateManager* pManager);
 
 private:
     Font* fontSmall;

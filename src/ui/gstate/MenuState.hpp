@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameState.hpp"
+#include "PlayState.hpp"
 #include "State.hpp"
 #include "ui/Font.hpp"
 #include "ui/TextControl.hpp"
@@ -33,7 +33,7 @@ private:
     Font* m_pFontSmall2;
     Font* m_pFontLarge;
     int m_iCurrentSelection;
-    GameState* m_pCurrentGame;
+    PlayState* m_pCurrentGame;
     TextControl* m_pTitleText;
     TextControl* m_pNewGameText;
     TextControl* m_pResumeGameText;
