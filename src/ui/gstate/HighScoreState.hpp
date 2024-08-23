@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <vector>
 #include "State.hpp"
@@ -14,40 +15,40 @@ class HighScoreState : public State
 public:
     ~HighScoreState();
 
-    void SetNewHighScore(ULONG NewHighScore) { mNewHighScore = NewHighScore; }
+    void setNewHighScore(uint32_t NewHighScore) { newHighScore = NewHighScore; }
 
     void onKeyDown(WPARAM wKey) override;
     void onChar(WPARAM wChar) override;
     void draw() override;
     void enterState() override;
 
-    static HighScoreState* GetInstance(StateManager* pManager);
+    static HighScoreState* getInstance(StateManager* pManager);
 
 protected:
     HighScoreState(StateManager* pManager);
 
 private:
-    void SaveScores();
-    void AddNewScore(const std::string& strName, ULONG ulScore);
+    void saveScores();
+    void addNewScore(const std::string& strName, uint32_t ulScore);
 
     struct HighScore
     {
-        std::string strPlayer;
-        ULONG ulScore;
-        HighScore() : strPlayer(), ulScore(0) {}
-        bool operator<(const HighScore& other) { return ulScore > other.ulScore; }
+        bool operator<(const HighScore& other) { return score > other.score; }
+
+        std::string playerName{};
+        uint32_t score{};
     };
     using HighScores = std::vector<HighScore>;
 
-    ULONG mNewHighScore;
-    bool mEnterName;
-    char mCurrentName[26];
-    int mNameIndex;
-    Font* mFont;
-    Font* mFontSmall;
-    HighScores mHighScores;
-    TextControl* mHighScore;
-    ui::Rectanglei mHighScoreRect;
-    ui::Rectanglei mEntriesRect;
+    uint32_t newHighScore{};
+    bool isEnterName{false};
+    char currentName[26];
+    int nameIndex{};
+    Font* font{};
+    Font* fontSmall{};
+    HighScores highScores{10};
+    TextControl* highScore;
+    ui::Rectanglei highScoreRect;
+    ui::Rectanglei entriesRect;
 };
 } // namespace ui

@@ -6,7 +6,6 @@
 #include "game/Consts.hpp"
 #include "game/World.hpp"
 
-
 namespace ui
 {
 CMenuState::CMenuState(StateManager* pManager)
@@ -235,7 +234,7 @@ void CMenuState::SelectionChosen()
             break;
 
         case 3:
-            changeState(HighScoreState::GetInstance(stateManager));
+            changeState(HighScoreState::getInstance(stateManager));
             break;
 
         case 4:

@@ -33,8 +33,8 @@ PlayState::~PlayState()
 
 PlayState* PlayState::getInstance(StateManager* pManager)
 {
-    static PlayState Instance(pManager);
-    return &Instance;
+    static PlayState instance(pManager);
+    return &instance;
 }
 
 void PlayState::enterState()
@@ -72,8 +72,8 @@ void PlayState::onKeyDown(WPARAM wKey)
         case VK_RETURN:
             if (asterGame.isGameOver())
             {
-                HighScoreState* pHighScores = HighScoreState::GetInstance(stateManager);
-                pHighScores->SetNewHighScore(asterGame.scoreCounter.get());
+                HighScoreState* pHighScores = HighScoreState::getInstance(stateManager);
+                pHighScores->setNewHighScore(asterGame.scoreCounter.get());
                 asterGame.clear();
                 changeState(pHighScores);
             }
