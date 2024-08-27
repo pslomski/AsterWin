@@ -79,7 +79,7 @@ void PlayState::onKeyDown(WPARAM wKey)
             }
             else
             {
-                if (wKey == VK_ESCAPE) changeState(CMenuState::GetInstance(stateManager));
+                if (wKey == VK_ESCAPE) changeState(CMenuState::getInstance(stateManager));
             }
             break;
     }

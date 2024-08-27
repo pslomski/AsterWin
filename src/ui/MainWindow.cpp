@@ -48,7 +48,7 @@ MainWindow::MainWindow(int iWidth, int iHeight)
     onSize(iWidth, iHeight);
     Font::SetDeviceContext(hDeviceContext);
     stateManager = new ui::StateManager;
-    stateManager->changeState(ui::CMenuState::GetInstance(stateManager));
+    stateManager->changeState(ui::CMenuState::getInstance(stateManager));
 }
 
 MainWindow::~MainWindow()

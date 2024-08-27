@@ -17,30 +17,30 @@ public:
     void draw() override;
     void enterState() override;
 
-    static CMenuState* GetInstance(StateManager* pManager);
+    static CMenuState* getInstance(StateManager* pManager);
 
 protected:
     CMenuState(StateManager* pManager);
 
 private:
-    void SelectionUp();
-    void SelectionDown();
-    void SelectionChosen();
-    void ExitGame();
+    void selectionUp();
+    void selectionDown();
+    void selectionChosen();
+    void exitGame();
 
-    Font* m_pFont;
-    Font* m_pFontSmall;
-    Font* m_pFontSmall2;
-    Font* m_pFontLarge;
-    int m_iCurrentSelection;
-    PlayState* m_pCurrentGame;
-    TextControl* m_pTitleText;
-    TextControl* m_pNewGameText;
-    TextControl* m_pResumeGameText;
-    TextControl* m_pScoresText;
-    TextControl* m_pExitText;
-    TextControl* m_pOptionsText;
-    TextControl* GetTextControl(int id);
-    void SetBlinkText(int id, bool in_bBlink);
+    Font font;
+    Font* fontSmall{nullptr};
+    Font* fontSmall2{nullptr};
+    Font* fontLarge{nullptr};
+    int currentSelection{0};
+    PlayState* currentGame{nullptr};
+    TextControl* titleText{nullptr};
+    TextControl* newGameText{nullptr};
+    TextControl* resumeGameText{nullptr};
+    TextControl* scoresText{nullptr};
+    TextControl* exitText{nullptr};
+    TextControl* optionsText{nullptr};
+    TextControl* getTextControl(int id);
+    void setBlinkText(int id, bool isBlink);
 };
 } // namespace ui

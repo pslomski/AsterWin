@@ -1,4 +1,5 @@
 #include "MenuState.hpp"
+#include <wingdi.h>
 #include "HighScoreState.hpp"
 #include "OptionsState.hpp"
 #include "PlayState.hpp"
@@ -8,17 +9,15 @@
 
 namespace ui
 {
-CMenuState::CMenuState(StateManager* pManager)
-    : State(pManager), m_pFont(nullptr), m_iCurrentSelection(0), m_pCurrentGame(nullptr)
+CMenuState::CMenuState(StateManager* pManager) : State(pManager)
 {
-    m_pFont = new Font;
-    m_pFont->createFont(20, FW_NORMAL);
-    m_pFontSmall = new Font;
-    m_pFontSmall->createFont(15, FW_NORMAL);
-    m_pFontLarge = new Font;
-    m_pFontLarge->createFont(40, FW_NORMAL);
-    m_pFontSmall2 = new Font;
-    m_pFontSmall2->createFont(10, FW_NORMAL);
+    font.createFont(20, FW_NORMAL);
+    fontSmall = new Font;
+    fontSmall->createFont(15, FW_NORMAL);
+    fontLarge = new Font;
+    fontLarge->createFont(40, FW_NORMAL);
+    fontSmall2 = new Font;
+    fontSmall2->createFont(10, FW_NORMAL);
 
     int dy = int(1.0 / 12.0 * geWorld.scrHeight);
     int left = int(1.0 / 4.0 * geWorld.scrWidth);
@@ -26,53 +25,53 @@ CMenuState::CMenuState(StateManager* pManager)
     int top = int(1.0 / 4.5 * geWorld.scrHeight);
     int bottom = top + dy;
 
-    m_pTitleText = new TextControl(m_pFontLarge, ui::Rectanglei(0, top, 0, geWorld.scrWidth));
-    m_pTitleText->setAlignement(TextControl::TextAlignement::center);
-    m_pTitleText->setText("Asteroids 2010");
+    titleText = new TextControl(fontLarge, ui::Rectanglei(0, top, 0, geWorld.scrWidth));
+    titleText->setAlignement(TextControl::TextAlignement::center);
+    titleText->setText("Asteroids 2010");
 
-    m_pNewGameText = new TextControl(m_pFont, ui::Rectanglei(top, bottom, left, right));
-    m_pNewGameText->setAlignement(TextControl::TextAlignement::center);
-    m_pNewGameText->setText("New game");
-
-    top += dy;
-    bottom += dy;
-    m_pResumeGameText = new TextControl(m_pFont, ui::Rectanglei(top, bottom, left, right));
-    m_pResumeGameText->setAlignement(TextControl::TextAlignement::center);
-    m_pResumeGameText->setText("Resume game");
+    newGameText = new TextControl(&font, ui::Rectanglei(top, bottom, left, right));
+    newGameText->setAlignement(TextControl::TextAlignement::center);
+    newGameText->setText("New game");
 
     top += dy;
     bottom += dy;
-    m_pOptionsText = new TextControl(m_pFont, ui::Rectanglei(top, bottom, left, right));
-    m_pOptionsText->setAlignement(TextControl::TextAlignement::center);
-    m_pOptionsText->setText("Settings");
+    resumeGameText = new TextControl(&font, ui::Rectanglei(top, bottom, left, right));
+    resumeGameText->setAlignement(TextControl::TextAlignement::center);
+    resumeGameText->setText("Resume game");
 
     top += dy;
     bottom += dy;
-    m_pScoresText = new TextControl(m_pFont, ui::Rectanglei(top, bottom, left, right));
-    m_pScoresText->setAlignement(TextControl::TextAlignement::center);
-    m_pScoresText->setText("High scores");
+    optionsText = new TextControl(&font, ui::Rectanglei(top, bottom, left, right));
+    optionsText->setAlignement(TextControl::TextAlignement::center);
+    optionsText->setText("Settings");
 
     top += dy;
     bottom += dy;
-    m_pExitText = new TextControl(m_pFont, ui::Rectanglei(top, bottom, left, right));
-    m_pExitText->setAlignement(TextControl::TextAlignement::center);
-    m_pExitText->setText("Exit");
+    scoresText = new TextControl(&font, ui::Rectanglei(top, bottom, left, right));
+    scoresText->setAlignement(TextControl::TextAlignement::center);
+    scoresText->setText("High scores");
+
+    top += dy;
+    bottom += dy;
+    exitText = new TextControl(&font, ui::Rectanglei(top, bottom, left, right));
+    exitText->setAlignement(TextControl::TextAlignement::center);
+    exitText->setText("Exit");
 }
 
 CMenuState::~CMenuState()
 {
-    delete m_pFont;
-    delete m_pFontSmall;
-    delete m_pFontSmall2;
-    delete m_pFontLarge;
-    delete m_pNewGameText;
-    delete m_pResumeGameText;
-    delete m_pScoresText;
-    delete m_pExitText;
-    delete m_pOptionsText;
+    delete fontSmall;
+    delete fontSmall2;
+    delete fontLarge;
+    delete titleText;
+    delete newGameText;
+    delete resumeGameText;
+    delete scoresText;
+    delete exitText;
+    delete optionsText;
 }
 
-CMenuState* CMenuState::GetInstance(StateManager* pManager)
+CMenuState* CMenuState::getInstance(StateManager* pManager)
 {
     static CMenuState Instance(pManager);
     return &Instance;
@@ -83,23 +82,23 @@ void CMenuState::onKeyDown(WPARAM wKey)
     switch (wKey)
     {
         case VK_DOWN:
-            SelectionDown();
+            selectionDown();
             break;
         case VK_UP:
-            SelectionUp();
+            selectionUp();
             break;
         case VK_RETURN:
-            SelectionChosen();
+            selectionChosen();
             break;
         case VK_ESCAPE:
-            ExitGame();
+            exitGame();
             break;
     }
 }
 
 void CMenuState::update(double timeStep)
 {
-    TextControl* pTxtCtrl = GetTextControl(m_iCurrentSelection);
+    TextControl* pTxtCtrl = getTextControl(currentSelection);
     if (pTxtCtrl) pTxtCtrl->update(timeStep);
 }
 
@@ -111,15 +110,15 @@ void CMenuState::draw()
     glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
     glLoadIdentity(); // Reset The Modelview Matrix
 
-    m_pTitleText->draw();
-    m_pNewGameText->draw();
-    m_pResumeGameText->draw();
-    m_pOptionsText->draw();
-    m_pScoresText->draw();
-    m_pExitText->draw();
+    titleText->draw();
+    newGameText->draw();
+    resumeGameText->draw();
+    optionsText->draw();
+    scoresText->draw();
+    exitText->draw();
 
     TextControl txtControls(
-        m_pFontSmall2,
+        fontSmall2,
         ui::Rectanglei(int(0.7 * geWorld.scrHeight), int(0.7 * geWorld.scrHeight + 20), 0, geWorld.scrWidth));
     txtControls.setAlignement(TextControl::TextAlignement::center);
     txtControls.setTextColor(0.8f, 0.8f, 0.8f);
@@ -132,8 +131,7 @@ void CMenuState::draw()
     txtControls.setText("up arrow - forward, space - fire");
     txtControls.draw();
 
-    TextControl line(
-        m_pFontSmall, ui::Rectanglei(geWorld.scrHeight - 100, geWorld.scrHeight - 50, 0, geWorld.scrWidth));
+    TextControl line(fontSmall, ui::Rectanglei(geWorld.scrHeight - 100, geWorld.scrHeight - 50, 0, geWorld.scrWidth));
     line.setAlignement(TextControl::TextAlignement::center);
     line.setTextColor(0.7f, 0.7f, 0.7f);
     line.setText("Asteroids remake by Piotr Slomski");
@@ -144,89 +142,89 @@ void CMenuState::enterState()
 {
     geWorld.isGameRunning = false;
     // Checks whether there is a current game active
-    SetBlinkText(m_iCurrentSelection, false);
-    if (!m_pCurrentGame or m_pCurrentGame->isGameOver())
+    setBlinkText(currentSelection, false);
+    if (!currentGame or currentGame->isGameOver())
     {
-        if (1 == m_iCurrentSelection) m_iCurrentSelection = 0;
-        m_pResumeGameText->setTextColor(0.3f, 0.3f, 0.3f);
+        if (1 == currentSelection) currentSelection = 0;
+        resumeGameText->setTextColor(0.3f, 0.3f, 0.3f);
     }
     else
     {
-        m_pResumeGameText->setTextColor(1.0f, 1.0f, 1.0f);
+        resumeGameText->setTextColor(1.0f, 1.0f, 1.0f);
     }
-    SetBlinkText(m_iCurrentSelection, true);
+    setBlinkText(currentSelection, true);
 }
 
-TextControl* CMenuState::GetTextControl(int id)
+TextControl* CMenuState::getTextControl(int id)
 {
     switch (id)
     {
         case 0:
-            return m_pNewGameText;
+            return newGameText;
         case 1:
-            return m_pResumeGameText;
+            return resumeGameText;
         case 2:
-            return m_pOptionsText;
+            return optionsText;
         case 3:
-            return m_pScoresText;
+            return scoresText;
         case 4:
-            return m_pExitText;
+            return exitText;
         default:
             return nullptr;
     }
 }
 
-void CMenuState::SetBlinkText(int id, bool in_bBlink)
+void CMenuState::setBlinkText(int id, bool isBlink)
 {
-    TextControl* pTxtCtrl = GetTextControl(m_iCurrentSelection);
-    if (pTxtCtrl) pTxtCtrl->setBlink(in_bBlink);
+    TextControl* textCtrl = getTextControl(currentSelection);
+    if (textCtrl) textCtrl->setBlink(isBlink);
 }
 
-void CMenuState::SelectionUp()
+void CMenuState::selectionUp()
 {
-    SetBlinkText(m_iCurrentSelection, false);
-    m_iCurrentSelection--;
-    if (m_iCurrentSelection == -1) m_iCurrentSelection = 4;
+    setBlinkText(currentSelection, false);
+    currentSelection--;
+    if (currentSelection == -1) currentSelection = 4;
 
     // If there is no current game, we should skip
     // the "Resume game" item.
-    if (m_iCurrentSelection == 1)
+    if (currentSelection == 1)
     {
-        if (!m_pCurrentGame || m_pCurrentGame->isGameOver()) m_iCurrentSelection--;
+        if (!currentGame || currentGame->isGameOver()) currentSelection--;
     }
-    SetBlinkText(m_iCurrentSelection, true);
+    setBlinkText(currentSelection, true);
 }
 
-void CMenuState::SelectionDown()
+void CMenuState::selectionDown()
 {
-    SetBlinkText(m_iCurrentSelection, false);
-    m_iCurrentSelection++;
-    if (m_iCurrentSelection == 5) m_iCurrentSelection = 0;
+    setBlinkText(currentSelection, false);
+    currentSelection++;
+    if (currentSelection == 5) currentSelection = 0;
 
     // If there is no current game, we should skip
     // the "Resume game" item.
-    if (m_iCurrentSelection == 1)
+    if (currentSelection == 1)
     {
-        if (!m_pCurrentGame || m_pCurrentGame->isGameOver()) m_iCurrentSelection++;
+        if (!currentGame || currentGame->isGameOver()) currentSelection++;
     }
-    SetBlinkText(m_iCurrentSelection, true);
+    setBlinkText(currentSelection, true);
 }
 
-void CMenuState::SelectionChosen()
+void CMenuState::selectionChosen()
 {
-    switch (m_iCurrentSelection)
+    switch (currentSelection)
     {
         case 0:
-            if (!m_pCurrentGame) m_pCurrentGame = PlayState::getInstance(stateManager);
-            m_pCurrentGame->reset();
-            SetBlinkText(m_iCurrentSelection, false);
-            m_iCurrentSelection = 1;
-            SetBlinkText(m_iCurrentSelection, true);
-            changeState(m_pCurrentGame);
+            if (!currentGame) currentGame = PlayState::getInstance(stateManager);
+            currentGame->reset();
+            setBlinkText(currentSelection, false);
+            currentSelection = 1;
+            setBlinkText(currentSelection, true);
+            changeState(currentGame);
             break;
 
         case 1:
-            if (m_pCurrentGame && !m_pCurrentGame->isGameOver()) changeState(m_pCurrentGame);
+            if (currentGame && !currentGame->isGameOver()) changeState(currentGame);
             break;
 
         case 2:
@@ -243,7 +241,7 @@ void CMenuState::SelectionChosen()
     }
 }
 
-void CMenuState::ExitGame()
+void CMenuState::exitGame()
 {
     PostQuitMessage(0);
 }

@@ -85,7 +85,7 @@ void OptionsState::onKeyDown(WPARAM wKey)
             rightArrow();
             break;
         case VK_ESCAPE:
-            changeState(CMenuState::GetInstance(stateManager));
+            changeState(CMenuState::getInstance(stateManager));
             break;
     }
 }

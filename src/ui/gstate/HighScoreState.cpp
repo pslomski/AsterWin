@@ -83,7 +83,7 @@ void HighScoreState::onKeyDown(WPARAM wKey)
         {
             case VK_ESCAPE:
             case VK_RETURN:
-                changeState(CMenuState::GetInstance(stateManager));
+                changeState(CMenuState::getInstance(stateManager));
                 break;
         }
     }
