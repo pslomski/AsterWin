@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "State.hpp"
+#include "common/HighScore.hpp"
 #include "ui/Font.hpp"
 #include "ui/Rectangle.hpp"
 #include "ui/TextControl.hpp"
@@ -29,16 +30,9 @@ protected:
 
 private:
     void saveScores();
-    void addNewScore(const std::string& strName, uint32_t ulScore);
+    void addNewScore(const std::string& playerName, uint32_t score);
 
-    struct HighScore
-    {
-        bool operator<(const HighScore& other) { return score > other.score; }
-
-        std::string playerName{};
-        uint32_t score{};
-    };
-    using HighScores = std::vector<HighScore>;
+    using HighScores = std::vector<common::HighScore>;
 
     uint32_t newHighScore{};
     bool isEnterName{false};

@@ -187,7 +187,7 @@ void HighScoreState::enterState()
 
     // Read all entries from the file
     std::string line;
-    HighScore newScore;
+    common::HighScore newScore;
     std::basic_string<char>::size_type idx;
     while (!inputFile.eof())
     {
@@ -200,7 +200,7 @@ void HighScoreState::enterState()
         highScores.push_back(newScore);
     }
     while (highScores.size() < 10)
-        highScores.push_back(HighScore());
+        highScores.push_back(common::HighScore{});
 
     sort(highScores.begin(), highScores.end());
 
@@ -224,7 +224,7 @@ void HighScoreState::saveScores()
 
 void HighScoreState::addNewScore(const std::string& playerName, uint32_t score)
 {
-    HighScore newHighScore;
+    common::HighScore newHighScore;
     newHighScore.playerName = playerName;
     newHighScore.score = score;
     highScores.push_back(newHighScore);
