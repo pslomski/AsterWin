@@ -6,7 +6,7 @@
 #include "Sound.hpp"
 #include "utils/Tools.hpp"
 
-namespace ge
+namespace game
 {
 bool Asteroid::CreateBonus = true;
 
@@ -182,4 +182,4 @@ void Asteroid::Crash(TvecAster& vecAster, ObjectList& vecDebris, TvecBonus& vecB
     }
 }
 
-} // namespace ge
+} // namespace game

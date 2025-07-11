@@ -13,7 +13,7 @@
 #include "types/Types.hpp"
 #include "utils/TimeInterval.hpp"
 
-namespace ge
+namespace game
 {
 class Game
 {
@@ -79,4 +79,4 @@ private:
     void checkCollisions();
     void onIncrementLives() { lives++; }
 };
-} // namespace ge
+} // namespace game

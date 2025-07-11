@@ -8,7 +8,7 @@
 #include "World.hpp"
 #include "game/ScoreCounter.hpp"
 
-namespace ge
+namespace game
 {
 Game::Game() : scoreCounter(std::bind(&Game::onIncrementLives, this))
 {
@@ -722,4 +722,4 @@ void Game::draw()
     }
 }
 
-} // namespace ge
+} // namespace game

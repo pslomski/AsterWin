@@ -30,7 +30,7 @@ private:
     Font* fontSmall;
     Font* fontLarge;
     TextControl* textGameOver;
-    ge::Game asterGame;
+    game::Game asterGame;
     bool isDisplayFps;
 };
 } // namespace ui

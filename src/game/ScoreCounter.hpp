@@ -2,7 +2,7 @@
 
 #include <functional>
 
-namespace ge
+namespace game
 {
 class ScoreCounter
 {
@@ -20,4 +20,4 @@ private:
     int nextLife;
     OnIncrementLives onIncrementLives;
 };
-} // namespace ge
+} // namespace game

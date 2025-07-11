@@ -3,7 +3,7 @@
 
 using namespace testing;
 
-namespace ge
+namespace game
 {
 class TestScoreCounter : public Test
 {
@@ -30,4 +30,4 @@ TEST_F(TestScoreCounter, shouldReset)
     counter.reset();
     ASSERT_EQ(0, counter.get());
 }
-} // namespace ge
+} // namespace game

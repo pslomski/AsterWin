@@ -1,7 +1,7 @@
 #include "ScoreCounter.hpp"
 #include "GameConsts.hpp"
 
-namespace ge
+namespace game
 {
 ScoreCounter::ScoreCounter(OnIncrementLives onIncrementLives) : onIncrementLives(onIncrementLives)
 {
@@ -23,4 +23,4 @@ void ScoreCounter::inc(const int points)
         onIncrementLives();
     }
 }
-} // namespace ge
+} // namespace game

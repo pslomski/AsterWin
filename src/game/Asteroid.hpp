@@ -5,7 +5,7 @@
 #include "Object.hpp"
 #include "ObjectSound.hpp"
 
-namespace ge
+namespace game
 {
 class Asteroid;
 
@@ -30,4 +30,4 @@ public:
 protected:
     void OnRender() override;
 };
-} // namespace ge
+} // namespace game
