@@ -10,6 +10,8 @@ set(CMAKE_CXX_FLAGS "-pedantic")
 set(CMAKE_CXX_FLAGS "-m64")
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
+include_directories(src)
+
 include(CMakePrintHelpers)
 cmake_print_variables(CMAKE_MODULE_PATH)
 
@@ -38,6 +40,4 @@ target_link_libraries(${ASTER_EXE}
     ${BASS_LIBRARIES}
 )
 
-include_directories(src)
-  
 include(GoogleTest)
