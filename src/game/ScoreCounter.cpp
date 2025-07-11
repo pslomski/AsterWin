@@ -12,7 +12,6 @@ void ScoreCounter::reset()
 {
     score = 0;
     nextLife = GE_NEXT_LIFE_SCORE;
-    level = 1;
 }
 
 void ScoreCounter::inc(const int points)
@@ -22,7 +21,6 @@ void ScoreCounter::inc(const int points)
     {
         nextLife += GE_NEXT_LIFE_SCORE;
         onIncrementLives();
-        level++;
     }
 }
 } // namespace ge

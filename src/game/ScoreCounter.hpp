@@ -18,7 +18,6 @@ public:
 private:
     int score;
     int nextLife;
-    int level;
     OnIncrementLives onIncrementLives;
 };
 } // namespace ge
