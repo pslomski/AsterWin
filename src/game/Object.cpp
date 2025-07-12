@@ -7,14 +7,6 @@
 
 Float Object::dt = 0.0;
 
-Float calculateDistance(Object* pO1, Object* pO2)
-{
-    Float dx = pO2->fx - pO1->fx;
-    Float dy = pO2->fy - pO1->fy;
-
-    return sqrt(dx * dx + dy * dy);
-}
-
 Object::Object()
 {
     scoreReward = 0;
@@ -27,6 +19,13 @@ Object::Object()
     setA(0.0);
     setV(0.0);
     KDec = 0.0;
+}
+
+Float Object::distance(const Object* object) const
+{
+    const auto dx = object->getX() - fx;
+    const auto dy = object->getY() - fy;
+    return sqrt(dx * dx + dy * dy);
 }
 
 void Object::setA(Float aa)

@@ -1,5 +1,5 @@
 #include "Tools.hpp"
-#include <GL/gl.h>
+#include <GL/gl.h> //TODO Change to gl/gl.h
 #include <filesystem>
 #include <math.h>
 #include <windows.h>

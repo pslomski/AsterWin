@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gl\gl.h>
+#include <gl\gl.h> //TODO Change to gl/gl.h
 #include <list>
 #include <math.h>
 #include <windows.h>
@@ -11,7 +11,7 @@
 #include "types/Point.hpp"
 #include "types/Types.hpp"
 #include "utils/TimeInterval.hpp"
-#include "utils/Tools.hpp"
+#include "utils/Tools.hpp" //TODO: Remove dependency to Tools.hpp in Object.hpp
 
 class Object
 {
@@ -22,6 +22,7 @@ public:
         if (glList) glDeleteLists(glList, 1);
     }
 
+    Float distance(const Object* object) const;
     void move();
     BoxF transform(const BoxF& seg);
     bool checkCollision(Object* pObiekt);
@@ -39,8 +40,8 @@ public:
         xp = pt.x;
         yp = pt.y;
     }
-    Float getX() { return fx; }
-    Float getY() { return fy; }
+    Float getX() const { return fx; }
+    Float getY() const { return fy; }
     PointF getXY() { return {fx, fy}; }
     void setV(Float avx, Float avy)
     {
@@ -75,17 +76,15 @@ public:
     virtual bool expired() { return false; }
     void render();
 
-    friend Float calculateDistance(Object* pO1, Object* pO2);
-
     static Float dt;
     GLint glList;
     PointsF verts;
     GeometryType geometryType;
     Float xp, yp, alphap;
-    int scoreReward{0};
+    int scoreReward{};
 
 protected:
-    virtual void OnRender() = 0;
+    virtual void OnRender() {} // Draws Object in its own coordinate system
     Float correctAlfa(Float alfa);
     void calcBounds(const PointsF& points);
 

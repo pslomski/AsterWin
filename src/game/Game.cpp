@@ -417,7 +417,7 @@ void Game::updateObjects()
         (*itAster)->update();
         if (pUfo)
         {
-            Float Dist = calculateDistance(pUfo, (*itAster));
+            Float Dist = pUfo->distance(*itAster);
             if (Dist < Rmin)
             {
                 Rmin = Dist;

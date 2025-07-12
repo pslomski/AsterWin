@@ -5,7 +5,6 @@ target_sources(${ASTER_EXE}
     Asteroid.cpp
     Bonuses.cpp
     Bullet.cpp
-    Consts.cpp
     Game.cpp
     Object.cpp
     ObjectSound.cpp

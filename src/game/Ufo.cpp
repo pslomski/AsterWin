@@ -61,8 +61,8 @@ void Ufo::Action(TvecBullet& vecBullet)
         CheckTimeElapsed = 0.0;
         Float RShp = 2e6;
         Float RAst = 1e6;
-        if (pShip) RShp = calculateDistance(this, pShip);
-        if (pAster) RAst = calculateDistance(this, pAster);
+        if (pShip) RShp = distance(pShip);
+        if (pAster) RAst = distance(pAster);
         if ((RShp < SafeDist) || (RAst < SafeDist)) MoveTimeElapsed = MoveTime;
     }
 
@@ -71,8 +71,8 @@ void Ufo::Action(TvecBullet& vecBullet)
     {
         Float RShp = 2e6;
         Float RAst = 1e6;
-        if (pShip) RShp = calculateDistance(this, pShip);
-        if (pAster) RAst = calculateDistance(this, pAster);
+        if (pShip) RShp = distance(pShip);
+        if (pAster) RAst = distance(pAster);
         if (pShip && RShp < SafeDist)
         {
             int sgn = rand() % 2 ? -1 : 1;
@@ -99,8 +99,8 @@ void Ufo::Action(TvecBullet& vecBullet)
     {
         Float RShp = 2e6;
         Float RAst = 1e6;
-        if (pShip) RShp = calculateDistance(this, pShip);
-        if (pAster) RAst = calculateDistance(this, pAster);
+        if (pShip) RShp = distance(pShip);
+        if (pAster) RAst = distance(pAster);
         if (RShp < RAst)
         {
             if (pShip && RShp < 35.0)
