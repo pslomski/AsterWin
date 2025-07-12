@@ -1,12 +1,13 @@
 #pragma once
 
-#include <GL/gl.h> //TODO Change to gl/gl.h
 #include <algorithm>
+#include <gl/gl.h>
 #include <string>
 #include "game/types/Box.hpp"
 #include "game/types/Color.hpp"
 #include "game/types/Point.hpp"
 #include "game/types/Types.hpp"
+
 
 // liczba losowa od 0 do n-1
 #define RAND(n) (rand() % (n))

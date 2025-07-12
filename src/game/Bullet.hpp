@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gl\gl.h> //TODO Change to gl/gl.h
+#include <gl/gl.h>
 #include <math.h>
 #include <windows.h>
 #include "Object.hpp"

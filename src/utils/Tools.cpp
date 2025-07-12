@@ -1,9 +1,10 @@
 #include "Tools.hpp"
-#include <GL/gl.h> //TODO Change to gl/gl.h
 #include <filesystem>
+#include <gl/gl.h>
 #include <math.h>
 #include <windows.h>
 #include "game/Consts.hpp"
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // nvert - liczba wierzcholkow wielokata ograniczajacego
