@@ -1,3 +1,4 @@
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include "game/ScoreCounter.hpp"
 
@@ -14,20 +15,20 @@ protected:
 
 TEST_F(TestScoreCounter, shouldCreate)
 {
-    ASSERT_EQ(0, counter.get());
+    ASSERT_THAT(counter.get(), Eq(0));
 }
 
 TEST_F(TestScoreCounter, shouldInc)
 {
     counter.inc(2);
     counter.inc(3);
-    ASSERT_EQ(5, counter.get());
+    ASSERT_THAT(counter.get(), Eq(5));
 }
 
 TEST_F(TestScoreCounter, shouldReset)
 {
     counter.inc(10);
     counter.reset();
-    ASSERT_EQ(0, counter.get());
+    ASSERT_THAT(counter.get(), Eq(0));
 }
 } // namespace game
