@@ -8,11 +8,9 @@
 #include "game/types/Point.hpp"
 #include "game/types/Types.hpp"
 
-
 // liczba losowa od 0 do n-1
 #define RAND(n) (rand() % (n))
 
-bool isPointInPolygon(const int nvert, const PointsF& verts, const Float testx, const Float testy);
 int linesIntersection(const BoxF& o1, const BoxF& o2, Float& x, Float& y);
 PointF geRotate(PointF& pt, Float alfa);
 bool setVSync(int interval = 1);

@@ -5,29 +5,6 @@
 #include <windows.h>
 #include "game/Consts.hpp"
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-// nvert - liczba wierzcholkow wielokata ograniczajacego
-// verts - wielokat ograniczajacy (ostatni punkt musi byc rozny od pierwszego)
-// testx, testy - badany punkt
-// result:
-// true - zawiera
-// false - nie zawiera
-bool isPointInPolygon(const int nvert, const PointsF& verts, const Float testx, const Float testy)
-{
-    bool c = false;
-    int i, j = 0;
-    for (i = 0, j = nvert - 1; i < nvert; j = i++)
-    {
-        const auto pti{verts[i]};
-        const auto ptj{verts[j]};
-        if (((pti.y > testy) != (ptj.y > testy)) and
-            (testx < (ptj.x - pti.x) * (testy - pti.y) / (ptj.y - pti.y) + pti.x))
-            c = !c;
-    }
-    return c;
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // punkt przeciecica odcinkow
 // result
