@@ -27,7 +27,7 @@ void BonusObject::update()
         m_ColRatio = 1.0;
     else
         m_ColRatio = (1 - m_ColRatio) / (1 - d);
-    if (tiRot.Inc(dt)) tiRot.Reset();
+    if (tiRot.Inc(dt)) tiRot.reset();
 }
 
 void BonusObject::OnRender()

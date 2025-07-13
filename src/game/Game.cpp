@@ -27,8 +27,8 @@ Game::Game() : scoreCounter(std::bind(&Game::onIncrementLives, this))
                                           // kazdym poziomem do max 6
     listBkg1 = 0;
     listBkg2 = 0;
-    tiPause.Reset(GE_PAUSE_TIME);
-    tiGameStart.Reset(1.2);
+    tiPause.reset(GE_PAUSE_TIME);
+    tiGameStart.reset(1.2);
     tiUfoRespawn.interval = GE_BASE_UFO_TIME;
     beepCount = 0;
     pitch = 0.5;
@@ -108,7 +108,7 @@ void Game::update()
     if (tiFPS.Inc(Object::dt))
     {
         fps = frameCount / tiFPS.elapsed;
-        tiFPS.Reset();
+        tiFPS.reset();
         frameCount = 0;
     }
     processUserInput();
@@ -203,17 +203,17 @@ bool Game::reset()
     gameLevel = 1;
     scoreCounter.reset();
     lives = GE_INITIAL_LIVES;
-    tiPause.Reset(GE_PAUSE_TIME);
+    tiPause.reset(GE_PAUSE_TIME);
 
     PointF pt = geWorld.getCenter();
     ship = new Ship(pt.x, pt.y, 90.0);
     generateBackground();
     geSound.Unmute();
     geMusic.Stop();
-    tiBroomSound.Reset(5.0);
+    tiBroomSound.reset(5.0);
     bPitchBroomSound = false;
-    tiChangeBroomSoundFreq.Reset(GE_TI_CHANGE_BROOM_FREQ);
-    tiUfoRespawn.Reset(GE_BASE_UFO_TIME + rand() % 4);
+    tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
+    tiUfoRespawn.reset(GE_BASE_UFO_TIME + rand() % 4);
     for (int i = 0; i < 20; ++i)
         vecStarBlink.push_back(new StarBlink());
     return true;
@@ -278,7 +278,7 @@ void Game::analyzeGameState()
         {
             if (tiGameStart.Inc(Object::dt))
             {
-                tiGameStart.Reset();
+                tiGameStart.reset();
                 float pitch, gain;
                 if (beepCount > 2)
                 {
@@ -303,14 +303,14 @@ void Game::analyzeGameState()
             if (tiChangeBroomSoundFreq.Inc(Object::dt))
             {
                 constexpr Float maxInterval{0.7};
-                tiChangeBroomSoundFreq.Reset();
+                tiChangeBroomSoundFreq.reset();
                 tiBroomSound.interval -= 1;
                 tiBroomSound.interval = std::max(tiBroomSound.interval, maxInterval);
             }
 
             if (tiBroomSound.Inc(Object::dt))
             {
-                tiBroomSound.Reset();
+                tiBroomSound.reset();
                 if (bPitchBroomSound)
                 {
                     sndBroom.SetPitch(1.05f);
@@ -330,20 +330,20 @@ void Game::analyzeGameState()
                 if (lives > 0)
                 {
                     gameState = GameState::ShipDestroyed;
-                    tiPause.Reset(GE_PAUSE_TIME);
+                    tiPause.reset(GE_PAUSE_TIME);
                 }
                 else
                 {
                     gameState = GameState::GameOver;
-                    tiPause.Reset(GE_GAMEOVER_PAUSE_TIME);
+                    tiPause.reset(GE_GAMEOVER_PAUSE_TIME);
                 }
             }
             else if (vecAsters.empty() && !pUfo)
             {
                 // przejscie na wyzszy poziom
                 gameState = GameState::NextLevelPause;
-                tiPause.Reset(GE_PAUSE_TIME);
-                tiUfoRespawn.Reset(GE_BASE_UFO_TIME + rand() % 4 - 2);
+                tiPause.reset(GE_PAUSE_TIME);
+                tiUfoRespawn.reset(GE_BASE_UFO_TIME + rand() % 4 - 2);
             }
             else
             {
@@ -352,7 +352,7 @@ void Game::analyzeGameState()
                     if (tiUfoRespawn.Inc(Object::dt))
                     {
                         const Float maxRespownTime{15};
-                        tiUfoRespawn.Reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
+                        tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
                         pUfo = new Ufo;
                         pUfo->setXY(geWorld.getRandomPosAtEdge());
                     }
@@ -363,14 +363,14 @@ void Game::analyzeGameState()
         case GameState::NextLevelPause:
             if (tiPause.Inc(Object::dt))
             {
-                tiPause.Reset();
+                tiPause.reset();
                 gameState = GameState::Run;
                 if (vecAsters.empty())
                 {
                     ++astersCount;
                     astersCount = std::min(astersCount, GE_MAX_ASTER_COUNT);
                     generateAsters(astersCount, gameLevel++);
-                    tiBroomSound.Reset();
+                    tiBroomSound.reset();
                     tiBroomSound.interval = 5.0;
                     tiChangeBroomSoundFreq.interval += 2;
                 }
@@ -379,7 +379,7 @@ void Game::analyzeGameState()
         case GameState::ShipDestroyed:
             if (tiPause.Inc(Object::dt))
             {
-                tiPause.Reset();
+                tiPause.reset();
                 assert(nullptr == ship);
                 if (nullptr == ship)
                 {
@@ -510,7 +510,7 @@ void Game::checkCollisions()
             pUfo->Crash(vecDebris);
             delete pUfo;
             pUfo = nullptr;
-            tiUfoRespawn.Reset();
+            tiUfoRespawn.reset();
         }
     }
 
@@ -581,7 +581,7 @@ void Game::checkCollisions()
             pUfo->Crash(vecDebris);
             delete pUfo;
             pUfo = nullptr;
-            tiUfoRespawn.Reset();
+            tiUfoRespawn.reset();
 
             Asteroid::CreateBonus = false; // ufo nie generuje bonusow
             (*itAster)->Crash(vecAstersTmp, vecDebris, vecBonus);

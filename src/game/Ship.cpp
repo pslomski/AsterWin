@@ -20,7 +20,7 @@ void PowerUp::Start()
 void PowerUp::Stop()
 {
     if (m_bActive) OnStop();
-    Duration.Reset();
+    Duration.reset();
     m_bActive = false;
 }
 
@@ -107,7 +107,7 @@ void Ship::update()
     {
         if (m_tiRespawnBlink.Inc(dt))
         {
-            m_tiRespawnBlink.Reset();
+            m_tiRespawnBlink.reset();
             bDarken = !bDarken;
         }
         Float d = bDarken ? 0.5 : 1.0;
@@ -120,7 +120,7 @@ void Ship::update()
 
     if (faccelerated)
     {
-        if (m_tiEngineBlink.Inc(dt)) m_tiEngineBlink.Reset();
+        if (m_tiEngineBlink.Inc(dt)) m_tiEngineBlink.reset();
     }
 
     if (faccelerated)
@@ -194,7 +194,7 @@ void Ship::AccelerationOn()
         EngSndStopped = false;
     }
     faccelerated = true;
-    m_tiFade.Reset();
+    m_tiFade.reset();
 }
 
 void Ship::AccelerationOff()
@@ -204,7 +204,7 @@ void Ship::AccelerationOff()
         sndEngine.SlideVol(0.0f, 100);
     }
 
-    m_tiAccel.Reset();
+    m_tiAccel.reset();
     setA(0.0);
     faccelerated = false;
 }
@@ -275,7 +275,7 @@ void Ship::Respawn()
 {
     if (m_tiRespawn.Inc(dt))
     {
-        m_tiRespawn.Reset();
+        m_tiRespawn.reset();
         Respawning = false;
     }
     else

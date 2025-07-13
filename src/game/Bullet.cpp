@@ -84,7 +84,7 @@ StarBlink::StarBlink() : TempObject()
 void StarBlink::Init()
 {
     m_Size = RAND(2) + 1;
-    lifeTime.Reset();
+    lifeTime.reset();
     lifeTime.interval = 2.0 + RAND(30) * 0.1;
     setXY(RAND(int(geWorld.getWidth())), RAND(int(geWorld.getHeight())));
 }

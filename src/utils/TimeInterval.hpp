@@ -11,12 +11,8 @@ public:
     TimeInterval(const Float intervalArg);
 
     Float get() const { return interval; }
-    void Reset() { elapsed = 0.0; }
-    void Reset(Float NewInterval)
-    {
-        elapsed = 0.0;
-        interval = NewInterval;
-    }
+    void reset();
+    void reset(const Float newInterval);
     void SetExpired() { elapsed = interval + 0.01; }
     bool Inc(Float dt)
     {

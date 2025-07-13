@@ -15,7 +15,7 @@ void TextControl::update(const Float timeDelta)
 {
     if (tiBlink.Inc(timeDelta))
     {
-        tiBlink.Reset();
+        tiBlink.reset();
     }
 }
 

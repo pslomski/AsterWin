@@ -86,8 +86,8 @@ public:
     void AccelerationOff();
     void RotateLeft();
     void RotateRight();
-    void RotateLeftStop() { m_tiRotateLeft.Reset(); }
-    void RotateRightStop() { m_tiRotateRight.Reset(); }
+    void RotateLeftStop() { m_tiRotateLeft.reset(); }
+    void RotateRightStop() { m_tiRotateRight.reset(); }
     Bullet* FireBullet();
     void Crash(ObjectList& vecObiekty);
     void Respawn();
