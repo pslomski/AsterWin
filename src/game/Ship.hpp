@@ -17,7 +17,7 @@ class PowerUp
 {
 public:
     PowerUp(Float in_Dutation);
-    TimeInterval Duration;
+    utils::TimeInterval Duration;
     void Start();
     void Stop();
     bool isActive() { return m_bActive; }
@@ -64,12 +64,12 @@ private:
     Float sndEngineGain;
     bool EngSndStopped;
     Color clEngine;
-    TimeInterval m_tiAccel;
-    TimeInterval m_tiFade;
-    TimeInterval m_tiEngineBlink;
-    TimeInterval m_tiRotateLeft, m_tiRotateRight;
-    TimeInterval m_tiRespawnBlink;
-    TimeInterval m_tiRespawn;
+    utils::TimeInterval m_tiAccel;
+    utils::TimeInterval m_tiFade;
+    utils::TimeInterval m_tiEngineBlink;
+    utils::TimeInterval m_tiRotateLeft, m_tiRotateRight;
+    utils::TimeInterval m_tiRespawnBlink;
+    utils::TimeInterval m_tiRespawn;
 
 protected:
     void OnRender() override;

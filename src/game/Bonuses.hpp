@@ -15,7 +15,7 @@ public:
     BonusObject(BonusType in_Type);
 
 private:
-    TimeInterval tiRot;
+    utils::TimeInterval tiRot;
     Float m_ColRatio;
 };
 

@@ -57,17 +57,17 @@ private:
     GLuint listBkg1;
     GLuint listBkg2;
 
-    TimeInterval tiPause;
-    TimeInterval tiGameStart;
-    TimeInterval tiUfoRespawn;
-    TimeInterval tiFPS;
+    utils::TimeInterval tiPause;
+    utils::TimeInterval tiGameStart;
+    utils::TimeInterval tiUfoRespawn;
+    utils::TimeInterval tiFPS;
     int frameCount{0};
     int beepCount{0};
     float pitch{0};
     float gain{0};
-    TimeInterval tiBroomSound;
+    utils::TimeInterval tiBroomSound;
     bool bPitchBroomSound;
-    TimeInterval tiChangeBroomSoundFreq;
+    utils::TimeInterval tiChangeBroomSoundFreq;
 
     void playStartBeep(float pitch, float gain);
     void generateAsters(int iCount, int iGameLevel);

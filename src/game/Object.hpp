@@ -113,5 +113,5 @@ public:
     bool expired() override;
     void setExpired();
 
-    TimeInterval lifeTime;
+    utils::TimeInterval lifeTime;
 };

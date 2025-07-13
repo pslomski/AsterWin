@@ -34,5 +34,5 @@ private:
     TextAlignement alignement;
     Color color{};
     bool isBlink;
-    TimeInterval tiBlink;
+    utils::TimeInterval tiBlink;
 };

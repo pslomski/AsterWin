@@ -2,6 +2,8 @@
 
 #include "game/types/Types.hpp"
 
+namespace utils
+{
 class TimeInterval
 {
 public:
@@ -31,3 +33,4 @@ public:
     }
     Float Ratio() { return Elapsed / Interval; }
 };
+} // namespace utils
