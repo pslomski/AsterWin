@@ -173,7 +173,7 @@ void Asteroid::Crash(TvecAster& vecAster, ObjectList& vecDebris, TvecBonus& vecB
         AsterDebris* pDeb = new AsterDebris;
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
         pDeb->setXY(getX(), getY());
-        pDeb->lifeTime.Interval = LifeTime;
+        pDeb->lifeTime.interval = LifeTime;
         Float vRand = 5.0 + rand() % 15;
         Float vx = 0.8 * getVX() + vRand * cos(pDeb->getAlfa() * GE_PIover180);
         Float vy = 0.8 * getVY() + vRand * sin(pDeb->getAlfa() * GE_PIover180);

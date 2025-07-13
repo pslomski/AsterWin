@@ -2,9 +2,7 @@
 
 namespace utils
 {
-TimeInterval::TimeInterval(Float in_Interval)
-{
-    Elapsed = 0.0;
-    Interval = in_Interval;
-}
+TimeInterval::TimeInterval(const Float intervalArg) : interval(intervalArg) {}
+
+TimeInterval::TimeInterval() : interval(1.0f) {}
 } // namespace utils

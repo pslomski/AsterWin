@@ -7,7 +7,7 @@
 
 PowerUp::PowerUp(Float in_Duration) : m_bActive(false)
 {
-    Duration.Interval = in_Duration;
+    Duration.interval = in_Duration;
 }
 
 void PowerUp::Start()
@@ -54,13 +54,13 @@ Ship::Ship(Float ax, Float ay, Float aangle)
     sndEngine.Init(SND_SHIP_ENGINE, SND_VOL_SHIP_ENGINE);
     sndCrash.Init(SND_SHIP_CRASH, SND_VOL_SHIP_CRASH);
 
-    m_tiAccel.Interval = 0.5;
-    m_tiRespawn.Interval = 3.0;
-    m_tiFade.Interval = 0.15;
-    m_tiEngineBlink.Interval = 0.25;
-    m_tiRotateLeft.Interval = 0.25;
-    m_tiRotateRight.Interval = 0.25;
-    m_tiRespawnBlink.Interval = 0.3;
+    m_tiAccel.interval = 0.5;
+    m_tiRespawn.interval = 3.0;
+    m_tiFade.interval = 0.15;
+    m_tiEngineBlink.interval = 0.25;
+    m_tiRotateLeft.interval = 0.25;
+    m_tiRotateRight.interval = 0.25;
+    m_tiRespawnBlink.interval = 0.3;
     m_RespBlinkColRatio = 1.0;
 
     puAddBullet.pShip = this;
@@ -132,7 +132,7 @@ void Ship::update()
     m_clrTmp = color;
     if (puAddBullet.isActive())
     {
-        Float alfa = 2 * GE_PI * puAddBullet.Duration.Elapsed;
+        Float alfa = 2 * GE_PI * puAddBullet.Duration.elapsed;
         Float sina = sin(alfa);
         sina *= sina;
         Float cosa = cos(alfa);
@@ -147,7 +147,7 @@ void Ship::update()
     }
     if (puBulletSpeed.isActive())
     {
-        Float alfa = 2 * GE_PI * puBulletSpeed.Duration.Elapsed;
+        Float alfa = 2 * GE_PI * puBulletSpeed.Duration.elapsed;
         Float sina = sin(alfa);
         sina *= sina;
         Float cosa = cos(alfa);
@@ -183,7 +183,7 @@ void Ship::OnRender()
 
 void Ship::AccelerationOn()
 {
-    if (m_tiAccel.Inc(dt)) m_tiAccel.Elapsed = m_tiAccel.Interval;
+    if (m_tiAccel.Inc(dt)) m_tiAccel.elapsed = m_tiAccel.interval;
     setA(Accel + (1.0 - m_tiAccel.Ratio()) * AccelBurst);
     sndEngineGain = SND_VOL_SHIP_ENGINE * getA() / AccelMax;
     sndEngine.SetPitch(float(getA() / AccelMax));

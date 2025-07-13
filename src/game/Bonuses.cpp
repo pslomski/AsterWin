@@ -6,7 +6,7 @@
 BonusObject::BonusObject(BonusType in_Type) : TempObject(GE_BONUS_LIFETIME), bonusType(in_Type)
 {
     scoreReward = GE_SCRVAL_BONUS;
-    tiRot.Interval = 1.5;
+    tiRot.interval = 1.5;
     geometryType = GeometryType::Polyg;
     m_ColRatio = 1.0;
 

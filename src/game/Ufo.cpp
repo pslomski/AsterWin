@@ -123,7 +123,7 @@ Bullet* Ufo::FireBullet(const PointF& pt)
 {
     Float Speed = 22.0;
     Bullet* bullet = new Bullet;
-    bullet->lifeTime.Interval = 3.0;
+    bullet->lifeTime.interval = 3.0;
     bullet->setXY(getX(), getY());
     Float alfa = atan2(pt.y - getY(), pt.x - getX()) * GE_180overPI;
     bullet->setAlfa(alfa + rand() % 6 - 3);

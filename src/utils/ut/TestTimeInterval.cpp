@@ -15,12 +15,12 @@ protected:
 
 TEST_F(TestTimeInterval, testCreate)
 {
-    ASSERT_THAT(timeInteval.Interval, Eq(1.0f));
+    ASSERT_THAT(timeInteval.interval, Eq(1.0f));
 }
 
 TEST_F(TestTimeInterval, testCreate2)
 {
     TimeInterval timeInteval{2.0f};
-    ASSERT_THAT(timeInteval.Interval, Eq(2.0f));
+    ASSERT_THAT(timeInteval.interval, Eq(2.0f));
 }
 } // namespace utils

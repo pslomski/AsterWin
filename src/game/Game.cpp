@@ -16,8 +16,8 @@ Game::Game() : scoreCounter(std::bind(&Game::onIncrementLives, this))
     sndStartBeep.Init(SND_START_BEEP, SND_VOL_START_BEEP);
     sndBonusBeep.Init(SND_BONUS_BEEP, SND_VOL_BONUS_BEEP);
     sndPowerUp.Init(SND_POWERUP, SND_VOL_POWERUP);
-    tiChangeBroomSoundFreq.Interval = GE_TI_CHANGE_BROOM_FREQ;
-    tiFPS.Interval = 1.0;
+    tiChangeBroomSoundFreq.interval = GE_TI_CHANGE_BROOM_FREQ;
+    tiFPS.interval = 1.0;
     ship = nullptr;
     pUfo = nullptr;
     gameState = GameState::Run;
@@ -29,7 +29,7 @@ Game::Game() : scoreCounter(std::bind(&Game::onIncrementLives, this))
     listBkg2 = 0;
     tiPause.Reset(GE_PAUSE_TIME);
     tiGameStart.Reset(1.2);
-    tiUfoRespawn.Interval = GE_BASE_UFO_TIME;
+    tiUfoRespawn.interval = GE_BASE_UFO_TIME;
     beepCount = 0;
     pitch = 0.5;
     gain = 0.5;
@@ -107,7 +107,7 @@ void Game::update()
     ++frameCount;
     if (tiFPS.Inc(Object::dt))
     {
-        fps = frameCount / tiFPS.Elapsed;
+        fps = frameCount / tiFPS.elapsed;
         tiFPS.Reset();
         frameCount = 0;
     }
@@ -304,8 +304,8 @@ void Game::analyzeGameState()
             {
                 constexpr Float maxInterval{0.7};
                 tiChangeBroomSoundFreq.Reset();
-                tiBroomSound.Interval -= 1;
-                tiBroomSound.Interval = std::max(tiBroomSound.Interval, maxInterval);
+                tiBroomSound.interval -= 1;
+                tiBroomSound.interval = std::max(tiBroomSound.interval, maxInterval);
             }
 
             if (tiBroomSound.Inc(Object::dt))
@@ -352,7 +352,7 @@ void Game::analyzeGameState()
                     if (tiUfoRespawn.Inc(Object::dt))
                     {
                         const Float maxRespownTime{15};
-                        tiUfoRespawn.Reset(std::max(maxRespownTime, tiUfoRespawn.Interval - 1));
+                        tiUfoRespawn.Reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
                         pUfo = new Ufo;
                         pUfo->setXY(geWorld.getRandomPosAtEdge());
                     }
@@ -371,8 +371,8 @@ void Game::analyzeGameState()
                     astersCount = std::min(astersCount, GE_MAX_ASTER_COUNT);
                     generateAsters(astersCount, gameLevel++);
                     tiBroomSound.Reset();
-                    tiBroomSound.Interval = 5.0;
-                    tiChangeBroomSoundFreq.Interval += 2;
+                    tiBroomSound.interval = 5.0;
+                    tiChangeBroomSoundFreq.interval += 2;
                 }
             }
             break;

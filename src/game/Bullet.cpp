@@ -4,7 +4,7 @@
 
 Bullet::Bullet() : TempObject()
 {
-    lifeTime.Interval = 1.0;
+    lifeTime.interval = 1.0;
     bounds.x0 = -0.1;
     bounds.x1 = 0.1;
     bounds.y0 = -0.1;
@@ -24,7 +24,7 @@ TShipDebris::TShipDebris() : TempObject()
 {
     m_Ratio = 1.0;
     Float D = 0.15 + 0.1 * RAND(2);
-    lifeTime.Interval = 1.3 + rand() % 9 * 0.1;
+    lifeTime.interval = 1.3 + rand() % 9 * 0.1;
     bounds.x0 = -D;
     bounds.x1 = D;
     bounds.y0 = -D;
@@ -49,7 +49,7 @@ void TShipDebris::OnRender()
 
 AsterDebris::AsterDebris() : TempObject()
 {
-    lifeTime.Interval = 1.5 + rand() % 9 * 0.1;
+    lifeTime.interval = 1.5 + rand() % 9 * 0.1;
     bounds.x0 = -0.1;
     bounds.x1 = 0.1;
     bounds.y0 = -0.1;
@@ -85,7 +85,7 @@ void StarBlink::Init()
 {
     m_Size = RAND(2) + 1;
     lifeTime.Reset();
-    lifeTime.Interval = 2.0 + RAND(30) * 0.1;
+    lifeTime.interval = 2.0 + RAND(30) * 0.1;
     setXY(RAND(int(geWorld.getWidth())), RAND(int(geWorld.getHeight())));
 }
 
