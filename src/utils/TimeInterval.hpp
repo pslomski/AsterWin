@@ -7,11 +7,7 @@ namespace utils
 class TimeInterval
 {
 public:
-    TimeInterval(Float in_Interval)
-    {
-        Elapsed = 0.0;
-        Interval = in_Interval;
-    }
+    TimeInterval(Float in_Interval);
     TimeInterval()
     {
         Elapsed = 0.0;
