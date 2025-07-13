@@ -35,7 +35,7 @@ TShipDebris::TShipDebris() : TempObject()
 void TShipDebris::update()
 {
     Object::update();
-    m_Ratio = 1.0 - lifeTime.Ratio();
+    m_Ratio = 1.0 - lifeTime.ratio();
 }
 
 void TShipDebris::OnRender()
@@ -59,7 +59,7 @@ AsterDebris::AsterDebris() : TempObject()
 void AsterDebris::update()
 {
     Object::update();
-    m_Ratio = 1.0 - lifeTime.Ratio();
+    m_Ratio = 1.0 - lifeTime.ratio();
 }
 
 void AsterDebris::OnRender()
@@ -97,7 +97,7 @@ void StarBlink::update()
     };
 
     Object::update();
-    m_Ratio = sin(lifeTime.Ratio() * GE_PI);
+    m_Ratio = sin(lifeTime.ratio() * GE_PI);
 }
 
 void StarBlink::OnRender()

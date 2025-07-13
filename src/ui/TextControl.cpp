@@ -13,7 +13,7 @@ TextControl::~TextControl() {}
 
 void TextControl::update(const Float timeDelta)
 {
-    if (tiBlink.Inc(timeDelta))
+    if (tiBlink.inc(timeDelta))
     {
         tiBlink.reset();
     }
@@ -40,7 +40,7 @@ void TextControl::draw()
     GLfloat fFact = 1.0;
     if (isBlink)
     {
-        fFact = GLfloat(0.25 * (2.0 + sin(2.0 * GE_PI * tiBlink.Ratio())));
+        fFact = GLfloat(0.25 * (2.0 + sin(2.0 * GE_PI * tiBlink.ratio())));
     }
     gl::Color glColor(fFact * color.red, fFact * color.green, fFact * color.blue);
     font->drawText(text, xPos, yPos, glColor);

@@ -22,17 +22,17 @@ void BonusObject::update()
 {
     Object::update();
     Float d = 0.75;
-    m_ColRatio = lifeTime.Ratio();
+    m_ColRatio = lifeTime.ratio();
     if (m_ColRatio < d)
         m_ColRatio = 1.0;
     else
         m_ColRatio = (1 - m_ColRatio) / (1 - d);
-    if (tiRot.Inc(dt)) tiRot.reset();
+    if (tiRot.inc(dt)) tiRot.reset();
 }
 
 void BonusObject::OnRender()
 {
-    glRotated(tiRot.Ratio() * 360.0, 0.0, 1.0, 0.0);
+    glRotated(tiRot.ratio() * 360.0, 0.0, 1.0, 0.0);
     setGlColor(color * m_ColRatio);
     glCallList(glList);
 }

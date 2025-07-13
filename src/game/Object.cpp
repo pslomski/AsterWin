@@ -262,10 +262,10 @@ TempObject::TempObject(const Float lifeTime) : lifeTime(lifeTime) {}
 
 bool TempObject::expired()
 {
-    return lifeTime.Inc(dt);
+    return lifeTime.inc(dt);
 }
 
 void TempObject::setExpired()
 {
-    lifeTime.SetExpired();
+    lifeTime.setExpired();
 }

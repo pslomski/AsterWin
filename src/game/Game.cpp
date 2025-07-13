@@ -105,7 +105,7 @@ void Game::update()
 {
     Object::dt = geWorld.dt;
     ++frameCount;
-    if (tiFPS.Inc(Object::dt))
+    if (tiFPS.inc(Object::dt))
     {
         fps = frameCount / tiFPS.elapsed;
         tiFPS.reset();
@@ -276,7 +276,7 @@ void Game::analyzeGameState()
     {
         case GameState::StartGame:
         {
-            if (tiGameStart.Inc(Object::dt))
+            if (tiGameStart.inc(Object::dt))
             {
                 tiGameStart.reset();
                 float pitch, gain;
@@ -300,7 +300,7 @@ void Game::analyzeGameState()
         break;
         case GameState::Run:
         {
-            if (tiChangeBroomSoundFreq.Inc(Object::dt))
+            if (tiChangeBroomSoundFreq.inc(Object::dt))
             {
                 constexpr Float maxInterval{0.7};
                 tiChangeBroomSoundFreq.reset();
@@ -308,7 +308,7 @@ void Game::analyzeGameState()
                 tiBroomSound.interval = std::max(tiBroomSound.interval, maxInterval);
             }
 
-            if (tiBroomSound.Inc(Object::dt))
+            if (tiBroomSound.inc(Object::dt))
             {
                 tiBroomSound.reset();
                 if (bPitchBroomSound)
@@ -349,7 +349,7 @@ void Game::analyzeGameState()
             {
                 if (!pUfo)
                 {
-                    if (tiUfoRespawn.Inc(Object::dt))
+                    if (tiUfoRespawn.inc(Object::dt))
                     {
                         const Float maxRespownTime{15};
                         tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
@@ -361,7 +361,7 @@ void Game::analyzeGameState()
         }
         break;
         case GameState::NextLevelPause:
-            if (tiPause.Inc(Object::dt))
+            if (tiPause.inc(Object::dt))
             {
                 tiPause.reset();
                 gameState = GameState::Run;
@@ -377,7 +377,7 @@ void Game::analyzeGameState()
             }
             break;
         case GameState::ShipDestroyed:
-            if (tiPause.Inc(Object::dt))
+            if (tiPause.inc(Object::dt))
             {
                 tiPause.reset();
                 assert(nullptr == ship);
@@ -391,7 +391,7 @@ void Game::analyzeGameState()
             }
             break;
         case GameState::GameOver:
-            if (tiPause.Inc(Object::dt)) geSound.Stop();
+            if (tiPause.inc(Object::dt)) geSound.Stop();
             break;
     }
 }

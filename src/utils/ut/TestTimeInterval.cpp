@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include "gtest/gtest.h"
 #include "utils/TimeInterval.hpp"
 
 using namespace testing;
@@ -38,5 +39,24 @@ TEST_F(TestTimeInterval, testReset2)
     timeInterval.reset(4.0f);
     ASSERT_THAT(timeInterval.get(), Eq(4.0f));
     ASSERT_THAT(timeInterval.elapsed, Eq(0.0f));
+}
+
+TEST_F(TestTimeInterval, testInc)
+{
+    ASSERT_FALSE(timeInterval.inc(0.5f));
+    ASSERT_TRUE(timeInterval.inc(0.5f));
+}
+
+TEST_F(TestTimeInterval, testRatio)
+{
+    timeInterval.inc(0.5f);
+    ASSERT_THAT(timeInterval.ratio(), Eq(0.5f));
+}
+
+TEST_F(TestTimeInterval, testRatioWhenIntervalZero)
+{
+    TimeInterval zeroInterval(0.0f);
+    zeroInterval.inc(0.5f);
+    ASSERT_DEATH(zeroInterval.ratio(), ".*");
 }
 } // namespace utils

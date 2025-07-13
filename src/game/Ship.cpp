@@ -100,18 +100,18 @@ Ship::~Ship()
 void Ship::update()
 {
     Object::update();
-    if (puAddBullet.Duration.Inc(dt)) puAddBullet.Stop();
-    if (puBulletSpeed.Duration.Inc(dt)) puBulletSpeed.Stop();
+    if (puAddBullet.Duration.inc(dt)) puAddBullet.Stop();
+    if (puBulletSpeed.Duration.inc(dt)) puBulletSpeed.Stop();
 
     if (Respawning)
     {
-        if (m_tiRespawnBlink.Inc(dt))
+        if (m_tiRespawnBlink.inc(dt))
         {
             m_tiRespawnBlink.reset();
             bDarken = !bDarken;
         }
         Float d = bDarken ? 0.5 : 1.0;
-        m_RespBlinkColRatio = 0.5 * (1 + m_tiRespawnBlink.Ratio()) * d;
+        m_RespBlinkColRatio = 0.5 * (1 + m_tiRespawnBlink.ratio()) * d;
     }
     else
     {
@@ -120,12 +120,12 @@ void Ship::update()
 
     if (faccelerated)
     {
-        if (m_tiEngineBlink.Inc(dt)) m_tiEngineBlink.reset();
+        if (m_tiEngineBlink.inc(dt)) m_tiEngineBlink.reset();
     }
 
     if (faccelerated)
     {
-        m_BoostLen = getA() / AccelBurst * 2.0 + 0.25 * sin(m_tiEngineBlink.Ratio() * 2 * GE_PI);
+        m_BoostLen = getA() / AccelBurst * 2.0 + 0.25 * sin(m_tiEngineBlink.ratio() * 2 * GE_PI);
     }
 
     // ustalanie koloru
@@ -183,8 +183,8 @@ void Ship::OnRender()
 
 void Ship::AccelerationOn()
 {
-    if (m_tiAccel.Inc(dt)) m_tiAccel.elapsed = m_tiAccel.interval;
-    setA(Accel + (1.0 - m_tiAccel.Ratio()) * AccelBurst);
+    if (m_tiAccel.inc(dt)) m_tiAccel.elapsed = m_tiAccel.interval;
+    setA(Accel + (1.0 - m_tiAccel.ratio()) * AccelBurst);
     sndEngineGain = SND_VOL_SHIP_ENGINE * getA() / AccelMax;
     sndEngine.SetPitch(float(getA() / AccelMax));
     if (!faccelerated)
@@ -211,14 +211,14 @@ void Ship::AccelerationOff()
 
 void Ship::RotateLeft()
 {
-    m_tiRotateLeft.Inc(dt);
-    setAlfa(getAlfa() + std::min(0.5 * (1.0 + m_tiRotateLeft.Ratio()), 1.0) * m_RotSpeed * dt);
+    m_tiRotateLeft.inc(dt);
+    setAlfa(getAlfa() + std::min(0.5 * (1.0 + m_tiRotateLeft.ratio()), 1.0) * m_RotSpeed * dt);
 }
 
 void Ship::RotateRight()
 {
-    m_tiRotateRight.Inc(dt);
-    setAlfa(getAlfa() - std::min(0.5 * (1.0 + m_tiRotateRight.Ratio()), 1.0) * m_RotSpeed * dt);
+    m_tiRotateRight.inc(dt);
+    setAlfa(getAlfa() - std::min(0.5 * (1.0 + m_tiRotateRight.ratio()), 1.0) * m_RotSpeed * dt);
 }
 
 Bullet* Ship::FireBullet()
@@ -273,7 +273,7 @@ void Ship::Crash(ObjectList& vecObiekty)
 
 void Ship::Respawn()
 {
-    if (m_tiRespawn.Inc(dt))
+    if (m_tiRespawn.inc(dt))
     {
         m_tiRespawn.reset();
         Respawning = false;

@@ -13,13 +13,9 @@ public:
     Float get() const { return interval; }
     void reset();
     void reset(const Float newInterval);
-    void SetExpired() { elapsed = interval + 0.01; }
-    bool Inc(Float dt)
-    {
-        elapsed += dt;
-        return elapsed >= interval;
-    }
-    Float Ratio() { return elapsed / interval; }
+    void setExpired();
+    bool inc(const Float dt);
+    Float ratio() const;
 
     Float interval;
     Float elapsed{};
