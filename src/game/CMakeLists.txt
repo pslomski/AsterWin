@@ -1,3 +1,4 @@
+add_subdirectory(objects)
 add_subdirectory(ut)
 
 target_sources(${ASTER_EXE}
@@ -6,7 +7,6 @@ target_sources(${ASTER_EXE}
     Bonuses.cpp
     Bullet.cpp
     Game.cpp
-    Object.cpp
     ObjectSound.cpp
     ScoreCounter.cpp
     Ship.cpp

@@ -2,12 +2,12 @@
 
 #include "Asteroid.hpp"
 #include "GameConsts.hpp"
-#include "Object.hpp"
 #include "ObjectSound.hpp"
 #include "ScoreCounter.hpp"
 #include "Ship.hpp"
 #include "Sound.hpp"
 #include "Ufo.hpp"
+#include "game/objects/Object.hpp"
 #include "types/BonusType.hpp"
 #include "types/GameState.hpp"
 #include "types/Types.hpp"

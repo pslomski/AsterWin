@@ -1,4 +1,4 @@
-#include "game/Object.cpp"
+#include "game/objects/Object.cpp"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>

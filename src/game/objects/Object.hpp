@@ -4,12 +4,12 @@
 #include <list>
 #include <math.h>
 #include <windows.h>
-#include "types/Bounds.hpp"
-#include "types/Box.hpp"
-#include "types/Color.hpp"
-#include "types/ObjectGeom.hpp"
-#include "types/Point.hpp"
-#include "types/Types.hpp"
+#include "game/types/Bounds.hpp"
+#include "game/types/Box.hpp"
+#include "game/types/Color.hpp"
+#include "game/types/ObjectGeom.hpp"
+#include "game/types/Point.hpp"
+#include "game/types/Types.hpp"
 #include "utils/TimeInterval.hpp"
 #include "utils/Tools.hpp" //TODO: Remove dependency to Tools.hpp in Object.hpp
 

@@ -4,8 +4,8 @@
 #include <math.h>
 #include <windows.h>
 #include "Bullet.hpp"
-#include "Object.hpp"
 #include "ObjectSound.hpp"
+#include "game/objects/Object.hpp"
 #include "types/BonusType.hpp"
 #include "types/Color.hpp"
 #include "utils/TimeInterval.hpp"

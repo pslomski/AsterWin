@@ -2,8 +2,8 @@
 
 #include <list>
 #include "Bonuses.hpp"
-#include "Object.hpp"
 #include "ObjectSound.hpp"
+#include "game/objects/Object.hpp"
 
 namespace game
 {

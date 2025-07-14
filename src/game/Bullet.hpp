@@ -3,7 +3,7 @@
 #include <gl/gl.h>
 #include <math.h>
 #include <windows.h>
-#include "Object.hpp"
+#include "game/objects/Object.hpp"
 
 class Bullet : public TempObject
 {

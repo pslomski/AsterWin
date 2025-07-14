@@ -1,8 +1,8 @@
-#include "Object.hpp"
+#include "game/objects/Object.hpp"
 #include <algorithm>
 #include <cassert>
-#include "Consts.hpp"
-#include "World.hpp"
+#include "game/Consts.hpp"
+#include "game/World.hpp"
 #include "utils/PointInPolygon.hpp"
 
 Float Object::dt = 0.0;
