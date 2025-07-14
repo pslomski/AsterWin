@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cassert>
+#include <cassert> //TODO: Remove assert dependency from Bounds.hpp
 #include "Types.hpp"
 
 struct Bounds
