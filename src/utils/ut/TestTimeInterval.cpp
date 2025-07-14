@@ -1,8 +1,8 @@
+#define utils_TimeInterval_orig
+#include "utils/TimeInterval.cpp"
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include "gtest/gtest.h"
-#include "utils/TimeInterval.hpp"
 
 using namespace testing;
 

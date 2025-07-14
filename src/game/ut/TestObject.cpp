@@ -1,7 +1,7 @@
+#include "game/Object.cpp"
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include "game/Object.hpp"
 
 using namespace testing;
 

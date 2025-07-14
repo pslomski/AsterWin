@@ -1,5 +1,9 @@
 #pragma once
 
+#include "common/testing/mocks.hpp"
+#include "ut/mocks/MockTimeInterval.hpp"
+#if USE_ORIG(utils_TimeInterval)
+
 #include "game/types/Types.hpp"
 
 namespace utils
@@ -21,3 +25,5 @@ public:
     Float elapsed{};
 };
 } // namespace utils
+
+#endif // utils_TimeInterval

@@ -6,6 +6,8 @@ function(add_gtest test_name)
 
     add_executable(${test_name} ${ADD_GTEST_SOURCES})
 
+    target_compile_definitions(${test_name} PRIVATE UNIT_TEST)
+
     target_link_libraries(${test_name}
       PRIVATE
         OpenGL::GL #TODO: Remove dependency to OpenGL in tests
