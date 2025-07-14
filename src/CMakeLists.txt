@@ -4,7 +4,7 @@ function(add_gtest test_name)
     set(multiValueArgs SOURCES)
     cmake_parse_arguments(ADD_GTEST "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    add_executable(${test_name} ${ADD_GTEST_SOURCES})
+    add_executable(${test_name} ${test_name}.cpp ${ADD_GTEST_SOURCES})
 
     target_compile_definitions(${test_name} PRIVATE UNIT_TEST)
 

@@ -1,10 +1,6 @@
-add_gtest(TestTimeInterval
-    SOURCES
-        TestTimeInterval.cpp
-)
+add_gtest(TestTimeInterval)
 
 add_gtest(TestPointInPolygon
     SOURCES
-        TestPointInPolygon.cpp
         ../PointInPolygon.cpp
 )
