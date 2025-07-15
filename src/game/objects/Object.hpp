@@ -75,7 +75,7 @@ public:
     }
     void setColor(Color& in_clr) { color = in_clr; }
     virtual void update() { move(); }
-    virtual void draw();
+    void draw();
     void render();
 
     static Float dt;
