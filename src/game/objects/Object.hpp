@@ -4,6 +4,7 @@
 #include "ut/mocks/MockObject.hpp"
 #if USE_ORIG(game_objects_Object)
 
+#include <gl/gl.h>
 #include <list>
 #include <math.h>
 #include <windows.h>

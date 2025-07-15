@@ -7,6 +7,7 @@
 #include "Sound.hpp"
 #include "World.hpp"
 #include "game/ScoreCounter.hpp"
+#include "utils/GlUtils.hpp"
 
 namespace game
 {

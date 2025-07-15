@@ -4,6 +4,7 @@
 #include "GameConsts.hpp"
 #include "Sound.hpp"
 #include "World.hpp"
+#include "utils/GlUtils.hpp"
 
 PowerUp::PowerUp(Float in_Duration) : m_bActive(false)
 {
