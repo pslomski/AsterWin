@@ -7,7 +7,45 @@
 #include "Sound.hpp"
 #include "World.hpp"
 #include "game/ScoreCounter.hpp"
+#include "game/objects/Objects.hpp"
 #include "utils/GlUtils.hpp"
+
+namespace
+{
+template <class Container>
+void clear(Container& cont)
+{
+    for (auto o : cont)
+    {
+        delete o;
+    }
+    cont.clear();
+}
+
+template <class Container>
+void update(Container& objects)
+{
+    for (auto& object : objects)
+    {
+        if (object)
+        {
+            object->update();
+        }
+    }
+}
+
+template <class Container>
+void draw(const Container& objects)
+{
+    for (const auto& object : objects)
+    {
+        if (object)
+        {
+            object->draw();
+        }
+    }
+}
+} // namespace
 
 namespace game
 {
@@ -118,16 +156,6 @@ void Game::update()
     updateObjects();
 }
 
-template <class Container>
-void clearContainer(Container& cont)
-{
-    for (auto o : cont)
-    {
-        delete o;
-    }
-    cont.clear();
-}
-
 void Game::clear()
 {
     geSound.Stop();
@@ -144,12 +172,12 @@ void Game::clear()
     if (pUfo) delete pUfo;
     pUfo = nullptr;
 
-    clearContainer(vecBullets);
-    clearContainer(vecUfoBullets);
-    clearContainer(vecAsters);
-    clearContainer(vecDebris);
-    clearContainer(vecBonus);
-    clearContainer(vecStarBlink);
+    ::clear(vecBullets);
+    ::clear(vecUfoBullets);
+    ::clear(vecAsters);
+    ::clear(vecDebris);
+    ::clear(vecBonus);
+    ::clear(vecStarBlink);
 };
 
 void Game::generateAsters(int iCount, int iGameLevel)
@@ -470,7 +498,7 @@ void Game::updateObjects()
         }
     }
 
-    for (TvecBonusIt it = vecBonus.begin(); it != vecBonus.end();)
+    for (auto it = vecBonus.begin(); it != vecBonus.end();)
     {
         if ((*it)->expired())
         {
@@ -490,10 +518,7 @@ void Game::updateObjects()
         pUfo->Action(vecUfoBullets);
     }
 
-    for (TvecObiektIt it = vecStarBlink.begin(); it != vecStarBlink.end(); ++it)
-    {
-        (*it)->update();
-    }
+    ::update(vecStarBlink);
 }
 
 void Game::checkCollisions()
@@ -647,7 +672,7 @@ void Game::checkCollisions()
     // kolizja Statek-Bonus
     if (ship)
     {
-        for (TvecBonusIt it = vecBonus.begin(); it != vecBonus.end();)
+        for (auto it = vecBonus.begin(); it != vecBonus.end();)
         {
             if (ship->checkCollision(*it))
             {
@@ -687,40 +712,12 @@ void Game::draw()
     glCallList(listBkg2);
 
     if (ship) ship->draw();
-
     if (pUfo) pUfo->draw();
-
-    TvecAsterIt itAster;
-    for (itAster = vecAsters.begin(); itAster != vecAsters.end(); itAster++)
-    {
-        (*itAster)->draw();
-    }
-
-    TvecBulletIt itBullet;
-    for (itBullet = vecBullets.begin(); itBullet != vecBullets.end(); ++itBullet)
-    {
-        (*itBullet)->draw();
-    }
-
-    for (itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end(); ++itBullet)
-    {
-        (*itBullet)->draw();
-    }
-
-    for (const auto& debris : vecDebris)
-    {
-        debris->draw();
-    }
-
-    for (TvecBonusIt it = vecBonus.begin(); it != vecBonus.end(); ++it)
-    {
-        (*it)->draw();
-    }
-
-    for (TvecObiektIt it = vecStarBlink.begin(); it != vecStarBlink.end(); ++it)
-    {
-        (*it)->draw();
-    }
+    ::draw(vecAsters);
+    ::draw(vecBullets);
+    ::draw(vecUfoBullets);
+    ::draw(vecDebris);
+    ::draw(vecBonus);
+    ::draw(vecStarBlink);
 }
-
 } // namespace game

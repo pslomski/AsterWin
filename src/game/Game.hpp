@@ -7,12 +7,12 @@
 #include "Ship.hpp"
 #include "Sound.hpp"
 #include "Ufo.hpp"
+#include "game/objects/Objects.hpp"
 #include "game/objects/TempObjects.hpp"
 #include "types/BonusType.hpp"
 #include "types/GameState.hpp"
 #include "types/Types.hpp"
 #include "utils/TimeInterval.hpp"
-
 
 namespace game
 {
@@ -49,7 +49,7 @@ private:
     TvecBullet vecUfoBullets; // enemy ufo shots
     TempObjects vecDebris; // particles of destroyed objects
     TvecBonus vecBonus; // bonuses from destroyed asteroids
-    ObjectList vecStarBlink;
+    Objects vecStarBlink;
     Ship* ship; // our ship
     Ufo* pUfo; // enemy ufo
     GameState gameState;

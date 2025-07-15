@@ -101,7 +101,4 @@ private:
     Float fa;
 };
 
-typedef std::list<Object*> ObjectList;
-typedef std::list<Object*>::iterator TvecObiektIt;
-
 #endif // game_objects_Object
