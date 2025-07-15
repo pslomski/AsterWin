@@ -255,17 +255,3 @@ void Object::calcBounds(const PointsF& points)
     bounds.y0 = -max;
     bounds.y1 = max;
 }
-
-TempObject::TempObject() : Object() {}
-
-TempObject::TempObject(const Float lifeTime) : lifeTime(lifeTime) {}
-
-bool TempObject::expired()
-{
-    return lifeTime.inc(dt);
-}
-
-void TempObject::setExpired()
-{
-    lifeTime.setExpired();
-}

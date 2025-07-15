@@ -1,8 +1,6 @@
 #include "Bonuses.hpp"
 #include "GameConsts.hpp"
 #include "Sound.hpp"
-#include "game/objects/Object.hpp"
-
 
 BonusObject::BonusObject(BonusType in_Type) : TempObject(GE_BONUS_LIFETIME), bonusType(in_Type)
 {
@@ -21,7 +19,7 @@ BonusObject::BonusObject(BonusType in_Type) : TempObject(GE_BONUS_LIFETIME), bon
 
 void BonusObject::update()
 {
-    Object::update();
+    TempObject::update();
     Float d = 0.75;
     m_ColRatio = lifeTime.ratio();
     if (m_ColRatio < d)

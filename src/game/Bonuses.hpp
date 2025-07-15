@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game/objects/Object.hpp"
+#include "game/objects/TempObject.hpp"
 #include "types/BonusType.hpp"
 #include "utils/TimeInterval.hpp"
 #include "utils/Tools.hpp"

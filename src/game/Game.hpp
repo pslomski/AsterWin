@@ -7,7 +7,6 @@
 #include "Ship.hpp"
 #include "Sound.hpp"
 #include "Ufo.hpp"
-#include "game/objects/Object.hpp"
 #include "types/BonusType.hpp"
 #include "types/GameState.hpp"
 #include "types/Types.hpp"

@@ -10,7 +10,6 @@
 #include "game/types/ObjectGeom.hpp"
 #include "game/types/Point.hpp"
 #include "game/types/Types.hpp"
-#include "utils/TimeInterval.hpp"
 #include "utils/Tools.hpp" //TODO: Remove dependency to Tools.hpp in Object.hpp
 
 class Object
@@ -104,14 +103,3 @@ private:
 
 typedef std::list<Object*> ObjectList;
 typedef std::list<Object*>::iterator TvecObiektIt;
-
-class TempObject : public Object
-{
-public:
-    TempObject();
-    explicit TempObject(const Float lifeTime);
-    bool expired() override;
-    void setExpired();
-
-    utils::TimeInterval lifeTime;
-};
