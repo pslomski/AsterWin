@@ -1,5 +1,9 @@
 #pragma once
 
+#include "common/testing/mocks.hpp"
+#include "ut/mocks/MockObject.hpp"
+#if USE_ORIG(game_objects_Object)
+
 #include <gl/gl.h>
 #include <list>
 #include <math.h>
@@ -72,7 +76,6 @@ public:
     void setColor(Color& in_clr) { color = in_clr; }
     virtual void update() { move(); }
     virtual void draw();
-    virtual bool expired() { return false; }
     void render();
 
     static Float dt;
@@ -103,3 +106,5 @@ private:
 
 typedef std::list<Object*> ObjectList;
 typedef std::list<Object*>::iterator TvecObiektIt;
+
+#endif // game_objects_Object

@@ -3,6 +3,7 @@
 #include "Bullet.hpp"
 #include "ObjectSound.hpp"
 #include "game/objects/Object.hpp"
+#include "game/objects/TempObjects.hpp"
 
 class Ufo : public Object
 {
@@ -16,7 +17,7 @@ public:
                     // poruszania obiektow)
     void Action(TvecBullet& vecBullet);
     Bullet* FireBullet(const PointF& pt);
-    void Crash(ObjectList& vecObiekty);
+    void Crash(TempObjects& vecObiekty);
     ObjectSound sndEngine;
     ObjectSound sndCrash;
 

@@ -238,7 +238,7 @@ Bullet* Ship::FireBullet()
     return bullet;
 }
 
-void Ship::Crash(ObjectList& vecObiekty)
+void Ship::Crash(TempObjects& vecObiekty)
 {
     sndCrash.Play();
 

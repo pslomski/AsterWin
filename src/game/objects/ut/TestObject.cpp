@@ -1,3 +1,4 @@
+#define game_objects_Object_orig
 #include "game/objects/Object.cpp"
 
 #include <gmock/gmock.h>

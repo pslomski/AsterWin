@@ -6,6 +6,7 @@
 #include "Bullet.hpp"
 #include "ObjectSound.hpp"
 #include "game/objects/Object.hpp"
+#include "game/objects/TempObjects.hpp"
 #include "types/BonusType.hpp"
 #include "types/Color.hpp"
 #include "utils/TimeInterval.hpp"
@@ -89,7 +90,7 @@ public:
     void RotateLeftStop() { m_tiRotateLeft.reset(); }
     void RotateRightStop() { m_tiRotateRight.reset(); }
     Bullet* FireBullet();
-    void Crash(ObjectList& vecObiekty);
+    void Crash(TempObjects& vecObiekty);
     void Respawn();
     void AddBonus(BonusType type);
     AddBulletPowerUp puAddBullet; // PowerUp dodatkowe strzaly

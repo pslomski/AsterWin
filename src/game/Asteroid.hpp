@@ -4,6 +4,7 @@
 #include "Bonuses.hpp"
 #include "ObjectSound.hpp"
 #include "game/objects/Object.hpp"
+#include "game/objects/TempObjects.hpp"
 
 namespace game
 {
@@ -21,7 +22,7 @@ public:
     Asteroid(int in_iLevel);
     virtual ~Asteroid();
     void Create();
-    void Crash(TvecAster& vecAster, ObjectList& vecDebris, TvecBonus& vecBonus);
+    void Crash(TvecAster& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus);
     static bool CreateBonus;
     int Level;
     bool HasBonus;

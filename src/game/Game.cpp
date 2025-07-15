@@ -706,9 +706,9 @@ void Game::draw()
         (*itBullet)->draw();
     }
 
-    for (TvecObiektIt itOb = vecDebris.begin(); itOb != vecDebris.end(); ++itOb)
+    for (const auto& debris : vecDebris)
     {
-        (*itOb)->draw();
+        debris->draw();
     }
 
     for (TvecBonusIt it = vecBonus.begin(); it != vecBonus.end(); ++it)

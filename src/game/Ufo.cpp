@@ -132,7 +132,7 @@ Bullet* Ufo::FireBullet(const PointF& pt)
     return bullet;
 }
 
-void Ufo::Crash(ObjectList& vecObiekty)
+void Ufo::Crash(TempObjects& vecObiekty)
 {
     sndCrash.Play();
     int iDebCount = GE_UFO_DEBR_COUNT;
