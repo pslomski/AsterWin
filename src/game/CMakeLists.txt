@@ -1,3 +1,4 @@
+add_subdirectory(geom)
 add_subdirectory(objects)
 add_subdirectory(ut)
 
