@@ -1,11 +1,10 @@
 #include "game/objects/Object.hpp"
-#include <algorithm>
+// #include <algorithm>
 #include <cassert>
 #include "game/Consts.hpp"
 #include "game/World.hpp"
 #include "game/geom/LineIntersection.hpp"
-#include "game/geom/PointInPolygon.hpp"
-#include "utils/Tools.hpp"
+#include "game/geom/PolygWithPointCheck.hpp"
 
 Float Object::dt = 0.0;
 
@@ -111,7 +110,7 @@ void Object::move()
     }
 }
 
-BoxF Object::transform(const BoxF& seg)
+BoxF Object::transform(const BoxF& seg) const
 {
     BoxF res;
     Float sinalfa = sin(-angle * GE_PIover180);
@@ -121,40 +120,6 @@ BoxF Object::transform(const BoxF& seg)
     res.x1 = fx + seg.x1 * cosalfa + seg.y1 * sinalfa;
     res.y1 = fy - seg.x1 * sinalfa + seg.y1 * cosalfa;
     return res;
-}
-
-bool _CheckPolygWithPoint(Object* pObjPoint, Object* pObjPolyg)
-{
-    BoxF o1;
-    Float x, y;
-    // bierzemy wektor przesuniecia punktu
-    BoxF o2 = BoxF(pObjPoint->xp, pObjPoint->yp, pObjPoint->getX(), pObjPoint->getY());
-    for (unsigned int i1 = 0; i1 < pObjPolyg->verts.size(); ++i1)
-    {
-        if (0 == i1)
-            o1 = pObjPolyg->transform(BoxF(
-                pObjPolyg->verts[0].x,
-                pObjPolyg->verts[0].y,
-                pObjPolyg->verts[pObjPolyg->verts.size() - 1].x,
-                pObjPolyg->verts[pObjPolyg->verts.size() - 1].y));
-        else
-            o1 = pObjPolyg->transform(BoxF(
-                pObjPolyg->verts[i1 - 1].x,
-                pObjPolyg->verts[i1 - 1].y,
-                pObjPolyg->verts[i1].x,
-                pObjPolyg->verts[i1].y));
-        if (linesIntersection(o1, o2, x, y) == 0)
-        {
-            return true;
-        }
-        else
-        {
-            PointF pt(pObjPoint->getX() - pObjPolyg->getX(), pObjPoint->getY() - pObjPolyg->getY());
-            pt = geRotate(pt, -pObjPolyg->getAlfa());
-            return isPointInPolygon(pObjPolyg->verts.size(), pObjPolyg->verts, pt.x, pt.y);
-        }
-    }
-    return false;
 }
 
 bool Object::checkCollision(Object* pObiekt)
@@ -201,7 +166,7 @@ bool Object::checkCollision(Object* pObiekt)
             }
             else if (GeometryType::Point == pObiekt->geometryType)
             {
-                if (_CheckPolygWithPoint(pObiekt, this)) return true;
+                if (checkPolygWithPoint(pObiekt, this)) return true;
             }
             else
             {
@@ -212,7 +177,7 @@ bool Object::checkCollision(Object* pObiekt)
         {
             if (GeometryType::Polyg == pObiekt->geometryType)
             {
-                if (_CheckPolygWithPoint(this, pObiekt)) return true;
+                if (checkPolygWithPoint(this, pObiekt)) return true;
             }
             else
                 return true; // w przypadku 2 punktow przyjmyjemy przeciecie Bounds za

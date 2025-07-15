@@ -1,0 +1,38 @@
+#include "PolygWithPointCheck.hpp"
+#include "game/geom/LineIntersection.hpp"
+#include "game/geom/PointInPolygon.hpp"
+
+bool checkPolygWithPoint(const Object* point, const Object* polygon)
+{
+    BoxF o1;
+    Float x, y;
+    // take the displacement vector of the point
+    const BoxF o2{point->xp, point->yp, point->getX(), point->getY()};
+    for (unsigned int i1 = 0; i1 < polygon->verts.size(); ++i1)
+    {
+        if (0 == i1)
+        {
+            o1 = polygon->transform(BoxF(
+                polygon->verts[0].x,
+                polygon->verts[0].y,
+                polygon->verts[polygon->verts.size() - 1].x,
+                polygon->verts[polygon->verts.size() - 1].y));
+        }
+        else
+        {
+            o1 = polygon->transform(
+                BoxF{polygon->verts[i1 - 1].x, polygon->verts[i1 - 1].y, polygon->verts[i1].x, polygon->verts[i1].y});
+        }
+        if (linesIntersection(o1, o2, x, y) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            PointF pt{point->getX() - polygon->getX(), point->getY() - polygon->getY()};
+            pt = geRotate(pt, -polygon->getAlfa());
+            return isPointInPolygon(polygon->verts.size(), polygon->verts, pt.x, pt.y);
+        }
+    }
+    return false;
+}

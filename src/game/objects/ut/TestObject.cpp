@@ -1,6 +1,8 @@
 #define game_objects_Object_orig
 #include "game/objects/Object.cpp"
 
+#include "game/geom/PolygWithPointCheck.cpp" //TODO: Remove dependency to PolygWithPointCheck.cpp in tests, add mock
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 

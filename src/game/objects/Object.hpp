@@ -27,7 +27,7 @@ public:
 
     Float distance(const Object* object) const;
     void move();
-    BoxF transform(const BoxF& seg);
+    BoxF transform(const BoxF& seg) const;
     bool checkCollision(Object* pObiekt);
     void setXY(const Float x, const Float y)
     {
@@ -64,7 +64,7 @@ public:
         angle = correctAlfa(aalfa);
         alphap = angle;
     }
-    Float getAlfa() { return angle; }
+    Float getAlfa() const { return angle; }
     Float getRotSpeed() { return omega; }
     void setRotSpeed(Float omega) { omega = omega; }
     void setColor(Float aRed = 1, Float aGreen = 1, Float aBlue = 1)
