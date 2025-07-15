@@ -1,6 +1,6 @@
 #include "game/objects/Object.hpp"
-// #include <algorithm>
 #include <cassert>
+#include <gl/gl.h>
 #include "game/Consts.hpp"
 #include "game/World.hpp"
 #include "game/geom/LineIntersection.hpp"
@@ -20,6 +20,14 @@ Object::Object()
     setA(0.0);
     setV(0.0);
     KDec = 0.0;
+}
+
+Object::~Object()
+{
+    if (glList)
+    {
+        glDeleteLists(glList, 1);
+    }
 }
 
 Float Object::distance(const Object* object) const

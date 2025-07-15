@@ -4,7 +4,6 @@
 #include "ut/mocks/MockObject.hpp"
 #if USE_ORIG(game_objects_Object)
 
-#include <gl/gl.h>
 #include <list>
 #include <math.h>
 #include <windows.h>
@@ -20,10 +19,7 @@ class Object
 {
 public:
     Object();
-    virtual ~Object()
-    {
-        if (glList) glDeleteLists(glList, 1);
-    }
+    virtual ~Object();
 
     Float distance(const Object* object) const;
     void move();
