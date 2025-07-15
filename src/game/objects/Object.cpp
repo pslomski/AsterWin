@@ -178,7 +178,7 @@ bool Object::checkCollision(Object* pObiekt)
             }
             else
             {
-                return true; // przyjmyjemy przeciecie Bounds za kolizje
+                return true; // we assume intersection of Bounds as collision
             }
         }
         else if (GeometryType::Point == geometryType)
@@ -188,12 +188,13 @@ bool Object::checkCollision(Object* pObiekt)
                 if (checkPolygWithPoint(this, pObiekt)) return true;
             }
             else
-                return true; // w przypadku 2 punktow przyjmyjemy przeciecie Bounds za
-                             // kolizje
+            {
+                return true; // in the case of 2 points, we assume intersection of Bounds as collision
+            }
         }
         else
         {
-            return true; // przyjmyjemy przeciecie Bounds za kolizje
+            return true; // we assume intersection of Bounds as collision
         }
         return false;
     }
