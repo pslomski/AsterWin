@@ -3,6 +3,7 @@
 #include <cassert>
 #include "game/Consts.hpp"
 #include "game/World.hpp"
+#include "game/geom/LineIntersection.hpp"
 #include "game/geom/PointInPolygon.hpp"
 #include "utils/Tools.hpp"
 
