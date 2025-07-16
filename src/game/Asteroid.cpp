@@ -4,7 +4,7 @@
 #include "Consts.hpp"
 #include "GameConsts.hpp"
 #include "Sound.hpp"
-#include "gl/GlUtils.hpp"
+#include "gl/Utils.hpp"
 #include "utils/Tools.hpp"
 
 namespace game
