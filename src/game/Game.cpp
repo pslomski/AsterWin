@@ -8,7 +8,7 @@
 #include "World.hpp"
 #include "game/ScoreCounter.hpp"
 #include "game/objects/Objects.hpp"
-#include "utils/GlUtils.hpp"
+#include "gl/GlUtils.hpp"
 
 namespace
 {

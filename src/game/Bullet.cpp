@@ -1,7 +1,7 @@
 #include "Bullet.hpp"
 #include "Consts.hpp"
 #include "World.hpp"
-#include "utils/GlUtils.hpp"
+#include "gl/GlUtils.hpp"
 
 Bullet::Bullet() : TempObject()
 {
