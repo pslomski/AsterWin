@@ -1,5 +1,9 @@
 #pragma once
 
+#include "common/testing/mocks.hpp"
+#include "ut/mocks/MockUtils.hpp"
+#if USE_ORIG(gl_Utils)
+
 #include <gl/gl.h>
 #include "game/types/Color.hpp"
 
@@ -12,3 +16,5 @@ inline void setGlColor(const float gray)
 {
     glColor3f(gray, gray, gray);
 }
+
+#endif // USE_ORIG(gl_Utils)
