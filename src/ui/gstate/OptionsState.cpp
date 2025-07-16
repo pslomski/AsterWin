@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "MenuState.hpp"
 #include "game/World.hpp"
-#include "utils/Settings.hpp"
+#include "ui/Settings.hpp"
 
 namespace ui
 {

@@ -4,8 +4,7 @@
 #include "game/Sound.hpp"
 #include "game/World.hpp"
 #include "ui/MainWindow.hpp"
-#include "utils/Settings.hpp"
-#include "utils/Tools.hpp"
+#include "ui/Settings.hpp"
 
 Application::Application(HINSTANCE hInstance) : hInstance(hInstance)
 {

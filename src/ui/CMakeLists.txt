@@ -3,6 +3,7 @@ target_sources(${ASTER_EXE}
     Application.cpp
     Font.cpp
     MainWindow.cpp
+    Settings.cpp
     TextControl.cpp
 )
 
