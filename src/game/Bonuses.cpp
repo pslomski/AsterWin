@@ -1,7 +1,8 @@
 #include "Bonuses.hpp"
 #include "GameConsts.hpp"
-#include "Sound.hpp"
 #include "gl/Utils.hpp"
+#include "sound/Sound.hpp"
+
 
 BonusObject::BonusObject(BonusType in_Type) : TempObject(GE_BONUS_LIFETIME), bonusType(in_Type)
 {

@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Bullet.hpp"
-#include "ObjectSound.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
+#include "sound/ObjectSound.hpp"
+
 
 class Ufo : public Object
 {

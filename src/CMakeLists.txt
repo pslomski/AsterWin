@@ -30,3 +30,4 @@ target_sources(${ASTER_EXE}
 add_subdirectory(game)
 add_subdirectory(ui)
 add_subdirectory(utils)
+add_subdirectory(sound)

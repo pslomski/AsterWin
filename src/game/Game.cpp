@@ -4,11 +4,12 @@
 #include <process.h>
 #include <time.h>
 #include "GameConsts.hpp"
-#include "Sound.hpp"
 #include "World.hpp"
 #include "game/ScoreCounter.hpp"
 #include "game/objects/Objects.hpp"
 #include "gl/Utils.hpp"
+#include "sound/Sound.hpp"
+
 
 namespace
 {

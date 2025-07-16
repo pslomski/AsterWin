@@ -1,6 +1,5 @@
 #include "Sound.hpp"
 #include <stdlib.h>
-#include "World.hpp"
 
 SoundEngineBASS geSound;
 MusicEngineBASS geMusic;

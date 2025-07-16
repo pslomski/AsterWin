@@ -2,9 +2,10 @@
 #include <algorithm>
 #include "Consts.hpp"
 #include "GameConsts.hpp"
-#include "Sound.hpp"
 #include "World.hpp"
 #include "gl/Utils.hpp"
+#include "sound/Sound.hpp"
+
 
 PowerUp::PowerUp(Float in_Duration) : m_bActive(false)
 {

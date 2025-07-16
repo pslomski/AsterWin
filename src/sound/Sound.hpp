@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ObjectSound.hpp"
 #include "bass.h"
+#include "sound/ObjectSound.hpp"
 
 #define NUM_BUFFERS 12
 #define NUM_SOURCES 12
@@ -47,9 +47,9 @@ public:
     virtual float GetVolume() { return m_Volume; } // gloscnosc dzwiekow w skali 0-1. 0 oznacza wylaczona
     virtual void Mute() = 0;
     virtual void Unmute() = 0;
-    virtual void Play(){};
-    virtual void Pause(){};
-    virtual void Stop(){};
+    virtual void Play() {};
+    virtual void Pause() {};
+    virtual void Stop() {};
 
 protected:
     bool m_bPause;
