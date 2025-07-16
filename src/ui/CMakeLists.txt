@@ -8,3 +8,4 @@ target_sources(${ASTER_EXE}
 )
 
 add_subdirectory(gstate)
+add_subdirectory(ut)

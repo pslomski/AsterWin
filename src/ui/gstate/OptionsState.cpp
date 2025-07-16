@@ -186,5 +186,4 @@ void OptionsState::rightArrow()
             break;
     }
 }
-
 } // namespace ui

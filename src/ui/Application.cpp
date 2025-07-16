@@ -15,6 +15,8 @@ Application::Application(HINSTANCE hInstance) : hInstance(hInstance)
     settings.load();
     geWorld.soundVol = settings.soundVol;
     geWorld.musicVol = settings.musicVol;
+    geMusic.SetVolume(0.1f * geWorld.soundVol);
+    geSound.SetVolume(0.1f * geWorld.musicVol);
     geWorld.scrHeight = std::min(geWorld.scrHeight, int(0.80 * GetSystemMetrics(SM_CYSCREEN)));
     geWorld.scrWidth = geWorld.scrHeight;
 }
