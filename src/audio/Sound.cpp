@@ -3,21 +3,19 @@
 
 namespace audio
 {
-SoundEngineBASS geSound;
-MusicEngineBASS geMusic;
-
 #define MAX_CHANNEL_COUNT 5
 
 SoundEngineBASS::SoundEngineBASS() : AudioController()
 {
     m_bSamplesLoaded = false;
     for (int i = 0; i < NUM_BUFFERS; ++i)
+    {
         Sample[i] = 0;
+    }
 }
 
 bool SoundEngineBASS::open()
 {
-    // Initialize the default output device with 3D support
     BASS_Init(-1, 44100, BASS_DEVICE_3D, NULL, NULL);
     return initSound();
 }

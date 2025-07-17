@@ -61,5 +61,3 @@ public:
 
 inline audio::MusicEngineBASS geMusic;
 inline audio::SoundEngineBASS geSound;
-// extern audio::MusicEngineBASS geMusic;
-// extern audio::SoundEngineBASS geSound;
