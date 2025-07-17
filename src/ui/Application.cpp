@@ -9,22 +9,22 @@
 Application::Application(HINSTANCE hInstance) : hInstance(hInstance)
 {
     AddFontResourceEx("Vectorb.ttf", FR_PRIVATE, 0);
-    geSound.Open();
-    geMusic.Open();
+    geSound.open();
+    geMusic.open();
     Settings settings;
     settings.load();
     geWorld.soundVol = settings.soundVol;
     geWorld.musicVol = settings.musicVol;
-    geMusic.SetVolume(0.1f * geWorld.soundVol);
-    geSound.SetVolume(0.1f * geWorld.musicVol);
+    geMusic.setVolume(0.1f * geWorld.soundVol);
+    geSound.setVolume(0.1f * geWorld.musicVol);
     geWorld.scrHeight = std::min(geWorld.scrHeight, int(0.80 * GetSystemMetrics(SM_CYSCREEN)));
     geWorld.scrWidth = geWorld.scrHeight;
 }
 
 Application::~Application()
 {
-    geSound.Close();
-    geMusic.Close();
+    geSound.close();
+    geMusic.close();
     RemoveFontResource("Vectorb.ttf");
 }
 

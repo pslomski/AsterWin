@@ -158,7 +158,7 @@ void Game::update()
 
 void Game::clear()
 {
-    geSound.Stop();
+    geSound.stop();
     for (int i = 0; i < 256; ++i)
         key[i] = false;
     for (int i = 0; i < 256; ++i)
@@ -237,8 +237,8 @@ bool Game::reset()
     PointF pt = geWorld.getCenter();
     ship = new Ship(pt.x, pt.y, 90.0);
     generateBackground();
-    geSound.Unmute();
-    geMusic.Stop();
+    geSound.unmute();
+    geMusic.stop();
     tiBroomSound.reset(5.0);
     bPitchBroomSound = false;
     tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
@@ -296,7 +296,7 @@ void Game::processUserInput()
 void threadStartMusic(void* p)
 {
     Sleep(1000);
-    geMusic.Play(TRUE);
+    geMusic.play(TRUE);
 }
 
 void Game::analyzeGameState()
@@ -420,7 +420,10 @@ void Game::analyzeGameState()
             }
             break;
         case GameState::GameOver:
-            if (tiPause.inc(Object::dt)) geSound.Stop();
+            if (tiPause.inc(Object::dt))
+            {
+                geSound.stop();
+            }
             break;
     }
 }

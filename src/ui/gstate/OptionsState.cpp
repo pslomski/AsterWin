@@ -109,8 +109,8 @@ void OptionsState::draw()
 
     mTitleText->draw();
 
-    int musicVol = int(ceil(10 * geMusic.GetVolume()));
-    int soundVol = int(ceil(10 * geSound.GetVolume()));
+    int musicVol = int(ceil(10 * geMusic.getVolume()));
+    int soundVol = int(ceil(10 * geSound.getVolume()));
     sprintf_s(buf, BUF_SIZE, "Music volume: %d", musicVol);
     mMusicVolText->setText(std::string(buf).c_str());
     mMusicVolText->draw();
@@ -161,12 +161,12 @@ void OptionsState::leftArrow()
     {
         case 0:
             geWorld.musicVol = std::max(0, geWorld.musicVol - 1);
-            geMusic.SetVolume(0.1f * geWorld.musicVol);
+            geMusic.setVolume(0.1f * geWorld.musicVol);
             break;
         case 1:
             geWorld.soundVol = std::max(0, geWorld.soundVol - 1);
-            geSound.SetVolume(0.1f * geWorld.soundVol);
-            geSound.SoundTest();
+            geSound.setVolume(0.1f * geWorld.soundVol);
+            geSound.soundTest();
             break;
     }
 }
@@ -177,12 +177,12 @@ void OptionsState::rightArrow()
     {
         case 0:
             geWorld.musicVol = std::min(10, geWorld.musicVol + 1);
-            geMusic.SetVolume(0.1f * geWorld.musicVol);
+            geMusic.setVolume(0.1f * geWorld.musicVol);
             break;
         case 1:
             geWorld.soundVol = std::min(10, geWorld.soundVol + 1);
-            geSound.SetVolume(0.1f * geWorld.soundVol);
-            geSound.SoundTest();
+            geSound.setVolume(0.1f * geWorld.soundVol);
+            geSound.soundTest();
             break;
     }
 }

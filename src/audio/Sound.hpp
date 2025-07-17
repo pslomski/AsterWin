@@ -42,21 +42,21 @@ private:
     bool m_bSamplesLoaded;
     ObjectSound m_sndTest; // setting sound volume in Options menu
 protected:
-    bool InitSound();
-    void FreeSound();
+    bool initSound() override;
+    void freeSound() override;
 
 public:
     SoundEngineBASS();
-    bool Open();
-    void Close();
-    void SetVolume(float in_Vol);
-    void Mute();
-    void Unmute();
-    void Play();
-    void Pause();
-    void Stop();
-    void SoundTest();
-    HSAMPLE GetSample(int ID) { return Sample[ID]; }
+    bool open() override;
+    void close() override;
+    void setVolume(const float volumeNew) override;
+    void mute() override;
+    void unmute() override;
+    void play() override;
+    void pause() override;
+    void stop() override;
+    void soundTest();
+    HSAMPLE getSample(int id) { return Sample[id]; }
 };
 
 class MusicEngineBASS : public AudioController
@@ -66,21 +66,21 @@ private:
     HCHANNEL m_Channel;
 
 protected:
-    bool InitSound();
-    void FreeSound();
+    bool initSound() override;
+    void freeSound() override;
 
 public:
     MusicEngineBASS();
-    bool Open();
-    void Close();
-    void SetVolume(float in_Vol);
-    void Mute();
-    void Unmute();
-    void Play(BOOL in_bRestart = false);
-    void Pause();
-    void Stop();
-    void SlideVol(float in_NewVol, DWORD in_Time);
-    bool IsStarted();
+    bool open() override;
+    void close() override;
+    void setVolume(const float volumeNew) override;
+    void mute() override;
+    void unmute() override;
+    void play(BOOL in_bRestart = false);
+    void pause() override;
+    void stop() override;
+    void slideVol(float in_NewVol, DWORD in_Time);
+    bool isStarted();
 };
 } // namespace audio
 

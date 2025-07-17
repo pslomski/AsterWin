@@ -15,20 +15,20 @@ SoundEngineBASS::SoundEngineBASS() : AudioController()
         Sample[i] = 0;
 }
 
-bool SoundEngineBASS::Open()
+bool SoundEngineBASS::open()
 {
     // Initialize the default output device with 3D support
     BASS_Init(-1, 44100, BASS_DEVICE_3D, NULL, NULL);
-    return InitSound();
+    return initSound();
 }
 
-void SoundEngineBASS::Close()
+void SoundEngineBASS::close()
 {
-    FreeSound();
+    freeSound();
     BASS_Free();
 }
 
-bool SoundEngineBASS::InitSound()
+bool SoundEngineBASS::initSound()
 {
     if (m_bSamplesLoaded) return true;
 
@@ -56,7 +56,7 @@ bool SoundEngineBASS::InitSound()
     return true;
 }
 
-void SoundEngineBASS::FreeSound()
+void SoundEngineBASS::freeSound()
 {
     if (!m_bSamplesLoaded) return;
     for (int i = 0; i < NUM_BUFFERS; ++i)
@@ -67,12 +67,12 @@ void SoundEngineBASS::FreeSound()
     m_bSamplesLoaded = false;
 }
 
-void SoundEngineBASS::SoundTest()
+void SoundEngineBASS::soundTest()
 {
     m_sndTest.Play();
 }
 
-void SoundEngineBASS::Play()
+void SoundEngineBASS::play()
 {
     HCHANNEL ch[MAX_CHANNEL_COUNT];
     DWORD iCount;
@@ -81,13 +81,13 @@ void SoundEngineBASS::Play()
         iCount = BASS_SampleGetChannels(Sample[i], ch);
         for (DWORD j = 0; j < iCount; ++j)
         {
-            BASS_ChannelPlay(ch[j], !m_bPause);
+            BASS_ChannelPlay(ch[j], not isPause);
         }
     }
-    m_bPause = false;
+    isPause = false;
 }
 
-void SoundEngineBASS::Pause()
+void SoundEngineBASS::pause()
 {
     HCHANNEL ch[MAX_CHANNEL_COUNT];
     DWORD iCount;
@@ -99,30 +99,30 @@ void SoundEngineBASS::Pause()
             BASS_ChannelPause(ch[j]);
         }
     }
-    m_bPause = true;
+    isPause = true;
 }
 
-void SoundEngineBASS::Stop()
+void SoundEngineBASS::stop()
 {
     for (int i = 0; i < NUM_SOURCES; ++i)
         BASS_SampleStop(Sample[i]);
-    m_bPause = false;
+    isPause = false;
 }
 
-void SoundEngineBASS::SetVolume(float in_Vol)
+void SoundEngineBASS::setVolume(const float volumeNew)
 {
-    m_Volume = in_Vol;
-    BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(m_Volume * 10000));
+    volume = volumeNew;
+    BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(volume * 10000));
 }
 
-void SoundEngineBASS::Mute()
+void SoundEngineBASS::mute()
 {
     BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, 0);
 }
 
-void SoundEngineBASS::Unmute()
+void SoundEngineBASS::unmute()
 {
-    BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(m_Volume * 10000));
+    BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(volume * 10000));
 }
 
 MusicEngineBASS::MusicEngineBASS() : AudioController()
@@ -131,82 +131,84 @@ MusicEngineBASS::MusicEngineBASS() : AudioController()
     m_hMus = 0;
 }
 
-bool MusicEngineBASS::Open()
+bool MusicEngineBASS::open()
 {
-    // Initialize the default output device with 3D support
     BASS_Init(-1, 44100, BASS_DEVICE_3D, NULL, NULL);
-    return InitSound();
+    return initSound();
 }
 
-void MusicEngineBASS::Close()
+void MusicEngineBASS::close()
 {
-    FreeSound();
+    freeSound();
     BASS_Free();
 }
 
-bool MusicEngineBASS::InitSound()
+bool MusicEngineBASS::initSound()
 {
     if (m_hMus) return true;
-
-    // m_hMus=BASS_MusicLoad(false, "sound/bwv1052a.it", 0, 0, BASS_SAMPLE_LOOP,
-    // 0);
     m_hMus = BASS_StreamCreateFile(false, "sound/BWV1052.ogg", 0, 0, BASS_SAMPLE_LOOP);
     if (m_hMus) BASS_ChannelSetAttribute(m_hMus, BASS_ATTRIB_VOL, 0.4f);
     return true;
 }
 
-void MusicEngineBASS::FreeSound()
+void MusicEngineBASS::freeSound()
 {
-    if (!m_hMus) return;
-
-    // BASS_MusicFree(m_hMus);
-    BASS_StreamFree(m_hMus);
-
-    m_hMus = 0;
+    if (m_hMus)
+    {
+        BASS_StreamFree(m_hMus);
+        m_hMus = 0;
+    }
 }
 
-void MusicEngineBASS::SetVolume(float in_Vol)
+void MusicEngineBASS::setVolume(const float volumeNew)
 {
-    m_Volume = in_Vol;
-    BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, DWORD(m_Volume * 10000));
-    BASS_SetConfig(BASS_CONFIG_GVOL_STREAM, DWORD(m_Volume * 10000));
+    volume = volumeNew;
+    BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, DWORD(volume * 10000));
+    BASS_SetConfig(BASS_CONFIG_GVOL_STREAM, DWORD(volume * 10000));
 }
 
-void MusicEngineBASS::Play(BOOL in_bRestart)
+void MusicEngineBASS::play(BOOL in_bRestart)
 {
-    if (!m_hMus) return;
-    //	if(!m_Channel)
-    m_Channel = BASS_ChannelPlay(m_hMus, in_bRestart);
+    if (m_hMus)
+    {
+        m_Channel = BASS_ChannelPlay(m_hMus, in_bRestart);
+    }
 }
 
-void MusicEngineBASS::Pause()
+void MusicEngineBASS::pause()
 {
-    if (m_Channel) BASS_ChannelPause(m_hMus);
+    if (m_Channel)
+    {
+        BASS_ChannelPause(m_hMus);
+    }
 }
 
-void MusicEngineBASS::Stop()
+void MusicEngineBASS::stop()
 {
-    if (m_Channel) BASS_ChannelStop(m_hMus);
-    m_Channel = 0;
+    if (m_Channel)
+    {
+        BASS_ChannelStop(m_hMus);
+        m_Channel = 0;
+    }
 }
 
-void MusicEngineBASS::Mute()
+void MusicEngineBASS::mute()
 {
     BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, 0);
 }
 
-void MusicEngineBASS::Unmute()
+void MusicEngineBASS::unmute()
 {
-    BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, DWORD(m_Volume * 10000));
+    BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, DWORD(volume * 10000));
 }
 
-void MusicEngineBASS::SlideVol(float in_NewVol, DWORD in_Time)
+void MusicEngineBASS::slideVol(float in_NewVol, DWORD in_Time)
 {
     if (BASS_ChannelIsActive(m_Channel) == BASS_ACTIVE_STOPPED) return;
     BASS_ChannelSlideAttribute(m_Channel, BASS_ATTRIB_VOL, in_NewVol, in_Time);
 }
 
-bool MusicEngineBASS::IsStarted()
+bool MusicEngineBASS::isStarted()
 {
     DWORD r = BASS_ChannelIsActive(m_hMus);
     return r != BASS_ACTIVE_STOPPED;

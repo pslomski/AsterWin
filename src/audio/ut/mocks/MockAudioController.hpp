@@ -8,22 +8,22 @@ namespace audio
 class AudioController
 {
 public:
-    virtual ~AudioController() { Close(); }
-    virtual bool Open() = 0;
-    virtual void Close() {}
-    virtual void SetVolume(float in_Vol) { m_Volume = in_Vol; }
-    virtual float GetVolume() { return m_Volume; }
-    virtual void Mute() = 0;
-    virtual void Unmute() = 0;
-    virtual void Play() {};
-    virtual void Pause() {};
-    virtual void Stop() {};
+    virtual ~AudioController() {}
+    virtual bool open() = 0;
+    virtual void close() {}
+    virtual void setVolume(const float) {}
+    virtual float getVolume() const { return volume; }
+    virtual void mute() = 0;
+    virtual void unmute() = 0;
+    virtual void play() {};
+    virtual void pause() {};
+    virtual void stop() {};
 
 protected:
-    bool m_bPause{false};
-    float m_Volume{1.0f}; // range 0.0f - 1.0f
-    virtual bool InitSound() = 0;
-    virtual void FreeSound() = 0;
+    bool isPause{false};
+    float volume{1.0f}; // range 0.0f - 1.0f
+    virtual bool initSound() = 0;
+    virtual void freeSound() = 0;
 };
 } // namespace audio
 
