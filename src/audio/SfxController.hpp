@@ -5,33 +5,33 @@
 #if USE_ORIG(audio_SfxController)
 
 #include <bass.h>
-#include "audio/AudioController.hpp"
 #include "audio/ObjectSound.hpp"
 
 #define NUM_BUFFERS 12
 
 namespace audio
 {
-class SoundEngineBASS : public AudioController
+class SoundEngineBASS
 {
 private:
+    bool isPause{false};
+    float volume{1.0f}; // range 0.0f - 1.0f
     HSAMPLE Sample[NUM_BUFFERS];
     bool m_bSamplesLoaded;
     ObjectSound m_sndTest; // setting sound volume in Options menu
 protected:
-    bool initSound() override;
-    void freeSound() override;
+    bool initSound();
+    void freeSound();
 
 public:
     SoundEngineBASS();
-    bool open() override;
-    void close() override;
-    void setVolume(const float volumeNew) override;
-    void mute() override;
-    void unmute() override;
-    void play() override;
-    void pause() override;
-    void stop() override;
+    bool open();
+    void close();
+    void setVolume(const float volumeNew);
+    float getVolume() const { return volume; }
+    void mute();
+    void unmute();
+    void stop();
     void soundTest();
     HSAMPLE getSample(int id) { return Sample[id]; }
 };

@@ -6,7 +6,7 @@
 
 namespace audio
 {
-SoundEngineBASS::SoundEngineBASS() : AudioController()
+SoundEngineBASS::SoundEngineBASS()
 {
     m_bSamplesLoaded = false;
     for (int i = 0; i < NUM_BUFFERS; ++i)
@@ -71,36 +71,6 @@ void SoundEngineBASS::soundTest()
     m_sndTest.Play();
 }
 
-void SoundEngineBASS::play()
-{
-    HCHANNEL ch[MAX_CHANNEL_COUNT];
-    DWORD iCount;
-    for (int i = 0; i < NUM_SOURCES; ++i)
-    {
-        iCount = BASS_SampleGetChannels(Sample[i], ch);
-        for (DWORD j = 0; j < iCount; ++j)
-        {
-            BASS_ChannelPlay(ch[j], not isPause);
-        }
-    }
-    isPause = false;
-}
-
-void SoundEngineBASS::pause()
-{
-    HCHANNEL ch[MAX_CHANNEL_COUNT];
-    DWORD iCount;
-    for (int i = 0; i < NUM_SOURCES; ++i)
-    {
-        iCount = BASS_SampleGetChannels(Sample[i], ch);
-        for (DWORD j = 0; j < iCount; ++j)
-        {
-            BASS_ChannelPause(ch[j]);
-        }
-    }
-    isPause = true;
-}
-
 void SoundEngineBASS::stop()
 {
     for (int i = 0; i < NUM_SOURCES; ++i)
@@ -123,5 +93,4 @@ void SoundEngineBASS::unmute()
 {
     BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(volume * 10000));
 }
-
 } // namespace audio
