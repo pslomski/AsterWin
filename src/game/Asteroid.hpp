@@ -2,10 +2,9 @@
 
 #include <list>
 #include "Bonuses.hpp"
+#include "audio/ObjectSound.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
-#include "sound/ObjectSound.hpp"
-
 
 namespace game
 {

@@ -5,11 +5,10 @@
 #include <time.h>
 #include "GameConsts.hpp"
 #include "World.hpp"
+#include "audio/Sound.hpp"
 #include "game/ScoreCounter.hpp"
 #include "game/objects/Objects.hpp"
 #include "gl/Utils.hpp"
-#include "sound/Sound.hpp"
-
 
 namespace
 {

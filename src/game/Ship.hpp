@@ -4,14 +4,13 @@
 #include <math.h>
 #include <windows.h>
 #include "Bullet.hpp"
+#include "audio/ObjectSound.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
-#include "sound/ObjectSound.hpp"
 #include "types/BonusType.hpp"
 #include "types/Color.hpp"
 #include "utils/TimeInterval.hpp"
 #include "utils/Tools.hpp"
-
 
 class Ship;
 

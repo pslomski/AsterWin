@@ -1,7 +1,7 @@
 #pragma once
 
+#include "audio/ObjectSound.hpp"
 #include "bass.h"
-#include "sound/ObjectSound.hpp"
 
 #define NUM_BUFFERS 12
 #define NUM_SOURCES 12

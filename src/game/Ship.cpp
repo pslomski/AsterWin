@@ -3,9 +3,8 @@
 #include "Consts.hpp"
 #include "GameConsts.hpp"
 #include "World.hpp"
+#include "audio/Sound.hpp"
 #include "gl/Utils.hpp"
-#include "sound/Sound.hpp"
-
 
 PowerUp::PowerUp(Float in_Duration) : m_bActive(false)
 {

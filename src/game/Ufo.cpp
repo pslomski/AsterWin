@@ -1,9 +1,8 @@
 #include "Ufo.hpp"
 #include "Consts.hpp"
 #include "GameConsts.hpp"
+#include "audio/Sound.hpp"
 #include "gl/Utils.hpp"
-#include "sound/Sound.hpp"
-
 
 Ufo::Ufo() : Object()
 {

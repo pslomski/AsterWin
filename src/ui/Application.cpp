@@ -1,11 +1,10 @@
 #include "Application.hpp"
 #include <algorithm>
 #include <math.h>
+#include "audio/Sound.hpp"
 #include "game/World.hpp"
-#include "sound/Sound.hpp"
 #include "ui/MainWindow.hpp"
 #include "ui/Settings.hpp"
-
 
 Application::Application(HINSTANCE hInstance) : hInstance(hInstance)
 {

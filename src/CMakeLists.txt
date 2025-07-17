@@ -27,7 +27,7 @@ target_sources(${ASTER_EXE}
     Asteroids.cpp
 )
 
+add_subdirectory(audio)
 add_subdirectory(game)
 add_subdirectory(ui)
 add_subdirectory(utils)
-add_subdirectory(sound)

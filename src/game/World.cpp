@@ -1,6 +1,6 @@
 #include "World.hpp"
 #include "GameConsts.hpp"
-#include "sound/Sound.hpp"
+#include "audio/Sound.hpp"
 
 World geWorld;
 
