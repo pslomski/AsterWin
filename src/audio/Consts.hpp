@@ -1,0 +1,29 @@
+#pragma once
+
+// sfx indices
+#define SND_SHIP_ENGINE 0
+#define SND_SHIP_FIRE 1
+#define SND_SHIP_CRASH 2
+#define SND_ASTER_CRASH1 3
+#define SND_ASTER_CRASH2 4
+#define SND_ASTER_CRASH3 5
+#define SND_UFO_ENGINE 6
+#define SND_START_BEEP 7
+#define SND_BONUS_BEEP 8
+#define SND_BROOM 9
+#define SND_POWERUP 10
+#define SND_SHIP_FIRE_POWER 11
+
+// sfx volumes
+#define SND_VOL_SHIP_ENGINE 0.7f
+#define SND_VOL_SHIP_FIRE 0.5f
+#define SND_VOL_SHIP_CRASH 1.0f
+#define SND_VOL_ASTER_CRASH1 1.0f
+#define SND_VOL_ASTER_CRASH2 0.9f
+#define SND_VOL_ASTER_CRASH3 1.0f
+#define SND_VOL_UFO_ENGINE 0.4f
+#define SND_VOL_START_BEEP 0.7f
+#define SND_VOL_BONUS_BEEP 0.4f
+#define SND_VOL_BROOM 0.4f
+#define SND_VOL_POWERUP 0.5f
+#define SND_VOL_SHIP_FIRE_POWER 0.4f
