@@ -3,8 +3,6 @@
 #include <bass.h>
 #include "SfxController.hpp"
 #include "audio/AudioController.hpp"
-#include "audio/Consts.hpp"
-#include "audio/ObjectSound.hpp"
 
 namespace audio
 {

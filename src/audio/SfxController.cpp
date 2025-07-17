@@ -6,69 +6,22 @@
 
 namespace audio
 {
-SfxController::SfxController()
-{
-    m_bSamplesLoaded = false;
-    for (int i = 0; i < NUM_BUFFERS; ++i)
-    {
-        Sample[i] = 0;
-    }
-}
-
 bool SfxController::open()
 {
     BASS_Init(-1, 44100, BASS_DEVICE_3D, NULL, NULL);
-    return initSound();
+    samples.init();
+    return true;
 }
 
 void SfxController::close()
 {
-    freeSound();
+    samples.free();
     BASS_Free();
-}
-
-bool SfxController::initSound()
-{
-    if (m_bSamplesLoaded) return true;
-
-    Sample[SND_SHIP_ENGINE] =
-        BASS_SampleLoad(FALSE, "sound/ShipEngine.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL | BASS_SAMPLE_LOOP);
-    Sample[SND_SHIP_FIRE] = BASS_SampleLoad(FALSE, "sound/ShipFire.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_SHIP_CRASH] = BASS_SampleLoad(FALSE, "sound/ShipCrash.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_ASTER_CRASH1] =
-        BASS_SampleLoad(FALSE, "sound/AsterCrash1.ogg", 0, 0, MAX_CHANNEL_COUNT, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_ASTER_CRASH2] =
-        BASS_SampleLoad(FALSE, "sound/AsterCrash2.ogg", 0, 0, MAX_CHANNEL_COUNT, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_ASTER_CRASH3] =
-        BASS_SampleLoad(FALSE, "sound/AsterCrash3.ogg", 0, 0, MAX_CHANNEL_COUNT, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_UFO_ENGINE] =
-        BASS_SampleLoad(FALSE, "sound/UfoEngine.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL | BASS_SAMPLE_LOOP);
-    Sample[SND_START_BEEP] = BASS_SampleLoad(FALSE, "sound/StartBeep.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_BONUS_BEEP] =
-        BASS_SampleLoad(FALSE, "sound/BonusBeep.ogg", 0, 0, MAX_CHANNEL_COUNT, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_BROOM] = BASS_SampleLoad(FALSE, "sound/Broom.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_POWERUP] = BASS_SampleLoad(FALSE, "sound/PowerUp.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL);
-    Sample[SND_SHIP_FIRE_POWER] = BASS_SampleLoad(FALSE, "sound/ShipFirePower.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL);
-
-    m_bSamplesLoaded = true;
-    return true;
-}
-
-void SfxController::freeSound()
-{
-    if (!m_bSamplesLoaded) return;
-    for (int i = 0; i < NUM_BUFFERS; ++i)
-    {
-        BASS_SampleFree(Sample[i]);
-        Sample[i] = 0;
-    }
-    m_bSamplesLoaded = false;
 }
 
 void SfxController::stop()
 {
-    for (int i = 0; i < NUM_SOURCES; ++i)
-        BASS_SampleStop(Sample[i]);
+    samples.stop();
     isPause = false;
 }
 
