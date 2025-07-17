@@ -1,6 +1,7 @@
 #pragma once
 
 #include "State.hpp"
+#include "audio/ObjectSound.hpp"
 #include "ui/Font.hpp"
 #include "ui/TextControl.hpp"
 
@@ -27,6 +28,7 @@ private:
     TextControl* mTitleText;
     TextControl* mMusicVolText;
     TextControl* mSoundVolText;
+    ObjectSound sndTest;
 
     void selectionUp();
     void selectionDown();

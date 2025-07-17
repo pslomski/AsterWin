@@ -50,7 +50,6 @@ bool SfxController::initSound()
     Sample[SND_POWERUP] = BASS_SampleLoad(FALSE, "sound/PowerUp.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL);
     Sample[SND_SHIP_FIRE_POWER] = BASS_SampleLoad(FALSE, "sound/ShipFirePower.ogg", 0, 0, 1, BASS_SAMPLE_OVER_VOL);
 
-    m_sndTest.Init(SND_SHIP_FIRE, SND_VOL_SHIP_FIRE);
     m_bSamplesLoaded = true;
     return true;
 }
@@ -64,11 +63,6 @@ void SfxController::freeSound()
         Sample[i] = 0;
     }
     m_bSamplesLoaded = false;
-}
-
-void SfxController::soundTest()
-{
-    m_sndTest.Play();
 }
 
 void SfxController::stop()
