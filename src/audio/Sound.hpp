@@ -34,4 +34,4 @@ public:
 } // namespace audio
 
 inline audio::MusicEngineBASS geMusic;
-inline audio::SoundEngineBASS geSound;
+inline audio::SfxController geSound;

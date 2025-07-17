@@ -5,7 +5,9 @@
 
 namespace audio
 {
-
+class SfxController
+{
+};
 } // namespace audio
 
 #endif // audio_SfxController

@@ -11,7 +11,7 @@
 
 namespace audio
 {
-class SoundEngineBASS
+class SfxController
 {
 private:
     bool isPause{false};
@@ -24,7 +24,7 @@ protected:
     void freeSound();
 
 public:
-    SoundEngineBASS();
+    SfxController();
     bool open();
     void close();
     void setVolume(const float volumeNew);

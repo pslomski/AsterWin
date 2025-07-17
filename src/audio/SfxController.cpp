@@ -6,7 +6,7 @@
 
 namespace audio
 {
-SoundEngineBASS::SoundEngineBASS()
+SfxController::SfxController()
 {
     m_bSamplesLoaded = false;
     for (int i = 0; i < NUM_BUFFERS; ++i)
@@ -15,19 +15,19 @@ SoundEngineBASS::SoundEngineBASS()
     }
 }
 
-bool SoundEngineBASS::open()
+bool SfxController::open()
 {
     BASS_Init(-1, 44100, BASS_DEVICE_3D, NULL, NULL);
     return initSound();
 }
 
-void SoundEngineBASS::close()
+void SfxController::close()
 {
     freeSound();
     BASS_Free();
 }
 
-bool SoundEngineBASS::initSound()
+bool SfxController::initSound()
 {
     if (m_bSamplesLoaded) return true;
 
@@ -55,7 +55,7 @@ bool SoundEngineBASS::initSound()
     return true;
 }
 
-void SoundEngineBASS::freeSound()
+void SfxController::freeSound()
 {
     if (!m_bSamplesLoaded) return;
     for (int i = 0; i < NUM_BUFFERS; ++i)
@@ -66,30 +66,30 @@ void SoundEngineBASS::freeSound()
     m_bSamplesLoaded = false;
 }
 
-void SoundEngineBASS::soundTest()
+void SfxController::soundTest()
 {
     m_sndTest.Play();
 }
 
-void SoundEngineBASS::stop()
+void SfxController::stop()
 {
     for (int i = 0; i < NUM_SOURCES; ++i)
         BASS_SampleStop(Sample[i]);
     isPause = false;
 }
 
-void SoundEngineBASS::setVolume(const float volumeNew)
+void SfxController::setVolume(const float volumeNew)
 {
     volume = volumeNew;
     BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(volume * 10000));
 }
 
-void SoundEngineBASS::mute()
+void SfxController::mute()
 {
     BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, 0);
 }
 
-void SoundEngineBASS::unmute()
+void SfxController::unmute()
 {
     BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(volume * 10000));
 }
