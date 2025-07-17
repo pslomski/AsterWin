@@ -1,12 +1,14 @@
 #include "Sound.hpp"
 #include <stdlib.h>
 
+namespace audio
+{
 SoundEngineBASS geSound;
 MusicEngineBASS geMusic;
 
 #define MAX_CHANNEL_COUNT 5
 
-SoundEngineBASS::SoundEngineBASS() : SoundEngineBase()
+SoundEngineBASS::SoundEngineBASS() : AudioController()
 {
     m_bSamplesLoaded = false;
     for (int i = 0; i < NUM_BUFFERS; ++i)
@@ -123,7 +125,7 @@ void SoundEngineBASS::Unmute()
     BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(m_Volume * 10000));
 }
 
-MusicEngineBASS::MusicEngineBASS() : SoundEngineBase()
+MusicEngineBASS::MusicEngineBASS() : AudioController()
 {
     m_Channel = 0;
     m_hMus = 0;
@@ -209,5 +211,4 @@ bool MusicEngineBASS::IsStarted()
     DWORD r = BASS_ChannelIsActive(m_hMus);
     return r != BASS_ACTIVE_STOPPED;
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////
+} // namespace audio

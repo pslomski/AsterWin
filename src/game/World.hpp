@@ -1,5 +1,9 @@
 #pragma once
 
+#include "common/testing/mocks.hpp"
+#include "ut/mocks/MockWorld.hpp"
+#if USE_ORIG(game_World)
+
 #include <windows.h>
 #include "types/Bounds.hpp"
 #include "types/Point.hpp"
@@ -40,3 +44,5 @@ public:
 };
 
 extern World geWorld;
+
+#endif // game_World

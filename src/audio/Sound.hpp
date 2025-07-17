@@ -1,5 +1,6 @@
 #pragma once
 
+#include "audio/AudioController.hpp"
 #include "audio/ObjectSound.hpp"
 #include "bass.h"
 
@@ -32,33 +33,9 @@
 #define SND_VOL_POWERUP 0.5f
 #define SND_VOL_SHIP_FIRE_POWER 0.4f
 
-class SoundEngineBase
+namespace audio
 {
-public:
-    SoundEngineBase()
-    {
-        m_Volume = 1.0;
-        m_bPause = false;
-    }
-    virtual ~SoundEngineBase() { Close(); }
-    virtual bool Open() = 0;
-    virtual void Close() {}
-    virtual void SetVolume(float in_Vol) { m_Volume = in_Vol; } // ustawia glosnosc dzwiekow w skali 0-1.
-    virtual float GetVolume() { return m_Volume; } // gloscnosc dzwiekow w skali 0-1. 0 oznacza wylaczona
-    virtual void Mute() = 0;
-    virtual void Unmute() = 0;
-    virtual void Play() {};
-    virtual void Pause() {};
-    virtual void Stop() {};
-
-protected:
-    bool m_bPause;
-    float m_Volume;
-    virtual bool InitSound() = 0;
-    virtual void FreeSound() = 0;
-};
-
-class SoundEngineBASS : public SoundEngineBase
+class SoundEngineBASS : public AudioController
 {
 private:
     HSAMPLE Sample[NUM_BUFFERS];
@@ -82,7 +59,7 @@ public:
     HSAMPLE GetSample(int ID) { return Sample[ID]; }
 };
 
-class MusicEngineBASS : public SoundEngineBase
+class MusicEngineBASS : public AudioController
 {
 private:
     HSTREAM m_hMus;
@@ -105,6 +82,9 @@ public:
     void SlideVol(float in_NewVol, DWORD in_Time);
     bool IsStarted();
 };
+} // namespace audio
 
-extern MusicEngineBASS geMusic;
-extern SoundEngineBASS geSound;
+inline audio::MusicEngineBASS geMusic;
+inline audio::SoundEngineBASS geSound;
+// extern audio::MusicEngineBASS geMusic;
+// extern audio::SoundEngineBASS geSound;
