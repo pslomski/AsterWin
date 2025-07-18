@@ -5,7 +5,6 @@
 #include <map>
 #include "audio/Consts.hpp"
 
-
 namespace audio
 {
 using Flags = uint32_t;

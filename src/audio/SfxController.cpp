@@ -1,5 +1,4 @@
 #include "SfxController.hpp"
-#include "audio/Consts.hpp"
 
 #define MAX_CHANNEL_COUNT 5
 #define NUM_SOURCES 12

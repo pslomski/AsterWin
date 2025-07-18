@@ -7,8 +7,6 @@
 #include <bass.h>
 #include "audio/SfxSamples.hpp"
 
-// #define NUM_BUFFERS 12
-
 namespace audio
 {
 class SfxController
