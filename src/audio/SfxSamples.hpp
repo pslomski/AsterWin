@@ -1,14 +1,16 @@
 #pragma once
 
+#include "common/testing/mocks.hpp"
+#include "ut/mocks/MockSfxSamples.hpp"
+#if USE_ORIG(audio_SfxSamples)
+
 #include <bass.h>
-#include <cstdint>
 #include <map>
+#include "audio/SampleFlags.hpp"
 #include "audio/SampleId.hpp"
 
 namespace audio
 {
-using Flags = uint32_t;
-
 class SfxSamples
 {
 public:
@@ -20,9 +22,10 @@ public:
     HSAMPLE getSample(const SampleId id) { return samples[id]; }
 
 private:
-    void addSample(const SampleId sampleId, const char* name, const Flags flags = 0);
+    void addSample(const SampleId sampleId, const char* name, const SampleFlags flags = 0);
 
-    using Samples = std::map<SampleId, HSAMPLE>;
-    Samples samples;
+    std::map<SampleId, HSAMPLE> samples;
 };
 } // namespace audio
+
+#endif // audio_SfxSamples

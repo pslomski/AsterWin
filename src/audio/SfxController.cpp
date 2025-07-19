@@ -7,7 +7,6 @@ namespace audio
 {
 bool SfxController::open()
 {
-    BASS_Init(-1, 44100, BASS_DEVICE_3D, NULL, NULL);
     samples.init();
     return true;
 }
@@ -15,7 +14,6 @@ bool SfxController::open()
 void SfxController::close()
 {
     samples.free();
-    BASS_Free();
 }
 
 void SfxController::stop()

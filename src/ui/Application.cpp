@@ -1,7 +1,9 @@
 #include "Application.hpp"
 #include <algorithm>
 #include <math.h>
+#include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
+#include "audio/ut/mocks/MockAudioLib.hpp"
 #include "game/World.hpp"
 #include "ui/MainWindow.hpp"
 #include "ui/Settings.hpp"
@@ -9,6 +11,7 @@
 Application::Application(HINSTANCE hInstance) : hInstance(hInstance)
 {
     AddFontResourceEx("Vectorb.ttf", FR_PRIVATE, 0);
+    audio::audioLib.init();
     geSound.open();
     geMusic.open();
     Settings settings;
@@ -23,6 +26,7 @@ Application::Application(HINSTANCE hInstance) : hInstance(hInstance)
 
 Application::~Application()
 {
+    audio::audioLib.free();
     geSound.close();
     geMusic.close();
     RemoveFontResource("Vectorb.ttf");

@@ -12,14 +12,12 @@ MusicEngineBASS::MusicEngineBASS() : AudioController()
 
 bool MusicEngineBASS::open()
 {
-    BASS_Init(-1, 44100, BASS_DEVICE_3D, NULL, NULL);
     return initSound();
 }
 
 void MusicEngineBASS::close()
 {
     freeSound();
-    BASS_Free();
 }
 
 bool MusicEngineBASS::initSound()
