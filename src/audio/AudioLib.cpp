@@ -49,4 +49,9 @@ void AudioLib::sampleFree(const HSAMPLE sample)
         BASS_SampleFree(sample);
     }
 }
+
+void AudioLib::setVolume(const float volume)
+{
+    BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(volume * 10000));
+}
 } // namespace audio

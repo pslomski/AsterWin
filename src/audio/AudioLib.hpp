@@ -17,6 +17,7 @@ public:
     HSAMPLE loadSample(const char* name, const SampleFlags flags);
     void sampleStop(const HSAMPLE sample);
     void sampleFree(const HSAMPLE sample);
+    void setVolume(const float volume);
 };
 
 inline AudioLib audioLib;

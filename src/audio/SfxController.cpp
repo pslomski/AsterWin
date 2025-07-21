@@ -1,7 +1,5 @@
 #include "SfxController.hpp"
-
-#define MAX_CHANNEL_COUNT 5
-#define NUM_SOURCES 12
+#include "audio/AudioLib.hpp"
 
 namespace audio
 {
@@ -25,16 +23,16 @@ void SfxController::stop()
 void SfxController::setVolume(const float volumeNew)
 {
     volume = volumeNew;
-    BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(volume * 10000));
+    audioLib.setVolume(volume);
 }
 
 void SfxController::mute()
 {
-    BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, 0);
+    audioLib.setVolume(0);
 }
 
 void SfxController::unmute()
 {
-    BASS_SetConfig(BASS_CONFIG_GVOL_SAMPLE, DWORD(volume * 10000));
+    audioLib.setVolume(volume);
 }
 } // namespace audio

@@ -14,9 +14,10 @@ class AudioLib
 public:
     MOCK_METHOD(void, init, ());
     MOCK_METHOD(void, free, ());
-    MOCK_METHOD(HSAMPLE, loadSample, (const char*, const SampleFlags));
-    MOCK_METHOD(void, sampleStop, (const HSAMPLE));
-    MOCK_METHOD(void, sampleFree, (const HSAMPLE));
+    MOCK_METHOD(HSAMPLE, loadSample, (const char*, const));
+    MOCK_METHOD(void, sampleStop, (const));
+    MOCK_METHOD(void, sampleFree, (const));
+    MOCK_METHOD(void, setVolume, (const float));
 };
 
 inline AudioLib audioLib;
