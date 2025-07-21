@@ -2,17 +2,6 @@
 #include <assert.h>
 #include "audio/Sound.hpp"
 
-ObjectSoundBase::ObjectSoundBase()
-{
-    m_SoundID = -1;
-    m_Volume = 1.0;
-}
-
-ObjSoundBASS::ObjSoundBASS() : ObjectSoundBase()
-{
-    m_Channel = 0;
-}
-
 void ObjSoundBASS::Play()
 {
     assert(m_SoundID != -1);
