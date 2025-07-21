@@ -11,15 +11,6 @@ namespace audio
 {
 class SfxController
 {
-private:
-    bool isPause{false};
-    float volume{1.0f}; // range 0.0f - 1.0f
-    SfxSamples samples;
-
-protected:
-    bool initSound();
-    void freeSound();
-
 public:
     bool open();
     void close();
@@ -28,7 +19,12 @@ public:
     void mute();
     void unmute();
     void stop();
-    HSAMPLE getSample(int id) { return samples.getSample(static_cast<SampleId>(id)); }
+    HSAMPLE getSample(int id) { return samples.get(static_cast<SampleId>(id)); }
+
+private:
+    bool isPause{false};
+    float volume{1.0f}; // range 0.0f - 1.0f
+    SfxSamples samples;
 };
 } // namespace audio
 

@@ -24,21 +24,21 @@ void SfxSamples::init()
     {
         return; // Already initialized
     }
-    addSample(SampleId::shipEngine, "ShipEngine", FLAG_SAMPLE_LOOP);
-    addSample(SampleId::shipFire, "ShipFire");
-    addSample(SampleId::shipCrash, "ShipCrash");
-    addSample(SampleId::asterCrash1, "AsterCrash1");
-    addSample(SampleId::asterCrash2, "AsterCrash2");
-    addSample(SampleId::asterCrash3, "AsterCrash3");
-    addSample(SampleId::ufoEngine, "UfoEngine", FLAG_SAMPLE_LOOP);
-    addSample(SampleId::startBeep, "StartBeep");
-    addSample(SampleId::bonusBeep, "BonusBeep");
-    addSample(SampleId::broom, "Broom");
-    addSample(SampleId::powerUp, "PowerUp");
-    addSample(SampleId::shipFirePower, "ShipFirePower");
+    add(SampleId::shipEngine, "ShipEngine", FLAG_SAMPLE_LOOP);
+    add(SampleId::shipFire, "ShipFire");
+    add(SampleId::shipCrash, "ShipCrash");
+    add(SampleId::asterCrash1, "AsterCrash1");
+    add(SampleId::asterCrash2, "AsterCrash2");
+    add(SampleId::asterCrash3, "AsterCrash3");
+    add(SampleId::ufoEngine, "UfoEngine", FLAG_SAMPLE_LOOP);
+    add(SampleId::startBeep, "StartBeep");
+    add(SampleId::bonusBeep, "BonusBeep");
+    add(SampleId::broom, "Broom");
+    add(SampleId::powerUp, "PowerUp");
+    add(SampleId::shipFirePower, "ShipFirePower");
 }
 
-void SfxSamples::addSample(const SampleId sampleId, const char* name, const SampleFlags flags)
+void SfxSamples::add(const SampleId sampleId, const char* name, const SampleFlags flags)
 {
     constexpr auto subdir{"sound/"};
     constexpr auto ext{".ogg"};

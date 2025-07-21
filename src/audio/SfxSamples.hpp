@@ -19,10 +19,10 @@ public:
     void init();
     void free();
     void stop();
-    HSAMPLE getSample(const SampleId id) { return samples[id]; }
+    HSAMPLE get(const SampleId id) { return samples[id]; }
 
 private:
-    void addSample(const SampleId sampleId, const char* name, const SampleFlags flags = 0);
+    void add(const SampleId sampleId, const char* name, const SampleFlags flags = 0);
 
     std::map<SampleId, HSAMPLE> samples;
 };
