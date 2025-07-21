@@ -1,53 +1,71 @@
-#include <assert.h>
 #include "SfxSample.hpp"
+#include <assert.h>
 #include "audio/Sound.hpp"
 
-
-void SfxSample::Init(int in_ID, float in_Volume)
+void SfxSample::init(const int sampleIdArg, const float volumeArg)
 {
-    m_SoundID = in_ID;
-    m_Volume = in_Volume;
+    sampleId = sampleIdArg;
+    volume = volumeArg;
 }
 
-void SfxSample::Play()
+void SfxSample::play()
 {
-    assert(m_SoundID != -1);
-    if (m_SoundID == -1) return;
-    m_Channel = BASS_SampleGetChannel(geSound.getSample(m_SoundID), FALSE);
-    assert(m_Channel != 0);
-    BASS_ChannelSetAttribute(m_Channel, BASS_ATTRIB_VOL, m_Volume);
-    BOOL bRes = BASS_ChannelPlay(m_Channel, FALSE);
-    assert(bRes == TRUE);
+    assert(sampleId != -1);
+    if (sampleId == -1)
+    {
+        return;
+    }
+    channel = BASS_SampleGetChannel(geSound.getSample(sampleId), FALSE);
+    assert(channel != 0);
+    if (channel == 0)
+    {
+        return;
+    }
+    BASS_ChannelSetAttribute(channel, BASS_ATTRIB_VOL, volume);
+    BASS_ChannelPlay(channel, FALSE);
 }
 
-void SfxSample::Pause()
+void SfxSample::pause()
 {
-    assert(m_SoundID != -1);
-    if (m_SoundID == -1) return;
-    BASS_ChannelPause(m_Channel);
+    if (channel == 0)
+    {
+        return;
+    }
+    BASS_ChannelPause(channel);
 }
 
-void SfxSample::Stop()
+void SfxSample::stop()
 {
-    assert(m_SoundID != -1);
-    if (m_SoundID == -1) return;
-    BASS_ChannelStop(m_Channel);
+    if (channel == 0)
+    {
+        return;
+    }
+    BASS_ChannelStop(channel);
 }
 
-void SfxSample::SetVolume(float in_Volume)
+void SfxSample::setVolume(const float volumeArg)
 {
-    assert(m_SoundID != -1);
-    m_Volume = in_Volume;
-    if (m_SoundID == -1) return;
-    if (BASS_ChannelIsActive(m_Channel) == BASS_ACTIVE_STOPPED)
-        m_Channel = BASS_SampleGetChannel(geSound.getSample(m_SoundID), FALSE);
-    BASS_ChannelSetAttribute(m_Channel, BASS_ATTRIB_VOL, m_Volume);
+    volume = volumeArg;
+    if (sampleId == -1)
+    {
+        return;
+    }
+    if (BASS_ChannelIsActive(channel) == BASS_ACTIVE_STOPPED)
+    {
+        channel = BASS_SampleGetChannel(geSound.getSample(sampleId), FALSE);
+    }
+    BASS_ChannelSetAttribute(channel, BASS_ATTRIB_VOL, volume);
 }
 
-void SfxSample::SlideVol(float in_NewVol, DWORD in_Time)
+void SfxSample::slideVol(const float volumeArg, const DWORD time)
 {
-    assert(m_SoundID != -1);
-    if (m_SoundID == -1) return;
-    if (BASS_ChannelIsActive(m_Channel) == BASS_ACTIVE_STOPPED) return;
-    BASS_ChannelSlideAttribute(m_Channel, BASS_ATTRIB_VOL, in_NewVol, in_Time);
+    if (channel == 0)
+    {
+        return;
+    }
+    if (BASS_ChannelIsActive(channel) == BASS_ACTIVE_STOPPED)
+    {
+        return;
+    }
+    BASS_ChannelSlideAttribute(channel, BASS_ATTRIB_VOL, volumeArg, time);
 }

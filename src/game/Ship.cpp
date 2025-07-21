@@ -50,10 +50,10 @@ void BulletSpeedPowerUp::OnStop()
 Ship::Ship(Float ax, Float ay, Float aangle)
     : Object(), puAddBullet(GE_POWERUP_DURATION_TIME), puBulletSpeed(GE_POWERUP_DURATION_TIME)
 {
-    sndFire.Init(SND_SHIP_FIRE, SND_VOL_SHIP_FIRE);
-    sndFirePow.Init(SND_SHIP_FIRE_POWER, SND_VOL_SHIP_FIRE_POWER);
-    sndEngine.Init(SND_SHIP_ENGINE, SND_VOL_SHIP_ENGINE);
-    sndCrash.Init(SND_SHIP_CRASH, SND_VOL_SHIP_CRASH);
+    sndFire.init(SND_SHIP_FIRE, SND_VOL_SHIP_FIRE);
+    sndFirePow.init(SND_SHIP_FIRE_POWER, SND_VOL_SHIP_FIRE_POWER);
+    sndEngine.init(SND_SHIP_ENGINE, SND_VOL_SHIP_ENGINE);
+    sndCrash.init(SND_SHIP_CRASH, SND_VOL_SHIP_CRASH);
 
     m_tiAccel.interval = 0.5;
     m_tiRespawn.interval = 3.0;
@@ -95,7 +95,7 @@ Ship::Ship(Float ax, Float ay, Float aangle)
 
 Ship::~Ship()
 {
-    sndEngine.Stop();
+    sndEngine.stop();
 }
 
 void Ship::update()
@@ -187,11 +187,11 @@ void Ship::AccelerationOn()
     if (m_tiAccel.inc(dt)) m_tiAccel.elapsed = m_tiAccel.interval;
     setA(Accel + (1.0 - m_tiAccel.ratio()) * AccelBurst);
     sndEngineGain = SND_VOL_SHIP_ENGINE * getA() / AccelMax;
-    sndEngine.SetPitch(float(getA() / AccelMax));
+    sndEngine.setPitch(float(getA() / AccelMax));
     if (!faccelerated)
     {
-        sndEngine.SetVolume(float(sndEngineGain));
-        sndEngine.Play();
+        sndEngine.setVolume(float(sndEngineGain));
+        sndEngine.play();
         EngSndStopped = false;
     }
     faccelerated = true;
@@ -202,7 +202,7 @@ void Ship::AccelerationOff()
 {
     if (faccelerated)
     {
-        sndEngine.SlideVol(0.0f, 100);
+        sndEngine.slideVol(0.0f, 100);
     }
 
     m_tiAccel.reset();
@@ -225,9 +225,9 @@ void Ship::RotateRight()
 Bullet* Ship::FireBullet()
 {
     if (puAddBullet.isActive() || puBulletSpeed.isActive())
-        sndFirePow.Play();
+        sndFirePow.play();
     else
-        sndFire.Play();
+        sndFire.play();
 
     Bullet* bullet = new Bullet;
     bullet->setXY(getX(), getY());
@@ -241,7 +241,7 @@ Bullet* Ship::FireBullet()
 
 void Ship::Crash(TempObjects& vecObiekty)
 {
-    sndCrash.Play();
+    sndCrash.play();
 
     int iDebCount = GE_SHIP_LIN_DEBR_COUNT;
     for (int i = 0; i < iDebCount; ++i)

@@ -6,8 +6,8 @@
 
 Ufo::Ufo() : Object()
 {
-    sndEngine.Init(SND_UFO_ENGINE, SND_VOL_UFO_ENGINE);
-    sndCrash.Init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
+    sndEngine.init(SND_UFO_ENGINE, SND_VOL_UFO_ENGINE);
+    sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
     scoreReward = GE_SCRVAL_UFO;
     geometryType = GeometryType::Polyg;
     pShip = nullptr;
@@ -30,12 +30,12 @@ Ufo::Ufo() : Object()
     verts.push_back(PointF(2.0, 0.0));
     calcBounds(verts);
 
-    sndEngine.Play();
+    sndEngine.play();
 }
 
 Ufo::~Ufo()
 {
-    sndEngine.Stop();
+    sndEngine.stop();
 }
 
 void Ufo::update()
@@ -135,7 +135,7 @@ Bullet* Ufo::FireBullet(const PointF& pt)
 
 void Ufo::Crash(TempObjects& vecObiekty)
 {
-    sndCrash.Play();
+    sndCrash.play();
     int iDebCount = GE_UFO_DEBR_COUNT;
     for (int i = 0; i < iDebCount; ++i)
     {

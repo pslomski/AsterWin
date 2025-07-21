@@ -54,7 +54,7 @@ void Asteroid::Create()
         setRotSpeed(rand() % 100 - 200);
     }
 
-    sndCrash.Init(m_iSound, Volume);
+    sndCrash.init(m_iSound, Volume);
     verts.clear();
     for (Float deg = 0.0; deg < 310.0; deg += DegDelta + (rand() % 18 - 9))
     {
@@ -123,7 +123,7 @@ BonusType GetBonusType()
 
 void Asteroid::Crash(TvecAster& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus)
 {
-    sndCrash.Play();
+    sndCrash.play();
 
     int iDebCount, iAsterCount;
     Float LifeTime;

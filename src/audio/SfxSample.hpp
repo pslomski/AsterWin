@@ -5,16 +5,16 @@
 class SfxSample
 {
 public:
-    void Init(int in_ID, float in_Volume);
-    void Play();
-    void Pause();
-    void Stop();
-    void SetVolume(float in_Volume);
-    void SetPitch(float in_Pitch) {}
-    void SlideVol(float in_NewVol, DWORD in_Time);
+    void init(const int sampleIdArg, const float volumeArg);
+    void play();
+    void pause();
+    void stop();
+    void setVolume(const float volumeArg);
+    void setPitch(const float pitch) {} // TODO: Implement pitch control if possible
+    void slideVol(const float volumeArg, const DWORD time);
 
 private:
-    int m_SoundID{-1};
-    float m_Volume{};
-    HCHANNEL m_Channel{};
+    int sampleId{-1};
+    float volume{};
+    HCHANNEL channel{};
 };

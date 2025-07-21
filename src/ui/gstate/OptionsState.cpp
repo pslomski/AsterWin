@@ -35,7 +35,7 @@ OptionsState::OptionsState(StateManager* pManager) : State(pManager)
     mSoundVolText->setAlignement(TextControl::TextAlignement::center);
     mSoundVolText->setText("Sound volume: ");
 
-    sndTest.Init(SND_SHIP_FIRE, SND_VOL_SHIP_FIRE);
+    sndTest.init(SND_SHIP_FIRE, SND_VOL_SHIP_FIRE);
 }
 
 OptionsState::~OptionsState()
@@ -168,7 +168,7 @@ void OptionsState::leftArrow()
         case 1:
             geWorld.soundVol = std::max(0, geWorld.soundVol - 1);
             geSound.setVolume(0.1f * geWorld.soundVol);
-            sndTest.Play();
+            sndTest.play();
             break;
     }
 }
@@ -184,7 +184,7 @@ void OptionsState::rightArrow()
         case 1:
             geWorld.soundVol = std::min(10, geWorld.soundVol + 1);
             geSound.setVolume(0.1f * geWorld.soundVol);
-            sndTest.Play();
+            sndTest.play();
             break;
     }
 }

@@ -51,10 +51,10 @@ namespace game
 {
 Game::Game() : scoreCounter(std::bind(&Game::onIncrementLives, this))
 {
-    sndBroom.Init(SND_BROOM, SND_VOL_BROOM);
-    sndStartBeep.Init(SND_START_BEEP, SND_VOL_START_BEEP);
-    sndBonusBeep.Init(SND_BONUS_BEEP, SND_VOL_BONUS_BEEP);
-    sndPowerUp.Init(SND_POWERUP, SND_VOL_POWERUP);
+    sndBroom.init(SND_BROOM, SND_VOL_BROOM);
+    sndStartBeep.init(SND_START_BEEP, SND_VOL_START_BEEP);
+    sndBonusBeep.init(SND_BONUS_BEEP, SND_VOL_BONUS_BEEP);
+    sndPowerUp.init(SND_POWERUP, SND_VOL_POWERUP);
     tiChangeBroomSoundFreq.interval = GE_TI_CHANGE_BROOM_FREQ;
     tiFPS.interval = 1.0;
     ship = nullptr;
@@ -124,11 +124,11 @@ void Game::enterState()
 {
     if (pUfo)
     {
-        pUfo->sndEngine.Play();
+        pUfo->sndEngine.play();
     }
     if (ship)
     {
-        ship->sndEngine.Stop();
+        ship->sndEngine.stop();
     }
 }
 
@@ -136,7 +136,7 @@ void Game::leaveState()
 {
     if (pUfo)
     {
-        pUfo->sndEngine.Pause();
+        pUfo->sndEngine.pause();
     }
 }
 
@@ -216,9 +216,9 @@ void Game::generateAsters(int iCount, int iGameLevel)
 
 void Game::playStartBeep(float pitch, float gain)
 {
-    sndStartBeep.SetVolume(gain);
-    sndStartBeep.SetPitch(pitch);
-    sndStartBeep.Play();
+    sndStartBeep.setVolume(gain);
+    sndStartBeep.setPitch(pitch);
+    sndStartBeep.play();
 }
 
 bool Game::reset()
@@ -342,13 +342,13 @@ void Game::analyzeGameState()
                 tiBroomSound.reset();
                 if (bPitchBroomSound)
                 {
-                    sndBroom.SetPitch(1.05f);
+                    sndBroom.setPitch(1.05f);
                 }
                 else
                 {
-                    sndBroom.SetPitch(1.0f);
+                    sndBroom.setPitch(1.0f);
                 }
-                if (!isMusic) sndBroom.Play();
+                if (!isMusic) sndBroom.play();
                 bPitchBroomSound = !bPitchBroomSound;
             }
 
@@ -682,12 +682,12 @@ void Game::checkCollisions()
                 scoreCounter.inc((*it)->scoreReward);
                 if ((*it)->bonusType == BonusType::Points)
                 {
-                    sndBonusBeep.Play();
+                    sndBonusBeep.play();
                 }
                 else
                 {
                     ship->AddBonus((*it)->bonusType);
-                    sndPowerUp.Play();
+                    sndPowerUp.play();
                 }
                 delete (*it);
                 it = vecBonus.erase(it);
