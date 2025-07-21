@@ -11,7 +11,6 @@ namespace game
 class Asteroid;
 
 typedef std::list<Asteroid*> TvecAster;
-typedef std::list<Asteroid*>::iterator TvecAsterIt;
 
 class Asteroid : public Object
 {

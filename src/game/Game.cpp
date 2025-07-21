@@ -444,8 +444,7 @@ void Game::updateObjects()
     }
 
     Float Rmin = 1e6;
-    TvecAsterIt itAster;
-    for (itAster = vecAsters.begin(); itAster != vecAsters.end(); itAster++)
+    for (auto itAster = vecAsters.begin(); itAster != vecAsters.end(); itAster++)
     {
         (*itAster)->update();
         if (pUfo)
@@ -589,8 +588,7 @@ void Game::checkCollisions()
     }
 
     // tutaj sprawdzanie kolizji z asteroidami i ew. strzalami przeciwnika
-    TvecAsterIt itAster;
-    for (itAster = vecAsters.begin(); itAster != vecAsters.end();)
+    for (auto itAster = vecAsters.begin(); itAster != vecAsters.end();)
     {
         bool bIncrement = true;
         if (ship && !ship->Respawning && ship->checkCollision(*itAster))
@@ -668,7 +666,7 @@ void Game::checkCollisions()
         if (bIncrement) ++itAster;
     }
 
-    for (itAster = vecAstersTmp.begin(); itAster != vecAstersTmp.end(); itAster++)
+    for (auto itAster = vecAstersTmp.begin(); itAster != vecAstersTmp.end(); itAster++)
     {
         vecAsters.push_back(*itAster);
     }
