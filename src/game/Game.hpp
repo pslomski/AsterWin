@@ -4,7 +4,8 @@
 #include "ScoreCounter.hpp"
 #include "audio/SfxSample.hpp"
 #include "audio/Sound.hpp"
-#include "game/objects/Asteroid.hpp"
+#include "game/objects/Asteroids.hpp"
+#include "game/objects/Bonuses.hpp"
 #include "game/objects/Objects.hpp"
 #include "game/objects/Ship.hpp"
 #include "game/objects/TempObjects.hpp"
@@ -13,6 +14,7 @@
 #include "types/GameState.hpp"
 #include "types/Types.hpp"
 #include "utils/TimeInterval.hpp"
+
 
 namespace game
 {
@@ -44,7 +46,7 @@ private:
     SfxSample sndStartBeep;
     SfxSample sndBonusBeep;
     SfxSample sndPowerUp;
-    TvecAster vecAsters; // asteroids objects
+    Asteroids vecAsters; // asteroids objects
     TvecBullet vecBullets; // our ship shots
     TvecBullet vecUfoBullets; // enemy ufo shots
     TempObjects vecDebris; // particles of destroyed objects

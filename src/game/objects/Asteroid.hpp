@@ -3,15 +3,14 @@
 #include <list>
 #include "Bonuses.hpp"
 #include "audio/SfxSample.hpp"
+#include "game/objects/Asteroids.hpp"
 #include "game/objects/Object.hpp"
+#include "game/objects/Objects.hpp"
 #include "game/objects/TempObjects.hpp"
+
 
 namespace game
 {
-class Asteroid;
-
-typedef std::list<Asteroid*> TvecAster;
-
 class Asteroid : public Object
 {
 private:
@@ -21,7 +20,7 @@ public:
     Asteroid(int in_iLevel);
     virtual ~Asteroid();
     void Create();
-    void Crash(TvecAster& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus);
+    void Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus);
     static bool CreateBonus;
     int Level;
     bool HasBonus;

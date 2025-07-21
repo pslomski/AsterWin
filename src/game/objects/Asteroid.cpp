@@ -122,7 +122,7 @@ BonusType GetBonusType()
     return BonusType::None;
 }
 
-void Asteroid::Crash(TvecAster& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus)
+void Asteroid::Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus)
 {
     sndCrash.play();
 
