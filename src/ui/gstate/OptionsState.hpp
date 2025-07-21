@@ -1,7 +1,7 @@
 #pragma once
 
 #include "State.hpp"
-#include "audio/ObjectSound.hpp"
+#include "audio/SfxSample.hpp"
 #include "ui/Font.hpp"
 #include "ui/TextControl.hpp"
 
@@ -28,7 +28,7 @@ private:
     TextControl* mTitleText;
     TextControl* mMusicVolText;
     TextControl* mSoundVolText;
-    ObjectSound sndTest;
+    SfxSample sndTest;
 
     void selectionUp();
     void selectionDown();

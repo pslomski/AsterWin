@@ -1,8 +1,15 @@
-#include "ObjectSound.hpp"
 #include <assert.h>
+#include "SfxSample.hpp"
 #include "audio/Sound.hpp"
 
-void ObjSoundBASS::Play()
+
+void SfxSample::Init(int in_ID, float in_Volume)
+{
+    m_SoundID = in_ID;
+    m_Volume = in_Volume;
+}
+
+void SfxSample::Play()
 {
     assert(m_SoundID != -1);
     if (m_SoundID == -1) return;
@@ -13,21 +20,21 @@ void ObjSoundBASS::Play()
     assert(bRes == TRUE);
 }
 
-void ObjSoundBASS::Pause()
+void SfxSample::Pause()
 {
     assert(m_SoundID != -1);
     if (m_SoundID == -1) return;
     BASS_ChannelPause(m_Channel);
 }
 
-void ObjSoundBASS::Stop()
+void SfxSample::Stop()
 {
     assert(m_SoundID != -1);
     if (m_SoundID == -1) return;
     BASS_ChannelStop(m_Channel);
 }
 
-void ObjSoundBASS::SetVolume(float in_Volume)
+void SfxSample::SetVolume(float in_Volume)
 {
     assert(m_SoundID != -1);
     m_Volume = in_Volume;
@@ -37,7 +44,7 @@ void ObjSoundBASS::SetVolume(float in_Volume)
     BASS_ChannelSetAttribute(m_Channel, BASS_ATTRIB_VOL, m_Volume);
 }
 
-void ObjSoundBASS::SlideVol(float in_NewVol, DWORD in_Time)
+void SfxSample::SlideVol(float in_NewVol, DWORD in_Time)
 {
     assert(m_SoundID != -1);
     if (m_SoundID == -1) return;

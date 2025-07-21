@@ -2,7 +2,7 @@
 
 #include <list>
 #include "Bonuses.hpp"
-#include "audio/ObjectSound.hpp"
+#include "audio/SfxSample.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
 
@@ -26,7 +26,7 @@ public:
     static bool CreateBonus;
     int Level;
     bool HasBonus;
-    ObjSoundBASS sndCrash;
+    SfxSample sndCrash;
 
 protected:
     void OnRender() override;

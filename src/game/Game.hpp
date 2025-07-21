@@ -5,7 +5,7 @@
 #include "ScoreCounter.hpp"
 #include "Ship.hpp"
 #include "Ufo.hpp"
-#include "audio/ObjectSound.hpp"
+#include "audio/SfxSample.hpp"
 #include "audio/Sound.hpp"
 #include "game/objects/Objects.hpp"
 #include "game/objects/TempObjects.hpp"
@@ -40,10 +40,10 @@ public:
     void leaveState();
 
 private:
-    ObjectSound sndBroom;
-    ObjectSound sndStartBeep;
-    ObjectSound sndBonusBeep;
-    ObjectSound sndPowerUp;
+    SfxSample sndBroom;
+    SfxSample sndStartBeep;
+    SfxSample sndBonusBeep;
+    SfxSample sndPowerUp;
     TvecAster vecAsters; // asteroids objects
     TvecBullet vecBullets; // our ship shots
     TvecBullet vecUfoBullets; // enemy ufo shots

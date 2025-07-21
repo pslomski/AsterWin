@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Bullet.hpp"
-#include "audio/ObjectSound.hpp"
+#include "audio/SfxSample.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
 
@@ -18,8 +18,8 @@ public:
     void Action(TvecBullet& vecBullet);
     Bullet* FireBullet(const PointF& pt);
     void Crash(TempObjects& vecObiekty);
-    ObjectSound sndEngine;
-    ObjectSound sndCrash;
+    SfxSample sndEngine;
+    SfxSample sndCrash;
 
 protected:
     void OnRender() override;

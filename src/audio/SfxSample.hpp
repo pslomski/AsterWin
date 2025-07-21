@@ -2,14 +2,10 @@
 
 #include "bass.h"
 
-class ObjSoundBASS
+class SfxSample
 {
 public:
-    void Init(int in_ID, float in_Volume)
-    {
-        m_SoundID = in_ID;
-        m_Volume = in_Volume;
-    }
+    void Init(int in_ID, float in_Volume);
     void Play();
     void Pause();
     void Stop();
@@ -22,5 +18,3 @@ private:
     float m_Volume{};
     HCHANNEL m_Channel{};
 };
-
-using ObjectSound = ObjSoundBASS;

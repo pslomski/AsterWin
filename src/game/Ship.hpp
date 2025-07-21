@@ -4,7 +4,7 @@
 #include <math.h>
 #include <windows.h>
 #include "Bullet.hpp"
-#include "audio/ObjectSound.hpp"
+#include "audio/SfxSample.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
 #include "types/BonusType.hpp"
@@ -95,8 +95,8 @@ public:
     void AddBonus(BonusType type);
     AddBulletPowerUp puAddBullet; // PowerUp dodatkowe strzaly
     BulletSpeedPowerUp puBulletSpeed; // PowerUp zwiekszona predkosc pociskow
-    ObjectSound sndFire;
-    ObjectSound sndFirePow;
-    ObjectSound sndEngine;
-    ObjectSound sndCrash;
+    SfxSample sndFire;
+    SfxSample sndFirePow;
+    SfxSample sndEngine;
+    SfxSample sndCrash;
 };
