@@ -4,8 +4,10 @@
 #include "Consts.hpp"
 #include "GameConsts.hpp"
 #include "audio/Sound.hpp"
+#include "game/Rand.hpp"
 #include "gl/Utils.hpp"
 #include "utils/Tools.hpp"
+
 
 namespace game
 {

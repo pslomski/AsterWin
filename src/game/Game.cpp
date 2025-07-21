@@ -6,6 +6,7 @@
 #include "GameConsts.hpp"
 #include "World.hpp"
 #include "audio/Sound.hpp"
+#include "game/Rand.hpp"
 #include "game/ScoreCounter.hpp"
 #include "game/objects/Objects.hpp"
 #include "gl/Utils.hpp"

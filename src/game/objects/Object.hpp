@@ -14,7 +14,6 @@
 #include "game/types/ObjectGeom.hpp"
 #include "game/types/Point.hpp"
 #include "game/types/Types.hpp"
-#include "utils/Tools.hpp" //TODO: Remove dependency to Tools.hpp in Object.hpp
 
 class Object
 {

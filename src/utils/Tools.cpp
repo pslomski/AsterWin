@@ -1,19 +1,7 @@
 #include "Tools.hpp"
 #include <filesystem>
 #include <gl/gl.h>
-#include <math.h>
 #include <windows.h>
-#include "game/Consts.hpp"
-
-PointF geRotate(PointF& pt, Float alfa)
-{
-    PointF res;
-    Float sinalfa = sin(-alfa * GE_PIover180);
-    Float cosalfa = cos(-alfa * GE_PIover180);
-    res.x = pt.x * cosalfa + pt.y * sinalfa;
-    res.y = pt.x * sinalfa + pt.y * cosalfa;
-    return res;
-}
 
 bool setVSync(int interval)
 {

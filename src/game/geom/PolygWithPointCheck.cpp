@@ -1,6 +1,20 @@
 #include "PolygWithPointCheck.hpp"
+#include "game/Consts.hpp"
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PointInPolygon.hpp"
+
+namespace
+{
+PointF geRotate(PointF& pt, Float alfa)
+{
+    PointF res;
+    Float sinalfa = sin(-alfa * GE_PIover180);
+    Float cosalfa = cos(-alfa * GE_PIover180);
+    res.x = pt.x * cosalfa + pt.y * sinalfa;
+    res.y = pt.x * sinalfa + pt.y * cosalfa;
+    return res;
+}
+} // namespace
 
 bool checkPolygWithPoint(const Object* point, const Object* polygon)
 {
