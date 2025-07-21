@@ -1,13 +1,12 @@
 #include "Asteroid.hpp"
 #include "Bonuses.hpp"
 #include "Bullet.hpp"
-#include "Consts.hpp"
-#include "GameConsts.hpp"
 #include "audio/Sound.hpp"
+#include "game/Consts.hpp"
+#include "game/GameConsts.hpp"
 #include "game/Rand.hpp"
 #include "gl/Utils.hpp"
 #include "utils/Tools.hpp"
-
 
 namespace game
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "game/objects/TempObject.hpp"
-#include "types/BonusType.hpp"
+#include "game/types/BonusType.hpp"
 #include "utils/TimeInterval.hpp"
 #include "utils/Tools.hpp"
 

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Asteroid.hpp"
 #include "GameConsts.hpp"
 #include "ScoreCounter.hpp"
-#include "Ship.hpp"
-#include "Ufo.hpp"
 #include "audio/SfxSample.hpp"
 #include "audio/Sound.hpp"
+#include "game/objects/Asteroid.hpp"
 #include "game/objects/Objects.hpp"
+#include "game/objects/Ship.hpp"
 #include "game/objects/TempObjects.hpp"
+#include "game/objects/Ufo.hpp"
 #include "types/BonusType.hpp"
 #include "types/GameState.hpp"
 #include "types/Types.hpp"

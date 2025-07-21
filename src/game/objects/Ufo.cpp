@@ -1,7 +1,7 @@
 #include "Ufo.hpp"
-#include "Consts.hpp"
-#include "GameConsts.hpp"
 #include "audio/Sound.hpp"
+#include "game/Consts.hpp"
+#include "game/GameConsts.hpp"
 #include "gl/Utils.hpp"
 
 Ufo::Ufo() : Object()

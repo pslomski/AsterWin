@@ -7,8 +7,8 @@
 #include "audio/SfxSample.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
-#include "types/BonusType.hpp"
-#include "types/Color.hpp"
+#include "game/types/BonusType.hpp"
+// #include "types/Color.hpp"
 #include "utils/TimeInterval.hpp"
 #include "utils/Tools.hpp"
 
