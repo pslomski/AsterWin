@@ -7,22 +7,11 @@
 #include "audio/SfxSample.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/PowerUp.hpp"
+#include "game/objects/PowerUpAddBullets.hpp"
+#include "game/objects/Ship.fwd.hpp"
 #include "game/objects/TempObjects.hpp"
 #include "game/types/BonusType.hpp"
 #include "utils/TimeInterval.hpp"
-
-class Ship;
-
-class AddBulletPowerUp : public game::objects::PowerUp
-{
-public:
-    AddBulletPowerUp(Float in_Dutation) : PowerUp(in_Dutation){};
-    Ship* pShip;
-
-protected:
-    void OnStart();
-    void OnStop();
-};
 
 class BulletSpeedPowerUp : public game::objects::PowerUp
 {
@@ -76,7 +65,7 @@ public:
     void Crash(TempObjects& vecObiekty);
     void Respawn();
     void AddBonus(BonusType type);
-    AddBulletPowerUp puAddBullet; // PowerUp dodatkowe strzaly
+    game::objects::PowerUpAddBullets puAddBullet; // PowerUp dodatkowe strzaly
     BulletSpeedPowerUp puBulletSpeed; // PowerUp zwiekszona predkosc pociskow
     SfxSample sndFire;
     SfxSample sndFirePow;

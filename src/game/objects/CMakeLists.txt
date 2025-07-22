@@ -11,6 +11,7 @@ target_sources(${ASTER_EXE}
     Bullet.cpp
     Object.cpp
     PowerUp.cpp
+    PowerUpAddBullets.cpp
     Ship.cpp
     Ufo.cpp    
     TempObject.cpp

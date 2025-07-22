@@ -5,17 +5,6 @@
 #include "game/GameConsts.hpp"
 #include "gl/Utils.hpp"
 
-
-void AddBulletPowerUp::OnStart()
-{
-    pShip->MaxBullets += GE_BULLETS_INCREMENT;
-}
-
-void AddBulletPowerUp::OnStop()
-{
-    pShip->MaxBullets -= GE_BULLETS_INCREMENT;
-}
-
 void BulletSpeedPowerUp::OnStart()
 {
     pShip->BulletSpeed += GE_BULLET_SPEED_INC;
