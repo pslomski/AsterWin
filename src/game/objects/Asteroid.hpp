@@ -15,7 +15,6 @@ public:
 
     void crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus, const bool canCreateBonus);
 
-    int level;
     bool HasBonus;
     SfxSample sndCrash;
 
@@ -24,5 +23,7 @@ protected:
 
 private:
     void create();
+
+    int level;
 };
 } // namespace game
