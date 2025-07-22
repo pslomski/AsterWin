@@ -12,12 +12,11 @@ namespace game
 {
 bool Asteroid::CreateBonus = true;
 
-Asteroid::Asteroid(int in_iLevel) : Object()
+Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
 {
     geometryType = GeometryType::Polyg;
     HasBonus = false;
     Color(GE_COLOR_ASTER);
-    Level = in_iLevel;
     Create();
 }
 
@@ -26,7 +25,7 @@ Asteroid::~Asteroid() {}
 void Asteroid::Create()
 {
     Float DegDelta, R;
-    if (Level == 1)
+    if (level == 1)
     {
         scoreReward = GE_SCRVAL_ASTER1;
         R = 3.9;
@@ -34,7 +33,7 @@ void Asteroid::Create()
         setRotSpeed(rand() % 60 - 120);
         sndCrash.init(SND_ASTER_CRASH1, SND_VOL_ASTER_CRASH1);
     }
-    else if (Level == 2)
+    else if (level == 2)
     {
         scoreReward = GE_SCRVAL_ASTER2;
         R = 2.8;
@@ -42,7 +41,7 @@ void Asteroid::Create()
         setRotSpeed(rand() % 80 - 160);
         sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
     }
-    else if (Level >= 3)
+    else if (level >= 3)
     {
         scoreReward = GE_SCRVAL_ASTER3;
         R = 1.7;
@@ -124,13 +123,13 @@ void Asteroid::Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vec
     int iDebCount, iAsterCount;
     Float LifeTime;
     BonusType BonusType = BonusType::None;
-    if (Level == 1)
+    if (level == 1)
     {
         iAsterCount = 2;
         iDebCount = GE_ASTER1_DEBR_COUNT;
         LifeTime = 1.1 + rand() % 7 * 0.1;
     }
-    else if (Level == 2)
+    else if (level == 2)
     {
         iAsterCount = 2;
         iDebCount = GE_ASTER2_DEBR_COUNT;
@@ -155,7 +154,7 @@ void Asteroid::Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vec
 
     for (int i = 0; i < iAsterCount; ++i)
     {
-        Asteroid* pAster = new Asteroid(Level + 1);
+        Asteroid* pAster = new Asteroid(level + 1);
         if (i == 0) pAster->HasBonus = HasBonus; // jeden fragment przejmuje bonus
         pAster->setAlfa(getAlfa() + i * 180.0 - 90.0 + rand() % 50 - 25.0);
         Float x = getX() + 3.0 * cos(pAster->getAlfa() * GE_PIover180);

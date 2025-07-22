@@ -11,14 +11,14 @@ namespace game
 class Asteroid : public Object
 {
 public:
-    Asteroid(int in_iLevel);
+    Asteroid(const int levelArg);
     virtual ~Asteroid();
 
     void Create();
     void Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus);
 
     static bool CreateBonus;
-    int Level;
+    int level;
     bool HasBonus;
     SfxSample sndCrash;
 
