@@ -38,6 +38,7 @@
 #endif
 
 // sound
+#define GE_TI_BROOM_SOUND 5.0
 #define GE_TI_CHANGE_BROOM_FREQ 10.0
 
 // Points values

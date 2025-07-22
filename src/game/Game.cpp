@@ -241,7 +241,7 @@ bool Game::reset()
     generateBackground();
     geSound.unmute();
     geMusic.stop();
-    tiBroomSound.reset(5.0);
+    tiBroomSound.reset(GE_TI_BROOM_SOUND);
     bPitchBroomSound = false;
     tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
     tiUfoRespawn.reset(GE_BASE_UFO_TIME + rand() % 4);
@@ -333,10 +333,9 @@ void Game::analyzeGameState()
         {
             if (tiChangeBroomSoundFreq.inc(Object::dt))
             {
-                constexpr Float maxInterval{0.7};
                 tiChangeBroomSoundFreq.reset();
                 tiBroomSound.interval -= 1;
-                tiBroomSound.interval = std::max(tiBroomSound.interval, maxInterval);
+                tiBroomSound.interval = std::max(tiBroomSound.interval, 0.7f);
             }
 
             if (tiBroomSound.inc(Object::dt))
@@ -401,8 +400,7 @@ void Game::analyzeGameState()
                     ++astersCount;
                     astersCount = std::min(astersCount, GE_MAX_ASTER_COUNT);
                     generateAsters(astersCount, gameLevel++);
-                    tiBroomSound.reset();
-                    tiBroomSound.interval = 5.0;
+                    tiBroomSound.reset(GE_TI_BROOM_SOUND);
                     tiChangeBroomSoundFreq.interval += 2;
                 }
             }
