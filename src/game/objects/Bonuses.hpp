@@ -1,25 +1,10 @@
 #pragma once
 
-#include "game/objects/TempObject.hpp"
+#include "game/objects/BonusObject.hpp"
 #include "game/types/BonusType.hpp"
-#include "utils/TimeInterval.hpp"
-#include "utils/Tools.hpp"
 
-class BonusObject : public TempObject
+namespace game::objects
 {
-public:
-    void update() override;
-
-    BonusType bonusType;
-    BonusObject(BonusType in_Type);
-
-private:
-    void onRender() override;
-
-    utils::TimeInterval tiRot;
-    Float m_ColRatio;
-};
-
 class TGEBonusBulletSpeed : public BonusObject
 {
 public:
@@ -51,3 +36,4 @@ typedef std::list<BonusObject*> TvecBonus;
 typedef std::list<BonusObject*>::iterator TvecBonusIt;
 
 BonusObject* geCreateBonusObj(BonusType in_Type);
+} // namespace game::objects

@@ -1,5 +1,4 @@
 #include "Asteroid.hpp"
-#include "Bonuses.hpp"
 #include "Bullet.hpp"
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"

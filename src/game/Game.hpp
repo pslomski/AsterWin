@@ -49,7 +49,7 @@ private:
     TvecBullet vecBullets; // our ship shots
     TvecBullet vecUfoBullets; // enemy ufo shots
     TempObjects vecDebris; // particles of destroyed objects
-    TvecBonus vecBonus; // bonuses from destroyed asteroids
+    objects::TvecBonus vecBonus; // bonuses from destroyed asteroids
     Objects vecStarBlink;
     Ship* ship; // our ship
     Ufo* pUfo; // enemy ufo
