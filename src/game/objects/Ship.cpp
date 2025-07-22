@@ -5,6 +5,8 @@
 #include "game/GameConsts.hpp"
 #include "gl/Utils.hpp"
 
+namespace game::objects
+{
 Ship::Ship(Float ax, Float ay, Float aangle)
     : Object(), puAddBullet(GE_POWERUP_DURATION_TIME), puBulletSpeed(GE_POWERUP_DURATION_TIME)
 {
@@ -255,3 +257,4 @@ void Ship::AddBonus(BonusType type)
             break;
     }
 }
+} // namespace game::objects

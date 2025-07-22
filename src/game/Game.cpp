@@ -237,7 +237,7 @@ bool Game::reset()
     tiPause.reset(GE_PAUSE_TIME);
 
     PointF pt = geWorld.getCenter();
-    ship = new Ship(pt.x, pt.y, 90.0);
+    ship = new objects::Ship(pt.x, pt.y, 90.0);
     generateBackground();
     geSound.unmute();
     geMusic.stop();
@@ -416,7 +416,7 @@ void Game::analyzeGameState()
                 {
                     gameState = GameState::Run;
                     PointF pt = geWorld.getCenter();
-                    ship = new Ship(pt.x, pt.y, 90.0);
+                    ship = new objects::Ship(pt.x, pt.y, 90.0);
                     ship->Respawning = true;
                 }
             }

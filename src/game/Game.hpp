@@ -51,7 +51,7 @@ private:
     TempObjects vecDebris; // particles of destroyed objects
     objects::Bonuses bonuses; // bonuses from destroyed asteroids
     Objects vecStarBlink;
-    Ship* ship; // our ship
+    objects::Ship* ship; // our ship
     Ufo* pUfo; // enemy ufo
     GameState gameState;
     int astersCount; // (4) poczatkowa ilosc asteroidow. wzrasta o 1 z

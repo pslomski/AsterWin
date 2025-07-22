@@ -14,6 +14,8 @@
 #include "game/types/BonusType.hpp"
 #include "utils/TimeInterval.hpp"
 
+namespace game::objects
+{
 class Ship : public Object
 {
 private:
@@ -55,10 +57,11 @@ public:
     void Crash(TempObjects& vecObiekty);
     void Respawn();
     void AddBonus(BonusType type);
-    game::objects::PowerUpAddBullets puAddBullet; // PowerUp dodatkowe strzaly
-    game::objects::PowerUpBulletSpeed puBulletSpeed; // PowerUp zwiekszona predkosc pociskow
+    PowerUpAddBullets puAddBullet; // PowerUp dodatkowe strzaly
+    PowerUpBulletSpeed puBulletSpeed; // PowerUp zwiekszona predkosc pociskow
     SfxSample sndFire;
     SfxSample sndFirePow;
     SfxSample sndEngine;
     SfxSample sndCrash;
 };
+} // namespace game::objects
