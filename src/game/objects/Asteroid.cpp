@@ -25,37 +25,32 @@ Asteroid::~Asteroid() {}
 
 void Asteroid::Create()
 {
-    float Volume = 1.0f;
     Float DegDelta, R;
     if (Level == 1)
     {
         scoreReward = GE_SCRVAL_ASTER1;
-        m_iSound = SND_ASTER_CRASH1;
-        Volume = SND_VOL_ASTER_CRASH1;
         R = 3.9;
         DegDelta = 36.0;
         setRotSpeed(rand() % 60 - 120);
+        sndCrash.init(SND_ASTER_CRASH1, SND_VOL_ASTER_CRASH1);
     }
     else if (Level == 2)
     {
         scoreReward = GE_SCRVAL_ASTER2;
-        m_iSound = SND_ASTER_CRASH2;
-        Volume = SND_VOL_ASTER_CRASH2;
         R = 2.8;
         DegDelta = 52.0;
         setRotSpeed(rand() % 80 - 160);
+        sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
     }
     else if (Level >= 3)
     {
         scoreReward = GE_SCRVAL_ASTER3;
-        m_iSound = SND_ASTER_CRASH3;
-        Volume = SND_VOL_ASTER_CRASH3;
         R = 1.7;
         DegDelta = 72.0;
         setRotSpeed(rand() % 100 - 200);
+        sndCrash.init(SND_ASTER_CRASH3, SND_VOL_ASTER_CRASH3);
     }
 
-    sndCrash.init(m_iSound, Volume);
     verts.clear();
     for (Float deg = 0.0; deg < 310.0; deg += DegDelta + (rand() % 18 - 9))
     {
