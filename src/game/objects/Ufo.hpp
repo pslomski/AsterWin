@@ -21,10 +21,9 @@ public:
     SfxSample sndEngine;
     SfxSample sndCrash;
 
-protected:
+private:
     void onRender() override;
 
-private:
     Float CheckTime;
     Float CheckTimeElapsed;
     Float MoveTime;

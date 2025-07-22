@@ -9,12 +9,13 @@ class BonusObject : public TempObject
 {
 public:
     void update() override;
-    void onRender() override;
 
     BonusType bonusType;
     BonusObject(BonusType in_Type);
 
 private:
+    void onRender() override;
+
     utils::TimeInterval tiRot;
     Float m_ColRatio;
 };

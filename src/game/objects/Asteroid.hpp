@@ -15,11 +15,9 @@ public:
 
     void crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus, const bool canCreateBonus);
 
-protected:
-    void onRender() override;
-
 private:
     void create();
+    void onRender() override;
 
     SfxSample sndCrash;
     int level;

@@ -71,7 +71,6 @@ private:
     utils::TimeInterval m_tiRespawnBlink;
     utils::TimeInterval m_tiRespawn;
 
-protected:
     void onRender() override;
 
 public:

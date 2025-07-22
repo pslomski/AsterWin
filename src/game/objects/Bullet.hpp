@@ -11,7 +11,7 @@ public:
     Bullet();
     ~Bullet() {}
 
-protected:
+private:
     void onRender() override;
 };
 
@@ -20,44 +20,43 @@ typedef std::list<Bullet*>::iterator TvecBulletIt;
 
 class TShipDebris : public TempObject
 {
-private:
-    Float m_Ratio;
-
-protected:
-    void onRender() override;
-
 public:
     TShipDebris();
     ~TShipDebris() {}
+
     void update() override;
+
+private:
+    void onRender() override;
+
+    Float m_Ratio;
 };
 
 class AsterDebris : public TempObject
 {
-private:
-    Float m_Ratio;
-
-protected:
-    void onRender() override;
-
 public:
     AsterDebris();
     ~AsterDebris() {}
+
     void update() override;
+
+private:
+    void onRender() override;
+
+    Float m_Ratio;
 };
 
 class StarBlink : public TempObject
 {
-private:
-    Float m_Ratio;
-    Float m_Size;
-    void Init();
-
-protected:
-    void onRender() override;
-
 public:
     StarBlink();
     ~StarBlink() {}
     void update() override;
+
+private:
+    void onRender() override;
+
+    Float m_Ratio;
+    Float m_Size;
+    void Init();
 };
