@@ -14,9 +14,8 @@ public:
     Asteroid(const int levelArg);
     virtual ~Asteroid();
 
-    void Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus);
+    void crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus, const bool canCreateBonus);
 
-    static bool CreateBonus;
     int level;
     bool HasBonus;
     SfxSample sndCrash;

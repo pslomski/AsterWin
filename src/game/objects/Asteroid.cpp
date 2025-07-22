@@ -10,8 +10,6 @@
 
 namespace game
 {
-bool Asteroid::CreateBonus = true;
-
 Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
 {
     geometryType = GeometryType::Polyg;
@@ -116,7 +114,7 @@ BonusType GetBonusType()
     return BonusType::None;
 }
 
-void Asteroid::Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus)
+void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus, const bool canCreateBonus)
 {
     sndCrash.play();
 
@@ -144,7 +142,7 @@ void Asteroid::Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vec
         BonusType = GetBonusType();
     }
 
-    if (CreateBonus && BonusType != BonusType::None)
+    if (canCreateBonus and (BonusType not_eq BonusType::None))
     {
         BonusObject* pBonus = geCreateBonusObj(BonusType);
         pBonus->setXY(getX(), getY());

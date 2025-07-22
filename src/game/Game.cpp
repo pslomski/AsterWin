@@ -598,7 +598,7 @@ void Game::checkCollisions()
             delete ship;
             ship = nullptr;
 
-            (*itAster)->Crash(vecAstersTmp, vecDebris, vecBonus);
+            (*itAster)->crash(vecAstersTmp, vecDebris, vecBonus, true);
             delete (*itAster);
             itAster = vecAsters.erase(itAster);
             bIncrement = false;
@@ -612,9 +612,7 @@ void Game::checkCollisions()
             pUfo = nullptr;
             tiUfoRespawn.reset();
 
-            Asteroid::CreateBonus = false; // ufo nie generuje bonusow
-            (*itAster)->Crash(vecAstersTmp, vecDebris, vecBonus);
-            Asteroid::CreateBonus = true;
+            (*itAster)->crash(vecAstersTmp, vecDebris, vecBonus, false);
             delete (*itAster);
             itAster = vecAsters.erase(itAster);
             bIncrement = false;
@@ -629,7 +627,7 @@ void Game::checkCollisions()
                 delete (*itBullet);
                 itBullet = vecBullets.erase(itBullet);
                 scoreCounter.inc((*itAster)->scoreReward);
-                (*itAster)->Crash(vecAstersTmp, vecDebris, vecBonus);
+                (*itAster)->crash(vecAstersTmp, vecDebris, vecBonus, true);
                 delete (*itAster);
                 itAster = vecAsters.erase(itAster);
                 bIncrement = false;
@@ -650,9 +648,7 @@ void Game::checkCollisions()
                     delete (*itBullet);
                     itBullet = vecUfoBullets.erase(itBullet);
 
-                    Asteroid::CreateBonus = false; // ufo nie generuje bonusow
-                    (*itAster)->Crash(vecAstersTmp, vecDebris, vecBonus);
-                    Asteroid::CreateBonus = true;
+                    (*itAster)->crash(vecAstersTmp, vecDebris, vecBonus, false);
                     delete (*itAster);
                     itAster = vecAsters.erase(itAster);
                     bIncrement = false;
