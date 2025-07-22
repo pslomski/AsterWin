@@ -5,7 +5,6 @@
 #include "game/types/Color.hpp"
 #include "ui/Font.hpp"
 #include "utils/TimeInterval.hpp"
-#include "utils/Tools.hpp"
 
 class TextControl
 {

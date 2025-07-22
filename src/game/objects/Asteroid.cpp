@@ -170,5 +170,4 @@ void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, Bonuses& bonus
         vecDebris.push_back(pDeb);
     }
 }
-
 } // namespace game::objects

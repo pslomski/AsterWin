@@ -9,7 +9,6 @@
 #include "game/objects/TempObjects.hpp"
 #include "game/types/BonusType.hpp"
 #include "utils/TimeInterval.hpp"
-#include "utils/Tools.hpp"
 
 class Ship;
 
