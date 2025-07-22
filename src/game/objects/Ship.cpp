@@ -5,18 +5,6 @@
 #include "game/GameConsts.hpp"
 #include "gl/Utils.hpp"
 
-void BulletSpeedPowerUp::OnStart()
-{
-    pShip->BulletSpeed += GE_BULLET_SPEED_INC;
-}
-
-void BulletSpeedPowerUp::OnStop()
-{
-    pShip->BulletSpeed -= GE_BULLET_SPEED_INC;
-}
-
-//////////////////////////////////////////////////////////////////////////
-
 Ship::Ship(Float ax, Float ay, Float aangle)
     : Object(), puAddBullet(GE_POWERUP_DURATION_TIME), puBulletSpeed(GE_POWERUP_DURATION_TIME)
 {

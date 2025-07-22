@@ -8,21 +8,11 @@
 #include "game/objects/Object.hpp"
 #include "game/objects/PowerUp.hpp"
 #include "game/objects/PowerUpAddBullets.hpp"
+#include "game/objects/PowerUpBulletSpeed.hpp"
 #include "game/objects/Ship.fwd.hpp"
 #include "game/objects/TempObjects.hpp"
 #include "game/types/BonusType.hpp"
 #include "utils/TimeInterval.hpp"
-
-class BulletSpeedPowerUp : public game::objects::PowerUp
-{
-public:
-    BulletSpeedPowerUp(Float in_Dutation) : PowerUp(in_Dutation){};
-    Ship* pShip;
-
-protected:
-    void OnStart();
-    void OnStop();
-};
 
 class Ship : public Object
 {
@@ -66,7 +56,7 @@ public:
     void Respawn();
     void AddBonus(BonusType type);
     game::objects::PowerUpAddBullets puAddBullet; // PowerUp dodatkowe strzaly
-    BulletSpeedPowerUp puBulletSpeed; // PowerUp zwiekszona predkosc pociskow
+    game::objects::PowerUpBulletSpeed puBulletSpeed; // PowerUp zwiekszona predkosc pociskow
     SfxSample sndFire;
     SfxSample sndFirePow;
     SfxSample sndEngine;
