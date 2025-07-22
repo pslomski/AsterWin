@@ -8,7 +8,6 @@
 #include "game/objects/Objects.hpp"
 #include "game/objects/TempObjects.hpp"
 
-
 namespace game
 {
 class Asteroid : public Object
@@ -27,6 +26,6 @@ public:
     SfxSample sndCrash;
 
 protected:
-    void OnRender() override;
+    void onRender() override;
 };
 } // namespace game

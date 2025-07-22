@@ -163,7 +163,7 @@ void Ship::update()
     }
 }
 
-void Ship::OnRender()
+void Ship::onRender()
 {
     if (faccelerated)
     {

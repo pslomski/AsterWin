@@ -3,7 +3,6 @@
 #include "game/GameConsts.hpp"
 #include "gl/Utils.hpp"
 
-
 BonusObject::BonusObject(BonusType in_Type) : TempObject(GE_BONUS_LIFETIME), bonusType(in_Type)
 {
     scoreReward = GE_SCRVAL_BONUS;
@@ -31,7 +30,7 @@ void BonusObject::update()
     if (tiRot.inc(dt)) tiRot.reset();
 }
 
-void BonusObject::OnRender()
+void BonusObject::onRender()
 {
     glRotated(tiRot.ratio() * 360.0, 0.0, 1.0, 0.0);
     setGlColor(color * m_ColRatio);

@@ -8,7 +8,6 @@
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
 #include "game/types/BonusType.hpp"
-// #include "types/Color.hpp"
 #include "utils/TimeInterval.hpp"
 #include "utils/Tools.hpp"
 
@@ -73,7 +72,7 @@ private:
     utils::TimeInterval m_tiRespawn;
 
 protected:
-    void OnRender() override;
+    void onRender() override;
 
 public:
     Ship(Float ax, Float ay, Float aangle);

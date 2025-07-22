@@ -13,7 +13,7 @@ Bullet::Bullet() : TempObject()
     bounds.y1 = 0.1;
 }
 
-void Bullet::OnRender()
+void Bullet::onRender()
 {
     glPointSize(3.0);
     glBegin(GL_POINTS);
@@ -40,7 +40,7 @@ void TShipDebris::update()
     m_Ratio = 1.0 - lifeTime.ratio();
 }
 
-void TShipDebris::OnRender()
+void TShipDebris::onRender()
 {
     setGlColor(color * m_Ratio);
     glBegin(GL_LINES);
@@ -64,7 +64,7 @@ void AsterDebris::update()
     m_Ratio = 1.0 - lifeTime.ratio();
 }
 
-void AsterDebris::OnRender()
+void AsterDebris::onRender()
 {
     setGlColor(color * m_Ratio);
     glPointSize(2.0);
@@ -102,7 +102,7 @@ void StarBlink::update()
     m_Ratio = sin(lifeTime.ratio() * GE_PI);
 }
 
-void StarBlink::OnRender()
+void StarBlink::onRender()
 {
     setGlColor(color * m_Ratio);
     glPointSize(GLfloat(m_Size));

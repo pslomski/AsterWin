@@ -9,7 +9,7 @@ class BonusObject : public TempObject
 {
 public:
     void update() override;
-    void OnRender() override;
+    void onRender() override;
 
     BonusType bonusType;
     BonusObject(BonusType in_Type);

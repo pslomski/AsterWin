@@ -82,7 +82,7 @@ public:
     int scoreReward{};
 
 protected:
-    virtual void OnRender() {} // Draws Object in its own coordinate system
+    virtual void onRender() {} // Draws Object in its own coordinate system
     Float correctAlfa(Float alfa);
     void calcBounds(const PointsF& points);
 

@@ -22,7 +22,7 @@ public:
     SfxSample sndCrash;
 
 protected:
-    void OnRender() override;
+    void onRender() override;
 
 private:
     Float CheckTime;

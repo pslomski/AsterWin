@@ -12,7 +12,7 @@ public:
     ~Bullet() {}
 
 protected:
-    void OnRender() override;
+    void onRender() override;
 };
 
 typedef std::list<Bullet*> TvecBullet;
@@ -24,7 +24,7 @@ private:
     Float m_Ratio;
 
 protected:
-    void OnRender() override;
+    void onRender() override;
 
 public:
     TShipDebris();
@@ -38,7 +38,7 @@ private:
     Float m_Ratio;
 
 protected:
-    void OnRender() override;
+    void onRender() override;
 
 public:
     AsterDebris();
@@ -54,7 +54,7 @@ private:
     void Init();
 
 protected:
-    void OnRender() override;
+    void onRender() override;
 
 public:
     StarBlink();

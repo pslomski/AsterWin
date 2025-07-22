@@ -43,7 +43,7 @@ void Ufo::update()
     Object::update();
 }
 
-void Ufo::OnRender()
+void Ufo::onRender()
 {
     setGlColor(color);
     glBegin(GL_LINE_LOOP);

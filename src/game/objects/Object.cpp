@@ -209,13 +209,13 @@ void Object::draw()
     glPushMatrix();
     glTranslated(x, y, 0.0);
     glRotated(alfa, 0.0, 0.0, 1.0);
-    OnRender();
+    onRender();
     glPopMatrix();
 }
 
 void Object::render()
 {
-    OnRender();
+    onRender();
 }
 
 void Object::calcBounds(const PointsF& points)
