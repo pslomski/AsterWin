@@ -15,14 +15,13 @@ public:
 
     void crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus, const bool canCreateBonus);
 
-    SfxSample sndCrash;
-
 protected:
     void onRender() override;
 
 private:
     void create();
 
+    SfxSample sndCrash;
     int level;
 };
 } // namespace game
