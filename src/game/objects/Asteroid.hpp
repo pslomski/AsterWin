@@ -15,7 +15,6 @@ public:
 
     void crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus, const bool canCreateBonus);
 
-    bool HasBonus;
     SfxSample sndCrash;
 
 protected:

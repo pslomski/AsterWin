@@ -13,7 +13,6 @@ namespace game
 Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
 {
     geometryType = GeometryType::Polyg;
-    HasBonus = false;
     Color(GE_COLOR_ASTER);
     create();
 }
@@ -151,7 +150,6 @@ void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vec
     for (int i = 0; i < iAsterCount; ++i)
     {
         Asteroid* pAster = new Asteroid(level + 1);
-        if (i == 0) pAster->HasBonus = HasBonus; // jeden fragment przejmuje bonus
         pAster->setAlfa(getAlfa() + i * 180.0 - 90.0 + rand() % 50 - 25.0);
         Float x = getX() + 3.0 * cos(pAster->getAlfa() * GE_PIover180);
         Float y = getY() + 3.0 * sin(pAster->getAlfa() * GE_PIover180);
