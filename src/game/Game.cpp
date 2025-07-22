@@ -186,7 +186,7 @@ void Game::generateAsters(int iCount, int iGameLevel)
 {
     for (int i = 0; i < iCount; ++i)
     {
-        Asteroid* pAster = new Asteroid(1);
+        objects::Asteroid* pAster = new objects::Asteroid(1);
         int iSide = i % 4;
         int iPart = rand() % 4;
         int iAngle = std::min(170, 110 + 10 * iGameLevel);
@@ -527,9 +527,9 @@ void Game::updateObjects()
 
 void Game::checkCollisions()
 {
-    Asteroids vecAstersTmp;
+    objects::Asteroids vecAstersTmp;
 
-    // kolizja Statek-Ufo
+    // ufo-ship collision
     if (pUfo)
     {
         if (ship && !ship->Respawning && ship->checkCollision(pUfo))
@@ -544,7 +544,7 @@ void Game::checkCollisions()
         }
     }
 
-    // kolizja Strzal_nasz-Ufo
+    // ufo-our_shot collision
     if (pUfo)
     {
         TvecBulletIt itBullet;

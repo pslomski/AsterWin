@@ -15,7 +15,6 @@
 #include "types/Types.hpp"
 #include "utils/TimeInterval.hpp"
 
-
 namespace game
 {
 class Game
@@ -46,7 +45,7 @@ private:
     SfxSample sndStartBeep;
     SfxSample sndBonusBeep;
     SfxSample sndPowerUp;
-    Asteroids vecAsters; // asteroids objects
+    objects::Asteroids vecAsters; // asteroids objects
     TvecBullet vecBullets; // our ship shots
     TvecBullet vecUfoBullets; // enemy ufo shots
     TempObjects vecDebris; // particles of destroyed objects

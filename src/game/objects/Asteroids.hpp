@@ -2,9 +2,9 @@
 
 #include <list>
 
-namespace game
+namespace game::objects
 {
 class Asteroid;
 
 using Asteroids = std::list<Asteroid*>;
-} // namespace game
+} // namespace game::objects

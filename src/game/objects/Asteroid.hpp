@@ -6,7 +6,7 @@
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
 
-namespace game
+namespace game::objects
 {
 class Asteroid : public Object
 {
@@ -22,4 +22,4 @@ private:
     SfxSample sndCrash;
     int level;
 };
-} // namespace game
+} // namespace game::objects

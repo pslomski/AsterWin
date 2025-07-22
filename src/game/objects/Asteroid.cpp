@@ -8,7 +8,7 @@
 #include "gl/Utils.hpp"
 #include "utils/Tools.hpp"
 
-namespace game
+namespace game::objects
 {
 Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
 {
@@ -172,4 +172,4 @@ void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vec
     }
 }
 
-} // namespace game
+} // namespace game::objects
