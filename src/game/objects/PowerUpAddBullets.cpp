@@ -4,12 +4,14 @@
 
 namespace game::objects
 {
-void PowerUpAddBullets::OnStart()
+PowerUpAddBullets::PowerUpAddBullets(const float interval) : PowerUp(interval) {}
+
+void PowerUpAddBullets::onStart()
 {
     pShip->MaxBullets += GE_BULLETS_INCREMENT;
 }
 
-void PowerUpAddBullets::OnStop()
+void PowerUpAddBullets::onStop()
 {
     pShip->MaxBullets -= GE_BULLETS_INCREMENT;
 }

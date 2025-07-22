@@ -1,5 +1,6 @@
 #pragma once
 
+#include "game/objects/Ship.fwd.hpp"
 #include "utils/TimeInterval.hpp"
 
 namespace game::objects
@@ -9,15 +10,16 @@ class PowerUp
 public:
     PowerUp(const float interval);
 
-    void Start();
-    void Stop();
+    void start();
+    void stop();
     bool isActive() const { return active; }
 
-    utils::TimeInterval Duration;
+    Ship* pShip;
+    utils::TimeInterval duration;
 
 private:
-    virtual void OnStart() = 0;
-    virtual void OnStop() = 0;
+    virtual void onStart() = 0;
+    virtual void onStop() = 0;
 
     bool active{false};
 };

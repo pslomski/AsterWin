@@ -4,12 +4,14 @@
 
 namespace game::objects
 {
-void PowerUpBulletSpeed::OnStart()
+PowerUpBulletSpeed::PowerUpBulletSpeed(const float interval) : PowerUp(interval) {}
+
+void PowerUpBulletSpeed::onStart()
 {
     pShip->BulletSpeed += GE_BULLET_SPEED_INC;
 }
 
-void PowerUpBulletSpeed::OnStop()
+void PowerUpBulletSpeed::onStop()
 {
     pShip->BulletSpeed -= GE_BULLET_SPEED_INC;
 }

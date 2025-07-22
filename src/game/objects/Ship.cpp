@@ -61,8 +61,8 @@ Ship::~Ship()
 void Ship::update()
 {
     Object::update();
-    if (puAddBullet.Duration.inc(dt)) puAddBullet.Stop();
-    if (puBulletSpeed.Duration.inc(dt)) puBulletSpeed.Stop();
+    if (puAddBullet.duration.inc(dt)) puAddBullet.stop();
+    if (puBulletSpeed.duration.inc(dt)) puBulletSpeed.stop();
 
     if (Respawning)
     {
@@ -93,7 +93,7 @@ void Ship::update()
     m_clrTmp = color;
     if (puAddBullet.isActive())
     {
-        Float alfa = 2 * GE_PI * puAddBullet.Duration.elapsed;
+        Float alfa = 2 * GE_PI * puAddBullet.duration.elapsed;
         Float sina = sin(alfa);
         sina *= sina;
         Float cosa = cos(alfa);
@@ -108,7 +108,7 @@ void Ship::update()
     }
     if (puBulletSpeed.isActive())
     {
-        Float alfa = 2 * GE_PI * puBulletSpeed.Duration.elapsed;
+        Float alfa = 2 * GE_PI * puBulletSpeed.duration.elapsed;
         Float sina = sin(alfa);
         sina *= sina;
         Float cosa = cos(alfa);
@@ -250,10 +250,10 @@ void Ship::AddBonus(BonusType type)
     switch (type)
     {
         case BonusType::Bullets:
-            puAddBullet.Start();
+            puAddBullet.start();
             break;
         case BonusType::BulletSpeed:
-            puBulletSpeed.Start();
+            puBulletSpeed.start();
             break;
     }
 }

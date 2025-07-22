@@ -2,22 +2,22 @@
 
 namespace game::objects
 {
-PowerUp::PowerUp(const float interval) : Duration(interval) {}
+PowerUp::PowerUp(const float interval) : duration(interval) {}
 
-void PowerUp::Start()
+void PowerUp::start()
 {
-    Stop();
-    OnStart();
+    stop();
+    onStart();
     active = true;
 }
 
-void PowerUp::Stop()
+void PowerUp::stop()
 {
     if (active)
     {
-        OnStop();
+        onStop();
     }
-    Duration.reset();
+    duration.reset();
     active = false;
 }
 } // namespace game::objects
