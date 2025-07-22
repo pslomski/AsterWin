@@ -6,6 +6,7 @@ target_sources(${ASTER_EXE}
     BonusAddBullets.cpp
     BonusBulletSpeed.cpp
     BonusObject.cpp
+    BonusPoints.cpp
     Bonuses.cpp  
     Bullet.cpp
     Object.cpp

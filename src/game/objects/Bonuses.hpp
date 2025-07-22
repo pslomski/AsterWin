@@ -5,17 +5,7 @@
 
 namespace game::objects
 {
-class TGEBonusPoints : public BonusObject
-{
-public:
-    TGEBonusPoints();
+using TvecBonus = std::list<BonusObject*>;
 
-private:
-    void Create();
-};
-
-typedef std::list<BonusObject*> TvecBonus;
-typedef std::list<BonusObject*>::iterator TvecBonusIt;
-
-BonusObject* geCreateBonusObj(BonusType in_Type);
+BonusObject* createBonusObj(BonusType in_Type);
 } // namespace game::objects

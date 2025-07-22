@@ -140,7 +140,7 @@ void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vec
 
     if (canCreateBonus and (BonusType not_eq BonusType::None))
     {
-        BonusObject* pBonus = geCreateBonusObj(BonusType);
+        BonusObject* pBonus = createBonusObj(BonusType);
         pBonus->setXY(getX(), getY());
         pBonus->setRandV(2.0, 3.0);
         vecBonus.push_back(pBonus);
