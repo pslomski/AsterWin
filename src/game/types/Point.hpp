@@ -13,7 +13,7 @@ public:
         x = p.x;
         y = p.y;
     }
-    Point(T in_x, T in_y)
+    Point(const T in_x, const T in_y)
     {
         x = in_x;
         y = in_y;

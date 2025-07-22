@@ -9,15 +9,16 @@ namespace game::objects
 class BonusObject : public TempObject
 {
 public:
-    void update() override;
+    BonusObject(const BonusType bonusTypeArg);
 
-    BonusType bonusType;
-    BonusObject(BonusType in_Type);
+    void update() override;
+    BonusType getBonusType() const { return bonusType; }
 
 private:
     void onRender() override;
 
+    BonusType bonusType;
     utils::TimeInterval tiRot;
-    Float m_ColRatio;
+    float colorRatio{1.0f};
 };
 } // namespace game::objects

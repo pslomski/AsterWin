@@ -668,7 +668,7 @@ void Game::checkCollisions()
         vecAsters.push_back(*itAster);
     }
 
-    // kolizja Statek-Bonus
+    // ship-bonus collision
     if (ship)
     {
         for (auto it = vecBonus.begin(); it != vecBonus.end();)
@@ -676,13 +676,13 @@ void Game::checkCollisions()
             if (ship->checkCollision(*it))
             {
                 scoreCounter.inc((*it)->scoreReward);
-                if ((*it)->bonusType == BonusType::Points)
+                if ((*it)->getBonusType() == BonusType::Points)
                 {
                     sndBonusBeep.play();
                 }
                 else
                 {
-                    ship->AddBonus((*it)->bonusType);
+                    ship->AddBonus((*it)->getBonusType());
                     sndPowerUp.play();
                 }
                 delete (*it);
