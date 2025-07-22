@@ -17,7 +17,6 @@ public:
     Float get() const { return interval; }
     void reset();
     void reset(const Float newInterval);
-    void setExpired();
     bool inc(const Float dt);
     Float ratio() const;
 

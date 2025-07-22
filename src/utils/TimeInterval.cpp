@@ -18,11 +18,6 @@ void TimeInterval::reset(const Float newInterval)
     interval = newInterval;
 }
 
-void TimeInterval::setExpired()
-{
-    elapsed = interval + 0.01;
-}
-
 bool TimeInterval::inc(const Float dt)
 {
     elapsed += dt;
