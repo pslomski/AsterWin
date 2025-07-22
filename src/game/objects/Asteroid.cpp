@@ -18,8 +18,6 @@ Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
     create();
 }
 
-Asteroid::~Asteroid() {}
-
 void Asteroid::create()
 {
     Float DegDelta, R;

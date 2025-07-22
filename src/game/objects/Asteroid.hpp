@@ -12,7 +12,6 @@ class Asteroid : public Object
 {
 public:
     Asteroid(const int levelArg);
-    virtual ~Asteroid();
 
     void crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus, const bool canCreateBonus);
 
