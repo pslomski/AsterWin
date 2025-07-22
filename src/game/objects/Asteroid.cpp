@@ -17,12 +17,12 @@ Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
     geometryType = GeometryType::Polyg;
     HasBonus = false;
     Color(GE_COLOR_ASTER);
-    Create();
+    create();
 }
 
 Asteroid::~Asteroid() {}
 
-void Asteroid::Create()
+void Asteroid::create()
 {
     Float DegDelta, R;
     if (level == 1)

@@ -14,7 +14,6 @@ public:
     Asteroid(const int levelArg);
     virtual ~Asteroid();
 
-    void Create();
     void Crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus);
 
     static bool CreateBonus;
@@ -24,5 +23,8 @@ public:
 
 protected:
     void onRender() override;
+
+private:
+    void create();
 };
 } // namespace game
