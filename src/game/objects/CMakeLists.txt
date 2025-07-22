@@ -10,6 +10,7 @@ target_sources(${ASTER_EXE}
     Bonuses.cpp  
     Bullet.cpp
     Object.cpp
+    PowerUp.cpp
     Ship.cpp
     Ufo.cpp    
     TempObject.cpp

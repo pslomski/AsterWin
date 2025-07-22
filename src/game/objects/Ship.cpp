@@ -1,29 +1,10 @@
 #include "Ship.hpp"
 #include <algorithm>
-#include "game/Consts.hpp"
-// #include "World.hpp"
 #include "audio/Sound.hpp"
+#include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
 #include "gl/Utils.hpp"
 
-PowerUp::PowerUp(Float in_Duration) : m_bActive(false)
-{
-    Duration.interval = in_Duration;
-}
-
-void PowerUp::Start()
-{
-    Stop();
-    OnStart();
-    m_bActive = true;
-}
-
-void PowerUp::Stop()
-{
-    if (m_bActive) OnStop();
-    Duration.reset();
-    m_bActive = false;
-}
 
 void AddBulletPowerUp::OnStart()
 {

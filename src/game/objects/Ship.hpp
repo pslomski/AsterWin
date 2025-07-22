@@ -6,28 +6,14 @@
 #include "Bullet.hpp"
 #include "audio/SfxSample.hpp"
 #include "game/objects/Object.hpp"
+#include "game/objects/PowerUp.hpp"
 #include "game/objects/TempObjects.hpp"
 #include "game/types/BonusType.hpp"
 #include "utils/TimeInterval.hpp"
 
 class Ship;
 
-class PowerUp
-{
-public:
-    PowerUp(Float in_Dutation);
-    utils::TimeInterval Duration;
-    void Start();
-    void Stop();
-    bool isActive() { return m_bActive; }
-
-protected:
-    virtual void OnStart() = 0;
-    virtual void OnStop() = 0;
-    bool m_bActive;
-};
-
-class AddBulletPowerUp : public PowerUp
+class AddBulletPowerUp : public game::objects::PowerUp
 {
 public:
     AddBulletPowerUp(Float in_Dutation) : PowerUp(in_Dutation){};
@@ -38,7 +24,7 @@ protected:
     void OnStop();
 };
 
-class BulletSpeedPowerUp : public PowerUp
+class BulletSpeedPowerUp : public game::objects::PowerUp
 {
 public:
     BulletSpeedPowerUp(Float in_Dutation) : PowerUp(in_Dutation){};
