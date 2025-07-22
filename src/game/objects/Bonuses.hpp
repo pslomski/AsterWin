@@ -5,15 +5,6 @@
 
 namespace game::objects
 {
-class TGEBonusBulletSpeed : public BonusObject
-{
-public:
-    TGEBonusBulletSpeed();
-
-private:
-    void Create();
-};
-
 class TGEBonusAddBullets : public BonusObject
 {
 public:

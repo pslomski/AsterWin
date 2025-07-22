@@ -1,34 +1,10 @@
 #include "Bonuses.hpp"
 #include "game/GameConsts.hpp"
+#include "game/objects/BonusBulletSpeed.hpp"
 #include "gl/Utils.hpp"
 
 namespace game::objects
 {
-TGEBonusBulletSpeed::TGEBonusBulletSpeed() : BonusObject(BonusType::BulletSpeed)
-{
-    Create();
-}
-
-void TGEBonusBulletSpeed::Create()
-{
-    Float D = 0.5;
-    color = {GE_BONUS_BULLET_SPEED_COLOR};
-    glList = glGenLists(1);
-    glNewList(glList, GL_COMPILE);
-    glBegin(GL_LINE_LOOP);
-    glVertex2d(-D, 4 * D);
-    glVertex2d(2 * D, 4 * D);
-    glVertex2d(0.5 * D, D);
-    glVertex2d(2.5 * D, 2 * D);
-    glVertex2d(-D, -4 * D);
-    glVertex2d(0.0, 0.0);
-    glVertex2d(-2 * D, -D);
-    glEnd();
-    glEndList();
-}
-
-////////////////////////////////////////////////////////////////////
-
 TGEBonusAddBullets::TGEBonusAddBullets() : BonusObject(BonusType::Bullets)
 {
     Create();
@@ -110,7 +86,7 @@ game::objects::BonusObject* geCreateBonusObj(BonusType in_Type)
         case BonusType::Bullets:
             return new TGEBonusAddBullets;
         case BonusType::BulletSpeed:
-            return new TGEBonusBulletSpeed;
+            return new BonusBulletSpeed;
         case BonusType::Points:
             return new TGEBonusPoints;
     }
