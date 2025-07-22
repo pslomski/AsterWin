@@ -5,7 +5,7 @@
 
 namespace game::objects
 {
-using TvecBonus = std::list<BonusObject*>;
+using Bonuses = std::list<BonusObject*>;
 
 BonusObject* createBonusObj(BonusType in_Type);
 } // namespace game::objects

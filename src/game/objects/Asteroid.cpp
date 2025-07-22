@@ -110,7 +110,7 @@ BonusType GetBonusType()
     return BonusType::None;
 }
 
-void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vecBonus, const bool canCreateBonus)
+void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, Bonuses& bonuses, const bool canCreateBonus)
 {
     sndCrash.play();
 
@@ -143,7 +143,7 @@ void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, TvecBonus& vec
         BonusObject* pBonus = createBonusObj(BonusType);
         pBonus->setXY(getX(), getY());
         pBonus->setRandV(2.0, 3.0);
-        vecBonus.push_back(pBonus);
+        bonuses.push_back(pBonus);
     }
 
     for (int i = 0; i < iAsterCount; ++i)
