@@ -9,7 +9,6 @@ public:
     TempObject();
     explicit TempObject(const Float lifeTime);
     virtual bool expired();
-    void setExpired();
 
     utils::TimeInterval lifeTime;
 };

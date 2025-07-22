@@ -8,8 +8,3 @@ bool TempObject::expired()
 {
     return lifeTime.inc(dt);
 }
-
-void TempObject::setExpired()
-{
-    lifeTime.setExpired();
-}
