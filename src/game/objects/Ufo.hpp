@@ -5,6 +5,8 @@
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
 
+namespace game::objects
+{
 class Ufo : public Object
 {
 public:
@@ -31,3 +33,4 @@ private:
     Float FireTime;
     Float FireTimeElapsed;
 };
+} // namespace game::objects

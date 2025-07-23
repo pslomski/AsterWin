@@ -4,6 +4,8 @@
 #include "game/GameConsts.hpp"
 #include "gl/Utils.hpp"
 
+namespace game::objects
+{
 Ufo::Ufo() : Object()
 {
     sndEngine.init(SND_UFO_ENGINE, SND_VOL_UFO_ENGINE);
@@ -151,3 +153,4 @@ void Ufo::Crash(TempObjects& vecObiekty)
         vecObiekty.push_back(pDeb);
     }
 }
+} // namespace game::objects

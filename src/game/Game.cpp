@@ -246,7 +246,7 @@ bool Game::reset()
     tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
     tiUfoRespawn.reset(GE_BASE_UFO_TIME + rand() % 4);
     for (int i = 0; i < 20; ++i)
-        vecStarBlink.push_back(new StarBlink());
+        vecStarBlink.push_back(new objects::StarBlink());
     return true;
 };
 
@@ -284,7 +284,7 @@ void Game::processUserInput()
         {
             if (vecBullets.size() < ship->MaxBullets)
             {
-                Bullet* pB = ship->FireBullet();
+                objects::Bullet* pB = ship->FireBullet();
                 if (pB) vecBullets.push_back(pB);
             }
         }
@@ -383,7 +383,7 @@ void Game::analyzeGameState()
                     {
                         const Float maxRespownTime{15};
                         tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
-                        pUfo = new Ufo;
+                        pUfo = new objects::Ufo;
                         pUfo->setXY(geWorld.getRandomPosAtEdge());
                     }
                 }
@@ -457,7 +457,7 @@ void Game::updateObjects()
         }
     }
 
-    TvecBulletIt itBullet;
+    objects::TvecBulletIt itBullet;
     for (itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
     {
         if ((*itBullet)->expired())
@@ -545,7 +545,7 @@ void Game::checkCollisions()
     // ufo-our_shot collision
     if (pUfo)
     {
-        TvecBulletIt itBullet;
+        objects::TvecBulletIt itBullet;
         for (itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
         {
             if (pUfo->checkCollision(*itBullet))
@@ -568,7 +568,7 @@ void Game::checkCollisions()
     // kolizja Strzal_Ufo-Statek
     if (ship && !ship->Respawning)
     {
-        for (TvecBulletIt itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
+        for (objects::TvecBulletIt itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
         {
             if (ship->checkCollision(*itBullet))
             {
@@ -617,7 +617,7 @@ void Game::checkCollisions()
             if (itAster == vecAsters.end()) break;
         };
 
-        TvecBulletIt itBullet;
+        objects::TvecBulletIt itBullet;
         for (itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
         {
             if ((*itAster)->checkCollision(*itBullet))

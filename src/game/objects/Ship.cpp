@@ -220,7 +220,7 @@ void Ship::Crash(TempObjects& vecObiekty)
     iDebCount = GE_SHIP_DOT_DEBR_COUNT;
     for (int i = 0; i < iDebCount; ++i)
     {
-        TShipDebris* pDeb = new TShipDebris;
+        ShipShards* pDeb = new ShipShards;
         pDeb->setColor(color);
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
         pDeb->setXY(getX(), getY());

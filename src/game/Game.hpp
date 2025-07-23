@@ -46,13 +46,13 @@ private:
     SfxSample sndBonusBeep;
     SfxSample sndPowerUp;
     objects::Asteroids vecAsters; // asteroids objects
-    TvecBullet vecBullets; // our ship shots
-    TvecBullet vecUfoBullets; // enemy ufo shots
+    objects::TvecBullet vecBullets; // our ship shots
+    objects::TvecBullet vecUfoBullets; // enemy ufo shots
     TempObjects vecDebris; // particles of destroyed objects
     objects::Bonuses bonuses; // bonuses from destroyed asteroids
     Objects vecStarBlink;
     objects::Ship* ship; // our ship
-    Ufo* pUfo; // enemy ufo
+    objects::Ufo* pUfo; // enemy ufo
     GameState gameState;
     int astersCount; // (4) poczatkowa ilosc asteroidow. wzrasta o 1 z
                      // kazdym poziomem do max 6

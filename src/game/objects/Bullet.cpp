@@ -4,6 +4,8 @@
 #include "game/World.hpp"
 #include "gl/Utils.hpp"
 
+namespace game::objects
+{
 Bullet::Bullet() : TempObject()
 {
     lifeTime.interval = 1.0;
@@ -22,7 +24,7 @@ void Bullet::onRender()
     glEnd();
 }
 
-TShipDebris::TShipDebris() : TempObject()
+ShipShards::ShipShards() : TempObject()
 {
     m_Ratio = 1.0;
     Float D = 0.15 + 0.1 * RAND(2);
@@ -34,13 +36,13 @@ TShipDebris::TShipDebris() : TempObject()
     setRotSpeed(720.0 + RAND(300));
 }
 
-void TShipDebris::update()
+void ShipShards::update()
 {
-    Object::update();
+    TempObject::update();
     m_Ratio = 1.0 - lifeTime.ratio();
 }
 
-void TShipDebris::onRender()
+void ShipShards::onRender()
 {
     setGlColor(color * m_Ratio);
     glBegin(GL_LINES);
@@ -110,3 +112,4 @@ void StarBlink::onRender()
     glVertex2d(0.0, 0.0);
     glEnd();
 }
+} // namespace game::objects

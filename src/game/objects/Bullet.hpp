@@ -5,6 +5,8 @@
 #include <windows.h>
 #include "game/objects/TempObject.hpp"
 
+namespace game::objects
+{
 class Bullet : public TempObject
 {
 public:
@@ -18,11 +20,11 @@ private:
 typedef std::list<Bullet*> TvecBullet;
 typedef std::list<Bullet*>::iterator TvecBulletIt;
 
-class TShipDebris : public TempObject
+class ShipShards : public TempObject
 {
 public:
-    TShipDebris();
-    ~TShipDebris() {}
+    ShipShards();
+    ~ShipShards() {}
 
     void update() override;
 
@@ -60,3 +62,4 @@ private:
     Float m_Size;
     void Init();
 };
+} // namespace game::objects
