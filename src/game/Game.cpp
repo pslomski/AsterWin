@@ -458,8 +458,7 @@ void Game::updateObjects()
         }
     }
 
-    objects::TvecBulletIt itBullet;
-    for (itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
+    for (auto itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
     {
         if ((*itBullet)->expired())
         {
@@ -473,7 +472,7 @@ void Game::updateObjects()
         }
     }
 
-    for (itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
+    for (auto itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
     {
         if ((*itBullet)->expired())
         {
@@ -546,8 +545,7 @@ void Game::checkCollisions()
     // ufo-our_shot collision
     if (pUfo)
     {
-        objects::TvecBulletIt itBullet;
-        for (itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
+        for (auto itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
         {
             if (pUfo->checkCollision(*itBullet))
             {
@@ -566,10 +564,10 @@ void Game::checkCollisions()
         }
     }
 
-    // kolizja Strzal_Ufo-Statek
-    if (ship && !ship->Respawning)
+    // ufo_shoot-ship collision
+    if (ship and not ship->Respawning)
     {
-        for (objects::TvecBulletIt itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
+        for (auto itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
         {
             if (ship->checkCollision(*itBullet))
             {
@@ -618,8 +616,7 @@ void Game::checkCollisions()
             if (itAster == vecAsters.end()) break;
         };
 
-        objects::TvecBulletIt itBullet;
-        for (itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
+        for (auto itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
         {
             if ((*itAster)->checkCollision(*itBullet))
             {
@@ -640,7 +637,7 @@ void Game::checkCollisions()
 
         if (itAster != vecAsters.end())
         {
-            for (itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
+            for (auto itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
             {
                 if ((*itAster)->checkCollision(*itBullet))
                 {

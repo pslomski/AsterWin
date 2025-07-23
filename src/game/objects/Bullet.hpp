@@ -8,12 +8,10 @@ class Bullet : public TempObject
 {
 public:
     Bullet();
-    ~Bullet() {}
 
 private:
     void onRender() override;
 };
 
 typedef std::list<Bullet*> TvecBullet;
-typedef std::list<Bullet*>::iterator TvecBulletIt;
 } // namespace game::objects

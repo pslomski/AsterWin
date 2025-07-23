@@ -15,10 +15,10 @@ Bullet::Bullet() : TempObject()
 
 void Bullet::onRender()
 {
-    glPointSize(3.0);
+    glPointSize(3.0f);
     glBegin(GL_POINTS);
     setGlColor(color);
-    glVertex2d(0.0, 0.0);
+    glVertex2f(0.0f, 0.0f);
     glEnd();
 }
 } // namespace game::objects
