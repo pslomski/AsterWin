@@ -2,6 +2,7 @@ add_subdirectory(ut)
 
 target_sources(${ASTER_EXE}
   PRIVATE
+    AsterShards.cpp
     Asteroid.cpp
     BonusAddBullets.cpp
     BonusBulletSpeed.cpp
@@ -15,6 +16,6 @@ target_sources(${ASTER_EXE}
     PowerUpBulletSpeed.cpp
     Ship.cpp
     ShipShards.cpp
-    Ufo.cpp    
     TempObject.cpp
+    Ufo.cpp    
   )

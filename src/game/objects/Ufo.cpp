@@ -2,6 +2,7 @@
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
+#include "game/objects/AsterShards.hpp"
 #include "gl/Utils.hpp"
 
 namespace game::objects

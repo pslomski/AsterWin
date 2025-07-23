@@ -24,30 +24,6 @@ void Bullet::onRender()
     glEnd();
 }
 
-AsterShards::AsterShards() : TempObject()
-{
-    lifeTime.interval = 1.5 + rand() % 9 * 0.1;
-    bounds.x0 = -0.1;
-    bounds.x1 = 0.1;
-    bounds.y0 = -0.1;
-    bounds.y1 = 0.1;
-}
-
-void AsterShards::update()
-{
-    TempObject::update();
-    m_Ratio = 1.0 - lifeTime.ratio();
-}
-
-void AsterShards::onRender()
-{
-    setGlColor(color * m_Ratio);
-    glPointSize(2.0);
-    glBegin(GL_POINTS);
-    glVertex2d(0.0, 0.0);
-    glEnd();
-}
-
 StarBlink::StarBlink() : TempObject()
 {
     setColor();

@@ -4,6 +4,7 @@
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
 #include "game/Rand.hpp"
+#include "game/objects/AsterShards.hpp"
 #include "gl/Utils.hpp"
 #include "utils/Tools.hpp"
 
