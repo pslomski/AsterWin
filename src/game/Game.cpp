@@ -176,7 +176,7 @@ void Game::clear()
     pUfo = nullptr;
 
     ::clear(bullets);
-    ::clear(vecUfoBullets);
+    ::clear(bulletsUfo);
     ::clear(vecAsters);
     ::clear(vecDebris);
     ::clear(bonuses);
@@ -472,12 +472,12 @@ void Game::updateObjects()
         }
     }
 
-    for (auto itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
+    for (auto itBullet = bulletsUfo.begin(); itBullet != bulletsUfo.end();)
     {
         if ((*itBullet)->expired())
         {
             delete (*itBullet);
-            itBullet = vecUfoBullets.erase(itBullet);
+            itBullet = bulletsUfo.erase(itBullet);
         }
         else
         {
@@ -517,7 +517,7 @@ void Game::updateObjects()
     if (pUfo)
     {
         pUfo->pShip = ship;
-        pUfo->Action(vecUfoBullets);
+        pUfo->Action(bulletsUfo);
     }
 
     ::update(vecStarBlink);
@@ -567,12 +567,12 @@ void Game::checkCollisions()
     // ufo_shoot-ship collision
     if (ship and not ship->Respawning)
     {
-        for (auto itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
+        for (auto itBullet = bulletsUfo.begin(); itBullet != bulletsUfo.end();)
         {
             if (ship->checkCollision(*itBullet))
             {
                 delete (*itBullet);
-                itBullet = vecUfoBullets.erase(itBullet);
+                itBullet = bulletsUfo.erase(itBullet);
                 ship->Crash(vecDebris);
                 delete ship;
                 ship = nullptr;
@@ -637,12 +637,12 @@ void Game::checkCollisions()
 
         if (itAster != vecAsters.end())
         {
-            for (auto itBullet = vecUfoBullets.begin(); itBullet != vecUfoBullets.end();)
+            for (auto itBullet = bulletsUfo.begin(); itBullet != bulletsUfo.end();)
             {
                 if ((*itAster)->checkCollision(*itBullet))
                 {
                     delete (*itBullet);
-                    itBullet = vecUfoBullets.erase(itBullet);
+                    itBullet = bulletsUfo.erase(itBullet);
 
                     (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, false);
                     delete (*itAster);
@@ -710,7 +710,7 @@ void Game::draw()
     if (pUfo) pUfo->draw();
     ::draw(vecAsters);
     ::draw(bullets);
-    ::draw(vecUfoBullets);
+    ::draw(bulletsUfo);
     ::draw(vecDebris);
     ::draw(bonuses);
     ::draw(vecStarBlink);
