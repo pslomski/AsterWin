@@ -51,7 +51,7 @@ private:
     objects::Bullets bulletsUfo; // enemy ufo shots
     TempObjects shards; // particles of destroyed objects
     objects::Bonuses bonuses; // bonuses from destroyed asteroids
-    Objects vecStarBlink;
+    Objects starBlinks;
     objects::Ship* ship; // our ship
     objects::Ufo* pUfo; // enemy ufo
     GameState gameState;

@@ -180,7 +180,7 @@ void Game::clear()
     ::clear(asteroids);
     ::clear(shards);
     ::clear(bonuses);
-    ::clear(vecStarBlink);
+    ::clear(starBlinks);
 };
 
 void Game::generateAsters(int iCount, int iGameLevel)
@@ -247,7 +247,7 @@ bool Game::reset()
     tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
     tiUfoRespawn.reset(GE_BASE_UFO_TIME + rand() % 4);
     for (int i = 0; i < 20; ++i)
-        vecStarBlink.push_back(new objects::StarBlink());
+        starBlinks.push_back(new objects::StarBlink());
     return true;
 };
 
@@ -520,7 +520,7 @@ void Game::updateObjects()
         pUfo->Action(bulletsUfo);
     }
 
-    ::update(vecStarBlink);
+    ::update(starBlinks);
 }
 
 void Game::checkCollisions()
@@ -713,6 +713,6 @@ void Game::draw()
     ::draw(bulletsUfo);
     ::draw(shards);
     ::draw(bonuses);
-    ::draw(vecStarBlink);
+    ::draw(starBlinks);
 }
 } // namespace game
