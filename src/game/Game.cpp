@@ -10,6 +10,7 @@
 #include "game/ScoreCounter.hpp"
 #include "game/objects/Asteroid.hpp"
 #include "game/objects/Objects.hpp"
+#include "game/objects/StarBlink.hpp"
 #include "gl/Utils.hpp"
 
 namespace

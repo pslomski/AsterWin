@@ -4,16 +4,18 @@
 
 namespace game::objects
 {
-class Bullet : public TempObject
+class StarBlink : public TempObject
 {
 public:
-    Bullet();
-    ~Bullet() {}
+    StarBlink();
+
+    void update() override;
 
 private:
+    void init();
     void onRender() override;
-};
 
-typedef std::list<Bullet*> TvecBullet;
-typedef std::list<Bullet*>::iterator TvecBulletIt;
+    float ratio{1.0f};
+    float size{1.0f};
+};
 } // namespace game::objects

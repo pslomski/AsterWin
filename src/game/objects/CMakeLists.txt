@@ -16,6 +16,7 @@ target_sources(${ASTER_EXE}
     PowerUpBulletSpeed.cpp
     Ship.cpp
     ShipShards.cpp
+    StarBlink.cpp
     TempObject.cpp
     Ufo.cpp    
   )
