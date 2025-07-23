@@ -2,8 +2,10 @@
 #include "HighScoreState.hpp"
 #include "MenuState.hpp"
 #include "StateManager.hpp"
+#include "audio/Sound.hpp"
 #include "game/Consts.hpp"
 #include "game/World.hpp"
+#include "log/Log.hpp"
 
 namespace ui
 {
@@ -39,6 +41,7 @@ PlayState* PlayState::getInstance(StateManager* pManager)
 
 void PlayState::enterState()
 {
+    LOG_INF("Entering PlayState");
     asterGame.enterState();
     geWorld.isGameRunning = true;
     asterGame.isMusic = geMusic.getVolume() > 0.001;
@@ -61,6 +64,7 @@ void PlayState::leaveState()
     {
         geMusic.pause();
     }
+    LOG_INF("Leaving PlayState");
 }
 
 void PlayState::reset()

@@ -5,6 +5,7 @@
 #include "MenuState.hpp"
 #include "game/Consts.hpp"
 #include "game/World.hpp"
+#include "log/Log.hpp"
 
 namespace ui
 {
@@ -176,6 +177,7 @@ void HighScoreState::draw()
 
 void HighScoreState::enterState()
 {
+    LOG_INF("Entering HighScoreState");
     geWorld.isGameRunning = false;
     highScores.clear();
     std::ifstream inputFile("HighScores.txt");

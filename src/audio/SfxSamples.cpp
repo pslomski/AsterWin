@@ -24,27 +24,28 @@ void SfxSamples::init()
     {
         return; // Already initialized
     }
-    add(SampleId::shipEngine, "ShipEngine", FLAG_SAMPLE_LOOP);
-    add(SampleId::shipFire, "ShipFire");
-    add(SampleId::shipCrash, "ShipCrash");
-    add(SampleId::asterCrash1, "AsterCrash1");
-    add(SampleId::asterCrash2, "AsterCrash2");
-    add(SampleId::asterCrash3, "AsterCrash3");
-    add(SampleId::ufoEngine, "UfoEngine", FLAG_SAMPLE_LOOP);
-    add(SampleId::startBeep, "StartBeep");
-    add(SampleId::bonusBeep, "BonusBeep");
-    add(SampleId::broom, "Broom");
-    add(SampleId::powerUp, "PowerUp");
-    add(SampleId::shipFirePower, "ShipFirePower");
+    constexpr auto maxSampleCount{5};
+    add(SampleId::shipEngine, "ShipEngine", 1, FLAG_SAMPLE_LOOP);
+    add(SampleId::shipFire, "ShipFire", 1);
+    add(SampleId::shipCrash, "ShipCrash", 1);
+    add(SampleId::asterCrash1, "AsterCrash1", maxSampleCount);
+    add(SampleId::asterCrash2, "AsterCrash2", maxSampleCount);
+    add(SampleId::asterCrash3, "AsterCrash3", maxSampleCount);
+    add(SampleId::ufoEngine, "UfoEngine", 1, FLAG_SAMPLE_LOOP);
+    add(SampleId::startBeep, "StartBeep", 1);
+    add(SampleId::bonusBeep, "BonusBeep", maxSampleCount);
+    add(SampleId::broom, "Broom", 1);
+    add(SampleId::powerUp, "PowerUp", 1);
+    add(SampleId::shipFirePower, "ShipFirePower", 1);
 }
 
-void SfxSamples::add(const SampleId sampleId, const char* name, const SampleFlags flags)
+void SfxSamples::add(const SampleId sampleId, const char* name, const int maxSampleCount, const SampleFlags flags)
 {
     constexpr auto subdir{"sound/"};
     constexpr auto ext{".ogg"};
     std::stringstream ss{};
     ss << subdir << name << ext;
-    samples[sampleId] = audioLib.loadSample(ss.str().c_str(), flags);
+    samples[sampleId] = audioLib.loadSample(ss.str().c_str(), maxSampleCount, flags);
 }
 
 void SfxSamples::free()

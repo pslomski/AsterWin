@@ -17,7 +17,7 @@ protected:
 TEST_F(TestSfxSamples, testInit)
 {
     constexpr auto sampleCount = 12;
-    EXPECT_CALL(audioLib, loadSample(_, _)).Times(sampleCount).WillRepeatedly(Return(1)).RetiresOnSaturation();
+    EXPECT_CALL(audioLib, loadSample(_, _, _)).Times(sampleCount).WillRepeatedly(Return(1)).RetiresOnSaturation();
     EXPECT_CALL(audioLib, sampleFree(1)).Times(sampleCount).RetiresOnSaturation();
     sfxSamples.init();
 }

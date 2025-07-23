@@ -1,7 +1,9 @@
 #include "OptionsState.hpp"
 #include <algorithm>
+#include <basetsd.h>
 #include "MenuState.hpp"
 #include "game/World.hpp"
+#include "log/Log.hpp"
 #include "ui/Settings.hpp"
 
 namespace ui
@@ -54,10 +56,7 @@ OptionsState* OptionsState::GetInstance(StateManager* pManager)
 
 void OptionsState::enterState()
 {
-    Settings settings;
-    settings.load();
-    geWorld.soundVol = settings.soundVol;
-    geWorld.musicVol = settings.musicVol;
+    LOG_INF("Entering OptionsState");
     geWorld.isGameRunning = false;
     SetBlinkText(mCurrentSelection, true);
 }
@@ -68,6 +67,7 @@ void OptionsState::leaveState()
     settings.soundVol = geWorld.soundVol;
     settings.musicVol = geWorld.musicVol;
     settings.save();
+    LOG_INF("Leaving OptionsState");
 }
 
 void OptionsState::onKeyDown(WPARAM wKey)
@@ -111,12 +111,10 @@ void OptionsState::draw()
 
     mTitleText->draw();
 
-    int musicVol = int(ceil(10 * geMusic.getVolume()));
-    int soundVol = int(ceil(10 * geSound.getVolume()));
-    sprintf_s(buf, BUF_SIZE, "Music volume: %d", musicVol);
+    sprintf_s(buf, BUF_SIZE, "Music volume: %d", geWorld.musicVol);
     mMusicVolText->setText(std::string(buf).c_str());
     mMusicVolText->draw();
-    sprintf_s(buf, BUF_SIZE, "Sound volume: %d", soundVol);
+    sprintf_s(buf, BUF_SIZE, "Sound volume: %d", geWorld.soundVol);
     mSoundVolText->setText(std::string(buf).c_str());
     mSoundVolText->draw();
 }

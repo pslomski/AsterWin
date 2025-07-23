@@ -6,6 +6,7 @@
 #include "StateManager.hpp"
 #include "game/Consts.hpp"
 #include "game/World.hpp"
+#include "log/Log.hpp"
 
 namespace ui
 {
@@ -140,6 +141,7 @@ void CMenuState::draw()
 
 void CMenuState::enterState()
 {
+    LOG_INF("Entering MenuState");
     geWorld.isGameRunning = false;
     // Checks whether there is a current game active
     setBlinkText(currentSelection, false);

@@ -14,7 +14,7 @@ class AudioLib
 public:
     void init();
     void free();
-    HSAMPLE loadSample(const char* name, const SampleFlags flags);
+    HSAMPLE loadSample(const char* name, const int maxSampleCount, const SampleFlags flags);
     void sampleStop(const HSAMPLE sample);
     void sampleFree(const HSAMPLE sample);
     void setVolume(const float volume);

@@ -22,7 +22,7 @@ public:
     HSAMPLE get(const SampleId id) { return samples[id]; }
 
 private:
-    void add(const SampleId sampleId, const char* name, const SampleFlags flags = 0);
+    void add(const SampleId sampleId, const char* name, const int maxSampleCount, const SampleFlags flags = 0);
 
     std::map<SampleId, HSAMPLE> samples;
 };
