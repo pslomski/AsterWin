@@ -26,9 +26,9 @@ Application::Application(HINSTANCE hInstance) : hInstance(hInstance)
 
 Application::~Application()
 {
-    audio::audioLib.free();
     geSound.close();
     geMusic.close();
+    audio::audioLib.free();
     RemoveFontResource("Vectorb.ttf");
 }
 
