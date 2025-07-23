@@ -5,9 +5,9 @@
 
 namespace game::objects
 {
-game::objects::BonusObject* createBonusObj(BonusType in_Type)
+game::objects::BonusObject* createBonusObj(const BonusType bonusType)
 {
-    switch (in_Type)
+    switch (bonusType)
     {
         case BonusType::Bullets:
             return new BonusAddBullets;
