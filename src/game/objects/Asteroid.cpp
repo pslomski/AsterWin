@@ -111,7 +111,7 @@ BonusType GetBonusType()
     return BonusType::None;
 }
 
-void Asteroid::crash(Asteroids& vecAster, TempObjects& shards, Bonuses& bonuses, const bool canCreateBonus)
+void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses, const bool canCreateBonus)
 {
     sndCrash.play();
 
@@ -155,7 +155,7 @@ void Asteroid::crash(Asteroids& vecAster, TempObjects& shards, Bonuses& bonuses,
         Float y = getY() + 3.0 * sin(pAster->getAlfa() * GE_PIover180);
         pAster->setXY(x, y);
         pAster->setV(getV() * 1.3);
-        vecAster.push_back(pAster);
+        asteroids.push_back(pAster);
     }
 
     for (int i = 0; i < iDebCount; ++i)

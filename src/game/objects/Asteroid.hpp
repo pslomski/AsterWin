@@ -13,7 +13,7 @@ class Asteroid : public Object
 public:
     Asteroid(const int levelArg);
 
-    void crash(Asteroids& vecAster, TempObjects& shards, Bonuses& bonuses, const bool canCreateBonus);
+    void crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses, const bool canCreateBonus);
 
 private:
     void create();
