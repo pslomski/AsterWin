@@ -1,4 +1,5 @@
 #include "Ufo.hpp"
+#include <cmath>
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
@@ -129,7 +130,7 @@ Bullet* Ufo::FireBullet(const PointF& pt)
     Bullet* bullet = new Bullet;
     bullet->lifeTime.interval = 3.0;
     bullet->setXY(getX(), getY());
-    Float alfa = atan2(pt.y - getY(), pt.x - getX()) * GE_180overPI;
+    Float alfa = std::atan2(pt.y - getY(), pt.x - getX()) * GE_180overPI;
     bullet->setAlfa(alfa + rand() % 6 - 3);
     bullet->setV(Speed);
     bullet->setColor(color);
@@ -147,8 +148,8 @@ void Ufo::Crash(TempObjects& vecObiekty)
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
         pDeb->setXY(getX(), getY());
         Float vRand = 3.0 + rand() % 15;
-        Float vx = 0.8 * getVX() + vRand * cos(pDeb->getAlfa() * GE_PIover180);
-        Float vy = 0.8 * getVY() + vRand * sin(pDeb->getAlfa() * GE_PIover180);
+        Float vx = 0.8 * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
+        Float vy = 0.8 * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
         pDeb->setV(vx, vy);
         pDeb->setRotSpeed(rand() / 200 - 400);
         vecObiekty.push_back(pDeb);
