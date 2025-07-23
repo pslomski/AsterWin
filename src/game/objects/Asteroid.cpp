@@ -1,4 +1,5 @@
 #include "Asteroid.hpp"
+#include <cmath>
 #include "Bullet.hpp"
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
@@ -50,8 +51,8 @@ void Asteroid::create()
     {
         PointF pt;
         Float R2 = R * (static_cast<Float>(0.7) + rand() % 30 / 100.0);
-        pt.x = R2 * cos(deg * GE_PIover180);
-        pt.y = R2 * sin(deg * GE_PIover180);
+        pt.x = R2 * std::cos(deg * GE_PIover180);
+        pt.y = R2 * std::sin(deg * GE_PIover180);
         verts.push_back(pt);
     }
     calcBounds(verts);
@@ -151,8 +152,8 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     {
         Asteroid* pAster = new Asteroid(level + 1);
         pAster->setAlfa(getAlfa() + i * 180.0 - 90.0 + rand() % 50 - 25.0);
-        Float x = getX() + 3.0 * cos(pAster->getAlfa() * GE_PIover180);
-        Float y = getY() + 3.0 * sin(pAster->getAlfa() * GE_PIover180);
+        Float x = getX() + 3.0f * std::cos(pAster->getAlfa() * GE_PIover180);
+        Float y = getY() + 3.0f * std::sin(pAster->getAlfa() * GE_PIover180);
         pAster->setXY(x, y);
         pAster->setV(getV() * 1.3);
         asteroids.push_back(pAster);
@@ -164,9 +165,9 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
         pDeb->setXY(getX(), getY());
         pDeb->lifeTime.interval = LifeTime;
-        Float vRand = 5.0 + rand() % 15;
-        Float vx = 0.8 * getVX() + vRand * cos(pDeb->getAlfa() * GE_PIover180);
-        Float vy = 0.8 * getVY() + vRand * sin(pDeb->getAlfa() * GE_PIover180);
+        Float vRand = 5.0f + rand() % 15;
+        Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
+        Float vy = 0.8f * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
         pDeb->setV(vx, vy);
         shards.push_back(pDeb);
     }
