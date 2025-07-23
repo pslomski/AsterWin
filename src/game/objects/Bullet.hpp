@@ -20,11 +20,11 @@ private:
 typedef std::list<Bullet*> TvecBullet;
 typedef std::list<Bullet*>::iterator TvecBulletIt;
 
-class AsterDebris : public TempObject
+class AsterShards : public TempObject
 {
 public:
-    AsterDebris();
-    ~AsterDebris() {}
+    AsterShards();
+    ~AsterShards() {}
 
     void update() override;
 

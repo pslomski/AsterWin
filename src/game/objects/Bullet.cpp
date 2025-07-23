@@ -24,7 +24,7 @@ void Bullet::onRender()
     glEnd();
 }
 
-AsterDebris::AsterDebris() : TempObject()
+AsterShards::AsterShards() : TempObject()
 {
     lifeTime.interval = 1.5 + rand() % 9 * 0.1;
     bounds.x0 = -0.1;
@@ -33,13 +33,13 @@ AsterDebris::AsterDebris() : TempObject()
     bounds.y1 = 0.1;
 }
 
-void AsterDebris::update()
+void AsterShards::update()
 {
-    Object::update();
+    TempObject::update();
     m_Ratio = 1.0 - lifeTime.ratio();
 }
 
-void AsterDebris::onRender()
+void AsterShards::onRender()
 {
     setGlColor(color * m_Ratio);
     glPointSize(2.0);

@@ -159,7 +159,7 @@ void Asteroid::crash(Asteroids& vecAster, TempObjects& vecDebris, Bonuses& bonus
 
     for (int i = 0; i < iDebCount; ++i)
     {
-        AsterDebris* pDeb = new AsterDebris;
+        AsterShards* pDeb = new AsterShards;
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
         pDeb->setXY(getX(), getY());
         pDeb->lifeTime.interval = LifeTime;

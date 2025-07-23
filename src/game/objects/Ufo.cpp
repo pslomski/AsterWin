@@ -141,7 +141,7 @@ void Ufo::Crash(TempObjects& vecObiekty)
     int iDebCount = GE_UFO_DEBR_COUNT;
     for (int i = 0; i < iDebCount; ++i)
     {
-        AsterDebris* pDeb = new AsterDebris;
+        AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
         pDeb->setXY(getX(), getY());
