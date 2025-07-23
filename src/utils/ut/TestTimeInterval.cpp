@@ -47,6 +47,13 @@ TEST_F(TestTimeInterval, testInc)
     ASSERT_TRUE(timeInterval.inc(0.5f));
 }
 
+TEST_F(TestTimeInterval, testExpired)
+{
+    ASSERT_FALSE(timeInterval.expired());
+    timeInterval.inc(1.0f);
+    ASSERT_TRUE(timeInterval.expired());
+}
+
 TEST_F(TestTimeInterval, testRatio)
 {
     timeInterval.inc(0.5f);

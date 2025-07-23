@@ -18,6 +18,7 @@ public:
     MOCK_METHOD(void, reset, ());
     MOCK_METHOD(void, reset, (const Float newInterval));
     MOCK_METHOD(bool, inc, (const Float dt));
+    MOCK_METHOD(bool, expired, (), (const));
     MOCK_METHOD(Float, ratio, (), (const));
 
     Float interval;

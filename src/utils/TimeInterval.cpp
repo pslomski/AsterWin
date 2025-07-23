@@ -21,6 +21,11 @@ void TimeInterval::reset(const Float newInterval)
 bool TimeInterval::inc(const Float dt)
 {
     elapsed += dt;
+    return expired();
+}
+
+bool TimeInterval::expired() const
+{
     return elapsed >= interval;
 }
 
