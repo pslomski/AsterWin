@@ -2,6 +2,7 @@
 
 #include "Bullet.hpp"
 #include "audio/SfxSample.hpp"
+#include "game/objects/Bullets.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/TempObjects.hpp"
 
@@ -17,7 +18,7 @@ public:
                    // obiektow)
     Object* pAster; // wskaznik na najblizsza asteroide (ustawiane przy okazji
                     // poruszania obiektow)
-    void Action(TvecBullet& vecBullet);
+    void Action(Bullets& vecBullet);
     Bullet* FireBullet(const PointF& pt);
     void Crash(TempObjects& vecObiekty);
     SfxSample sndEngine;

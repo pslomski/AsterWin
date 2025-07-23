@@ -55,7 +55,7 @@ void Ufo::onRender()
     glEnd();
 }
 
-void Ufo::Action(TvecBullet& vecBullet)
+void Ufo::Action(Bullets& vecBullet)
 {
     const Float SafeDist = 12.0;
 

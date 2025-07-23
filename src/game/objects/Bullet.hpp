@@ -1,5 +1,6 @@
 #pragma once
 
+#include "game/objects/Bullet.fwd.hpp"
 #include "game/objects/TempObject.hpp"
 
 namespace game::objects
@@ -12,6 +13,4 @@ public:
 private:
     void onRender() override;
 };
-
-typedef std::list<Bullet*> TvecBullet;
 } // namespace game::objects

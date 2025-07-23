@@ -6,6 +6,7 @@
 #include "audio/Sound.hpp"
 #include "game/objects/Asteroids.hpp"
 #include "game/objects/Bonuses.hpp"
+#include "game/objects/Bullets.hpp"
 #include "game/objects/Objects.hpp"
 #include "game/objects/Ship.hpp"
 #include "game/objects/TempObjects.hpp"
@@ -46,8 +47,8 @@ private:
     SfxSample sndBonusBeep;
     SfxSample sndPowerUp;
     objects::Asteroids vecAsters; // asteroids objects
-    objects::TvecBullet vecBullets; // our ship shots
-    objects::TvecBullet vecUfoBullets; // enemy ufo shots
+    objects::Bullets vecBullets; // our ship shots
+    objects::Bullets vecUfoBullets; // enemy ufo shots
     TempObjects vecDebris; // particles of destroyed objects
     objects::Bonuses bonuses; // bonuses from destroyed asteroids
     Objects vecStarBlink;
