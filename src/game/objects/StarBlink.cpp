@@ -1,9 +1,11 @@
 #include "StarBlink.hpp"
+#include <cmath>
 #include <gl/gl.h>
 #include "game/Consts.hpp"
 #include "game/Rand.hpp"
 #include "game/World.hpp"
 #include "gl/Utils.hpp"
+
 
 namespace game::objects
 {
@@ -33,7 +35,7 @@ void StarBlink::update()
     }
 
     TempObject::update();
-    ratio = sin(lifeTime.ratio() * GE_PI);
+    ratio = std::sin(lifeTime.ratio() * GE_PI);
 }
 
 void StarBlink::onRender()
