@@ -49,7 +49,7 @@ private:
     objects::Asteroids asteroids; // asteroids objects
     objects::Bullets bullets; // our ship shots
     objects::Bullets bulletsUfo; // enemy ufo shots
-    TempObjects vecDebris; // particles of destroyed objects
+    TempObjects shards; // particles of destroyed objects
     objects::Bonuses bonuses; // bonuses from destroyed asteroids
     Objects vecStarBlink;
     objects::Ship* ship; // our ship

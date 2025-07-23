@@ -178,7 +178,7 @@ void Game::clear()
     ::clear(bullets);
     ::clear(bulletsUfo);
     ::clear(asteroids);
-    ::clear(vecDebris);
+    ::clear(shards);
     ::clear(bonuses);
     ::clear(vecStarBlink);
 };
@@ -486,12 +486,12 @@ void Game::updateObjects()
         }
     }
 
-    for (auto itOb = vecDebris.begin(); itOb != vecDebris.end();)
+    for (auto itOb = shards.begin(); itOb != shards.end();)
     {
         if ((*itOb)->expired())
         {
             delete (*itOb);
-            itOb = vecDebris.erase(itOb);
+            itOb = shards.erase(itOb);
         }
         else
         {
@@ -532,10 +532,10 @@ void Game::checkCollisions()
     {
         if (ship && !ship->Respawning && ship->checkCollision(pUfo))
         {
-            ship->Crash(vecDebris);
+            ship->Crash(shards);
             delete ship;
             ship = nullptr;
-            pUfo->Crash(vecDebris);
+            pUfo->Crash(shards);
             delete pUfo;
             pUfo = nullptr;
             tiUfoRespawn.reset();
@@ -552,7 +552,7 @@ void Game::checkCollisions()
                 scoreCounter.inc(pUfo->scoreReward);
                 delete (*itBullet);
                 itBullet = bullets.erase(itBullet);
-                pUfo->Crash(vecDebris);
+                pUfo->Crash(shards);
                 delete pUfo;
                 pUfo = nullptr;
                 break;
@@ -573,7 +573,7 @@ void Game::checkCollisions()
             {
                 delete (*itBullet);
                 itBullet = bulletsUfo.erase(itBullet);
-                ship->Crash(vecDebris);
+                ship->Crash(shards);
                 delete ship;
                 ship = nullptr;
                 break;
@@ -591,11 +591,11 @@ void Game::checkCollisions()
         bool bIncrement = true;
         if (ship && !ship->Respawning && ship->checkCollision(*itAster))
         {
-            ship->Crash(vecDebris);
+            ship->Crash(shards);
             delete ship;
             ship = nullptr;
 
-            (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, true);
+            (*itAster)->crash(vecAstersTmp, shards, bonuses, true);
             delete (*itAster);
             itAster = asteroids.erase(itAster);
             bIncrement = false;
@@ -604,12 +604,12 @@ void Game::checkCollisions()
 
         if (pUfo && pUfo->checkCollision(*itAster))
         {
-            pUfo->Crash(vecDebris);
+            pUfo->Crash(shards);
             delete pUfo;
             pUfo = nullptr;
             tiUfoRespawn.reset();
 
-            (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, false);
+            (*itAster)->crash(vecAstersTmp, shards, bonuses, false);
             delete (*itAster);
             itAster = asteroids.erase(itAster);
             bIncrement = false;
@@ -623,7 +623,7 @@ void Game::checkCollisions()
                 delete (*itBullet);
                 itBullet = bullets.erase(itBullet);
                 scoreCounter.inc((*itAster)->scoreReward);
-                (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, true);
+                (*itAster)->crash(vecAstersTmp, shards, bonuses, true);
                 delete (*itAster);
                 itAster = asteroids.erase(itAster);
                 bIncrement = false;
@@ -644,7 +644,7 @@ void Game::checkCollisions()
                     delete (*itBullet);
                     itBullet = bulletsUfo.erase(itBullet);
 
-                    (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, false);
+                    (*itAster)->crash(vecAstersTmp, shards, bonuses, false);
                     delete (*itAster);
                     itAster = asteroids.erase(itAster);
                     bIncrement = false;
@@ -711,7 +711,7 @@ void Game::draw()
     ::draw(asteroids);
     ::draw(bullets);
     ::draw(bulletsUfo);
-    ::draw(vecDebris);
+    ::draw(shards);
     ::draw(bonuses);
     ::draw(vecStarBlink);
 }
