@@ -49,9 +49,9 @@ private:
     objects::Asteroids asteroids; // asteroids objects
     objects::Bullets bullets; // our ship shots
     objects::Bullets bulletsUfo; // enemy ufo shots
-    TempObjects shards; // particles of destroyed objects
+    objects::TempObjects shards; // particles of destroyed objects
     objects::Bonuses bonuses; // bonuses from destroyed asteroids
-    Objects starBlinks;
+    objects::Objects starBlinks;
     objects::Ship* ship; // our ship
     objects::Ufo* pUfo; // enemy ufo
     GameState gameState;

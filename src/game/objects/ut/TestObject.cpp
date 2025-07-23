@@ -6,7 +6,7 @@
 
 using namespace testing;
 
-namespace game
+namespace game::objects
 {
 class TestObject : public Test
 {
@@ -21,4 +21,4 @@ TEST_F(TestObject, distance)
     object2.setXY(1.0f, 0.0f);
     ASSERT_THAT(object.distance(&object2), Eq(1.0f));
 }
-} // namespace game
+} // namespace game::objects

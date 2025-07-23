@@ -7,6 +7,8 @@
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PolygWithPointCheck.hpp"
 
+namespace game::objects
+{
 Float Object::dt = 0.0;
 
 Object::Object()
@@ -180,7 +182,7 @@ bool Object::checkCollision(Object* pObiekt)
             }
             else if (GeometryType::Point == pObiekt->geometryType)
             {
-                if (checkPolygWithPoint(pObiekt, this)) return true;
+                if (geom::checkPolygWithPoint(pObiekt, this)) return true;
             }
             else
             {
@@ -191,7 +193,7 @@ bool Object::checkCollision(Object* pObiekt)
         {
             if (GeometryType::Polyg == pObiekt->geometryType)
             {
-                if (checkPolygWithPoint(this, pObiekt)) return true;
+                if (geom::checkPolygWithPoint(this, pObiekt)) return true;
             }
             else
             {
@@ -237,3 +239,4 @@ void Object::calcBounds(const PointsF& points)
     bounds.y0 = -max;
     bounds.y1 = max;
 }
+} // namespace game::objects

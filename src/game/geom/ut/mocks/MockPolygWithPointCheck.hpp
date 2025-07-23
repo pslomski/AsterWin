@@ -4,18 +4,20 @@
 #if not USE_ORIG(game_geom_PolygWithPointCheck)
 
 #include <gmock/gmock.h>
-#include "game/types/Types.hpp"
+#include "game/objects/Object.fwd.hpp"
 
+namespace game::geom
+{
 class MockPolygWithPointCheck
 {
 public:
-    MOCK_METHOD(bool, checkPolygWithPoint, (const Object*, const Object*), (const));
+    MOCK_METHOD(bool, checkPolygWithPoint, (const objects::Object*, const objects::Object*), (const));
 };
 
-inline bool checkPolygWithPoint(const Object* point, const Object* polygon)
+inline bool checkPolygWithPoint(const objects::Object* point, const objects::Object* polygon)
 {
-    MockPolygWithPointCheck mock;
-    return mock.checkPolygWithPoint(point, polygon);
+    return true;
 }
+} // namespace game::geom
 
 #endif // game_geom_PolygWithPointCheck

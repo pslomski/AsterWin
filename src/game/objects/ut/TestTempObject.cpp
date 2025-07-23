@@ -5,7 +5,7 @@
 
 using namespace testing;
 
-namespace game
+namespace game::objects
 {
 class TestTempObject : public Test
 {
@@ -17,4 +17,4 @@ TEST_F(TestTempObject, testExpired)
 {
     ASSERT_FALSE(object.expired());
 }
-} // namespace game
+} // namespace game::objects

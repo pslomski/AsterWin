@@ -6,6 +6,8 @@
 
 #include "game/objects/Object.hpp"
 
-bool checkPolygWithPoint(const Object* point, const Object* polygon);
-
+namespace game::geom
+{
+bool checkPolygWithPoint(const objects::Object* point, const objects::Object* polygon);
+} // namespace game::geom
 #endif // USE_ORIG(game_geom_PolygWithPointCheck)

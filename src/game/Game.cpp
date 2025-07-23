@@ -145,9 +145,9 @@ void Game::leaveState()
 
 void Game::update()
 {
-    Object::dt = geWorld.dt;
+    objects::Object::dt = geWorld.dt;
     ++frameCount;
-    if (tiFPS.inc(Object::dt))
+    if (tiFPS.inc(objects::Object::dt))
     {
         fps = frameCount / tiFPS.elapsed;
         tiFPS.reset();
@@ -308,7 +308,7 @@ void Game::analyzeGameState()
     {
         case GameState::StartGame:
         {
-            if (tiGameStart.inc(Object::dt))
+            if (tiGameStart.inc(objects::Object::dt))
             {
                 tiGameStart.reset();
                 float pitch, gain;
@@ -332,14 +332,14 @@ void Game::analyzeGameState()
         break;
         case GameState::Run:
         {
-            if (tiChangeBroomSoundFreq.inc(Object::dt))
+            if (tiChangeBroomSoundFreq.inc(objects::Object::dt))
             {
                 tiChangeBroomSoundFreq.reset();
                 tiBroomSound.interval -= 1;
                 tiBroomSound.interval = std::max(tiBroomSound.interval, 0.7f);
             }
 
-            if (tiBroomSound.inc(Object::dt))
+            if (tiBroomSound.inc(objects::Object::dt))
             {
                 tiBroomSound.reset();
                 if (bPitchBroomSound)
@@ -380,7 +380,7 @@ void Game::analyzeGameState()
             {
                 if (!pUfo)
                 {
-                    if (tiUfoRespawn.inc(Object::dt))
+                    if (tiUfoRespawn.inc(objects::Object::dt))
                     {
                         const Float maxRespownTime{15};
                         tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
@@ -392,7 +392,7 @@ void Game::analyzeGameState()
         }
         break;
         case GameState::NextLevelPause:
-            if (tiPause.inc(Object::dt))
+            if (tiPause.inc(objects::Object::dt))
             {
                 tiPause.reset();
                 gameState = GameState::Run;
@@ -407,7 +407,7 @@ void Game::analyzeGameState()
             }
             break;
         case GameState::ShipDestroyed:
-            if (tiPause.inc(Object::dt))
+            if (tiPause.inc(objects::Object::dt))
             {
                 tiPause.reset();
                 assert(nullptr == ship);
@@ -421,7 +421,7 @@ void Game::analyzeGameState()
             }
             break;
         case GameState::GameOver:
-            if (tiPause.inc(Object::dt))
+            if (tiPause.inc(objects::Object::dt))
             {
                 geSound.stop();
             }

@@ -3,6 +3,8 @@
 #include "game/objects/Object.hpp"
 #include "utils/TimeInterval.hpp"
 
+namespace game::objects
+{
 class TempObject : public Object
 {
 public:
@@ -12,3 +14,4 @@ public:
 
     utils::TimeInterval lifeTime;
 };
+} // namespace game::objects

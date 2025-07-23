@@ -17,7 +17,9 @@ PointF rotate(PointF& pt, Float alfa)
 }
 } // namespace
 
-bool checkPolygWithPoint(const Object* point, const Object* polygon)
+namespace game::geom
+{
+bool checkPolygWithPoint(const objects::Object* point, const objects::Object* polygon)
 {
     BoxF o1;
     Float x, y;
@@ -51,3 +53,4 @@ bool checkPolygWithPoint(const Object* point, const Object* polygon)
     }
     return false;
 }
+} // namespace game::geom

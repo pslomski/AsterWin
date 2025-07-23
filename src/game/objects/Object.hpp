@@ -5,6 +5,7 @@
 #if USE_ORIG(game_objects_Object)
 
 #include <gl/gl.h>
+#include "game/objects/Object.fwd.hpp"
 #include "game/types/Bounds.hpp"
 #include "game/types/Box.hpp"
 #include "game/types/Color.hpp"
@@ -12,6 +13,8 @@
 #include "game/types/Point.hpp"
 #include "game/types/Types.hpp"
 
+namespace game::objects
+{
 class Object
 {
 public:
@@ -97,5 +100,6 @@ private:
     Float fax, fay;
     Float fa;
 };
+} // namespace game::objects
 
 #endif // game_objects_Object
