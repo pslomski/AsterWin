@@ -20,20 +20,6 @@ private:
 typedef std::list<Bullet*> TvecBullet;
 typedef std::list<Bullet*>::iterator TvecBulletIt;
 
-class ShipShards : public TempObject
-{
-public:
-    ShipShards();
-    ~ShipShards() {}
-
-    void update() override;
-
-private:
-    void onRender() override;
-
-    Float m_Ratio;
-};
-
 class AsterDebris : public TempObject
 {
 public:

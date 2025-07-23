@@ -24,33 +24,6 @@ void Bullet::onRender()
     glEnd();
 }
 
-ShipShards::ShipShards() : TempObject()
-{
-    m_Ratio = 1.0;
-    Float D = 0.15 + 0.1 * RAND(2);
-    lifeTime.interval = 1.3 + rand() % 9 * 0.1;
-    bounds.x0 = -D;
-    bounds.x1 = D;
-    bounds.y0 = -D;
-    bounds.y1 = D;
-    setRotSpeed(720.0 + RAND(300));
-}
-
-void ShipShards::update()
-{
-    TempObject::update();
-    m_Ratio = 1.0 - lifeTime.ratio();
-}
-
-void ShipShards::onRender()
-{
-    setGlColor(color * m_Ratio);
-    glBegin(GL_LINES);
-    glVertex2d(bounds.x0, 0.0);
-    glVertex2d(bounds.x1, 0.0);
-    glEnd();
-}
-
 AsterDebris::AsterDebris() : TempObject()
 {
     lifeTime.interval = 1.5 + rand() % 9 * 0.1;
