@@ -55,7 +55,7 @@ void Ufo::onRender()
     glEnd();
 }
 
-void Ufo::Action(Bullets& vecBullet)
+void Ufo::Action(Bullets& bullets)
 {
     const Float SafeDist = 12.0;
 
@@ -93,7 +93,7 @@ void Ufo::Action(Bullets& vecBullet)
         }
         Float x = getX() + getVX();
         Float y = getY() + getVY();
-        vecBullet.push_back(FireBullet(PointF(x, y))); // prewencyjny strzal w nowym kierunku ruchu
+        bullets.push_back(FireBullet(PointF(x, y))); // prewencyjny strzal w nowym kierunku ruchu
         FireTimeElapsed = 0.0;
         MoveTimeElapsed = 0.0;
     }
@@ -109,14 +109,14 @@ void Ufo::Action(Bullets& vecBullet)
         {
             if (pShip && RShp < 35.0)
             {
-                vecBullet.push_back(FireBullet(pShip->getXY()));
+                bullets.push_back(FireBullet(pShip->getXY()));
             }
         }
         else
         {
             if (pAster && RAst < 20.0)
             {
-                vecBullet.push_back(FireBullet(pAster->getXY()));
+                bullets.push_back(FireBullet(pAster->getXY()));
             }
         }
         FireTimeElapsed = 0.0;

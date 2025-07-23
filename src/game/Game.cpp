@@ -175,7 +175,7 @@ void Game::clear()
     if (pUfo) delete pUfo;
     pUfo = nullptr;
 
-    ::clear(vecBullets);
+    ::clear(bullets);
     ::clear(vecUfoBullets);
     ::clear(vecAsters);
     ::clear(vecDebris);
@@ -283,10 +283,10 @@ void Game::processUserInput()
         keypress[VK_SPACE] = true;
         if (ship)
         {
-            if (vecBullets.size() < ship->MaxBullets)
+            if (bullets.size() < ship->MaxBullets)
             {
                 objects::Bullet* pB = ship->FireBullet();
-                if (pB) vecBullets.push_back(pB);
+                if (pB) bullets.push_back(pB);
             }
         }
     }
@@ -458,12 +458,12 @@ void Game::updateObjects()
         }
     }
 
-    for (auto itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
+    for (auto itBullet = bullets.begin(); itBullet != bullets.end();)
     {
         if ((*itBullet)->expired())
         {
             delete (*itBullet);
-            itBullet = vecBullets.erase(itBullet);
+            itBullet = bullets.erase(itBullet);
         }
         else
         {
@@ -545,13 +545,13 @@ void Game::checkCollisions()
     // ufo-our_shot collision
     if (pUfo)
     {
-        for (auto itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
+        for (auto itBullet = bullets.begin(); itBullet != bullets.end();)
         {
             if (pUfo->checkCollision(*itBullet))
             {
                 scoreCounter.inc(pUfo->scoreReward);
                 delete (*itBullet);
-                itBullet = vecBullets.erase(itBullet);
+                itBullet = bullets.erase(itBullet);
                 pUfo->Crash(vecDebris);
                 delete pUfo;
                 pUfo = nullptr;
@@ -616,12 +616,12 @@ void Game::checkCollisions()
             if (itAster == vecAsters.end()) break;
         };
 
-        for (auto itBullet = vecBullets.begin(); itBullet != vecBullets.end();)
+        for (auto itBullet = bullets.begin(); itBullet != bullets.end();)
         {
             if ((*itAster)->checkCollision(*itBullet))
             {
                 delete (*itBullet);
-                itBullet = vecBullets.erase(itBullet);
+                itBullet = bullets.erase(itBullet);
                 scoreCounter.inc((*itAster)->scoreReward);
                 (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, true);
                 delete (*itAster);
@@ -709,7 +709,7 @@ void Game::draw()
     if (ship) ship->draw();
     if (pUfo) pUfo->draw();
     ::draw(vecAsters);
-    ::draw(vecBullets);
+    ::draw(bullets);
     ::draw(vecUfoBullets);
     ::draw(vecDebris);
     ::draw(bonuses);

@@ -47,7 +47,7 @@ private:
     SfxSample sndBonusBeep;
     SfxSample sndPowerUp;
     objects::Asteroids vecAsters; // asteroids objects
-    objects::Bullets vecBullets; // our ship shots
+    objects::Bullets bullets; // our ship shots
     objects::Bullets vecUfoBullets; // enemy ufo shots
     TempObjects vecDebris; // particles of destroyed objects
     objects::Bonuses bonuses; // bonuses from destroyed asteroids

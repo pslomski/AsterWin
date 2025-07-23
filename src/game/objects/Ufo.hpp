@@ -18,7 +18,7 @@ public:
                    // obiektow)
     Object* pAster; // wskaznik na najblizsza asteroide (ustawiane przy okazji
                     // poruszania obiektow)
-    void Action(Bullets& vecBullet);
+    void Action(Bullets& bullets);
     Bullet* FireBullet(const PointF& pt);
     void Crash(TempObjects& vecObiekty);
     SfxSample sndEngine;
