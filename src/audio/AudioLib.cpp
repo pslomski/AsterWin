@@ -31,7 +31,7 @@ void AudioLib::free()
 
 HSAMPLE AudioLib::loadSample(const char* name, const SampleFlags flags)
 {
-    return BASS_SampleLoad(FALSE, name, 0, 0, 1, getBassFlags(flags));
+    return BASS_SampleLoad(FALSE, name, 0, 0, 5, getBassFlags(flags));
 }
 
 void AudioLib::sampleStop(const HSAMPLE sample)
