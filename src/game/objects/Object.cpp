@@ -1,5 +1,6 @@
 #include "game/objects/Object.hpp"
 #include <cassert>
+#include <cmath>
 #include <gl/gl.h>
 #include "game/Consts.hpp"
 #include "game/World.hpp"
@@ -34,37 +35,42 @@ Float Object::distance(const Object* object) const
 {
     const auto dx = object->getX() - fx;
     const auto dy = object->getY() - fy;
-    return sqrt(dx * dx + dy * dy);
+    return std::sqrt(dx * dx + dy * dy);
 }
 
 void Object::setA(Float aa)
 {
     fa = aa;
-    fax = Float(fa * cos(angle * GE_PIover180));
-    fay = Float(fa * sin(angle * GE_PIover180));
+    fax = Float(fa * std::cos(angle * GE_PIover180));
+    fay = Float(fa * std::sin(angle * GE_PIover180));
 }
 
 void Object::setV(Float av)
 {
     fv = av;
-    fvx = Float(fv * cos(angle * GE_PIover180));
-    fvy = Float(fv * sin(angle * GE_PIover180));
+    fvx = Float(fv * std::cos(angle * GE_PIover180));
+    fvy = Float(fv * std::sin(angle * GE_PIover180));
 }
 
 void Object::setVA(Float av, Float alfa)
 {
     fv = av;
-    fvx = Float(fv * cos(alfa * GE_PIover180));
-    fvy = Float(fv * sin(alfa * GE_PIover180));
+    fvx = Float(fv * std::cos(alfa * GE_PIover180));
+    fvy = Float(fv * std::sin(alfa * GE_PIover180));
 }
 
 void Object::setRandV(Float vmin, Float vmax)
 {
     Float vRand = rand() % int(vmax - vmin) + vmin;
     Float alfa = rand() % 360;
-    Float vx = vRand * cos(alfa * GE_PIover180);
-    Float vy = vRand * sin(alfa * GE_PIover180);
+    Float vx = vRand * std::cos(alfa * GE_PIover180);
+    Float vy = vRand * std::sin(alfa * GE_PIover180);
     setV(vx, vy);
+}
+
+Float Object::getV()
+{
+    return sqrt(fvx * fvx + fvy * fvy);
 }
 
 Float Object::correctAlfa(Float alfa)
@@ -121,8 +127,8 @@ void Object::move()
 BoxF Object::transform(const BoxF& seg) const
 {
     BoxF res;
-    Float sinalfa = sin(-angle * GE_PIover180);
-    Float cosalfa = cos(-angle * GE_PIover180);
+    Float sinalfa = std::sin(-angle * GE_PIover180);
+    Float cosalfa = std::cos(-angle * GE_PIover180);
     res.x0 = fx + seg.x0 * cosalfa + seg.y0 * sinalfa;
     res.y0 = fy - seg.x0 * sinalfa + seg.y0 * cosalfa;
     res.x1 = fx + seg.x1 * cosalfa + seg.y1 * sinalfa;

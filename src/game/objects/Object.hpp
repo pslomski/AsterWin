@@ -5,9 +5,6 @@
 #if USE_ORIG(game_objects_Object)
 
 #include <gl/gl.h>
-#include <list>
-#include <math.h>
-#include <windows.h>
 #include "game/types/Bounds.hpp"
 #include "game/types/Box.hpp"
 #include "game/types/Color.hpp"
@@ -52,7 +49,7 @@ public:
     void setRandV(Float vmin, Float vmax);
     Float getVX() { return fvx; }
     Float getVY() { return fvy; }
-    Float getV() { return sqrt(fvx * fvx + fvy * fvy); }
+    Float getV();
     void setA(Float aa);
     Float getA() { return fa; }
     void setAlfa(Float aalfa)
