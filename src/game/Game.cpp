@@ -177,7 +177,7 @@ void Game::clear()
 
     ::clear(bullets);
     ::clear(bulletsUfo);
-    ::clear(vecAsters);
+    ::clear(asteroids);
     ::clear(vecDebris);
     ::clear(bonuses);
     ::clear(vecStarBlink);
@@ -213,7 +213,7 @@ void Game::generateAsters(int iCount, int iGameLevel)
             pAster->setAlfa(iAngle - 90);
         }
         pAster->setV(3.0 + rand() % 5 + iGameLevel * 0.25);
-        vecAsters.push_back(pAster);
+        asteroids.push_back(pAster);
     }
 };
 
@@ -369,7 +369,7 @@ void Game::analyzeGameState()
                     tiPause.reset(GE_GAMEOVER_PAUSE_TIME);
                 }
             }
-            else if (vecAsters.empty() && !pUfo)
+            else if (asteroids.empty() && !pUfo)
             {
                 // przejscie na wyzszy poziom
                 gameState = GameState::NextLevelPause;
@@ -396,7 +396,7 @@ void Game::analyzeGameState()
             {
                 tiPause.reset();
                 gameState = GameState::Run;
-                if (vecAsters.empty())
+                if (asteroids.empty())
                 {
                     ++astersCount;
                     astersCount = std::min(astersCount, GE_MAX_ASTER_COUNT);
@@ -444,7 +444,7 @@ void Game::updateObjects()
     }
 
     Float Rmin = 1e6;
-    for (auto itAster = vecAsters.begin(); itAster != vecAsters.end(); itAster++)
+    for (auto itAster = asteroids.begin(); itAster != asteroids.end(); itAster++)
     {
         (*itAster)->update();
         if (pUfo)
@@ -586,7 +586,7 @@ void Game::checkCollisions()
     }
 
     // tutaj sprawdzanie kolizji z asteroidami i ew. strzalami przeciwnika
-    for (auto itAster = vecAsters.begin(); itAster != vecAsters.end();)
+    for (auto itAster = asteroids.begin(); itAster != asteroids.end();)
     {
         bool bIncrement = true;
         if (ship && !ship->Respawning && ship->checkCollision(*itAster))
@@ -597,9 +597,9 @@ void Game::checkCollisions()
 
             (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, true);
             delete (*itAster);
-            itAster = vecAsters.erase(itAster);
+            itAster = asteroids.erase(itAster);
             bIncrement = false;
-            if (itAster == vecAsters.end()) break;
+            if (itAster == asteroids.end()) break;
         };
 
         if (pUfo && pUfo->checkCollision(*itAster))
@@ -611,9 +611,9 @@ void Game::checkCollisions()
 
             (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, false);
             delete (*itAster);
-            itAster = vecAsters.erase(itAster);
+            itAster = asteroids.erase(itAster);
             bIncrement = false;
-            if (itAster == vecAsters.end()) break;
+            if (itAster == asteroids.end()) break;
         };
 
         for (auto itBullet = bullets.begin(); itBullet != bullets.end();)
@@ -625,9 +625,9 @@ void Game::checkCollisions()
                 scoreCounter.inc((*itAster)->scoreReward);
                 (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, true);
                 delete (*itAster);
-                itAster = vecAsters.erase(itAster);
+                itAster = asteroids.erase(itAster);
                 bIncrement = false;
-                if (itAster == vecAsters.end()) break;
+                if (itAster == asteroids.end()) break;
             }
             else
             {
@@ -635,7 +635,7 @@ void Game::checkCollisions()
             }
         }
 
-        if (itAster != vecAsters.end())
+        if (itAster != asteroids.end())
         {
             for (auto itBullet = bulletsUfo.begin(); itBullet != bulletsUfo.end();)
             {
@@ -646,9 +646,9 @@ void Game::checkCollisions()
 
                     (*itAster)->crash(vecAstersTmp, vecDebris, bonuses, false);
                     delete (*itAster);
-                    itAster = vecAsters.erase(itAster);
+                    itAster = asteroids.erase(itAster);
                     bIncrement = false;
-                    if (itAster == vecAsters.end()) break;
+                    if (itAster == asteroids.end()) break;
                 }
                 else
                 {
@@ -661,7 +661,7 @@ void Game::checkCollisions()
 
     for (auto itAster = vecAstersTmp.begin(); itAster != vecAstersTmp.end(); itAster++)
     {
-        vecAsters.push_back(*itAster);
+        asteroids.push_back(*itAster);
     }
 
     // ship-bonus collision
@@ -708,7 +708,7 @@ void Game::draw()
 
     if (ship) ship->draw();
     if (pUfo) pUfo->draw();
-    ::draw(vecAsters);
+    ::draw(asteroids);
     ::draw(bullets);
     ::draw(bulletsUfo);
     ::draw(vecDebris);
