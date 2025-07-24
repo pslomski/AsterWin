@@ -74,7 +74,7 @@ void Asteroid::onRender()
     glCallList(glList);
 }
 
-BonusType GetBonusType()
+BonusType getBonusType()
 {
     static BonusType btLast = BonusType::None;
     static int RandCount = 0;
@@ -99,6 +99,8 @@ BonusType GetBonusType()
                     break;
                 case BonusType::BulletSpeed:
                     bt = BonusType::Bullets;
+                    break;
+                default:
                     break;
             }
         }
@@ -137,7 +139,7 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
         iAsterCount = 0;
         iDebCount = GE_ASTER3_DEBR_COUNT;
         LifeTime = 0.5 + rand() % 7 * 0.1;
-        BonusType = GetBonusType();
+        BonusType = getBonusType();
     }
 
     if (canCreateBonus and (BonusType not_eq BonusType::None))
