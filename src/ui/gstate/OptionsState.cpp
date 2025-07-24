@@ -134,7 +134,7 @@ TextControl* OptionsState::GetTextControl(const int id)
 
 void OptionsState::SetBlinkText(int id, bool isBlink)
 {
-    TextControl* txtCtrl = GetTextControl(mCurrentSelection);
+    TextControl* txtCtrl = GetTextControl(id);
     if (txtCtrl) txtCtrl->setBlink(isBlink);
 }
 

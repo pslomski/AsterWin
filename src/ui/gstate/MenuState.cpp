@@ -178,7 +178,7 @@ TextControl* CMenuState::getTextControl(int id)
 
 void CMenuState::setBlinkText(int id, bool isBlink)
 {
-    TextControl* textCtrl = getTextControl(currentSelection);
+    TextControl* textCtrl = getTextControl(id);
     if (textCtrl) textCtrl->setBlink(isBlink);
 }
 
