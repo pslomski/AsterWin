@@ -73,8 +73,6 @@ Game::Game() : scoreCounter(std::bind(&Game::onIncrementLives, this))
     tiGameStart.reset(1.2);
     tiUfoRespawn.interval = GE_BASE_UFO_TIME;
     beepCount = 0;
-    pitch = 0.5;
-    gain = 0.5;
 }
 
 Game::~Game() {}
@@ -296,7 +294,7 @@ void Game::processUserInput()
     }
 }
 
-void threadStartMusic(void* p)
+void threadStartMusic(void*)
 {
     Sleep(1000);
     geMusic.play(TRUE);
@@ -311,7 +309,6 @@ void Game::analyzeGameState()
             if (tiGameStart.inc(objects::Object::dt))
             {
                 tiGameStart.reset();
-                float pitch, gain;
                 if (beepCount > 2)
                 {
                     pitch = pitch * 2.0f;
@@ -322,8 +319,8 @@ void Game::analyzeGameState()
                 }
                 else
                 {
-                    pitch = pitch;
-                    gain = gain;
+                    pitch = 0.5f;
+                    gain = 0.5f;
                 }
                 playStartBeep(pitch, gain);
                 ++beepCount;

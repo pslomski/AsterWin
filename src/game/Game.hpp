@@ -66,8 +66,8 @@ private:
     utils::TimeInterval tiFPS;
     int frameCount{0};
     int beepCount{0};
-    float pitch{0};
-    float gain{0};
+    float pitch{0.5f};
+    float gain{0.5f};
     utils::TimeInterval tiBroomSound;
     bool bPitchBroomSound;
     utils::TimeInterval tiChangeBroomSoundFreq;
