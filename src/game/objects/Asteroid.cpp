@@ -6,8 +6,8 @@
 #include "game/GameConsts.hpp"
 #include "game/Rand.hpp"
 #include "game/objects/AsterShards.hpp"
+#include "game/rand.hpp"
 #include "gl/Utils.hpp"
-#include "utils/Tools.hpp"
 
 namespace game::objects
 {
@@ -26,7 +26,7 @@ void Asteroid::create()
         scoreReward = GE_SCRVAL_ASTER1;
         R = 3.9;
         DegDelta = 36.0;
-        setRotSpeed(rand() % 60 - 120);
+        setRotSpeed(RAND(60) - 120.0f);
         sndCrash.init(SND_ASTER_CRASH1, SND_VOL_ASTER_CRASH1);
     }
     else if (level == 2)
@@ -34,7 +34,7 @@ void Asteroid::create()
         scoreReward = GE_SCRVAL_ASTER2;
         R = 2.8;
         DegDelta = 52.0;
-        setRotSpeed(rand() % 80 - 160);
+        setRotSpeed(RAND(80) - 160.0f);
         sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
     }
     else if (level >= 3)
@@ -42,7 +42,7 @@ void Asteroid::create()
         scoreReward = GE_SCRVAL_ASTER3;
         R = 1.7;
         DegDelta = 72.0;
-        setRotSpeed(rand() % 100 - 200);
+        setRotSpeed(RAND(100) - 200.0f);
         sndCrash.init(SND_ASTER_CRASH3, SND_VOL_ASTER_CRASH3);
     }
 

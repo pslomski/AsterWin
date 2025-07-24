@@ -61,8 +61,8 @@ public:
         alphap = angle;
     }
     Float getAlfa() const { return angle; }
-    Float getRotSpeed() { return omega; }
-    void setRotSpeed(Float omega) { omega = omega; }
+    Float getRotSpeed() const { return omega; }
+    void setRotSpeed(const Float omegaArg) { omega = omegaArg; }
     void setColor(Float aRed = 1, Float aGreen = 1, Float aBlue = 1)
     {
         color.red = aRed;
