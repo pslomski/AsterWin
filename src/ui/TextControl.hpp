@@ -29,9 +29,9 @@ public:
 
 private:
     Font* font;
-    std::string text;
-    TextAlignement alignement;
-    Color color{};
-    bool isBlink;
     utils::TimeInterval tiBlink;
+    TextAlignement alignement{TextAlignement::left};
+    std::string text;
+    Color color{};
+    bool isBlink{false};
 };

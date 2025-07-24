@@ -4,9 +4,8 @@
 #include "game/World.hpp"
 
 TextControl::TextControl(Font* pFont, const ui::Rectanglei& rectPosition)
-    : font{pFont}, position(rectPosition), tiBlink(0.5)
+    : position(rectPosition), font{pFont}, tiBlink(0.5)
 {
-    isBlink = false;
 }
 
 TextControl::~TextControl() {}
