@@ -10,7 +10,7 @@ public:
     void pause();
     void stop();
     void setVolume(const float volumeArg);
-    void setPitch(const float pitch) {} // TODO: Implement pitch control if possible
+    void setPitch([[maybe_unused]] const float pitch) {} // TODO: Implement pitch control if possible
     void slideVol(const float volumeArg, const DWORD time);
 
 private:
