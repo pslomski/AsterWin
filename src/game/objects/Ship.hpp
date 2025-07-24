@@ -56,7 +56,7 @@ public:
     Bullet* FireBullet();
     void Crash(TempObjects& vecObiekty);
     void Respawn();
-    void AddBonus(BonusType type);
+    void AddBonus(const BonusType type);
     PowerUpAddBullets puAddBullet; // PowerUp dodatkowe strzaly
     PowerUpBulletSpeed puBulletSpeed; // PowerUp zwiekszona predkosc pociskow
     SfxSample sndFire;

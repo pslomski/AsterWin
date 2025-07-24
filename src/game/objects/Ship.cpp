@@ -247,7 +247,7 @@ void Ship::Respawn()
     }
 }
 
-void Ship::AddBonus(BonusType type)
+void Ship::AddBonus(const BonusType type)
 {
     switch (type)
     {
@@ -256,6 +256,8 @@ void Ship::AddBonus(BonusType type)
             break;
         case BonusType::BulletSpeed:
             puBulletSpeed.start();
+            break;
+        default:
             break;
     }
 }
