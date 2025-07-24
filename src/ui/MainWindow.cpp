@@ -9,7 +9,6 @@
 #define WINDOW_CLASSNAME "ASTEROIDS"
 
 MainWindow::MainWindow(int iWidth, int iHeight)
-    : hWindow(NULL), hDeviceContext(NULL), hGLContext(NULL), stateManager(nullptr), isActive(true)
 {
     registerWindowClass();
 
@@ -132,7 +131,7 @@ void MainWindow::processEvent(UINT Message, WPARAM wParam, LPARAM lParam)
 
 void MainWindow::registerWindowClass()
 {
-    HINSTANCE hInstance = GetModuleHandle(NULL);
+    hInstance = GetModuleHandle(NULL);
     WNDCLASS WindowClass;
     WindowClass.style = 0;
     WindowClass.lpfnWndProc = &MainWindow::onEvent;

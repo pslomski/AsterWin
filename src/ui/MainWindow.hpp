@@ -14,7 +14,7 @@ public:
     void draw();
     HDC getDC() { return hDeviceContext; }
 
-    bool isActive;
+    bool isActive{true};
 
 private:
     void registerWindowClass();
@@ -24,8 +24,9 @@ private:
     static LRESULT CALLBACK onEvent(HWND Handle, UINT Message, WPARAM wParam, LPARAM lParam);
     void processEvent(UINT Message, WPARAM wParam, LPARAM lParam);
 
-    HWND hWindow;
-    HDC hDeviceContext;
-    HGLRC hGLContext;
-    ui::StateManager* stateManager;
+    HINSTANCE hInstance{NULL};
+    HWND hWindow{NULL};
+    HDC hDeviceContext{NULL};
+    HGLRC hGLContext{NULL};
+    ui::StateManager* stateManager{nullptr};
 };
