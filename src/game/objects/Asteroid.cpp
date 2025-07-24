@@ -142,10 +142,13 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
 
     if (canCreateBonus and (BonusType not_eq BonusType::None))
     {
-        BonusObject* pBonus = createBonusObj(BonusType);
-        pBonus->setXY(getX(), getY());
-        pBonus->setRandV(2.0, 3.0);
-        bonuses.push_back(pBonus);
+        BonusObject* bonus = createBonusObj(BonusType);
+        if (bonus)
+        {
+            bonus->setXY(getX(), getY());
+            bonus->setRandV(2.0, 3.0);
+            bonuses.push_back(bonus);
+        }
     }
 
     for (int i = 0; i < iAsterCount; ++i)

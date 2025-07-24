@@ -15,7 +15,8 @@ game::objects::BonusObject* createBonusObj(const BonusType bonusType)
             return new BonusBulletSpeed;
         case BonusType::Points:
             return new BonusPoints;
+        default:
+            return nullptr;
     }
-    return new BonusPoints;
 }
 } // namespace game::objects
