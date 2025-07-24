@@ -3,7 +3,6 @@
 #include <math.h>
 #include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
-#include "audio/ut/mocks/MockAudioLib.hpp"
 #include "game/World.hpp"
 #include "ui/MainWindow.hpp"
 #include "ui/Settings.hpp"
@@ -34,43 +33,30 @@ Application::~Application()
 
 void Application::run()
 {
-    int vRefresh = GetDeviceCaps(::GetDC(0), VREFRESH);
-    if (vRefresh < 2) vRefresh = 60;
-    Float frameTime = (1000.0 / vRefresh);
-
     MainWindow mainWindow(geWorld.scrWidth, geWorld.scrHeight);
-    MSG message;
-    message.message = ~WM_QUIT;
-    DWORD sleep = int(frameTime) - 1;
-
-    Float dt = 0.0; // czas od ostatniej aktualizacji
-    Float lastUpdateTime = geWorld.getCurrentTime(); // czas ostatniej aktualizacji
-    Float accumulator = 0.0;
-    const Float timeStep = 1.0 / vRefresh; // krok czasowy, a zarazem czas trwania ramki fizyki w
-                                           // sekundach; tutaj czas trwania jednego cyklu
-                                           // odswierzania ekranu
-    const Float maxAccumulatedTime = 1.0; // maksymalny czas zgromadzony w pojedynczym
-                                          // obiegu petli glownej
+    MSG message{};
+    const double dt = 0.01;
+    geWorld.dt = dt;
+    double accumulator = 0.0;
+    double currentTime = geWorld.getCurrentTime();
     while (message.message != WM_QUIT)
     {
-        if (!geWorld.isGameRunning) MsgWaitForMultipleObjectsEx(0, NULL, sleep, QS_ALLEVENTS, 0);
         while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
         {
             TranslateMessage(&message);
             DispatchMessage(&message);
         }
-        dt = geWorld.getCurrentTime() - lastUpdateTime;
-        lastUpdateTime += dt;
-        dt = std::max(static_cast<Float>(0), dt);
-        accumulator += dt;
-        accumulator = std::ranges::clamp(accumulator, static_cast<Float>(0), maxAccumulatedTime);
-        while (accumulator > timeStep)
+        double newTime = geWorld.getCurrentTime();
+        double frameTime = newTime - currentTime;
+        if (frameTime > 0.25) frameTime = 0.25;
+        currentTime = newTime;
+        accumulator += frameTime;
+        while (accumulator >= dt)
         {
-            geWorld.dt = timeStep;
-            mainWindow.update(timeStep);
-            accumulator -= timeStep;
+            mainWindow.update(dt);
+            accumulator -= dt;
         }
-        geWorld.interp = accumulator / timeStep;
+        geWorld.interp = accumulator / dt;
         mainWindow.draw();
     }
 }

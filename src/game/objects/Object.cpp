@@ -210,6 +210,7 @@ bool Object::checkCollision(Object* pObiekt)
 
 void Object::draw()
 {
+    // State state = currentState * alpha + previousState * (1.0 - alpha);
     Float minterp = 1.0 - geWorld.interp;
     Float x = fx * geWorld.interp + xp * minterp;
     Float y = fy * geWorld.interp + yp * minterp;

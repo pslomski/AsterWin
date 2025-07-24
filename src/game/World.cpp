@@ -1,6 +1,7 @@
 #include "World.hpp"
 #include "GameConsts.hpp"
 #include "audio/Sound.hpp"
+#include "log/Log.hpp"
 
 World geWorld;
 
@@ -18,6 +19,7 @@ World::World()
     bounds.y1 = GE_WORLD_HEIGHT;
     scrWidth = GE_SCREEN_WIDTH;
     scrHeight = GE_SCREEN_HEIGHT;
+    LOG_INF("usePerfCounter: %d frequency: %f", usePerfCounter, frequency);
 }
 
 World::~World() {}
