@@ -2,6 +2,7 @@
 
 #include "Types.hpp"
 
+// TODO: make Box an aggregate type
 template <class T>
 class Box
 {
@@ -20,6 +21,17 @@ public:
         y0 = in_y0;
         x1 = in_x1;
         y1 = in_y1;
+    }
+    Box& operator=(const Box& other)
+    {
+        if (this != &other)
+        {
+            x0 = other.x0;
+            y0 = other.y0;
+            x1 = other.x1;
+            y1 = other.y1;
+        }
+        return *this;
     }
     T x0, y0, x1, y1;
 };
