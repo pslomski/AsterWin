@@ -79,6 +79,7 @@ void PlayState::onKeyDown(WPARAM wKey)
     {
         case 'F':
             isDisplayFps = !isDisplayFps;
+            break;
         case VK_ESCAPE:
         case VK_RETURN:
             if (asterGame.isGameOver())
@@ -101,9 +102,7 @@ void PlayState::onKeyUp(WPARAM wKey)
     asterGame.key[wKey] = false;
 }
 
-void PlayState::onResize(int cx, int cy) {}
-
-void PlayState::update(double timeStep)
+void PlayState::update([[maybe_unused]] const double timeStep)
 {
     asterGame.update();
 }
@@ -119,7 +118,7 @@ void PlayState::draw()
     glLoadIdentity();
     glColor4fv(gl::colorWhite);
     GLint w = GLint(geWorld.scrWidth);
-    GLint h = GLint(geWorld.scrHeight);
+    // GLint h = GLint(geWorld.scrHeight);
     GLint y = FNTSIZESMALL + 5;
     gl::Color color(1.0, 1.0, 1.0);
     fontSmall->drawTextFmt(10, y, color, "Level: %d", asterGame.gameLevel);

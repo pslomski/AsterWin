@@ -14,7 +14,6 @@ public:
 
     void onKeyDown(WPARAM wKey) override;
     void onKeyUp(WPARAM) override;
-    void onResize(int cx, int cy) override;
     void update(double timeStep) override;
     void draw() override;
     void enterState() override;
