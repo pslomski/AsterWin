@@ -20,7 +20,8 @@ Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
 
 void Asteroid::create()
 {
-    Float DegDelta, R;
+    Float DegDelta{0.0f};
+    Float R{1.0f};
     if (level == 1)
     {
         scoreReward = GE_SCRVAL_ASTER1;
@@ -47,10 +48,10 @@ void Asteroid::create()
     }
 
     verts.clear();
-    for (Float deg = 0.0; deg < 310.0; deg += DegDelta + (rand() % 18 - 9))
+    for (Float deg = 0.0; deg < 310.0; deg += DegDelta + (RAND(18) - 9))
     {
         PointF pt;
-        Float R2 = R * (static_cast<Float>(0.7) + rand() % 30 / 100.0);
+        Float R2 = R * (static_cast<Float>(0.7) + RAND(30) / 100.0);
         pt.x = R2 * std::cos(deg * GE_PIover180);
         pt.y = R2 * std::sin(deg * GE_PIover180);
         verts.push_back(pt);
