@@ -3,8 +3,8 @@
 #include "game/Consts.hpp"
 #include "game/World.hpp"
 
-TextControl::TextControl(const Font* pFont, const ui::Rectanglei& rectPosition)
-    : font(pFont), position(rectPosition), text(""), tiBlink(0.5)
+TextControl::TextControl(Font* pFont, const ui::Rectanglei& rectPosition)
+    : font{pFont}, position(rectPosition), tiBlink(0.5)
 {
     isBlink = false;
 }

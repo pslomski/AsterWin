@@ -9,7 +9,7 @@
 class TextControl
 {
 public:
-    TextControl(const Font* pFont, const ui::Rectanglei& rectPosition);
+    TextControl(Font* pFont, const ui::Rectanglei& rectPosition);
     ~TextControl();
 
     enum class TextAlignement
@@ -28,7 +28,7 @@ public:
     ui::Rectanglei position;
 
 private:
-    const Font* font;
+    Font* font;
     std::string text;
     TextAlignement alignement;
     Color color{};
