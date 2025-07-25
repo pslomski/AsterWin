@@ -12,7 +12,7 @@ class TimeInterval
 {
 public:
     TimeInterval() {}
-    TimeInterval(const Float intervalArg) {}
+    TimeInterval(const Float intervalArg) : interval{intervalArg} {}
 
     MOCK_METHOD(Float, get, (), (const));
     MOCK_METHOD(void, reset, ());
