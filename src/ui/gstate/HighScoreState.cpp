@@ -190,13 +190,12 @@ void HighScoreState::enterState()
     // Read all entries from the file
     std::string line;
     common::HighScore newScore;
-    std::basic_string<char>::size_type idx;
     while (!inputFile.eof())
     {
         getline(inputFile, line);
         if (line.empty()) continue;
-        idx = line.find(";");
-        if (idx == -1) continue;
+        const auto idx = line.find(";");
+        if (idx == line.npos) continue;
         newScore.playerName = line.substr(0, idx); // strtok_s(buf, sep, &next_token1);
         newScore.score = atoi(line.substr(idx + 1).c_str());
         highScores.push_back(newScore);
