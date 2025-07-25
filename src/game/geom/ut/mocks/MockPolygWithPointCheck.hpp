@@ -14,7 +14,9 @@ public:
     MOCK_METHOD(bool, checkPolygWithPoint, (const objects::Object*, const objects::Object*), (const));
 };
 
-inline bool checkPolygWithPoint(const objects::Object* point, const objects::Object* polygon)
+inline bool checkPolygWithPoint(
+    [[maybe_unused]] const objects::Object* point,
+    [[maybe_unused]] const objects::Object* polygon)
 {
     return true;
 }
