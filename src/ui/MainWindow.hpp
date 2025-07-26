@@ -24,7 +24,6 @@ private:
     static LRESULT CALLBACK onEvent(HWND Handle, UINT Message, WPARAM wParam, LPARAM lParam);
     void processEvent(UINT Message, WPARAM wParam, LPARAM lParam);
 
-    HINSTANCE hInstance{NULL};
     HWND hWindow{NULL};
     HDC hDeviceContext{NULL};
     HGLRC hGLContext{NULL};

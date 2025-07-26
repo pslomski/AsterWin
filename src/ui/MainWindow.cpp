@@ -131,7 +131,6 @@ void MainWindow::processEvent(UINT Message, WPARAM wParam, LPARAM lParam)
 
 void MainWindow::registerWindowClass()
 {
-    hInstance = GetModuleHandle(NULL);
     WNDCLASS WindowClass;
     WindowClass.style = 0;
     WindowClass.lpfnWndProc = &MainWindow::onEvent;

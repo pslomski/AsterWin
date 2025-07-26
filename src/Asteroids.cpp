@@ -4,7 +4,7 @@
 #include "utils/Tools.hpp"
 
 int APIENTRY WinMain(
-    HINSTANCE hInstance,
+    [[maybe_unused]] HINSTANCE hInstance,
     [[maybe_unused]] HINSTANCE hPrevInstance,
     [[maybe_unused]] LPTSTR lpCmdLine,
     [[maybe_unused]] int nCmdShow)
@@ -12,7 +12,7 @@ int APIENTRY WinMain(
     try
     {
         SetCurrentDirectory(getAppDir().c_str());
-        Application app(hInstance);
+        Application app;
         LOG_INF("Asteroids game started");
         LOG_INF("current directory: %s", getAppDir().c_str());
         app.run();
