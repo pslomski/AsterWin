@@ -1,7 +1,6 @@
 #include "World.hpp"
+#include <windows.h>
 #include "GameConsts.hpp"
-#include "audio/Sound.hpp"
-#include "log/Log.hpp"
 
 World geWorld;
 
@@ -9,14 +8,13 @@ World::World()
 {
     LARGE_INTEGER f;
     usePerfCounter = QueryPerformanceFrequency(&f) != 0;
-    frequency = double(f.QuadPart);
+    frequency = f.QuadPart;
     bounds.x0 = 0;
-    bounds.x1 = GE_WORLD_WIDTH;
     bounds.y0 = 0;
+    bounds.x1 = GE_WORLD_WIDTH;
     bounds.y1 = GE_WORLD_HEIGHT;
     scrWidth = GE_SCREEN_WIDTH;
     scrHeight = GE_SCREEN_HEIGHT;
-    LOG_INF("usePerfCounter: %d frequency: %f", usePerfCounter, frequency);
 }
 
 PointF World::getRandomPosAtEdge()

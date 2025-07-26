@@ -4,38 +4,29 @@
 #include "ut/mocks/MockWorld.hpp"
 #if USE_ORIG(game_World)
 
-#include <windows.h>
 #include "types/Bounds.hpp"
 #include "types/Point.hpp"
 #include "types/Types.hpp"
 
 class World
 {
-private:
-    bool usePerfCounter;
-    double frequency;
-    DWORD timePrev;
-    DWORD time;
-    void SetTime(DWORD inTime)
-    {
-        timePrev = time;
-        time = inTime;
-    };
-
 public:
     World();
 
-    Float interp; // wspczynnik interpolacji ruchu
-    int scrWidth; // szerokosc ekranu w pixelach
-    int scrHeight; // wysokosc ekranu w pixelach
+    Float interp; // TODO: Move to Object
+    int scrWidth; // TODO: Move to a new class Screen
+    int scrHeight; // TODO: Move to a new class Screen
     Bounds bounds;
 
     Float getWidth() { return bounds.width(); }
     Float getHeight() { return bounds.height(); }
     PointF getCenter() { return PointF((bounds.x0 + bounds.x1) / 2.0, (bounds.y0 + bounds.y1) / 2.0); }
     PointF getRandomPosAtEdge();
-    DWORD getTicks() { return time; }
-    Float getCurrentTime();
+    Float getCurrentTime(); // TODO: Move to a new Time class
+
+private:
+    bool usePerfCounter; // TODO: Move to a new Time class
+    double frequency; // TODO: Move to a new Time class
 };
 
 extern World geWorld;
