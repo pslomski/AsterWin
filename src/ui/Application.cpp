@@ -37,7 +37,7 @@ void Application::run()
     const double dt = 0.001;
     game::time.dt = dt;
     double accumulator = 0.0;
-    double currentTime = geWorld.getCurrentTime();
+    double currentTime = game::time.getCurrentTime();
     while (message.message != WM_QUIT)
     {
         while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
@@ -45,7 +45,7 @@ void Application::run()
             TranslateMessage(&message);
             DispatchMessage(&message);
         }
-        double newTime = geWorld.getCurrentTime();
+        double newTime = game::time.getCurrentTime();
         double frameTime = newTime - currentTime;
         if (frameTime > 0.25) frameTime = 0.25;
         currentTime = newTime;

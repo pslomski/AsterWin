@@ -6,9 +6,6 @@ World geWorld;
 
 World::World()
 {
-    LARGE_INTEGER f;
-    usePerfCounter = QueryPerformanceFrequency(&f) != 0;
-    frequency = f.QuadPart;
     bounds.x0 = 0;
     bounds.y0 = 0;
     bounds.x1 = GE_WORLD_WIDTH;
@@ -42,18 +39,4 @@ PointF World::getRandomPosAtEdge()
         pt.y = geWorld.bounds.y1;
     }
     return pt;
-}
-
-Float World::getCurrentTime()
-{
-    if (usePerfCounter)
-    {
-        LARGE_INTEGER t;
-        QueryPerformanceCounter(&t);
-        return t.QuadPart / frequency;
-    }
-    else
-    {
-        return GetTickCount() / 1000.0;
-    }
 }

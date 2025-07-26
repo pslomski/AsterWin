@@ -22,11 +22,6 @@ public:
     Float getHeight() { return bounds.height(); }
     PointF getCenter() { return PointF((bounds.x0 + bounds.x1) / 2.0, (bounds.y0 + bounds.y1) / 2.0); }
     PointF getRandomPosAtEdge();
-    Float getCurrentTime(); // TODO: Move to a new Time class
-
-private:
-    bool usePerfCounter; // TODO: Move to a new Time class
-    double frequency; // TODO: Move to a new Time class
 };
 
 extern World geWorld;

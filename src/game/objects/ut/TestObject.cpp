@@ -1,6 +1,8 @@
 #define game_objects_Object_orig
 #include "game/objects/Object.cpp"
 
+#include "game/Time.cpp"
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
