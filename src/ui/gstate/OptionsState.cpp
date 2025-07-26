@@ -4,7 +4,6 @@
 #include "MenuState.hpp"
 #include "game/World.hpp"
 #include "log/Log.hpp"
-#include "ui/Settings.hpp"
 
 namespace ui
 {
@@ -59,13 +58,11 @@ void OptionsState::enterState()
     LOG_INF("Entering OptionsState");
     geWorld.isGameRunning = false;
     SetBlinkText(mCurrentSelection, true);
+    settings.load();
 }
 
 void OptionsState::leaveState()
 {
-    Settings settings;
-    settings.soundVol = geWorld.soundVol;
-    settings.musicVol = geWorld.musicVol;
     settings.save();
     LOG_INF("Leaving OptionsState");
 }
@@ -111,10 +108,10 @@ void OptionsState::draw()
 
     mTitleText->draw();
 
-    sprintf_s(buf, BUF_SIZE, "Music volume: %d", geWorld.musicVol);
+    sprintf_s(buf, BUF_SIZE, "Music volume: %d", settings.musicVol);
     mMusicVolText->setText(std::string(buf).c_str());
     mMusicVolText->draw();
-    sprintf_s(buf, BUF_SIZE, "Sound volume: %d", geWorld.soundVol);
+    sprintf_s(buf, BUF_SIZE, "Sound volume: %d", settings.soundVol);
     mSoundVolText->setText(std::string(buf).c_str());
     mSoundVolText->draw();
 }
@@ -160,12 +157,12 @@ void OptionsState::leftArrow()
     switch (mCurrentSelection)
     {
         case 0:
-            geWorld.musicVol = std::max(0, geWorld.musicVol - 1);
-            geMusic.setVolume(0.1f * geWorld.musicVol);
+            settings.musicVol = std::max(0, settings.musicVol - 1);
+            geMusic.setVolume(0.1f * settings.musicVol);
             break;
         case 1:
-            geWorld.soundVol = std::max(0, geWorld.soundVol - 1);
-            geSound.setVolume(0.1f * geWorld.soundVol);
+            settings.soundVol = std::max(0, settings.soundVol - 1);
+            geSound.setVolume(0.1f * settings.soundVol);
             sndTest.play();
             break;
     }
@@ -176,12 +173,12 @@ void OptionsState::rightArrow()
     switch (mCurrentSelection)
     {
         case 0:
-            geWorld.musicVol = std::min(10, geWorld.musicVol + 1);
-            geMusic.setVolume(0.1f * geWorld.musicVol);
+            settings.musicVol = std::min(10, settings.musicVol + 1);
+            geMusic.setVolume(0.1f * settings.musicVol);
             break;
         case 1:
-            geWorld.soundVol = std::min(10, geWorld.soundVol + 1);
-            geSound.setVolume(0.1f * geWorld.soundVol);
+            settings.soundVol = std::min(10, settings.soundVol + 1);
+            geSound.setVolume(0.1f * settings.soundVol);
             sndTest.play();
             break;
     }

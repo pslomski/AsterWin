@@ -24,10 +24,7 @@ private:
 
 public:
     World();
-    virtual ~World();
 
-    int musicVol;
-    int soundVol;
     bool isGameRunning; // TODO: move to ui::gstate::State
     Float dt; // krok czasu pomiedzy  wywolaniami GetTimeDelta
     Float interp; // wspczynnik interpolacji ruchu

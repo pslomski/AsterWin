@@ -10,8 +10,6 @@ World::World()
     LARGE_INTEGER f;
     usePerfCounter = QueryPerformanceFrequency(&f) != 0;
     frequency = double(f.QuadPart);
-    musicVol = 5;
-    soundVol = 5;
     isGameRunning = false;
     bounds.x0 = 0;
     bounds.x1 = GE_WORLD_WIDTH;
@@ -21,8 +19,6 @@ World::World()
     scrHeight = GE_SCREEN_HEIGHT;
     LOG_INF("usePerfCounter: %d frequency: %f", usePerfCounter, frequency);
 }
-
-World::~World() {}
 
 PointF World::getRandomPosAtEdge()
 {

@@ -3,6 +3,7 @@
 #include "State.hpp"
 #include "audio/SfxSample.hpp"
 #include "ui/Font.hpp"
+#include "ui/Settings.hpp"
 #include "ui/TextControl.hpp"
 
 namespace ui
@@ -29,6 +30,7 @@ private:
     TextControl* mMusicVolText;
     TextControl* mSoundVolText;
     SfxSample sndTest;
+    Settings settings;
 
     void selectionUp();
     void selectionDown();

@@ -16,10 +16,8 @@ Application::Application()
     geMusic.open();
     Settings settings;
     settings.load();
-    geWorld.soundVol = settings.soundVol;
-    geWorld.musicVol = settings.musicVol;
-    geMusic.setVolume(0.1f * geWorld.musicVol);
-    geSound.setVolume(0.1f * geWorld.soundVol);
+    geMusic.setVolume(0.1f * settings.musicVol);
+    geSound.setVolume(0.1f * settings.soundVol);
     geWorld.scrHeight = std::min(geWorld.scrHeight, int(0.80 * GetSystemMetrics(SM_CYSCREEN)));
     geWorld.scrWidth = geWorld.scrHeight;
 }
