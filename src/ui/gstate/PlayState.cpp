@@ -3,7 +3,6 @@
 #include "MenuState.hpp"
 #include "StateManager.hpp"
 #include "audio/Sound.hpp"
-#include "game/Consts.hpp"
 #include "game/World.hpp"
 #include "log/Log.hpp"
 

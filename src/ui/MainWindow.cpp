@@ -1,6 +1,4 @@
 #include "MainWindow.hpp"
-#include "game/Consts.hpp"
-#include "game/World.hpp"
 #include "ui/Font.hpp"
 #include "ui/gstate/MenuState.hpp"
 #include "utils/Exception.hpp"

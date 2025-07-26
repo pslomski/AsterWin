@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstdint>
 #include "audio/Consts.hpp"
 
 namespace audio

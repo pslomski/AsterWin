@@ -3,7 +3,6 @@
 #include <fstream>
 #include <sstream>
 #include "MenuState.hpp"
-#include "game/Consts.hpp"
 #include "game/World.hpp"
 #include "log/Log.hpp"
 

@@ -4,7 +4,6 @@
 #include "OptionsState.hpp"
 #include "PlayState.hpp"
 #include "StateManager.hpp"
-#include "game/Consts.hpp"
 #include "game/World.hpp"
 #include "log/Log.hpp"
 
