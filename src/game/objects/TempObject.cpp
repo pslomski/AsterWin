@@ -1,4 +1,5 @@
 #include "TempObject.hpp"
+#include "game/Time.hpp"
 
 namespace game::objects
 {
@@ -8,6 +9,6 @@ TempObject::TempObject(const Float lifeTimeArg) : Object(), lifeTime{lifeTimeArg
 
 bool TempObject::expired()
 {
-    return lifeTime.inc(dt);
+    return lifeTime.inc(time.dt);
 }
 } // namespace game::objects

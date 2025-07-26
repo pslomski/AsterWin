@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <basetsd.h>
 #include "MenuState.hpp"
+#include "audio/Sound.hpp"
 #include "game/World.hpp"
 #include "log/Log.hpp"
 

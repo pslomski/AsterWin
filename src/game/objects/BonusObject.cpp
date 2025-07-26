@@ -1,7 +1,9 @@
 #include "BonusObject.hpp"
 #include "game/GameConsts.hpp"
+#include "game/Time.hpp"
 #include "game/types/Point.hpp"
 #include "gl/Utils.hpp"
+
 
 namespace game::objects
 {
@@ -33,7 +35,7 @@ void BonusObject::update()
     {
         colorRatio = (1 - colorRatio) / (1 - d);
     }
-    if (tiRot.inc(dt))
+    if (tiRot.inc(time.dt))
     {
         tiRot.reset();
     }

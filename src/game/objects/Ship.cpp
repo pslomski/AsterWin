@@ -3,6 +3,7 @@
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
+#include "game/Time.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "game/objects/ShipShards.hpp"
 #include "gl/Utils.hpp"
@@ -63,6 +64,7 @@ Ship::~Ship()
 void Ship::update()
 {
     Object::update();
+    const auto dt{time.dt};
     if (puAddBullet.duration.inc(dt)) puAddBullet.stop();
     if (puBulletSpeed.duration.inc(dt)) puBulletSpeed.stop();
 
@@ -146,7 +148,7 @@ void Ship::onRender()
 
 void Ship::AccelerationOn()
 {
-    if (m_tiAccel.inc(dt)) m_tiAccel.elapsed = m_tiAccel.interval;
+    if (m_tiAccel.inc(time.dt)) m_tiAccel.elapsed = m_tiAccel.interval;
     setA(Accel + (1.0 - m_tiAccel.ratio()) * AccelBurst);
     sndEngineGain = SND_VOL_SHIP_ENGINE * getA() / AccelMax;
     sndEngine.setPitch(float(getA() / AccelMax));
@@ -174,14 +176,14 @@ void Ship::AccelerationOff()
 
 void Ship::RotateLeft()
 {
-    m_tiRotateLeft.inc(dt);
-    setAlfa(getAlfa() + std::min(0.5 * (1.0 + m_tiRotateLeft.ratio()), 1.0) * m_RotSpeed * dt);
+    m_tiRotateLeft.inc(time.dt);
+    setAlfa(getAlfa() + std::min(0.5 * (1.0 + m_tiRotateLeft.ratio()), 1.0) * m_RotSpeed * time.dt);
 }
 
 void Ship::RotateRight()
 {
-    m_tiRotateRight.inc(dt);
-    setAlfa(getAlfa() - std::min(0.5 * (1.0 + m_tiRotateRight.ratio()), 1.0) * m_RotSpeed * dt);
+    m_tiRotateRight.inc(time.dt);
+    setAlfa(getAlfa() - std::min(0.5 * (1.0 + m_tiRotateRight.ratio()), 1.0) * m_RotSpeed * time.dt);
 }
 
 Bullet* Ship::FireBullet()
@@ -236,7 +238,7 @@ void Ship::Crash(TempObjects& vecObiekty)
 
 void Ship::Respawn()
 {
-    if (m_tiRespawn.inc(dt))
+    if (m_tiRespawn.inc(time.dt))
     {
         m_tiRespawn.reset();
         Respawning = false;

@@ -3,14 +3,13 @@
 #include <cmath>
 #include <gl/gl.h>
 #include "game/Consts.hpp"
+#include "game/Time.hpp"
 #include "game/World.hpp"
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PolygWithPointCheck.hpp"
 
 namespace game::objects
 {
-Float Object::dt = 0.0;
-
 Object::Object()
 {
     scoreReward = 0;
@@ -90,19 +89,19 @@ void Object::move()
     yp = fy;
     alphap = angle;
 
-    angle += omega * dt;
+    angle += omega * time.dt;
     if (abs(KDec) > 1e-6)
     {
-        fvx += (fax - KDec * fvx * abs(fvx)) * dt;
-        fvy += (fay - KDec * fvy * abs(fvy)) * dt;
+        fvx += (fax - KDec * fvx * abs(fvx)) * time.dt;
+        fvy += (fay - KDec * fvy * abs(fvy)) * time.dt;
     }
     else
     {
-        fvx += fax * dt;
-        fvy += fay * dt;
+        fvx += fax * time.dt;
+        fvy += fay * time.dt;
     }
-    fx += fvx * dt;
-    fy += fvy * dt;
+    fx += fvx * time.dt;
+    fy += fvy * time.dt;
 
     if (fx < geWorld.bounds.x0)
     {

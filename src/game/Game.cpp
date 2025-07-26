@@ -2,14 +2,13 @@
 #include <algorithm>
 #include <cassert>
 #include <process.h>
-#include <time.h>
 #include "GameConsts.hpp"
 #include "World.hpp"
 #include "audio/Sound.hpp"
 #include "game/Rand.hpp"
 #include "game/ScoreCounter.hpp"
+#include "game/Time.hpp"
 #include "game/objects/Asteroid.hpp"
-#include "game/objects/Objects.hpp"
 #include "game/objects/StarBlink.hpp"
 #include "gl/Utils.hpp"
 
@@ -144,7 +143,7 @@ void Game::leaveState()
 void Game::update()
 {
     ++frameCount;
-    if (tiFPS.inc(objects::Object::dt))
+    if (tiFPS.inc(time.dt))
     {
         fps = frameCount / tiFPS.elapsed;
         tiFPS.reset();
@@ -224,7 +223,7 @@ void Game::playStartBeep(float pitch, float gain)
 bool Game::reset()
 {
     clear();
-    srand((unsigned)time(NULL));
+    randSeed();
     astersCount = GE_INITIAL_ASTER_COUNT; //(4) poczatkowa liczba asteroidow. wzrasta o 1 z
                                           // kazdym poziomem do max 6
     beepCount = 0;
@@ -305,7 +304,7 @@ void Game::analyzeGameState()
     {
         case GameState::StartGame:
         {
-            if (tiGameStart.inc(objects::Object::dt))
+            if (tiGameStart.inc(time.dt))
             {
                 tiGameStart.reset();
                 if (beepCount > 2)
@@ -328,14 +327,14 @@ void Game::analyzeGameState()
         break;
         case GameState::Run:
         {
-            if (tiChangeBroomSoundFreq.inc(objects::Object::dt))
+            if (tiChangeBroomSoundFreq.inc(time.dt))
             {
                 tiChangeBroomSoundFreq.reset();
                 tiBroomSound.interval -= 1;
                 tiBroomSound.interval = std::max(tiBroomSound.interval, 0.7f);
             }
 
-            if (tiBroomSound.inc(objects::Object::dt))
+            if (tiBroomSound.inc(time.dt))
             {
                 tiBroomSound.reset();
                 if (bPitchBroomSound)
@@ -376,7 +375,7 @@ void Game::analyzeGameState()
             {
                 if (!pUfo)
                 {
-                    if (tiUfoRespawn.inc(objects::Object::dt))
+                    if (tiUfoRespawn.inc(time.dt))
                     {
                         const Float maxRespownTime{15};
                         tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
@@ -388,7 +387,7 @@ void Game::analyzeGameState()
         }
         break;
         case GameState::NextLevelPause:
-            if (tiPause.inc(objects::Object::dt))
+            if (tiPause.inc(time.dt))
             {
                 tiPause.reset();
                 gameState = GameState::Run;
@@ -403,7 +402,7 @@ void Game::analyzeGameState()
             }
             break;
         case GameState::ShipDestroyed:
-            if (tiPause.inc(objects::Object::dt))
+            if (tiPause.inc(time.dt))
             {
                 tiPause.reset();
                 assert(nullptr == ship);
@@ -417,7 +416,7 @@ void Game::analyzeGameState()
             }
             break;
         case GameState::GameOver:
-            if (tiPause.inc(objects::Object::dt))
+            if (tiPause.inc(time.dt))
             {
                 geSound.stop();
             }

@@ -3,6 +3,7 @@
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
+#include "game/Time.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "gl/Utils.hpp"
 
@@ -60,7 +61,7 @@ void Ufo::Action(Bullets& bullets)
 {
     const Float SafeDist = 12.0;
 
-    CheckTimeElapsed += dt;
+    CheckTimeElapsed += time.dt;
     if (CheckTimeElapsed > CheckTime)
     {
         CheckTimeElapsed = 0.0;
@@ -71,7 +72,7 @@ void Ufo::Action(Bullets& bullets)
         if ((RShp < SafeDist) || (RAst < SafeDist)) MoveTimeElapsed = MoveTime;
     }
 
-    MoveTimeElapsed += dt;
+    MoveTimeElapsed += time.dt;
     if (MoveTimeElapsed > MoveTime)
     {
         Float RShp = 2e6;
@@ -99,7 +100,7 @@ void Ufo::Action(Bullets& bullets)
         MoveTimeElapsed = 0.0;
     }
 
-    FireTimeElapsed += dt;
+    FireTimeElapsed += time.dt;
     if (FireTimeElapsed > FireTime)
     {
         Float RShp = 2e6;
