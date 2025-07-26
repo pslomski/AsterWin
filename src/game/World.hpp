@@ -25,7 +25,6 @@ private:
 public:
     World();
 
-    bool isGameRunning; // TODO: move to ui::gstate::State
     Float dt; // krok czasu pomiedzy  wywolaniami GetTimeDelta
     Float interp; // wspczynnik interpolacji ruchu
     int scrWidth; // szerokosc ekranu w pixelach

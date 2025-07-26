@@ -142,7 +142,6 @@ void CMenuState::draw()
 void CMenuState::enterState()
 {
     LOG_INF("Entering MenuState");
-    geWorld.isGameRunning = false;
     // Checks whether there is a current game active
     setBlinkText(currentSelection, false);
     if (!currentGame or currentGame->isGameOver())

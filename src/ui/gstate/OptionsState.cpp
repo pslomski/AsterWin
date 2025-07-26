@@ -56,7 +56,6 @@ OptionsState* OptionsState::GetInstance(StateManager* pManager)
 void OptionsState::enterState()
 {
     LOG_INF("Entering OptionsState");
-    geWorld.isGameRunning = false;
     SetBlinkText(mCurrentSelection, true);
     settings.load();
 }

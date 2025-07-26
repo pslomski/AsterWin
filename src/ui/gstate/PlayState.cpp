@@ -43,7 +43,6 @@ void PlayState::enterState()
 {
     LOG_INF("Entering PlayState");
     asterGame.enterState();
-    geWorld.isGameRunning = true;
     asterGame.isMusic = geMusic.getVolume() > 0.001;
     geSound.unmute();
     if (geMusic.isStarted())

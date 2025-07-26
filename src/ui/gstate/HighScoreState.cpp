@@ -178,7 +178,6 @@ void HighScoreState::draw()
 void HighScoreState::enterState()
 {
     LOG_INF("Entering HighScoreState");
-    geWorld.isGameRunning = false;
     highScores.clear();
     std::ifstream inputFile("HighScores.txt");
     if (inputFile.fail())

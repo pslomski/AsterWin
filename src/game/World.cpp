@@ -10,7 +10,6 @@ World::World()
     LARGE_INTEGER f;
     usePerfCounter = QueryPerformanceFrequency(&f) != 0;
     frequency = double(f.QuadPart);
-    isGameRunning = false;
     bounds.x0 = 0;
     bounds.x1 = GE_WORLD_WIDTH;
     bounds.y0 = 0;
