@@ -25,7 +25,6 @@ private:
 public:
     World();
 
-    Float dt; // krok czasu pomiedzy  wywolaniami GetTimeDelta
     Float interp; // wspczynnik interpolacji ruchu
     int scrWidth; // szerokosc ekranu w pixelach
     int scrHeight; // wysokosc ekranu w pixelach

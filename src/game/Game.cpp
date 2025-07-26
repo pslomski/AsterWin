@@ -143,7 +143,6 @@ void Game::leaveState()
 
 void Game::update()
 {
-    objects::Object::dt = geWorld.dt;
     ++frameCount;
     if (tiFPS.inc(objects::Object::dt))
     {

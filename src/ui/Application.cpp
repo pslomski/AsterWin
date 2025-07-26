@@ -5,6 +5,7 @@
 #include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
 #include "game/World.hpp"
+#include "game/objects/Object.hpp"
 #include "ui/MainWindow.hpp"
 #include "ui/Settings.hpp"
 
@@ -32,10 +33,10 @@ Application::~Application()
 
 void Application::run()
 {
+    using game::objects::Object;
     MainWindow mainWindow(geWorld.scrWidth, geWorld.scrHeight);
     MSG message{};
-    const double dt = 0.01;
-    geWorld.dt = dt;
+    Object::dt = 0.01;
     double accumulator = 0.0;
     double currentTime = geWorld.getCurrentTime();
     while (message.message != WM_QUIT)
@@ -50,12 +51,12 @@ void Application::run()
         if (frameTime > 0.25) frameTime = 0.25;
         currentTime = newTime;
         accumulator += frameTime;
-        while (accumulator >= dt)
+        while (accumulator >= Object::dt)
         {
-            mainWindow.update(dt);
-            accumulator -= dt;
+            mainWindow.update(Object::dt);
+            accumulator -= Object::dt;
         }
-        geWorld.interp = accumulator / dt;
+        geWorld.interp = accumulator / Object::dt;
         mainWindow.draw();
     }
 }

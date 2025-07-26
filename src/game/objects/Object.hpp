@@ -74,7 +74,7 @@ public:
     void draw();
     void render();
 
-    static Float dt;
+    static Float dt; // TODO: extract to new class Time
     GLint glList;
     PointsF verts;
     GeometryType geometryType;
