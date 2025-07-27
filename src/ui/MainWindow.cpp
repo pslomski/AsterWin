@@ -1,4 +1,5 @@
 #include "MainWindow.hpp"
+#include "log/Log.hpp"
 #include "ui/Font.hpp"
 #include "ui/gstate/MenuState.hpp"
 #include "utils/Exception.hpp"
@@ -175,7 +176,10 @@ void MainWindow::createContext()
 
 void MainWindow::initGL()
 {
-    setVSync(1);
+    // TODO: Add option vSync in Settings
+    // For now turn vSync off as it seems the movement on screen is smoother
+    const auto isVsync = setVSync(0);
+    LOG_INF("isVsync:%d", isVsync);
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
