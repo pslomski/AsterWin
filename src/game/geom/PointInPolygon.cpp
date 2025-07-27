@@ -12,8 +12,8 @@ bool isPointInPolygon(const int nvert, const PointsF& verts, const Float testx, 
     int i, j = 0;
     for (i = 0, j = nvert - 1; i < nvert; j = i++)
     {
-        const auto pti{verts[i]};
-        const auto ptj{verts[j]};
+        const auto& pti{verts[i]};
+        const auto& ptj{verts[j]};
         if (((pti.y > testy) != (ptj.y > testy)) and
             (testx < (ptj.x - pti.x) * (testy - pti.y) / (ptj.y - pti.y) + pti.x))
             c = !c;
