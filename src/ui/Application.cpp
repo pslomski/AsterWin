@@ -1,13 +1,12 @@
 #include "Application.hpp"
-#include <algorithm>
 #include <windows.h>
 #include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
 #include "game/Time.hpp"
-#include "game/World.hpp"
 #include "game/objects/Object.hpp"
 #include "ui/MainWindow.hpp"
 #include "ui/Settings.hpp"
+#include "ui/Viewport.hpp"
 
 Application::Application()
 {
@@ -19,8 +18,8 @@ Application::Application()
     settings.load();
     geMusic.setVolume(0.1f * settings.musicVol);
     geSound.setVolume(0.1f * settings.soundVol);
-    geWorld.scrHeight = std::min(geWorld.scrHeight, int(0.80 * GetSystemMetrics(SM_CYSCREEN)));
-    geWorld.scrWidth = geWorld.scrHeight;
+    ui::viewport.height = 0.8 * GetSystemMetrics(SM_CYSCREEN);
+    ui::viewport.width = ui::viewport.height;
 }
 
 Application::~Application()
@@ -33,7 +32,7 @@ Application::~Application()
 
 void Application::run()
 {
-    MainWindow mainWindow(geWorld.scrWidth, geWorld.scrHeight);
+    MainWindow mainWindow(ui::viewport.width, ui::viewport.height);
     MSG message{};
     const double dt = 0.001;
     game::time.dt = dt;

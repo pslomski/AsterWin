@@ -3,8 +3,8 @@
 #include <basetsd.h>
 #include "MenuState.hpp"
 #include "audio/Sound.hpp"
-#include "game/World.hpp"
 #include "log/Log.hpp"
+#include "ui/Viewport.hpp"
 
 namespace ui
 {
@@ -16,8 +16,8 @@ OptionsState::OptionsState(StateManager* pManager) : State(pManager)
     mFont->createFont(20, FW_NORMAL);
 
     int dy = 20;
-    int left = int(1.0 / 4.0 * geWorld.scrWidth);
-    int right = int(3.0 / 4.0 * geWorld.scrWidth);
+    int left = int(1.0 / 4.0 * ui::viewport.width);
+    int right = int(3.0 / 4.0 * ui::viewport.width);
     int top = 50;
     int bottom = top + dy;
     mTitleText = new TextControl(mFont, ui::Rectanglei(top, bottom, left, right));
@@ -102,7 +102,7 @@ void OptionsState::draw()
 
     glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
     glLoadIdentity(); // Reset The Projection Matrix
-    glOrtho(0, geWorld.scrWidth, geWorld.scrHeight, 0, -1, 1);
+    glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
     glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
     glLoadIdentity(); // Reset The Modelview Matrix
 

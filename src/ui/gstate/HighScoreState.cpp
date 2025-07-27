@@ -3,12 +3,11 @@
 #include <fstream>
 #include <sstream>
 #include "MenuState.hpp"
-#include "game/World.hpp"
 #include "log/Log.hpp"
+#include "ui/Viewport.hpp"
 
 namespace ui
 {
-
 HighScoreState::HighScoreState(StateManager* pManager) : State(pManager)
 {
     font = new Font;
@@ -19,8 +18,8 @@ HighScoreState::HighScoreState(StateManager* pManager) : State(pManager)
     fontSmall->createFont(15, FW_NORMAL);
 
     int dy = 20;
-    int left = int(1.0 / 4.0 * geWorld.scrWidth);
-    int right = int(3.0 / 4.0 * geWorld.scrWidth);
+    int left = int(1.0 / 4.0 * ui::viewport.width);
+    int right = int(3.0 / 4.0 * ui::viewport.width);
     int top = 50;
     int bottom = top + dy;
     highScore = new TextControl(font, ui::Rectanglei(top, bottom, left, right));
@@ -107,7 +106,7 @@ void HighScoreState::draw()
 {
     glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
     glLoadIdentity(); // Reset The Projection Matrix
-    glOrtho(0, geWorld.scrWidth, geWorld.scrHeight, 0, -1, 1);
+    glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
     glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
     glLoadIdentity(); // Reset The Modelview Matrix
 
@@ -166,7 +165,7 @@ void HighScoreState::draw()
     }
     else
     {
-        ui::Rectanglei rc(geWorld.scrHeight - 100, geWorld.scrHeight - 50, 0, geWorld.scrWidth);
+        ui::Rectanglei rc(ui::viewport.height - 100, ui::viewport.height - 50, 0, ui::viewport.width);
         TextControl txtEnterName(fontSmall, rc);
         txtEnterName.setAlignement(TextControl::TextAlignement::center);
         txtEnterName.setText("Press Enter");

@@ -1,11 +1,10 @@
 #include "MenuState.hpp"
-#include <wingdi.h>
 #include "HighScoreState.hpp"
 #include "OptionsState.hpp"
 #include "PlayState.hpp"
 #include "StateManager.hpp"
-#include "game/World.hpp"
 #include "log/Log.hpp"
+#include "ui/Viewport.hpp"
 
 namespace ui
 {
@@ -19,13 +18,13 @@ CMenuState::CMenuState(StateManager* pManager) : State(pManager)
     fontSmall2 = new Font;
     fontSmall2->createFont(10, FW_NORMAL);
 
-    int dy = int(1.0 / 12.0 * geWorld.scrHeight);
-    int left = int(1.0 / 4.0 * geWorld.scrWidth);
-    int right = int(3.0 / 4.0 * geWorld.scrWidth);
-    int top = int(1.0 / 4.5 * geWorld.scrHeight);
+    int dy = int(1.0 / 12.0 * ui::viewport.height);
+    int left = int(1.0 / 4.0 * ui::viewport.width);
+    int right = int(3.0 / 4.0 * ui::viewport.width);
+    int top = int(1.0 / 4.5 * ui::viewport.height);
     int bottom = top + dy;
 
-    titleText = new TextControl(fontLarge, ui::Rectanglei(0, top, 0, geWorld.scrWidth));
+    titleText = new TextControl(fontLarge, ui::Rectanglei(0, top, 0, ui::viewport.width));
     titleText->setAlignement(TextControl::TextAlignement::center);
     titleText->setText("Asteroids 2010");
 
@@ -106,7 +105,7 @@ void CMenuState::draw()
 {
     glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
     glLoadIdentity(); // Reset The Projection Matrix
-    glOrtho(0, geWorld.scrWidth, geWorld.scrHeight, 0, -1, 1);
+    glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
     glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
     glLoadIdentity(); // Reset The Modelview Matrix
 
@@ -119,7 +118,7 @@ void CMenuState::draw()
 
     TextControl txtControls(
         fontSmall2,
-        ui::Rectanglei(int(0.7 * geWorld.scrHeight), int(0.7 * geWorld.scrHeight + 20), 0, geWorld.scrWidth));
+        ui::Rectanglei(int(0.7 * ui::viewport.height), int(0.7 * ui::viewport.height + 20), 0, ui::viewport.width));
     txtControls.setAlignement(TextControl::TextAlignement::center);
     txtControls.setTextColor(0.8f, 0.8f, 0.8f);
     txtControls.setText("Controls:");
@@ -131,7 +130,8 @@ void CMenuState::draw()
     txtControls.setText("up arrow - forward, space - fire");
     txtControls.draw();
 
-    TextControl line(fontSmall, ui::Rectanglei(geWorld.scrHeight - 100, geWorld.scrHeight - 50, 0, geWorld.scrWidth));
+    TextControl line(
+        fontSmall, ui::Rectanglei(ui::viewport.height - 100, ui::viewport.height - 50, 0, ui::viewport.width));
     line.setAlignement(TextControl::TextAlignement::center);
     line.setTextColor(0.7f, 0.7f, 0.7f);
     line.setText("Asteroids remake by Piotr Slomski");

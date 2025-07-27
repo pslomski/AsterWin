@@ -3,8 +3,8 @@
 #include "MenuState.hpp"
 #include "StateManager.hpp"
 #include "audio/Sound.hpp"
-#include "game/World.hpp"
 #include "log/Log.hpp"
+#include "ui/Viewport.hpp"
 
 namespace ui
 {
@@ -20,7 +20,7 @@ PlayState::PlayState(StateManager* pManager) : State(pManager), fontSmall(nullpt
     fontLarge = new Font;
     fontLarge->createFont(FNTSIZELARGE, FW_NORMAL);
 
-    textGameOver = new TextControl(fontLarge, ui::Rectanglei(0, geWorld.scrHeight, 0, geWorld.scrWidth));
+    textGameOver = new TextControl(fontLarge, ui::Rectanglei(0, ui::viewport.height, 0, ui::viewport.width));
     textGameOver->setAlignement(TextControl::TextAlignement::center);
     textGameOver->setText("Game Over");
 }
@@ -111,12 +111,11 @@ void PlayState::draw()
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, geWorld.scrWidth, geWorld.scrHeight, 0, -1, 1);
+    glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glColor4fv(gl::colorWhite);
-    GLint w = GLint(geWorld.scrWidth);
-    // GLint h = GLint(geWorld.scrHeight);
+    GLint w = GLint(ui::viewport.width);
     GLint y = FNTSIZESMALL + 5;
     gl::Color color(1.0, 1.0, 1.0);
     fontSmall->drawTextFmt(10, y, color, "Level: %d", asterGame.gameLevel);
