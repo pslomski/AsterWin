@@ -1,5 +1,6 @@
 add_subdirectory(geom)
 add_subdirectory(objects)
+add_subdirectory(types)
 add_subdirectory(ut)
 
 target_sources(${ASTER_EXE}
