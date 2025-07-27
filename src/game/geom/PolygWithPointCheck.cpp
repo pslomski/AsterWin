@@ -24,7 +24,7 @@ bool checkPolygWithPoint(const objects::Object* point, const objects::Object* po
     BoxF o1;
     Float x, y;
     // take the displacement vector of the point
-    const BoxF o2{point->xp, point->yp, point->getX(), point->getY()};
+    const BoxF o2{point->posp.x, point->posp.y, point->getX(), point->getY()};
     for (unsigned int i1 = 0; i1 < polygon->verts.size(); ++i1)
     {
         if (0 == i1)

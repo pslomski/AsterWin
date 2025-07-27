@@ -85,8 +85,7 @@ Float Object::correctAlfa(Float alfa)
 
 void Object::move()
 {
-    xp = pos.x;
-    yp = pos.y;
+    posp = pos;
     alphap = angle;
 
     angle += omega * time.dt;
@@ -106,22 +105,22 @@ void Object::move()
     if (pos.x < gameArea.bounds.x0)
     {
         pos.x += gameArea.bounds.x1;
-        xp += gameArea.bounds.x1;
+        posp.x += gameArea.bounds.x1;
     }
     if (pos.x > gameArea.bounds.x1)
     {
         pos.x -= gameArea.bounds.x1;
-        xp -= gameArea.bounds.x1;
+        posp.x -= gameArea.bounds.x1;
     }
     if (pos.y < gameArea.bounds.y0)
     {
         pos.y += gameArea.bounds.y1;
-        yp += gameArea.bounds.y1;
+        posp.y += gameArea.bounds.y1;
     }
     if (pos.y > gameArea.bounds.y1)
     {
         pos.y -= gameArea.bounds.y1;
-        yp -= gameArea.bounds.y1;
+        posp.y -= gameArea.bounds.y1;
     }
 }
 
@@ -211,8 +210,8 @@ void Object::draw()
 {
     // State state = currentState * alpha + previousState * (1.0 - alpha);
     const auto minterp = 1.0 - interp;
-    const auto x = pos.x * interp + xp * minterp;
-    const auto y = pos.y * interp + yp * minterp;
+    const auto x = pos.x * interp + posp.x * minterp;
+    const auto y = pos.y * interp + posp.y * minterp;
     const auto alfa = angle * interp + alphap * minterp;
     glPushMatrix();
     glTranslated(x, y, 0.0);

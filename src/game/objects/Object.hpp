@@ -11,6 +11,7 @@
 #include "game/types/Color.hpp"
 #include "game/types/ObjectGeom.hpp"
 #include "game/types/Point.hpp"
+#include "game/types/Position.hpp"
 #include "game/types/Types.hpp"
 
 namespace game::objects
@@ -29,15 +30,12 @@ public:
     {
         pos.x = x;
         pos.y = y;
-        xp = x;
-        yp = y;
+        posp = pos;
     }
     void setXY(const PointF& pt)
     {
-        pos.x = pt.x;
-        pos.y = pt.y;
-        xp = pt.x;
-        yp = pt.y;
+        pos = pt;
+        posp = pt;
     }
     Float getX() const { return pos.x; }
     Float getY() const { return pos.y; }
@@ -76,11 +74,12 @@ public:
 
     static double interp;
 
-    PointF pos;
+    types::Position pos; //
+    types::Position posp; // previous pos
     GLint glList;
     PointsF verts;
     GeometryType geometryType;
-    Float xp, yp, alphap;
+    Float alphap;
     int scoreReward{};
 
 protected:
