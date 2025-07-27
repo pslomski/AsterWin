@@ -33,7 +33,7 @@ Ship::Ship(Float ax, Float ay, Float aangle)
     MaxBullets = GE_INITIAL_MAX_BULLETS;
     geometryType = GeometryType::Polyg;
     setColor(GE_SHIP_COLOR);
-    clEngine.Set(GE_SHIP_ENGINE_COLOR);
+    clEngine.set({GE_SHIP_ENGINE_COLOR});
     m_RotSpeed = GE_SHIP_ROT_SPEED;
     setRotSpeed(0.0);
     setXY(ax, ay);
