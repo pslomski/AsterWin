@@ -3,10 +3,12 @@
 #include <cmath>
 #include <gl/gl.h>
 #include "game/Consts.hpp"
+#include "game/GameArea.hpp"
 #include "game/Time.hpp"
 #include "game/World.hpp"
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PolygWithPointCheck.hpp"
+
 
 namespace game::objects
 {
@@ -103,25 +105,25 @@ void Object::move()
     fx += fvx * time.dt;
     fy += fvy * time.dt;
 
-    if (fx < geWorld.bounds.x0)
+    if (fx < gameArea.bounds.x0)
     {
-        fx += geWorld.bounds.x1;
-        xp += geWorld.bounds.x1;
+        fx += gameArea.bounds.x1;
+        xp += gameArea.bounds.x1;
     }
-    if (fx > geWorld.bounds.x1)
+    if (fx > gameArea.bounds.x1)
     {
-        fx -= geWorld.bounds.x1;
-        xp -= geWorld.bounds.x1;
+        fx -= gameArea.bounds.x1;
+        xp -= gameArea.bounds.x1;
     }
-    if (fy < geWorld.bounds.y0)
+    if (fy < gameArea.bounds.y0)
     {
-        fy += geWorld.bounds.y1;
-        yp += geWorld.bounds.y1;
+        fy += gameArea.bounds.y1;
+        yp += gameArea.bounds.y1;
     }
-    if (fy > geWorld.bounds.y1)
+    if (fy > gameArea.bounds.y1)
     {
-        fy -= geWorld.bounds.y1;
-        yp -= geWorld.bounds.y1;
+        fy -= gameArea.bounds.y1;
+        yp -= gameArea.bounds.y1;
     }
 }
 

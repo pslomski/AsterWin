@@ -3,8 +3,8 @@
 #include <cassert>
 #include <process.h>
 #include "GameConsts.hpp"
-#include "World.hpp"
 #include "audio/Sound.hpp"
+#include "game/GameArea.hpp"
 #include "game/Rand.hpp"
 #include "game/ScoreCounter.hpp"
 #include "game/Time.hpp"
@@ -78,10 +78,7 @@ Game::~Game() {}
 
 void Game::generateBackground()
 {
-    int w = int(geWorld.getWidth());
-    int h = int(geWorld.getHeight());
     Float col;
-
     if (!listBkg1)
     {
         listBkg1 = glGenLists(1);
@@ -91,7 +88,7 @@ void Game::generateBackground()
         glBegin(GL_POINTS);
         for (int i = 0; i < 50; ++i)
         {
-            glVertex2d(rand() % w, rand() % h);
+            glVertex2d(RAND(gameArea.widthi()), RAND(gameArea.heighti()));
         }
         glEnd();
         glEndList();
@@ -105,7 +102,7 @@ void Game::generateBackground()
         setGlColor(col);
         for (int i = 0; i < 50; ++i)
         {
-            glVertex2d(rand() % w, rand() % h);
+            glVertex2d(RAND(gameArea.widthi()), RAND(gameArea.heighti()));
         }
         glEnd();
         glEndList();
@@ -181,6 +178,7 @@ void Game::clear()
 
 void Game::generateAsters(int iCount, int iGameLevel)
 {
+    const auto& bounds{gameArea.bounds};
     for (int i = 0; i < iCount; ++i)
     {
         objects::Asteroid* pAster = new objects::Asteroid(1);
@@ -190,25 +188,25 @@ void Game::generateAsters(int iCount, int iGameLevel)
         iAngle = rand() % iAngle - iAngle / 2;
         if (0 == iSide)
         {
-            pAster->setXY(geWorld.bounds.x0, iPart / 4.0 * (geWorld.bounds.y0 + geWorld.bounds.y1));
+            pAster->setXY(bounds.x0, iPart / 4.0f * (bounds.y0 + bounds.y1));
             pAster->setAlfa(iAngle);
         }
         else if (1 == iSide)
         {
-            pAster->setXY(geWorld.bounds.x1, iPart / 4.0 * (geWorld.bounds.y0 + geWorld.bounds.y1));
-            pAster->setAlfa(iAngle + 180.0);
+            pAster->setXY(bounds.x1, iPart / 4.0f * (bounds.y0 + bounds.y1));
+            pAster->setAlfa(iAngle + 180.0f);
         }
         else if (2 == iSide)
         {
-            pAster->setXY(iPart / 4.0 * (geWorld.bounds.x0 + geWorld.bounds.x1), geWorld.bounds.y0);
-            pAster->setAlfa(iAngle + 90);
+            pAster->setXY(iPart / 4.0f * (bounds.x0 + bounds.x1), bounds.y0);
+            pAster->setAlfa(iAngle + 90.0f);
         }
         else if (3 == iSide)
         {
-            pAster->setXY(iPart / 4.0 * (geWorld.bounds.x0 + geWorld.bounds.x1), geWorld.bounds.y1);
-            pAster->setAlfa(iAngle - 90);
+            pAster->setXY(iPart / 4.0f * (bounds.x0 + bounds.x1), bounds.y1);
+            pAster->setAlfa(iAngle - 90.0f);
         }
-        pAster->setV(3.0 + rand() % 5 + iGameLevel * 0.25);
+        pAster->setV(3.0f + rand() % 5 + iGameLevel * 0.25f);
         asteroids.push_back(pAster);
     }
 };
@@ -233,15 +231,15 @@ bool Game::reset()
     lives = GE_INITIAL_LIVES;
     tiPause.reset(GE_PAUSE_TIME);
 
-    PointF pt = geWorld.getCenter();
-    ship = new objects::Ship(pt.x, pt.y, 90.0);
+    const auto pt = gameArea.center();
+    ship = new objects::Ship(pt.x, pt.y, 90.0f);
     generateBackground();
     geSound.unmute();
     geMusic.stop();
     tiBroomSound.reset(GE_TI_BROOM_SOUND);
     bPitchBroomSound = false;
     tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
-    tiUfoRespawn.reset(GE_BASE_UFO_TIME + rand() % 4);
+    tiUfoRespawn.reset(GE_BASE_UFO_TIME + RAND(4));
     for (int i = 0; i < 20; ++i)
         starBlinks.push_back(new objects::StarBlink());
     return true;
@@ -380,7 +378,7 @@ void Game::analyzeGameState()
                         const Float maxRespownTime{15};
                         tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
                         pUfo = new objects::Ufo;
-                        pUfo->setXY(geWorld.getRandomPosAtEdge());
+                        pUfo->setXY(gameArea.randomPosAtEdge());
                     }
                 }
             }
@@ -409,8 +407,8 @@ void Game::analyzeGameState()
                 if (nullptr == ship)
                 {
                     gameState = GameState::Run;
-                    PointF pt = geWorld.getCenter();
-                    ship = new objects::Ship(pt.x, pt.y, 90.0);
+                    const auto pt = gameArea.center();
+                    ship = new objects::Ship(pt.x, pt.y, 90.0f);
                     ship->Respawning = true;
                 }
             }
@@ -692,7 +690,7 @@ void Game::draw()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, geWorld.getWidth(), 0, geWorld.getHeight(), -1, 1);
+    glOrtho(0, gameArea.width(), 0, gameArea.height(), -1, 1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 

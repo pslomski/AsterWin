@@ -2,10 +2,9 @@
 #include <cmath>
 #include <gl/gl.h>
 #include "game/Consts.hpp"
+#include "game/GameArea.hpp"
 #include "game/Rand.hpp"
-#include "game/World.hpp"
 #include "gl/Utils.hpp"
-
 
 namespace game::objects
 {
@@ -24,7 +23,7 @@ void StarBlink::init()
     size = 1.0f + RAND(2);
     lifeTime.reset();
     lifeTime.interval = 2.0f + 1.0f * RAND(30);
-    setXY(RAND(static_cast<int>(geWorld.getWidth())), RAND(static_cast<int>(geWorld.getHeight())));
+    setXY(RAND(gameArea.widthi()), RAND(gameArea.heighti()));
 }
 
 void StarBlink::update()

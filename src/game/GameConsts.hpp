@@ -1,7 +1,5 @@
 #pragma once
 
-#define GE_WORLD_WIDTH 80
-#define GE_WORLD_HEIGHT 80
 #define GE_SCREEN_WIDTH 800
 #define GE_SCREEN_HEIGHT 800
 
