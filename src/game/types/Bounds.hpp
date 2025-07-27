@@ -1,24 +1,8 @@
 #pragma once
 
-#include <cassert> //TODO: Remove assert dependency from Bounds.hpp
-#include "Types.hpp"
+#include "game/types/Box.hpp"
 
-struct Bounds
+namespace game::types
 {
-    Float width() const
-    {
-        assert(x1 >= x0);
-        return x1 - x0;
-    }
-
-    Float height() const
-    {
-        assert(y1 >= y0);
-        return y1 - y0;
-    }
-
-    Float x0;
-    Float y0;
-    Float x1;
-    Float y1;
-};
+using Bounds = BoxF;
+} // namespace game::types

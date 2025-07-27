@@ -88,7 +88,7 @@ protected:
 
     Float KDec;
     Color color;
-    Bounds bounds;
+    types::Bounds bounds;
 
 private:
     virtual void onRender() {} // Draws Object in its own coordinate system
