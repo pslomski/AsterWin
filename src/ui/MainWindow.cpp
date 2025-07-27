@@ -1,9 +1,9 @@
 #include "MainWindow.hpp"
+#include "gl/Utils.hpp"
 #include "log/Log.hpp"
 #include "ui/Font.hpp"
 #include "ui/gstate/MenuState.hpp"
 #include "utils/Exception.hpp"
-#include "utils/Tools.hpp"
 
 #define WINDOW_CLASSNAME "ASTEROIDS"
 

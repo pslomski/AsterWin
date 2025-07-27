@@ -17,4 +17,6 @@ inline void setGlColor(const float gray)
     glColor3f(gray, gray, gray);
 }
 
+bool setVSync(const int interval = 1);
+
 #endif // USE_ORIG(gl_Utils)
