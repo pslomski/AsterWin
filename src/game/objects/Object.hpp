@@ -87,7 +87,7 @@ protected:
     Float correctAlfa(Float alfa);
     void calcBounds(const PointsF& points);
 
-    Float KDec;
+    Float friction{};
     Color color;
     types::Bounds bounds;
 

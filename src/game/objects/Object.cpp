@@ -21,7 +21,6 @@ Object::Object()
     setXY(0.0, 0.0);
     setA(0.0);
     setV(0.0);
-    KDec = 0.0;
 }
 
 Object::~Object()
@@ -87,10 +86,10 @@ void Object::move()
     alphap = angle;
 
     angle += omega * time.dt;
-    if (std::abs(KDec) > 1e-6)
+    if (std::abs(friction) > 1e-6)
     {
-        v.x += (fax - KDec * v.x * std::abs(v.x)) * time.dt;
-        v.y += (fay - KDec * v.y * std::abs(v.y)) * time.dt;
+        v.x += (fax - friction * v.x * std::abs(v.x)) * time.dt;
+        v.y += (fay - friction * v.y * std::abs(v.y)) * time.dt;
     }
     else
     {

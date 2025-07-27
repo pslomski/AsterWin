@@ -42,7 +42,7 @@ Ship::Ship(Float ax, Float ay, Float aangle)
     bDarken = false;
     faccelerated = false;
     Respawning = false;
-    KDec = 0.05;
+    friction = 0.05f;
     Accel = 20.0; // ok. 2g
     AccelBurst = 15.0;
     AccelMax = Accel + AccelBurst; // pomocnicza przy wyswietlaniu plomienia
