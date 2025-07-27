@@ -1,8 +1,5 @@
 #pragma once
 
-#define GE_SCREEN_WIDTH 800
-#define GE_SCREEN_HEIGHT 800
-
 #define _GE_GAME_DEBUG
 
 #ifdef GE_GAME_DEBUG

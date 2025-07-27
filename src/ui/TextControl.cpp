@@ -1,7 +1,6 @@
 #include "TextControl.hpp"
-#include <math.h>
+#include <cmath>
 #include "game/Consts.hpp"
-#include "game/World.hpp"
 
 TextControl::TextControl(Font* pFont, const ui::Rectanglei& rectPosition)
     : position(rectPosition), font{pFont}, tiBlink(0.5)
@@ -39,7 +38,7 @@ void TextControl::draw()
     GLfloat fFact = 1.0;
     if (isBlink)
     {
-        fFact = GLfloat(0.25 * (2.0 + sin(2.0 * GE_PI * tiBlink.ratio())));
+        fFact = GLfloat(0.25 * (2.0 + std::sin(2.0 * GE_PI * tiBlink.ratio())));
     }
     gl::Color glColor(fFact * color.red, fFact * color.green, fFact * color.blue);
     font->drawText(text, xPos, yPos, glColor);

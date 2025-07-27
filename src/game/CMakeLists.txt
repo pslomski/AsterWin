@@ -8,5 +8,4 @@ target_sources(${ASTER_EXE}
       GameArea.cpp
       ScoreCounter.cpp
       Time.cpp
-      World.cpp
 )
