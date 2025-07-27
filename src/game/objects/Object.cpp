@@ -34,8 +34,8 @@ Object::~Object()
 
 Float Object::distance(const Object* object) const
 {
-    const auto dx = object->getX() - fx;
-    const auto dy = object->getY() - fy;
+    const auto dx = object->getX() - pos.x;
+    const auto dy = object->getY() - pos.y;
     return std::sqrt(dx * dx + dy * dy);
 }
 
@@ -85,42 +85,42 @@ Float Object::correctAlfa(Float alfa)
 
 void Object::move()
 {
-    xp = fx;
-    yp = fy;
+    xp = pos.x;
+    yp = pos.y;
     alphap = angle;
 
     angle += omega * time.dt;
-    if (abs(KDec) > 1e-6)
+    if (std::abs(KDec) > 1e-6)
     {
-        fvx += (fax - KDec * fvx * abs(fvx)) * time.dt;
-        fvy += (fay - KDec * fvy * abs(fvy)) * time.dt;
+        fvx += (fax - KDec * fvx * std::abs(fvx)) * time.dt;
+        fvy += (fay - KDec * fvy * std::abs(fvy)) * time.dt;
     }
     else
     {
         fvx += fax * time.dt;
         fvy += fay * time.dt;
     }
-    fx += fvx * time.dt;
-    fy += fvy * time.dt;
+    pos.x += fvx * time.dt;
+    pos.y += fvy * time.dt;
 
-    if (fx < gameArea.bounds.x0)
+    if (pos.x < gameArea.bounds.x0)
     {
-        fx += gameArea.bounds.x1;
+        pos.x += gameArea.bounds.x1;
         xp += gameArea.bounds.x1;
     }
-    if (fx > gameArea.bounds.x1)
+    if (pos.x > gameArea.bounds.x1)
     {
-        fx -= gameArea.bounds.x1;
+        pos.x -= gameArea.bounds.x1;
         xp -= gameArea.bounds.x1;
     }
-    if (fy < gameArea.bounds.y0)
+    if (pos.y < gameArea.bounds.y0)
     {
-        fy += gameArea.bounds.y1;
+        pos.y += gameArea.bounds.y1;
         yp += gameArea.bounds.y1;
     }
-    if (fy > gameArea.bounds.y1)
+    if (pos.y > gameArea.bounds.y1)
     {
-        fy -= gameArea.bounds.y1;
+        pos.y -= gameArea.bounds.y1;
         yp -= gameArea.bounds.y1;
     }
 }
@@ -130,10 +130,10 @@ BoxF Object::transform(const BoxF& seg) const
     BoxF res;
     Float sinalfa = std::sin(-angle * GE_PIover180);
     Float cosalfa = std::cos(-angle * GE_PIover180);
-    res.x0 = fx + seg.x0 * cosalfa + seg.y0 * sinalfa;
-    res.y0 = fy - seg.x0 * sinalfa + seg.y0 * cosalfa;
-    res.x1 = fx + seg.x1 * cosalfa + seg.y1 * sinalfa;
-    res.y1 = fy - seg.x1 * sinalfa + seg.y1 * cosalfa;
+    res.x0 = pos.x + seg.x0 * cosalfa + seg.y0 * sinalfa;
+    res.y0 = pos.y - seg.x0 * sinalfa + seg.y0 * cosalfa;
+    res.x1 = pos.x + seg.x1 * cosalfa + seg.y1 * sinalfa;
+    res.y1 = pos.y - seg.x1 * sinalfa + seg.y1 * cosalfa;
     return res;
 }
 
@@ -211,8 +211,8 @@ void Object::draw()
 {
     // State state = currentState * alpha + previousState * (1.0 - alpha);
     const auto minterp = 1.0 - interp;
-    const auto x = fx * interp + xp * minterp;
-    const auto y = fy * interp + yp * minterp;
+    const auto x = pos.x * interp + xp * minterp;
+    const auto y = pos.y * interp + yp * minterp;
     const auto alfa = angle * interp + alphap * minterp;
     glPushMatrix();
     glTranslated(x, y, 0.0);

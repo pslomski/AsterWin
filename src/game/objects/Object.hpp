@@ -27,21 +27,21 @@ public:
     bool checkCollision(Object* pObiekt);
     void setXY(const Float x, const Float y)
     {
-        fx = x;
-        fy = y;
+        pos.x = x;
+        pos.y = y;
         xp = x;
         yp = y;
     }
     void setXY(const PointF& pt)
     {
-        fx = pt.x;
-        fy = pt.y;
+        pos.x = pt.x;
+        pos.y = pt.y;
         xp = pt.x;
         yp = pt.y;
     }
-    Float getX() const { return fx; }
-    Float getY() const { return fy; }
-    PointF getXY() { return {fx, fy}; }
+    Float getX() const { return pos.x; }
+    Float getY() const { return pos.y; }
+    PointF getXY() { return pos; }
     void setV(Float avx, Float avy)
     {
         fvx = avx;
@@ -76,6 +76,7 @@ public:
 
     static double interp;
 
+    PointF pos;
     GLint glList;
     PointsF verts;
     GeometryType geometryType;
@@ -95,7 +96,6 @@ private:
 
     Float angle;
     Float omega;
-    Float fx, fy;
     Float fvx, fvy;
     Float fv;
     Float fax, fay;
