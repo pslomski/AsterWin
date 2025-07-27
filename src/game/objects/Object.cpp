@@ -41,20 +41,20 @@ Float Object::distance(const Object* object) const
 void Object::setA(const Float aa)
 {
     fa = aa;
-    fax = Float(fa * std::cos(angle * GE_PIover180));
-    fay = Float(fa * std::sin(angle * GE_PIover180));
+    a.x = fa * std::cos(angle * GE_PIover180);
+    a.y = fa * std::sin(angle * GE_PIover180);
 }
 
 void Object::setV(const Float av)
 {
-    v.x = Float(av * std::cos(angle * GE_PIover180));
-    v.y = Float(av * std::sin(angle * GE_PIover180));
+    v.x = av * std::cos(angle * GE_PIover180);
+    v.y = av * std::sin(angle * GE_PIover180);
 }
 
 void Object::setVA(const Float av, const Float alfa)
 {
-    v.x = Float(av * std::cos(alfa * GE_PIover180));
-    v.y = Float(av * std::sin(alfa * GE_PIover180));
+    v.x = av * std::cos(alfa * GE_PIover180);
+    v.y = av * std::sin(alfa * GE_PIover180);
 }
 
 void Object::setRandV(const Float vmin, const Float vmax)
@@ -88,13 +88,13 @@ void Object::move()
     angle += omega * time.dt;
     if (std::abs(friction) > 1e-6)
     {
-        v.x += (fax - friction * v.x * std::abs(v.x)) * time.dt;
-        v.y += (fay - friction * v.y * std::abs(v.y)) * time.dt;
+        v.x += (a.x - friction * v.x * std::abs(v.x)) * time.dt;
+        v.y += (a.y - friction * v.y * std::abs(v.y)) * time.dt;
     }
     else
     {
-        v.x += fax * time.dt;
-        v.y += fay * time.dt;
+        v.x += a.x * time.dt;
+        v.y += a.y * time.dt;
     }
     pos.x += v.x * time.dt;
     pos.y += v.y * time.dt;

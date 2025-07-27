@@ -97,7 +97,7 @@ private:
     Float angle;
     Float omega;
     types::Vector v;
-    Float fax, fay;
+    types::Vector a;
     Float fa;
 };
 } // namespace game::objects
