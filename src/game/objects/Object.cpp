@@ -48,16 +48,14 @@ void Object::setA(Float aa)
 
 void Object::setV(Float av)
 {
-    fv = av;
-    fvx = Float(fv * std::cos(angle * GE_PIover180));
-    fvy = Float(fv * std::sin(angle * GE_PIover180));
+    v.x = Float(av * std::cos(angle * GE_PIover180));
+    v.y = Float(av * std::sin(angle * GE_PIover180));
 }
 
 void Object::setVA(Float av, Float alfa)
 {
-    fv = av;
-    fvx = Float(fv * std::cos(alfa * GE_PIover180));
-    fvy = Float(fv * std::sin(alfa * GE_PIover180));
+    v.x = Float(av * std::cos(alfa * GE_PIover180));
+    v.y = Float(av * std::sin(alfa * GE_PIover180));
 }
 
 void Object::setRandV(Float vmin, Float vmax)
@@ -71,7 +69,7 @@ void Object::setRandV(Float vmin, Float vmax)
 
 Float Object::getV()
 {
-    return sqrt(fvx * fvx + fvy * fvy);
+    return sqrt(v.x * v.x + v.y * v.y);
 }
 
 Float Object::correctAlfa(Float alfa)
@@ -91,16 +89,16 @@ void Object::move()
     angle += omega * time.dt;
     if (std::abs(KDec) > 1e-6)
     {
-        fvx += (fax - KDec * fvx * std::abs(fvx)) * time.dt;
-        fvy += (fay - KDec * fvy * std::abs(fvy)) * time.dt;
+        v.x += (fax - KDec * v.x * std::abs(v.x)) * time.dt;
+        v.y += (fay - KDec * v.y * std::abs(v.y)) * time.dt;
     }
     else
     {
-        fvx += fax * time.dt;
-        fvy += fay * time.dt;
+        v.x += fax * time.dt;
+        v.y += fay * time.dt;
     }
-    pos.x += fvx * time.dt;
-    pos.y += fvy * time.dt;
+    pos.x += v.x * time.dt;
+    pos.y += v.y * time.dt;
 
     if (pos.x < gameArea.bounds.x0)
     {

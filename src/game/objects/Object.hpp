@@ -13,6 +13,7 @@
 #include "game/types/Point.hpp"
 #include "game/types/Position.hpp"
 #include "game/types/Types.hpp"
+#include "game/types/Vector.hpp"
 
 namespace game::objects
 {
@@ -42,14 +43,14 @@ public:
     PointF getXY() { return pos; }
     void setV(Float avx, Float avy)
     {
-        fvx = avx;
-        fvy = avy;
+        v.x = avx;
+        v.y = avy;
     }
     void setV(Float av);
     void setVA(Float av, Float alfa);
     void setRandV(Float vmin, Float vmax);
-    Float getVX() { return fvx; }
-    Float getVY() { return fvy; }
+    Float getVX() { return v.x; }
+    Float getVY() { return v.y; }
     Float getV();
     void setA(Float aa);
     Float getA() { return fa; }
@@ -74,7 +75,7 @@ public:
 
     static double interp;
 
-    types::Position pos; //
+    types::Position pos; // current pos
     types::Position posp; // previous pos
     GLint glList;
     PointsF verts;
@@ -95,8 +96,7 @@ private:
 
     Float angle;
     Float omega;
-    Float fvx, fvy;
-    Float fv;
+    types::Vector v;
     Float fax, fay;
     Float fa;
 };
