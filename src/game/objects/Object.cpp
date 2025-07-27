@@ -1,14 +1,12 @@
-#include "game/objects/Object.hpp"
+#include "Object.hpp"
 #include <cassert>
 #include <cmath>
 #include <gl/gl.h>
 #include "game/Consts.hpp"
 #include "game/GameArea.hpp"
 #include "game/Time.hpp"
-#include "game/World.hpp"
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PolygWithPointCheck.hpp"
-
 
 namespace game::objects
 {
@@ -212,10 +210,10 @@ bool Object::checkCollision(Object* pObiekt)
 void Object::draw()
 {
     // State state = currentState * alpha + previousState * (1.0 - alpha);
-    Float minterp = 1.0 - geWorld.interp;
-    Float x = fx * geWorld.interp + xp * minterp;
-    Float y = fy * geWorld.interp + yp * minterp;
-    Float alfa = angle * geWorld.interp + alphap * minterp;
+    const auto minterp = 1.0 - interp;
+    const auto x = fx * interp + xp * minterp;
+    const auto y = fy * interp + yp * minterp;
+    const auto alfa = angle * interp + alphap * minterp;
     glPushMatrix();
     glTranslated(x, y, 0.0);
     glRotated(alfa, 0.0, 0.0, 1.0);
@@ -241,4 +239,6 @@ void Object::calcBounds(const PointsF& points)
     bounds.y0 = -max;
     bounds.y1 = max;
 }
+
+double Object::interp = 0.0;
 } // namespace game::objects

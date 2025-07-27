@@ -1,5 +1,5 @@
 #include "SfxSample.hpp"
-#include <assert.h>
+#include <cassert>
 #include "audio/Sound.hpp"
 
 void SfxSample::init(const int sampleIdArg, const float volumeArg)

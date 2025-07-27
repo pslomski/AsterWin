@@ -5,6 +5,7 @@
 #include "audio/Sound.hpp"
 #include "game/Time.hpp"
 #include "game/World.hpp"
+#include "game/objects/Object.hpp"
 #include "ui/MainWindow.hpp"
 #include "ui/Settings.hpp"
 
@@ -55,7 +56,7 @@ void Application::run()
             mainWindow.update(dt);
             accumulator -= dt;
         }
-        geWorld.interp = accumulator / dt;
+        game::objects::Object::interp = accumulator / dt;
         mainWindow.draw();
     }
 }

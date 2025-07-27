@@ -74,6 +74,8 @@ public:
     void draw();
     void render();
 
+    static double interp;
+
     GLint glList;
     PointsF verts;
     GeometryType geometryType;
