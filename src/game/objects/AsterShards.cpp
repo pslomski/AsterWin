@@ -20,7 +20,7 @@ void AsterShards::update()
     ratio = 1.0f - lifeTime.ratio();
 }
 
-void AsterShards::onRender()
+void AsterShards::onRender() const
 {
     setGlColor(color * ratio);
     glPointSize(2.0f);

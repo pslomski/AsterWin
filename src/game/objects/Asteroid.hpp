@@ -17,7 +17,7 @@ public:
 
 private:
     void create();
-    void onRender() override;
+    void onRender() const override;
 
     SfxSample sndCrash;
     int level;

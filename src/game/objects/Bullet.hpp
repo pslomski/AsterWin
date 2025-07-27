@@ -11,6 +11,6 @@ public:
     Bullet();
 
 private:
-    void onRender() override;
+    void onRender() const override;
 };
 } // namespace game::objects

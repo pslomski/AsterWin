@@ -37,7 +37,7 @@ void StarBlink::update()
     ratio = std::sin(lifeTime.ratio() * GE_PI);
 }
 
-void StarBlink::onRender()
+void StarBlink::onRender() const
 {
     setGlColor(color * ratio);
     glPointSize(GLfloat(size));

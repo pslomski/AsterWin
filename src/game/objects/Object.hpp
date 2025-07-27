@@ -41,20 +41,20 @@ public:
     Float getX() const { return pos.x; }
     Float getY() const { return pos.y; }
     PointF getXY() { return pos; }
-    void setV(Float avx, Float avy)
+    void setV(const Float avx, const Float avy)
     {
         v.x = avx;
         v.y = avy;
     }
-    void setV(Float av);
-    void setVA(Float av, Float alfa);
-    void setRandV(Float vmin, Float vmax);
-    Float getVX() { return v.x; }
-    Float getVY() { return v.y; }
-    Float getV();
-    void setA(Float aa);
-    Float getA() { return fa; }
-    void setAlfa(Float aalfa)
+    void setV(const Float av);
+    void setVA(const Float av, const Float alfa);
+    void setRandV(const Float vmin, const Float vmax);
+    Float getVX() const { return v.x; }
+    Float getVY() const { return v.y; }
+    Float getV() const;
+    void setA(const Float aa);
+    Float getA() const { return fa; }
+    void setAlfa(const Float aalfa)
     {
         angle = correctAlfa(aalfa);
         alphap = angle;
@@ -62,15 +62,15 @@ public:
     Float getAlfa() const { return angle; }
     Float getRotSpeed() const { return omega; }
     void setRotSpeed(const Float omegaArg) { omega = omegaArg; }
-    void setColor(Float aRed = 1, Float aGreen = 1, Float aBlue = 1)
+    void setColor(const Float aRed = 1, const Float aGreen = 1, const Float aBlue = 1)
     {
         color.red = aRed;
         color.green = aGreen;
         color.blue = aBlue;
     }
-    void setColor(Color& in_clr) { color = in_clr; }
+    void setColor(const Color& in_clr) { color = in_clr; }
     virtual void update() { move(); }
-    void draw();
+    void draw() const;
     void render();
 
     static double interp;
@@ -92,7 +92,7 @@ protected:
     types::Bounds bounds;
 
 private:
-    virtual void onRender() {} // Draws Object in its own coordinate system
+    virtual void onRender() const {} // Draws Object in its own coordinate system
 
     Float angle;
     Float omega;

@@ -12,7 +12,7 @@ public:
     void update() override;
 
 private:
-    void onRender() override;
+    void onRender() const override;
 
     float ratio{1.0f};
 };

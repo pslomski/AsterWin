@@ -48,7 +48,7 @@ void Ufo::update()
     Object::update();
 }
 
-void Ufo::onRender()
+void Ufo::onRender() const
 {
     setGlColor(color);
     glBegin(GL_LINE_LOOP);

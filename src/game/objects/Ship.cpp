@@ -127,7 +127,7 @@ void Ship::update()
     }
 }
 
-void Ship::onRender()
+void Ship::onRender() const
 {
     if (faccelerated)
     {

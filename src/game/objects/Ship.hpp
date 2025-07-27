@@ -37,7 +37,7 @@ private:
     utils::TimeInterval m_tiRespawnBlink;
     utils::TimeInterval m_tiRespawn;
 
-    void onRender() override;
+    void onRender() const override;
 
 public:
     Ship(Float ax, Float ay, Float aangle);

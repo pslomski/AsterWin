@@ -22,7 +22,7 @@ void ShipShards::update()
     ratio = 1.0f - lifeTime.ratio();
 }
 
-void ShipShards::onRender()
+void ShipShards::onRender() const
 {
     setGlColor(color * ratio);
     glBegin(GL_LINES);

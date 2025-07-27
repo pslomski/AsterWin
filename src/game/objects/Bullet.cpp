@@ -13,7 +13,7 @@ Bullet::Bullet() : TempObject()
     bounds.y1 = 0.1;
 }
 
-void Bullet::onRender()
+void Bullet::onRender() const
 {
     glPointSize(3.0f);
     glBegin(GL_POINTS);

@@ -15,7 +15,7 @@ public:
     BonusType getBonusType() const { return bonusType; }
 
 private:
-    void onRender() override;
+    void onRender() const override;
 
     BonusType bonusType;
     utils::TimeInterval tiRot;

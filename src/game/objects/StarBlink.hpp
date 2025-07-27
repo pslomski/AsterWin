@@ -13,7 +13,7 @@ public:
 
 private:
     void init();
-    void onRender() override;
+    void onRender() const override;
 
     float ratio{1.0f};
     float size{1.0f};

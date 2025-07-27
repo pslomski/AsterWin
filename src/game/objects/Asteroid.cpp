@@ -70,7 +70,7 @@ void Asteroid::create()
     glEndList();
 }
 
-void Asteroid::onRender()
+void Asteroid::onRender() const
 {
     glCallList(glList);
 }

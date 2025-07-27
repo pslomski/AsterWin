@@ -25,7 +25,7 @@ public:
     SfxSample sndCrash;
 
 private:
-    void onRender() override;
+    void onRender() const override;
 
     Float CheckTime;
     Float CheckTimeElapsed;

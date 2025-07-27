@@ -38,26 +38,26 @@ Float Object::distance(const Object* object) const
     return std::sqrt(dx * dx + dy * dy);
 }
 
-void Object::setA(Float aa)
+void Object::setA(const Float aa)
 {
     fa = aa;
     fax = Float(fa * std::cos(angle * GE_PIover180));
     fay = Float(fa * std::sin(angle * GE_PIover180));
 }
 
-void Object::setV(Float av)
+void Object::setV(const Float av)
 {
     v.x = Float(av * std::cos(angle * GE_PIover180));
     v.y = Float(av * std::sin(angle * GE_PIover180));
 }
 
-void Object::setVA(Float av, Float alfa)
+void Object::setVA(const Float av, const Float alfa)
 {
     v.x = Float(av * std::cos(alfa * GE_PIover180));
     v.y = Float(av * std::sin(alfa * GE_PIover180));
 }
 
-void Object::setRandV(Float vmin, Float vmax)
+void Object::setRandV(const Float vmin, const Float vmax)
 {
     Float vRand = rand() % int(vmax - vmin) + vmin;
     Float alfa = rand() % 360;
@@ -66,9 +66,9 @@ void Object::setRandV(Float vmin, Float vmax)
     setV(vx, vy);
 }
 
-Float Object::getV()
+Float Object::getV() const
 {
-    return sqrt(v.x * v.x + v.y * v.y);
+    return std::sqrt(v.x * v.x + v.y * v.y);
 }
 
 Float Object::correctAlfa(Float alfa)
@@ -203,7 +203,7 @@ bool Object::checkCollision(Object* pObiekt)
     }
 }
 
-void Object::draw()
+void Object::draw() const
 {
     // State state = currentState * alpha + previousState * (1.0 - alpha);
     const auto minterp = 1.0 - interp;

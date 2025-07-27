@@ -4,7 +4,6 @@
 #include "game/types/Point.hpp"
 #include "gl/Utils.hpp"
 
-
 namespace game::objects
 {
 BonusObject::BonusObject(const BonusType bonusTypeArg) : TempObject(GE_BONUS_LIFETIME), bonusType(bonusTypeArg)
@@ -41,7 +40,7 @@ void BonusObject::update()
     }
 }
 
-void BonusObject::onRender()
+void BonusObject::onRender() const
 {
     glRotatef(tiRot.ratio() * 360.0f, 0.0f, 1.0f, 0.0f);
     setGlColor(color * colorRatio);
