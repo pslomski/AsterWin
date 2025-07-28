@@ -3,6 +3,7 @@
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
+#include "game/Rand.hpp"
 #include "game/Time.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "gl/Utils.hpp"
@@ -17,22 +18,22 @@ Ufo::Ufo() : Object()
     geometryType = GeometryType::Polyg;
     pShip = nullptr;
     pAster = nullptr;
-    CheckTime = 0.7;
-    CheckTimeElapsed = 0.0;
-    MoveTime = 3.0;
-    MoveTimeElapsed = 0.0;
-    FireTime = 2.0;
-    FireTimeElapsed = 0.0;
+    CheckTime = 0.7f;
+    CheckTimeElapsed = 0.0f;
+    MoveTime = 3.0f;
+    MoveTimeElapsed = 0.0f;
+    FireTime = 2.0f;
+    FireTimeElapsed = 0.0f;
     setColor(GE_UFO_COLOR);
-    setRandV(10.0, 15.0);
+    setRandV(10.0f, 15.0f);
 
-    verts.push_back(PointF(2.0, 0.0));
-    verts.push_back(PointF(0.8, -0.75));
-    verts.push_back(PointF(-0.8, -0.75));
-    verts.push_back(PointF(-2.0, 0.0));
-    verts.push_back(PointF(-0.8, 0.75));
-    verts.push_back(PointF(0.8, 0.75));
-    verts.push_back(PointF(2.0, 0.0));
+    verts.push_back(PointF(2.0f, 0.0f));
+    verts.push_back(PointF(0.8f, -0.75f));
+    verts.push_back(PointF(-0.8f, -0.75f));
+    verts.push_back(PointF(-2.0f, 0.0f));
+    verts.push_back(PointF(-0.8f, 0.75f));
+    verts.push_back(PointF(0.8f, 0.75f));
+    verts.push_back(PointF(2.0f, 0.0f));
     calcBounds(verts);
 
     sndEngine.play();
@@ -59,14 +60,14 @@ void Ufo::onRender() const
 
 void Ufo::Action(Bullets& bullets)
 {
-    const Float SafeDist = 12.0;
+    const Float SafeDist = 12.0f;
 
     CheckTimeElapsed += time.dt;
     if (CheckTimeElapsed > CheckTime)
     {
-        CheckTimeElapsed = 0.0;
-        Float RShp = 2e6;
-        Float RAst = 1e6;
+        CheckTimeElapsed = 0.0f;
+        Float RShp = 2e6f;
+        Float RAst = 1e6f;
         if (pShip) RShp = distance(pShip);
         if (pAster) RAst = distance(pAster);
         if ((RShp < SafeDist) || (RAst < SafeDist)) MoveTimeElapsed = MoveTime;
@@ -75,62 +76,62 @@ void Ufo::Action(Bullets& bullets)
     MoveTimeElapsed += time.dt;
     if (MoveTimeElapsed > MoveTime)
     {
-        Float RShp = 2e6;
-        Float RAst = 1e6;
+        Float RShp = 2e6f;
+        Float RAst = 1e6f;
         if (pShip) RShp = distance(pShip);
         if (pAster) RAst = distance(pAster);
-        if (pShip && RShp < SafeDist)
+        if (pShip and RShp < SafeDist)
         {
-            int sgn = rand() % 2 ? -1 : 1;
-            setVA(10.0, pShip->getAlfa() + 90 * sgn);
+            int sgn = RAND(2) ? -1 : 1;
+            setVA(10.0f, pShip->getAlfa() + 90 * sgn);
         }
-        if (pAster && RAst < SafeDist)
+        if (pAster and RAst < SafeDist)
         {
-            int sgn = rand() % 2 ? -1 : 1;
-            setVA(10.0, pAster->getAlfa() + 90 * sgn);
+            int sgn = RAND(2) ? -1 : 1;
+            setVA(10.0f, pAster->getAlfa() + 90 * sgn);
         }
         else
         {
-            setRandV(9.0, 13.0);
+            setRandV(9.0f, 13.0f);
         }
         bullets.push_back(FireBullet({pos.x + getVX(), pos.y + getVY()})); // shoot in a velocity direction
-        FireTimeElapsed = 0.0;
-        MoveTimeElapsed = 0.0;
+        FireTimeElapsed = 0.0f;
+        MoveTimeElapsed = 0.0f;
     }
 
     FireTimeElapsed += time.dt;
     if (FireTimeElapsed > FireTime)
     {
-        Float RShp = 2e6;
-        Float RAst = 1e6;
+        Float RShp = 2e6f;
+        Float RAst = 1e6f;
         if (pShip) RShp = distance(pShip);
         if (pAster) RAst = distance(pAster);
         if (RShp < RAst)
         {
-            if (pShip && RShp < 35.0)
+            if (pShip and RShp < 35.0f)
             {
                 bullets.push_back(FireBullet(pShip->pos));
             }
         }
         else
         {
-            if (pAster && RAst < 20.0)
+            if (pAster and RAst < 20.0f)
             {
                 bullets.push_back(FireBullet(pAster->pos));
             }
         }
-        FireTimeElapsed = 0.0;
+        FireTimeElapsed = 0.0f;
     }
 }
 
 Bullet* Ufo::FireBullet(const PointF& pt)
 {
-    Float Speed = 22.0;
+    Float Speed = 22.0f;
     Bullet* bullet = new Bullet;
-    bullet->lifeTime.interval = 3.0;
+    bullet->lifeTime.interval = 3.0f;
     bullet->setXY(pos);
     Float alfa = std::atan2(pt.y - pos.y, pt.x - pos.x) * GE_180overPI;
-    bullet->setAlfa(alfa + rand() % 6 - 3);
+    bullet->setAlfa(alfa + RAND(6) - 3.0f);
     bullet->setV(Speed);
     bullet->setColor(color);
     return bullet;
@@ -144,13 +145,13 @@ void Ufo::Crash(TempObjects& vecObiekty)
     {
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
-        pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
+        pDeb->setAlfa(getAlfa() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
         pDeb->setXY(pos);
-        Float vRand = 3.0 + rand() % 15;
-        Float vx = 0.8 * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
-        Float vy = 0.8 * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
+        const Float vRand = 3.0f + RAND(15);
+        const Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
+        const Float vy = 0.8f * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
         pDeb->setV(vx, vy);
-        pDeb->setRotSpeed(rand() / 200 - 400);
+        pDeb->setRotSpeed(rand() / 200 - 400.0f); // TODO: check this formula
         vecObiekty.push_back(pDeb);
     }
 }
