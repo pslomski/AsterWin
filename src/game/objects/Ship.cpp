@@ -1,5 +1,6 @@
 #include "Ship.hpp"
 #include <algorithm>
+#include <cmath>
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
@@ -98,9 +99,9 @@ void Ship::update()
     if (puAddBullet.isActive())
     {
         Float alfa = 2 * GE_PI * puAddBullet.duration.elapsed;
-        Float sina = sin(alfa);
+        Float sina = std::sin(alfa);
         sina *= sina;
-        Float cosa = cos(alfa);
+        Float cosa = std::cos(alfa);
         cosa *= cosa;
         Color cl1(GE_BONUS_ADD_BULLETS_COLOR);
         cl1 = cl1 * sina;
@@ -113,9 +114,9 @@ void Ship::update()
     if (puBulletSpeed.isActive())
     {
         Float alfa = 2 * GE_PI * puBulletSpeed.duration.elapsed;
-        Float sina = sin(alfa);
+        Float sina = std::sin(alfa);
         sina *= sina;
-        Float cosa = cos(alfa);
+        Float cosa = std::cos(alfa);
         cosa *= cosa;
         Color cl1(GE_BONUS_BULLET_SPEED_COLOR);
         cl1 = cl1 * sina;
@@ -196,8 +197,8 @@ Bullet* Ship::FireBullet()
     Bullet* bullet = new Bullet;
     bullet->setXY(pos);
     bullet->setAlfa(getAlfa());
-    Float vx = getVX() + BulletSpeed * cos(getAlfa() * GE_PIover180);
-    Float vy = getVY() + BulletSpeed * sin(getAlfa() * GE_PIover180);
+    Float vx = getVX() + BulletSpeed * std::cos(getAlfa() * GE_PIover180);
+    Float vy = getVY() + BulletSpeed * std::sin(getAlfa() * GE_PIover180);
     bullet->setV(vx, vy);
     bullet->setColor(color);
     return bullet;
@@ -215,8 +216,8 @@ void Ship::Crash(TempObjects& vecObiekty)
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
         pDeb->setXY(pos);
         Float vRand = 15.0 + rand() % 5;
-        Float vx = getVX() + vRand * cos(pDeb->getAlfa() * GE_PIover180);
-        Float vy = getVY() + vRand * sin(pDeb->getAlfa() * GE_PIover180);
+        Float vx = getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
+        Float vy = getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
         pDeb->setV(vx, vy);
         vecObiekty.push_back(pDeb);
     }
@@ -229,8 +230,8 @@ void Ship::Crash(TempObjects& vecObiekty)
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
         pDeb->setXY(pos);
         Float vRand = 3.0 + rand() % 15;
-        Float vx = 0.8 * getVX() + vRand * cos(pDeb->getAlfa() * GE_PIover180);
-        Float vy = 0.8 * getVY() + vRand * sin(pDeb->getAlfa() * GE_PIover180);
+        Float vx = 0.8 * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
+        Float vy = 0.8 * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
         pDeb->setV(vx, vy);
         vecObiekty.push_back(pDeb);
     }
