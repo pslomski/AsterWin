@@ -111,14 +111,14 @@ void Ufo::Action(Bullets& bullets)
         {
             if (pShip && RShp < 35.0)
             {
-                bullets.push_back(FireBullet(pShip->getXY()));
+                bullets.push_back(FireBullet(pShip->pos));
             }
         }
         else
         {
             if (pAster && RAst < 20.0)
             {
-                bullets.push_back(FireBullet(pAster->getXY()));
+                bullets.push_back(FireBullet(pAster->pos));
             }
         }
         FireTimeElapsed = 0.0;

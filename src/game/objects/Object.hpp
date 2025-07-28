@@ -40,7 +40,6 @@ public:
     }
     Float getX() const { return pos.x; }
     Float getY() const { return pos.y; }
-    PointF getXY() { return pos; }
     void setV(const Float avx, const Float avy)
     {
         v.x = avx;
