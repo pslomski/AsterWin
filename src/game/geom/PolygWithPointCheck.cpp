@@ -24,7 +24,7 @@ bool checkPolygWithPoint(const objects::Object* point, const objects::Object* po
     BoxF o1;
     Float x, y;
     // take the displacement vector of the point
-    const BoxF o2{point->posp.x, point->posp.y, point->getX(), point->getY()};
+    const BoxF o2{point->posp.x, point->posp.y, point->pos.x, point->pos.y};
     for (unsigned int i1 = 0; i1 < polygon->verts.size(); ++i1)
     {
         if (0 == i1)
@@ -46,7 +46,7 @@ bool checkPolygWithPoint(const objects::Object* point, const objects::Object* po
         }
         else
         {
-            PointF pt{point->getX() - polygon->getX(), point->getY() - polygon->getY()};
+            PointF pt{point->pos.x - polygon->pos.x, point->pos.y - polygon->pos.y};
             pt = rotate(pt, -polygon->getAlfa());
             return isPointInPolygon(polygon->verts.size(), polygon->verts, pt.x, pt.y);
         }

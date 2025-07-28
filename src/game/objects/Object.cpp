@@ -33,8 +33,8 @@ Object::~Object()
 
 Float Object::distance(const Object* object) const
 {
-    const auto dx = object->getX() - pos.x;
-    const auto dy = object->getY() - pos.y;
+    const auto dx = object->pos.x - pos.x;
+    const auto dy = object->pos.y - pos.y;
     return std::sqrt(dx * dx + dy * dy);
 }
 
@@ -137,10 +137,10 @@ bool Object::checkCollision(Object* pObiekt)
 {
     assert(nullptr != pObiekt);
 
-    if (((getX() + bounds.x0) > (pObiekt->getX() + pObiekt->bounds.x1)) ||
-        ((getX() + bounds.x1) < (pObiekt->getX() + pObiekt->bounds.x0)) ||
-        ((getY() + bounds.y0) > (pObiekt->getY() + pObiekt->bounds.y1)) ||
-        ((getY() + bounds.y1) < (pObiekt->getY() + pObiekt->bounds.y0)))
+    if (((pos.x + bounds.x0) > (pObiekt->pos.x + pObiekt->bounds.x1)) ||
+        ((pos.x + bounds.x1) < (pObiekt->pos.x + pObiekt->bounds.x0)) ||
+        ((pos.y + bounds.y0) > (pObiekt->pos.y + pObiekt->bounds.y1)) ||
+        ((pos.y + bounds.y1) < (pObiekt->pos.y + pObiekt->bounds.y0)))
         return false;
     else
     {

@@ -93,9 +93,7 @@ void Ufo::Action(Bullets& bullets)
         {
             setRandV(9.0, 13.0);
         }
-        Float x = getX() + getVX();
-        Float y = getY() + getVY();
-        bullets.push_back(FireBullet(PointF(x, y))); // prewencyjny strzal w nowym kierunku ruchu
+        bullets.push_back(FireBullet({pos.x + getVX(), pos.y + getVY()})); // shoot in a velocity direction
         FireTimeElapsed = 0.0;
         MoveTimeElapsed = 0.0;
     }
@@ -130,8 +128,8 @@ Bullet* Ufo::FireBullet(const PointF& pt)
     Float Speed = 22.0;
     Bullet* bullet = new Bullet;
     bullet->lifeTime.interval = 3.0;
-    bullet->setXY(getX(), getY());
-    Float alfa = std::atan2(pt.y - getY(), pt.x - getX()) * GE_180overPI;
+    bullet->setXY(pos);
+    Float alfa = std::atan2(pt.y - pos.y, pt.x - pos.x) * GE_180overPI;
     bullet->setAlfa(alfa + rand() % 6 - 3);
     bullet->setV(Speed);
     bullet->setColor(color);
@@ -147,7 +145,7 @@ void Ufo::Crash(TempObjects& vecObiekty)
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
-        pDeb->setXY(getX(), getY());
+        pDeb->setXY(pos);
         Float vRand = 3.0 + rand() % 15;
         Float vx = 0.8 * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
         Float vy = 0.8 * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);

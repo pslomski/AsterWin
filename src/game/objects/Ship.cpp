@@ -194,7 +194,7 @@ Bullet* Ship::FireBullet()
         sndFire.play();
 
     Bullet* bullet = new Bullet;
-    bullet->setXY(getX(), getY());
+    bullet->setXY(pos);
     bullet->setAlfa(getAlfa());
     Float vx = getVX() + BulletSpeed * cos(getAlfa() * GE_PIover180);
     Float vy = getVY() + BulletSpeed * sin(getAlfa() * GE_PIover180);
@@ -213,7 +213,7 @@ void Ship::Crash(TempObjects& vecObiekty)
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
-        pDeb->setXY(getX(), getY());
+        pDeb->setXY(pos);
         Float vRand = 15.0 + rand() % 5;
         Float vx = getVX() + vRand * cos(pDeb->getAlfa() * GE_PIover180);
         Float vy = getVY() + vRand * sin(pDeb->getAlfa() * GE_PIover180);
@@ -227,7 +227,7 @@ void Ship::Crash(TempObjects& vecObiekty)
         ShipShards* pDeb = new ShipShards;
         pDeb->setColor(color);
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
-        pDeb->setXY(getX(), getY());
+        pDeb->setXY(pos);
         Float vRand = 3.0 + rand() % 15;
         Float vx = 0.8 * getVX() + vRand * cos(pDeb->getAlfa() * GE_PIover180);
         Float vy = 0.8 * getVY() + vRand * sin(pDeb->getAlfa() * GE_PIover180);

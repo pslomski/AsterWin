@@ -148,7 +148,7 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
         BonusObject* bonus = createBonusObj(BonusType);
         if (bonus)
         {
-            bonus->setXY(getX(), getY());
+            bonus->setXY(pos);
             bonus->setRandV(2.0, 3.0);
             bonuses.push_back(bonus);
         }
@@ -158,8 +158,8 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     {
         Asteroid* pAster = new Asteroid(level + 1);
         pAster->setAlfa(getAlfa() + i * 180.0 - 90.0 + rand() % 50 - 25.0);
-        Float x = getX() + 3.0f * std::cos(pAster->getAlfa() * GE_PIover180);
-        Float y = getY() + 3.0f * std::sin(pAster->getAlfa() * GE_PIover180);
+        Float x = pos.x + 3.0f * std::cos(pAster->getAlfa() * GE_PIover180);
+        Float y = pos.y + 3.0f * std::sin(pAster->getAlfa() * GE_PIover180);
         pAster->setXY(x, y);
         pAster->setV(getV() * 1.3);
         asteroids.push_back(pAster);
@@ -169,7 +169,7 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     {
         AsterShards* pDeb = new AsterShards;
         pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
-        pDeb->setXY(getX(), getY());
+        pDeb->setXY(pos);
         pDeb->lifeTime.interval = LifeTime;
         Float vRand = 5.0f + rand() % 15;
         Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);

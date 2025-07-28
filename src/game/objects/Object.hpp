@@ -38,8 +38,6 @@ public:
         pos = pt;
         posp = pt;
     }
-    Float getX() const { return pos.x; }
-    Float getY() const { return pos.y; }
     void setV(const Float avx, const Float avy)
     {
         v.x = avx;
