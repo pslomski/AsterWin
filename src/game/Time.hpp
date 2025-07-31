@@ -10,6 +10,7 @@ public:
     double getCurrentTime();
 
     double dt{0.001}; // simulation step
+    double accumulator{0.0};
 
 private:
     double frequency{1.0};

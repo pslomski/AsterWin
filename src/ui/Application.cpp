@@ -34,9 +34,9 @@ void Application::run()
 {
     MainWindow mainWindow(ui::viewport.width, ui::viewport.height);
     MSG message{};
-    const double dt = 0.001;
+    const double dt = 0.001; // 1 ms
     game::time.dt = dt;
-    double accumulator = 0.0;
+    game::time.accumulator = 0.0;
     double currentTime = game::time.getCurrentTime();
     while (message.message != WM_QUIT)
     {
@@ -49,13 +49,13 @@ void Application::run()
         double frameTime = newTime - currentTime;
         if (frameTime > 0.25) frameTime = 0.25;
         currentTime = newTime;
-        accumulator += frameTime;
-        while (accumulator >= dt)
+        game::time.accumulator += frameTime;
+        while (game::time.accumulator >= dt)
         {
             mainWindow.update(dt);
-            accumulator -= dt;
+            game::time.accumulator -= dt;
         }
-        game::objects::Object::interp = accumulator / dt;
+        game::objects::Object::interp = game::time.accumulator / dt;
         mainWindow.draw();
     }
 }
