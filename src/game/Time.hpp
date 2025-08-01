@@ -1,5 +1,6 @@
 #pragma once
 
+#include "game/TimeDelta.hpp"
 namespace game
 {
 class Time
@@ -9,7 +10,7 @@ public:
 
     double getCurrentTime();
 
-    double dt{0.001}; // simulation step
+    TimeDelta dt{0.001}; // simulation step
     double accumulator{0.0};
 
 private:

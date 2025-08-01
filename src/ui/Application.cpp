@@ -3,10 +3,12 @@
 #include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
 #include "game/Time.hpp"
+#include "game/TimeDelta.hpp"
 #include "game/objects/Object.hpp"
 #include "ui/MainWindow.hpp"
 #include "ui/Settings.hpp"
 #include "ui/Viewport.hpp"
+
 
 Application::Application()
 {
@@ -34,7 +36,7 @@ void Application::run()
 {
     MainWindow mainWindow(ui::viewport.width, ui::viewport.height);
     MSG message{};
-    const double dt = 0.001; // 1 ms
+    const game::TimeDelta dt = 0.001; // 1 ms
     game::time.dt = dt;
     game::time.accumulator = 0.0;
     double currentTime = game::time.getCurrentTime();
