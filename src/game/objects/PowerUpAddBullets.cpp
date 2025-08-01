@@ -8,11 +8,11 @@ PowerUpAddBullets::PowerUpAddBullets(const float interval) : PowerUp(interval) {
 
 void PowerUpAddBullets::onStart()
 {
-    pShip->MaxBullets += GE_BULLETS_INCREMENT;
+    pShip->maxBullets = GE_INITIAL_MAX_BULLETS + GE_BULLETS_INCREMENT;
 }
 
 void PowerUpAddBullets::onStop()
 {
-    pShip->MaxBullets -= GE_BULLETS_INCREMENT;
+    pShip->maxBullets = GE_INITIAL_MAX_BULLETS;
 }
 } // namespace game::objects

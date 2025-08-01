@@ -8,11 +8,11 @@ PowerUpBulletSpeed::PowerUpBulletSpeed(const float interval) : PowerUp(interval)
 
 void PowerUpBulletSpeed::onStart()
 {
-    pShip->BulletSpeed += GE_BULLET_SPEED_INC;
+    pShip->bulletSpeed = GE_INITIAL_BULLET_SPEED + GE_BULLET_SPEED_INC;
 }
 
 void PowerUpBulletSpeed::onStop()
 {
-    pShip->BulletSpeed -= GE_BULLET_SPEED_INC;
+    pShip->bulletSpeed = GE_INITIAL_BULLET_SPEED;
 }
 } // namespace game::objects

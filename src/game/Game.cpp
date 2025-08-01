@@ -249,27 +249,27 @@ void Game::processUserInput()
 {
     if (key[VK_UP])
     {
-        if (ship) ship->AccelerationOn();
+        if (ship) ship->accelerationOn();
     }
     if (!key[VK_UP])
     {
-        if (ship) ship->AccelerationOff();
+        if (ship) ship->accelerationOff();
     }
     if (key[VK_LEFT])
     {
-        if (ship) ship->RotateLeft();
+        if (ship) ship->rotateLeft();
     }
     else
     {
-        if (ship) ship->RotateLeftStop();
+        if (ship) ship->rotateLeftStop();
     }
     if (key[VK_RIGHT])
     {
-        if (ship) ship->RotateRight();
+        if (ship) ship->rotateRight();
     }
     else
     {
-        if (ship) ship->RotateRightStop();
+        if (ship) ship->rotateRightStop();
     }
 
     if (key[VK_SPACE] && !keypress[VK_SPACE])
@@ -277,9 +277,9 @@ void Game::processUserInput()
         keypress[VK_SPACE] = true;
         if (ship)
         {
-            if (bullets.size() < ship->MaxBullets)
+            if (bullets.size() < ship->maxBullets)
             {
-                objects::Bullet* pB = ship->FireBullet();
+                objects::Bullet* pB = ship->fireBullet();
                 if (pB) bullets.push_back(pB);
             }
         }
@@ -409,7 +409,7 @@ void Game::analyzeGameState()
                     gameState = GameState::Run;
                     const auto pt = gameArea.center();
                     ship = new objects::Ship(pt.x, pt.y, 90.0f);
-                    ship->Respawning = true;
+                    ship->respawning = true;
                 }
             }
             break;
@@ -426,7 +426,7 @@ void Game::updateObjects()
 {
     if (ship)
     {
-        if (ship->Respawning) ship->Respawn();
+        if (ship->respawning) ship->respawn();
         ship->update();
     }
 
@@ -523,9 +523,9 @@ void Game::checkCollisions()
     // ufo-ship collision
     if (pUfo)
     {
-        if (ship && !ship->Respawning && ship->checkCollision(pUfo))
+        if (ship && !ship->respawning && ship->checkCollision(pUfo))
         {
-            ship->Crash(shards);
+            ship->crash(shards);
             delete ship;
             ship = nullptr;
             pUfo->Crash(shards);
@@ -558,7 +558,7 @@ void Game::checkCollisions()
     }
 
     // ufo_shoot-ship collision
-    if (ship and not ship->Respawning)
+    if (ship and not ship->respawning)
     {
         for (auto itBullet = bulletsUfo.begin(); itBullet != bulletsUfo.end();)
         {
@@ -566,7 +566,7 @@ void Game::checkCollisions()
             {
                 delete (*itBullet);
                 itBullet = bulletsUfo.erase(itBullet);
-                ship->Crash(shards);
+                ship->crash(shards);
                 delete ship;
                 ship = nullptr;
                 break;
@@ -582,9 +582,9 @@ void Game::checkCollisions()
     for (auto itAster = asteroids.begin(); itAster != asteroids.end();)
     {
         bool bIncrement = true;
-        if (ship && !ship->Respawning && ship->checkCollision(*itAster))
+        if (ship && !ship->respawning && ship->checkCollision(*itAster))
         {
-            ship->Crash(shards);
+            ship->crash(shards);
             delete ship;
             ship = nullptr;
 
@@ -671,7 +671,7 @@ void Game::checkCollisions()
                 }
                 else
                 {
-                    ship->AddBonus((*it)->getBonusType());
+                    ship->addBonus((*it)->getBonusType());
                     sndPowerUp.play();
                 }
                 delete (*it);

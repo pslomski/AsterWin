@@ -3,7 +3,6 @@
 #include <cmath>
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
-#include "game/GameConsts.hpp"
 #include "game/Time.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "game/objects/ShipShards.hpp"
@@ -11,50 +10,29 @@
 
 namespace game::objects
 {
-Ship::Ship(Float ax, Float ay, Float aangle)
+Ship::Ship(const Float xArg, const Float yArg, const Float angleArg)
     : Object(), puAddBullet(GE_POWERUP_DURATION_TIME), puBulletSpeed(GE_POWERUP_DURATION_TIME)
 {
+    geometryType = GeometryType::Polyg;
+    friction = 0.05f;
+    setXY(xArg, yArg);
+    setAlfa(angleArg);
+    setRotSpeed(0.0f);
+    setColor(GE_SHIP_COLOR);
+
+    puAddBullet.pShip = this;
+    puBulletSpeed.pShip = this;
+    clEngine.set({GE_SHIP_ENGINE_COLOR});
+    verts.push_back(PointF(2.0f, 0.0f));
+    verts.push_back(PointF(-1.5f, -1.0f));
+    verts.push_back(PointF(-1.0f, 0.0f));
+    verts.push_back(PointF(-1.5f, 1.0f));
+    calcBounds(verts);
+
     sndFire.init(SND_SHIP_FIRE, SND_VOL_SHIP_FIRE);
     sndFirePow.init(SND_SHIP_FIRE_POWER, SND_VOL_SHIP_FIRE_POWER);
     sndEngine.init(SND_SHIP_ENGINE, SND_VOL_SHIP_ENGINE);
     sndCrash.init(SND_SHIP_CRASH, SND_VOL_SHIP_CRASH);
-
-    m_tiAccel.interval = 0.5;
-    m_tiRespawn.interval = 3.0;
-    m_tiFade.interval = 0.15;
-    m_tiEngineBlink.interval = 0.25;
-    m_tiRotateLeft.interval = 0.25;
-    m_tiRotateRight.interval = 0.25;
-    m_tiRespawnBlink.interval = 0.3;
-    m_RespBlinkColRatio = 1.0;
-
-    puAddBullet.pShip = this;
-    puBulletSpeed.pShip = this;
-    BulletSpeed = GE_INITIAL_BULLET_SPEED;
-    MaxBullets = GE_INITIAL_MAX_BULLETS;
-    geometryType = GeometryType::Polyg;
-    setColor(GE_SHIP_COLOR);
-    clEngine.set({GE_SHIP_ENGINE_COLOR});
-    m_RotSpeed = GE_SHIP_ROT_SPEED;
-    setRotSpeed(0.0);
-    setXY(ax, ay);
-    setAlfa(aangle);
-    fshield = false;
-    bDarken = false;
-    faccelerated = false;
-    Respawning = false;
-    friction = 0.05f;
-    Accel = 20.0; // ok. 2g
-    AccelBurst = 15.0;
-    AccelMax = Accel + AccelBurst; // pomocnicza przy wyswietlaniu plomienia
-    sndEngineGain = 0.0;
-    EngSndStopped = true;
-
-    verts.push_back(PointF(2.0, 0.0));
-    verts.push_back(PointF(-1.5, -1.0));
-    verts.push_back(PointF(-1.0, 0.0));
-    verts.push_back(PointF(-1.5, 1.0));
-    calcBounds(verts);
 }
 
 Ship::~Ship()
@@ -69,33 +47,33 @@ void Ship::update()
     if (puAddBullet.duration.inc(dt)) puAddBullet.stop();
     if (puBulletSpeed.duration.inc(dt)) puBulletSpeed.stop();
 
-    if (Respawning)
+    if (respawning)
     {
-        if (m_tiRespawnBlink.inc(dt))
+        if (tiRespawnBlink.inc(dt))
         {
-            m_tiRespawnBlink.reset();
+            tiRespawnBlink.reset();
             bDarken = !bDarken;
         }
-        Float d = bDarken ? 0.5 : 1.0;
-        m_RespBlinkColRatio = 0.5 * (1 + m_tiRespawnBlink.ratio()) * d;
+        Float d = bDarken ? 0.5f : 1.0f;
+        respBlinkColRatio = 0.5f * (1.0f + tiRespawnBlink.ratio()) * d;
     }
     else
     {
-        m_RespBlinkColRatio = 1.0;
+        respBlinkColRatio = 1.0f;
     }
 
     if (faccelerated)
     {
-        if (m_tiEngineBlink.inc(dt)) m_tiEngineBlink.reset();
+        if (tiEngineBlink.inc(dt)) tiEngineBlink.reset();
     }
 
     if (faccelerated)
     {
-        m_BoostLen = getA() / AccelBurst * 2.0 + 0.25 * sin(m_tiEngineBlink.ratio() * 2 * GE_PI);
+        boostLength = getA() / accelBurst * 2.0 + 0.25 * sin(tiEngineBlink.ratio() * 2 * GE_PI);
     }
 
     // ustalanie koloru
-    m_clrTmp = color;
+    colorCurr = color;
     if (puAddBullet.isActive())
     {
         Float alfa = 2 * GE_PI * puAddBullet.duration.elapsed;
@@ -103,13 +81,13 @@ void Ship::update()
         sina *= sina;
         Float cosa = std::cos(alfa);
         cosa *= cosa;
-        Color cl1(GE_BONUS_ADD_BULLETS_COLOR);
+        Color cl1{GE_BONUS_ADD_BULLETS_COLOR};
         cl1 = cl1 * sina;
-        Color cl2(m_clrTmp);
+        Color cl2{colorCurr};
         cl2 = cl2 * cosa;
-        m_clrTmp.red = std::min(1.0f, cl1.red + cl2.red);
-        m_clrTmp.green = std::min(1.0f, cl1.green + cl2.green);
-        m_clrTmp.blue = std::min(1.0f, cl1.blue + cl2.blue);
+        colorCurr.red = std::min(1.0f, cl1.red + cl2.red);
+        colorCurr.green = std::min(1.0f, cl1.green + cl2.green);
+        colorCurr.blue = std::min(1.0f, cl1.blue + cl2.blue);
     }
     if (puBulletSpeed.isActive())
     {
@@ -118,13 +96,13 @@ void Ship::update()
         sina *= sina;
         Float cosa = std::cos(alfa);
         cosa *= cosa;
-        Color cl1(GE_BONUS_BULLET_SPEED_COLOR);
+        Color cl1{GE_BONUS_BULLET_SPEED_COLOR};
         cl1 = cl1 * sina;
-        Color cl2(m_clrTmp);
+        Color cl2{colorCurr};
         cl2 = cl2 * cosa;
-        m_clrTmp.red = std::min(1.0f, cl1.red + cl2.red);
-        m_clrTmp.green = std::min(1.0f, cl1.green + cl2.green);
-        m_clrTmp.blue = std::min(1.0f, cl1.blue + cl2.blue);
+        colorCurr.red = std::min(1.0f, cl1.red + cl2.red);
+        colorCurr.green = std::min(1.0f, cl1.green + cl2.green);
+        colorCurr.blue = std::min(1.0f, cl1.blue + cl2.blue);
     }
 }
 
@@ -132,62 +110,60 @@ void Ship::onRender() const
 {
     if (faccelerated)
     {
-        setGlColor(clEngine * m_RespBlinkColRatio);
+        setGlColor(clEngine * respBlinkColRatio);
         glBegin(GL_LINE_STRIP);
         glVertex2d(-1.5, -1);
-        glVertex2d(-m_BoostLen, 0);
+        glVertex2d(-boostLength, 0);
         glVertex2d(-1.5, 1);
         glEnd();
     }
 
-    setGlColor(m_clrTmp * m_RespBlinkColRatio);
+    setGlColor(colorCurr * respBlinkColRatio);
     glBegin(GL_LINE_LOOP);
     for (auto it = verts.begin(); it != verts.end(); ++it)
         glVertex2d((*it).x, (*it).y);
     glEnd();
 }
 
-void Ship::AccelerationOn()
+void Ship::accelerationOn()
 {
-    if (m_tiAccel.inc(time.dt)) m_tiAccel.elapsed = m_tiAccel.interval;
-    setA(Accel + (1.0 - m_tiAccel.ratio()) * AccelBurst);
-    sndEngineGain = SND_VOL_SHIP_ENGINE * getA() / AccelMax;
-    sndEngine.setPitch(float(getA() / AccelMax));
+    if (tiAccel.inc(time.dt)) tiAccel.elapsed = tiAccel.interval;
+    setA(accel + (1.0 - tiAccel.ratio()) * accelBurst);
+    sndEngineGain = SND_VOL_SHIP_ENGINE * getA() / accelMax;
+    sndEngine.setPitch(float(getA() / accelMax));
     if (!faccelerated)
     {
         sndEngine.setVolume(float(sndEngineGain));
         sndEngine.play();
-        EngSndStopped = false;
     }
     faccelerated = true;
-    m_tiFade.reset();
 }
 
-void Ship::AccelerationOff()
+void Ship::accelerationOff()
 {
     if (faccelerated)
     {
         sndEngine.slideVol(0.0f, 100);
     }
 
-    m_tiAccel.reset();
+    tiAccel.reset();
     setA(0.0);
     faccelerated = false;
 }
 
-void Ship::RotateLeft()
+void Ship::rotateLeft()
 {
-    m_tiRotateLeft.inc(time.dt);
-    setAlfa(getAlfa() + std::min(0.5 * (1.0 + m_tiRotateLeft.ratio()), 1.0) * m_RotSpeed * time.dt);
+    tiRotateLeft.inc(time.dt);
+    setAlfa(getAlfa() + std::min(0.5f * (1.0f + tiRotateLeft.ratio()), 1.0f) * rotationSpeed * time.dt);
 }
 
-void Ship::RotateRight()
+void Ship::rotateRight()
 {
-    m_tiRotateRight.inc(time.dt);
-    setAlfa(getAlfa() - std::min(0.5 * (1.0 + m_tiRotateRight.ratio()), 1.0) * m_RotSpeed * time.dt);
+    tiRotateRight.inc(time.dt);
+    setAlfa(getAlfa() - std::min(0.5f * (1.0f + tiRotateRight.ratio()), 1.0f) * rotationSpeed * time.dt);
 }
 
-Bullet* Ship::FireBullet()
+Bullet* Ship::fireBullet()
 {
     if (puAddBullet.isActive() || puBulletSpeed.isActive())
         sndFirePow.play();
@@ -197,14 +173,14 @@ Bullet* Ship::FireBullet()
     Bullet* bullet = new Bullet;
     bullet->setXY(pos);
     bullet->setAlfa(getAlfa());
-    Float vx = getVX() + BulletSpeed * std::cos(getAlfa() * GE_PIover180);
-    Float vy = getVY() + BulletSpeed * std::sin(getAlfa() * GE_PIover180);
+    Float vx = getVX() + bulletSpeed * std::cos(getAlfa() * GE_PIover180);
+    Float vy = getVY() + bulletSpeed * std::sin(getAlfa() * GE_PIover180);
     bullet->setV(vx, vy);
     bullet->setColor(color);
     return bullet;
 }
 
-void Ship::Crash(TempObjects& vecObiekty)
+void Ship::crash(TempObjects& vecObiekty)
 {
     sndCrash.play();
 
@@ -237,20 +213,20 @@ void Ship::Crash(TempObjects& vecObiekty)
     }
 }
 
-void Ship::Respawn()
+void Ship::respawn()
 {
-    if (m_tiRespawn.inc(time.dt))
+    if (tiRespawn.inc(time.dt))
     {
-        m_tiRespawn.reset();
-        Respawning = false;
+        tiRespawn.reset();
+        respawning = false;
     }
     else
     {
-        Respawning = true;
+        respawning = true;
     }
 }
 
-void Ship::AddBonus(const BonusType type)
+void Ship::addBonus(const BonusType type)
 {
     switch (type)
     {

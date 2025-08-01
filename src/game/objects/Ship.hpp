@@ -5,6 +5,7 @@
 #include <windows.h>
 #include "Bullet.hpp"
 #include "audio/SfxSample.hpp"
+#include "game/GameConsts.hpp"
 #include "game/objects/Object.hpp"
 #include "game/objects/PowerUp.hpp"
 #include "game/objects/PowerUpAddBullets.hpp"
@@ -18,50 +19,51 @@ namespace game::objects
 {
 class Ship : public Object
 {
-private:
-    Color m_clrTmp;
-    Float m_BoostLen;
-    Float Accel, AccelBurst, AccelMax;
-    Float m_RotSpeed;
-    Float m_RespBlinkColRatio;
-    bool faccelerated;
-    bool fshield;
-    bool bDarken; // okresowe przyciemnianie koloru
-    Float sndEngineGain;
-    bool EngSndStopped;
-    Color clEngine;
-    utils::TimeInterval m_tiAccel;
-    utils::TimeInterval m_tiFade;
-    utils::TimeInterval m_tiEngineBlink;
-    utils::TimeInterval m_tiRotateLeft, m_tiRotateRight;
-    utils::TimeInterval m_tiRespawnBlink;
-    utils::TimeInterval m_tiRespawn;
-
-    void onRender() const override;
-
 public:
-    Ship(Float ax, Float ay, Float aangle);
+    Ship(const Float xArg, const Float yArg, const Float angleArg);
     ~Ship();
 
     void update() override;
-    Float BulletSpeed;
-    bool Respawning;
-    unsigned int MaxBullets;
-    void AccelerationOn();
-    void AccelerationOff();
-    void RotateLeft();
-    void RotateRight();
-    void RotateLeftStop() { m_tiRotateLeft.reset(); }
-    void RotateRightStop() { m_tiRotateRight.reset(); }
-    Bullet* FireBullet();
-    void Crash(TempObjects& vecObiekty);
-    void Respawn();
-    void AddBonus(const BonusType type);
-    PowerUpAddBullets puAddBullet; // PowerUp dodatkowe strzaly
-    PowerUpBulletSpeed puBulletSpeed; // PowerUp zwiekszona predkosc pociskow
+    void accelerationOn();
+    void accelerationOff();
+    void rotateLeft();
+    void rotateRight();
+    void rotateLeftStop() { tiRotateLeft.reset(); }
+    void rotateRightStop() { tiRotateRight.reset(); }
+    Bullet* fireBullet();
+    void crash(TempObjects& vecObiekty);
+    void respawn();
+    void addBonus(const BonusType type);
+
+    bool respawning{false};
+    unsigned int maxBullets{GE_INITIAL_MAX_BULLETS};
+    Float bulletSpeed{GE_INITIAL_BULLET_SPEED};
+    SfxSample sndEngine;
+
+private:
+    void onRender() const override;
+
+    PowerUpAddBullets puAddBullet;
+    PowerUpBulletSpeed puBulletSpeed;
+    Color colorCurr;
+    Float boostLength{};
+    Float accel{20.0f}; // ~2g
+    Float accelBurst{15.0f};
+    Float accelMax{accel + accelBurst};
+    Float rotationSpeed{GE_SHIP_ROT_SPEED};
+    bool faccelerated{false};
+    Float respBlinkColRatio{1.0f};
+    bool bDarken{false}; // temporary darkening of the ship
+    Color clEngine;
+    utils::TimeInterval tiAccel{0.5f};
+    utils::TimeInterval tiEngineBlink{0.25f};
+    utils::TimeInterval tiRotateLeft{0.25f};
+    utils::TimeInterval tiRotateRight{0.25f};
+    utils::TimeInterval tiRespawnBlink{0.3f};
+    utils::TimeInterval tiRespawn{0.3f};
+    Float sndEngineGain{};
     SfxSample sndFire;
     SfxSample sndFirePow;
-    SfxSample sndEngine;
     SfxSample sndCrash;
 };
 } // namespace game::objects
