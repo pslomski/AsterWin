@@ -89,10 +89,10 @@ void OptionsState::onKeyDown(WPARAM wKey)
     }
 }
 
-void OptionsState::update(double timeStep)
+void OptionsState::update(const game::TimeDelta dt)
 {
     TextControl* txtCtrl = GetTextControl(mCurrentSelection);
-    if (txtCtrl) txtCtrl->update(timeStep);
+    if (txtCtrl) txtCtrl->update(dt);
 }
 
 void OptionsState::draw()

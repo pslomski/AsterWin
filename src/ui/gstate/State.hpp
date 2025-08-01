@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include "game/TimeDelta.hpp"
 
 namespace ui
 {
@@ -16,7 +17,7 @@ public:
     virtual void onKeyUp(WPARAM) {}
     virtual void onChar(WPARAM) {}
     virtual void onResize([[maybe_unused]] const int cx, [[maybe_unused]] const int cy) {}
-    virtual void update([[maybe_unused]] const double timeStep) {}
+    virtual void update([[maybe_unused]] const game::TimeDelta dt) {}
     virtual void draw() {}
     virtual void enterState() {}
     virtual void leaveState() {}

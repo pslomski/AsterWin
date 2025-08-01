@@ -100,7 +100,7 @@ void PlayState::onKeyUp(WPARAM wKey)
     asterGame.key[wKey] = false;
 }
 
-void PlayState::update([[maybe_unused]] const double timeStep)
+void PlayState::update([[maybe_unused]] const game::TimeDelta dt)
 {
     asterGame.update();
 }

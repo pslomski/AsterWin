@@ -95,10 +95,10 @@ void CMenuState::onKeyDown(WPARAM wKey)
     }
 }
 
-void CMenuState::update(double timeStep)
+void CMenuState::update(const game::TimeDelta dt)
 {
     TextControl* pTxtCtrl = getTextControl(currentSelection);
-    if (pTxtCtrl) pTxtCtrl->update(timeStep);
+    if (pTxtCtrl) pTxtCtrl->update(dt);
 }
 
 void CMenuState::draw()

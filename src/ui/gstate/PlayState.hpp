@@ -14,7 +14,7 @@ public:
 
     void onKeyDown(WPARAM wKey) override;
     void onKeyUp(WPARAM) override;
-    void update(double timeStep) override;
+    void update(const game::TimeDelta dt) override;
     void draw() override;
     void enterState() override;
     void leaveState() override;
