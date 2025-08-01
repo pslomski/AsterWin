@@ -2,6 +2,7 @@
 
 #include <gl/gl.h>
 #include <windows.h>
+#include "game/TimeDelta.hpp"
 #include "ui/gstate/StateManager.hpp"
 
 class MainWindow
@@ -10,7 +11,7 @@ public:
     MainWindow(int iWidth, int iHeight);
     ~MainWindow();
 
-    void update(double dwCurrentTime);
+    void update(const game::TimeDelta dt);
     void draw();
     HDC getDC() { return hDeviceContext; }
 

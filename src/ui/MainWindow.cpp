@@ -192,9 +192,9 @@ void MainWindow::onSize(GLsizei width, GLsizei height)
     glViewport(0, 0, width, height); // Sets the size of the OpenGL viewport
 }
 
-void MainWindow::update(double dwCurrentTime)
+void MainWindow::update(const game::TimeDelta dt)
 {
-    stateManager->update(dwCurrentTime);
+    stateManager->update(dt);
 }
 
 void MainWindow::draw()

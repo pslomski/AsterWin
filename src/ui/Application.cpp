@@ -9,7 +9,6 @@
 #include "ui/Settings.hpp"
 #include "ui/Viewport.hpp"
 
-
 Application::Application()
 {
     AddFontResourceEx("Vectorb.ttf", FR_PRIVATE, 0);
@@ -20,7 +19,7 @@ Application::Application()
     settings.load();
     geMusic.setVolume(0.1f * settings.musicVol);
     geSound.setVolume(0.1f * settings.soundVol);
-    ui::viewport.height = 0.8 * GetSystemMetrics(SM_CYSCREEN);
+    ui::viewport.height = 0.8f * GetSystemMetrics(SM_CYSCREEN);
     ui::viewport.width = ui::viewport.height;
 }
 
