@@ -30,9 +30,9 @@ void StateManager::onResize(int cx, int cy)
     if (activeState) activeState->onResize(cx, cy);
 }
 
-void StateManager::update(double dwCurrentTime)
+void StateManager::update(const game::TimeDelta dt)
 {
-    if (activeState) activeState->update(dwCurrentTime);
+    if (activeState) activeState->update(dt);
 }
 
 void StateManager::draw()

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "State.hpp"
+#include "game/TimeDelta.hpp"
 
 namespace ui
 {
@@ -13,7 +14,7 @@ public:
     void onKeyUp(WPARAM wKey);
     void onChar(WPARAM wChar);
     void onResize(int cx, int cy);
-    void update(double timeStep);
+    void update(const game::TimeDelta dt);
     void draw();
 
 private:
