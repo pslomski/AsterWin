@@ -510,7 +510,7 @@ void Game::updateObjects()
     if (pUfo)
     {
         pUfo->pShip = ship;
-        pUfo->Action(bulletsUfo);
+        pUfo->action(bulletsUfo);
     }
 
     ::update(starBlinks);
@@ -528,7 +528,7 @@ void Game::checkCollisions()
             ship->crash(shards);
             delete ship;
             ship = nullptr;
-            pUfo->Crash(shards);
+            pUfo->crash(shards);
             delete pUfo;
             pUfo = nullptr;
             tiUfoRespawn.reset();
@@ -545,7 +545,7 @@ void Game::checkCollisions()
                 scoreCounter.inc(pUfo->scoreReward);
                 delete (*itBullet);
                 itBullet = bullets.erase(itBullet);
-                pUfo->Crash(shards);
+                pUfo->crash(shards);
                 delete pUfo;
                 pUfo = nullptr;
                 break;
@@ -597,7 +597,7 @@ void Game::checkCollisions()
 
         if (pUfo && pUfo->checkCollision(*itAster))
         {
-            pUfo->Crash(shards);
+            pUfo->crash(shards);
             delete pUfo;
             pUfo = nullptr;
             tiUfoRespawn.reset();

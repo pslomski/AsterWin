@@ -12,20 +12,10 @@ namespace game::objects
 {
 Ufo::Ufo() : Object()
 {
-    sndEngine.init(SND_UFO_ENGINE, SND_VOL_UFO_ENGINE);
-    sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
-    scoreReward = GE_SCRVAL_UFO;
     geometryType = GeometryType::Polyg;
-    pShip = nullptr;
-    pAster = nullptr;
-    CheckTime = 0.7f;
-    CheckTimeElapsed = 0.0f;
-    MoveTime = 3.0f;
-    MoveTimeElapsed = 0.0f;
-    FireTime = 2.0f;
-    FireTimeElapsed = 0.0f;
-    setColor(GE_UFO_COLOR);
+    scoreReward = GE_SCRVAL_UFO;
     setRandV(10.0f, 15.0f);
+    setColor(GE_UFO_COLOR);
 
     verts.push_back(PointF(2.0f, 0.0f));
     verts.push_back(PointF(0.8f, -0.75f));
@@ -36,6 +26,8 @@ Ufo::Ufo() : Object()
     verts.push_back(PointF(2.0f, 0.0f));
     calcBounds(verts);
 
+    sndEngine.init(SND_UFO_ENGINE, SND_VOL_UFO_ENGINE);
+    sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
     sndEngine.play();
 }
 
@@ -58,7 +50,7 @@ void Ufo::onRender() const
     glEnd();
 }
 
-void Ufo::Action(Bullets& bullets)
+void Ufo::action(Bullets& bullets)
 {
     const Float SafeDist = 12.0f;
 
@@ -94,7 +86,7 @@ void Ufo::Action(Bullets& bullets)
         {
             setRandV(9.0f, 13.0f);
         }
-        bullets.push_back(FireBullet({pos.x + getVX(), pos.y + getVY()})); // shoot in a velocity direction
+        bullets.push_back(fireBullet({pos.x + getVX(), pos.y + getVY()})); // shoot in a velocity direction
         FireTimeElapsed = 0.0f;
         MoveTimeElapsed = 0.0f;
     }
@@ -110,21 +102,21 @@ void Ufo::Action(Bullets& bullets)
         {
             if (pShip and RShp < 35.0f)
             {
-                bullets.push_back(FireBullet(pShip->pos));
+                bullets.push_back(fireBullet(pShip->pos));
             }
         }
         else
         {
             if (pAster and RAst < 20.0f)
             {
-                bullets.push_back(FireBullet(pAster->pos));
+                bullets.push_back(fireBullet(pAster->pos));
             }
         }
         FireTimeElapsed = 0.0f;
     }
 }
 
-Bullet* Ufo::FireBullet(const PointF& pt)
+Bullet* Ufo::fireBullet(const PointF& pt)
 {
     Float Speed = 22.0f;
     Bullet* bullet = new Bullet;
@@ -137,7 +129,7 @@ Bullet* Ufo::FireBullet(const PointF& pt)
     return bullet;
 }
 
-void Ufo::Crash(TempObjects& vecObiekty)
+void Ufo::crash(TempObjects& vecObiekty)
 {
     sndCrash.play();
     int iDebCount = GE_UFO_DEBR_COUNT;

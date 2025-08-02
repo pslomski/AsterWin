@@ -12,26 +12,26 @@ class Ufo : public Object
 {
 public:
     Ufo();
-    virtual ~Ufo();
+    ~Ufo();
+
     void update() override;
-    Object* pShip; // wskaznik na statek gracza (ustawiane przy okazji poruszania
-                   // obiektow)
-    Object* pAster; // wskaznik na najblizsza asteroide (ustawiane przy okazji
-                    // poruszania obiektow)
-    void Action(Bullets& bullets);
-    Bullet* FireBullet(const PointF& pt);
-    void Crash(TempObjects& vecObiekty);
+    void action(Bullets& bullets);
+    Bullet* fireBullet(const PointF& pt);
+    void crash(TempObjects& vecObiekty);
+
+    Object* pShip{nullptr};
+    Object* pAster{nullptr};
     SfxSample sndEngine;
     SfxSample sndCrash;
 
 private:
     void onRender() const override;
 
-    Float CheckTime;
-    Float CheckTimeElapsed;
-    Float MoveTime;
-    Float MoveTimeElapsed;
-    Float FireTime;
-    Float FireTimeElapsed;
+    Float CheckTime{0.7f};
+    Float CheckTimeElapsed{};
+    Float MoveTime{3.0f};
+    Float MoveTimeElapsed{};
+    Float FireTime{2.0f};
+    Float FireTimeElapsed{};
 };
 } // namespace game::objects
