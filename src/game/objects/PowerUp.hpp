@@ -14,7 +14,7 @@ public:
     void stop();
     bool isActive() const { return active; }
 
-    Ship* pShip;
+    Ship* pShip{};
     utils::TimeInterval duration;
 
 private:
