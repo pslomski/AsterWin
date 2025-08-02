@@ -8,11 +8,7 @@ ShipShards::ShipShards() : TempObject()
 {
     const auto d = 0.15f + 0.1f * RAND(2);
     lifeTime.interval = 1.3f + rand() % 9 * 0.1f;
-    // bounds = {.x0 = -d, .y0 = -d, .x1 = d, .y1 = d};
-    bounds.x0 = -d;
-    bounds.x1 = d;
-    bounds.y0 = -d;
-    bounds.y1 = d;
+    bounds = {.x0 = -d, .y0 = -d, .x1 = d, .y1 = d};
     setRotSpeed(720.0f + RAND(300));
 }
 
