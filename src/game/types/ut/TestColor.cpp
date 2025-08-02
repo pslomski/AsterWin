@@ -24,6 +24,11 @@ protected:
     }
 };
 
+TEST_F(TestColor, testDefaultConstructor)
+{
+    verify(color, {1.0f, 1.0f, 1.0f});
+}
+
 TEST_F(TestColor, testSet)
 {
     color.set({r, g, b});
