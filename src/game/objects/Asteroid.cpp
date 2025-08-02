@@ -1,6 +1,5 @@
 #include "Asteroid.hpp"
 #include <cmath>
-#include "Bullet.hpp"
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
@@ -25,8 +24,8 @@ void Asteroid::create()
     if (level == 1)
     {
         scoreReward = GE_SCRVAL_ASTER1;
-        R = 3.9;
-        DegDelta = 36.0;
+        R = 3.9f;
+        DegDelta = 36.0f;
         setRotSpeed(RAND(60) - 120.0f);
         sndCrash.init(SND_ASTER_CRASH1, SND_VOL_ASTER_CRASH1);
     }
@@ -48,10 +47,10 @@ void Asteroid::create()
     }
 
     verts.clear();
-    for (Float deg = 0.0; deg < 310.0; deg += DegDelta + (RAND(18) - 9))
+    for (Float deg = 0.0; deg < 310.0f; deg += DegDelta + (RAND(18) - 9))
     {
         PointF pt;
-        Float R2 = R * (static_cast<Float>(0.7) + RAND(30) / 100.0);
+        Float R2 = R * (static_cast<Float>(0.7) + RAND(30) / 100.0f);
         pt.x = R2 * std::cos(deg * GE_PIover180);
         pt.y = R2 * std::sin(deg * GE_PIover180);
         verts.push_back(pt);
