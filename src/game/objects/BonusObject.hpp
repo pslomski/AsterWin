@@ -18,7 +18,7 @@ private:
     void onRender() const override;
 
     BonusType bonusType;
-    utils::TimeInterval tiRot;
+    utils::TimeInterval tiRot{1.5f};
     float colorRatio{1.0f};
 };
 } // namespace game::objects

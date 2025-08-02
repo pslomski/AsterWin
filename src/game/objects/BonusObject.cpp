@@ -1,7 +1,6 @@
 #include "BonusObject.hpp"
 #include "game/GameConsts.hpp"
 #include "game/Time.hpp"
-#include "game/types/Point.hpp"
 #include "gl/Utils.hpp"
 
 namespace game::objects
@@ -10,7 +9,6 @@ BonusObject::BonusObject(const BonusType bonusTypeArg) : TempObject(GE_BONUS_LIF
 {
     geometryType = GeometryType::Polyg;
     scoreReward = GE_SCRVAL_BONUS;
-    tiRot.interval = 1.5f;
 
     constexpr auto d = 3.0f;
     verts.push_back(PointF(-d, -d));
