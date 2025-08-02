@@ -10,19 +10,6 @@
 
 namespace game::objects
 {
-Object::Object()
-{
-    scoreReward = 0;
-    geometryType = GeometryType::Point;
-    glList = 0;
-    setColor();
-    angle = 0.0;
-    omega = 0.0;
-    setXY(0.0, 0.0);
-    setA(0.0);
-    setV(0.0);
-}
-
 Object::~Object()
 {
     if (glList)

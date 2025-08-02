@@ -20,7 +20,6 @@ namespace game::objects
 class Object
 {
 public:
-    Object();
     virtual ~Object();
 
     Float distance(const Object* object) const;
@@ -72,11 +71,11 @@ public:
 
     static double interp;
 
-    types::Position pos; // current pos
-    types::Position posp; // previous pos
-    GLint glList;
+    types::Position pos{}; // current pos
+    types::Position posp{}; // previous pos
+    GLint glList{};
     PointsF verts;
-    GeometryType geometryType;
+    GeometryType geometryType{GeometryType::Point};
     Float alphap;
     int scoreReward{};
 
@@ -91,11 +90,11 @@ protected:
 private:
     virtual void onRender() const {} // Draws Object in its own coordinate system
 
-    Float angle;
-    Float omega;
-    types::Vector v;
-    types::Vector a;
-    Float fa;
+    Float angle{};
+    Float omega{};
+    types::Vector v{};
+    types::Vector a{};
+    Float fa{};
 };
 } // namespace game::objects
 
