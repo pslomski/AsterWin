@@ -33,16 +33,17 @@ MSYS2:
 Download from https://www.dafont.com/vector-battle.font
 Vector Battle by Freaky Fonts http://www.freakyfonts.de/
 
-## 4. Building
+## Building
 In root dir:
-  mkdir build
-  cd build
-  cmake ..
-  ninja
+mkdir build
+ninja -C build|tee build.txt
 
 output is
-  Asteroids(.exe)
+  Asteroids.exe
 
-## 6. 
+## Run UTs
+ctest --test-dir build --output-on-failure|tee out.txt
+
+## Links 
 Managing game states based on article "TetroGL: An OpenGL Game Tutorial in C++ for Win32 platforms - Part 3"
 https://www.codeproject.com/Articles/30775/TetroGL-An-OpenGL-Game-Tutorial-in-Cplusplus-for-W
