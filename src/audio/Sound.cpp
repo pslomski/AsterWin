@@ -44,11 +44,11 @@ void MusicEngineBASS::setVolume(const float volumeNew)
     BASS_SetConfig(BASS_CONFIG_GVOL_STREAM, DWORD(volume * 10000));
 }
 
-void MusicEngineBASS::play(BOOL in_bRestart)
+void MusicEngineBASS::play()
 {
     if (m_hMus)
     {
-        m_Channel = BASS_ChannelPlay(m_hMus, in_bRestart);
+        m_Channel = BASS_ChannelPlay(m_hMus, TRUE);
     }
 }
 

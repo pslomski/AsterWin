@@ -6,7 +6,7 @@
 
 namespace audio
 {
-class MusicEngineBASS : public AudioController
+class MusicEngineBASS : public AudioController // TODO: remove inheritance from AudioController
 {
 private:
     HSTREAM m_hMus;
@@ -23,7 +23,7 @@ public:
     void setVolume(const float volumeNew) override;
     void mute() override;
     void unmute() override;
-    void play(BOOL in_bRestart = false);
+    void play() override;
     void pause() override;
     void stop() override;
     void slideVol(float in_NewVol, DWORD in_Time);

@@ -293,7 +293,7 @@ void Game::processUserInput()
 void threadStartMusic(void*)
 {
     Sleep(1000);
-    geMusic.play(TRUE);
+    geMusic.play();
 }
 
 void Game::analyzeGameState()
