@@ -84,8 +84,6 @@ public:
     int scoreReward{};
 
 protected:
-    void calcBounds(const PointsF& points);
-
     Float friction{};
     Color color;
     types::Bounds bounds;

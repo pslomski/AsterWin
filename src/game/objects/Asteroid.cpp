@@ -4,6 +4,7 @@
 #include "game/Consts.hpp"
 #include "game/GameConsts.hpp"
 #include "game/Rand.hpp"
+#include "game/geom/Bounds.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "game/rand.hpp"
 #include "gl/Utils.hpp"
@@ -56,7 +57,7 @@ void Asteroid::create()
         pt.y = R2 * std::sin(angleRad);
         verts.push_back(pt);
     }
-    calcBounds(verts);
+    bounds = geom::calcBounds(verts);
 
     glList = glGenLists(1);
     glNewList(glList, GL_COMPILE);

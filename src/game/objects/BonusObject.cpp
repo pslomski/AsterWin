@@ -1,6 +1,7 @@
 #include "BonusObject.hpp"
 #include "game/GameConsts.hpp"
 #include "game/Time.hpp"
+#include "game/geom/Bounds.hpp"
 #include "gl/Utils.hpp"
 
 namespace game::objects
@@ -15,7 +16,7 @@ BonusObject::BonusObject(const BonusType bonusTypeArg) : TempObject(GE_BONUS_LIF
     verts.push_back(PointF(d, -d));
     verts.push_back(PointF(d, d));
     verts.push_back(PointF(-d, d));
-    calcBounds(verts);
+    bounds = geom::calcBounds(verts);
 }
 
 void BonusObject::update()

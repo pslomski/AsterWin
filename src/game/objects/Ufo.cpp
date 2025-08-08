@@ -5,6 +5,7 @@
 #include "game/GameConsts.hpp"
 #include "game/Rand.hpp"
 #include "game/Time.hpp"
+#include "game/geom/Bounds.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "gl/Utils.hpp"
 
@@ -24,7 +25,7 @@ Ufo::Ufo() : Object()
     verts.push_back(PointF(-0.8f, 0.75f));
     verts.push_back(PointF(0.8f, 0.75f));
     verts.push_back(PointF(2.0f, 0.0f));
-    calcBounds(verts);
+    bounds = geom::calcBounds(verts);
 
     sndEngine.init(SND_UFO_ENGINE, SND_VOL_UFO_ENGINE);
     sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);

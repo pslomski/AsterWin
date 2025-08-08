@@ -5,6 +5,7 @@
 #include "game/Consts.hpp"
 #include "game/Rand.hpp"
 #include "game/Time.hpp"
+#include "game/geom/Bounds.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "game/objects/ShipShards.hpp"
 #include "gl/Utils.hpp"
@@ -28,7 +29,7 @@ Ship::Ship(const Float xArg, const Float yArg, const Float angleArg)
     verts.push_back(PointF(-1.5f, -1.0f));
     verts.push_back(PointF(-1.0f, 0.0f));
     verts.push_back(PointF(-1.5f, 1.0f));
-    calcBounds(verts);
+    bounds = geom::calcBounds(verts);
 
     sndFire.init(SND_SHIP_FIRE, SND_VOL_SHIP_FIRE);
     sndFirePow.init(SND_SHIP_FIRE_POWER, SND_VOL_SHIP_FIRE_POWER);

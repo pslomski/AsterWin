@@ -200,21 +200,5 @@ void Object::render()
     onRender();
 }
 
-void Object::calcBounds(const PointsF& points)
-{
-    // TODO: use std::minmax_element
-    // TODO: correct bounds taking possible rotation into account.
-    Float max = 0.0;
-    for (const auto& point : points)
-    {
-        max = std::max(max, abs((point).x));
-        max = std::max(max, abs((point).y));
-    }
-    bounds.x0 = -max;
-    bounds.x1 = max;
-    bounds.y0 = -max;
-    bounds.y1 = max;
-}
-
 double Object::interp = 0.0;
 } // namespace game::objects
