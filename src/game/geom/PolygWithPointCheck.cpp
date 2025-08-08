@@ -6,11 +6,11 @@
 
 namespace
 {
-PointF rotate(PointF& pt, Float alfa)
+PointF rotate(const PointF& pt, const Float angleRad)
 {
     PointF res;
-    Float sinalfa = std::sin(-alfa * GE_PIover180);
-    Float cosalfa = std::cos(-alfa * GE_PIover180);
+    Float sinalfa = std::sin(-angleRad);
+    Float cosalfa = std::cos(-angleRad);
     res.x = pt.x * cosalfa + pt.y * sinalfa;
     res.y = pt.x * sinalfa + pt.y * cosalfa;
     return res;
@@ -47,7 +47,7 @@ bool checkPolygWithPoint(const objects::Object* point, const objects::Object* po
         else
         {
             PointF pt{point->pos.x - polygon->pos.x, point->pos.y - polygon->pos.y};
-            pt = rotate(pt, -polygon->getAlfa());
+            pt = rotate(pt, -polygon->getAngleRad());
             return isPointInPolygon(polygon->verts.size(), polygon->verts, pt.x, pt.y);
         }
     }

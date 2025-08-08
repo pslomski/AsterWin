@@ -50,15 +50,15 @@ private:
     Float accel{20.0f}; // ~2g
     Float accelBurst{15.0f};
     Float accelMax{accel + accelBurst};
-    Float rotationSpeed{GE_SHIP_ROT_SPEED};
+    Float rotationSpeedDeg{GE_SHIP_ROT_SPEED};
     bool faccelerated{false};
     Float respBlinkColRatio{1.0f};
     bool bDarken{false}; // temporary darkening of the ship
     Color clEngine;
     utils::TimeInterval tiAccel{0.5f};
     utils::TimeInterval tiEngineBlink{0.25f};
-    utils::TimeInterval tiRotateLeft{0.25f};
-    utils::TimeInterval tiRotateRight{0.25f};
+    utils::TimeInterval tiRotateLeft{0.5f};
+    utils::TimeInterval tiRotateRight{0.5f};
     utils::TimeInterval tiRespawnBlink{0.3f};
     utils::TimeInterval tiRespawn{0.3f};
     Float sndEngineGain{};

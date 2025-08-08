@@ -1,4 +1,3 @@
-add_gtest(TestScoreCounter
-    SOURCES
-        ../ScoreCounter.cpp
-)
+add_gtest(TestMath)
+
+add_gtest(TestScoreCounter)

@@ -34,7 +34,7 @@ void StarBlink::update()
     }
 
     TempObject::update();
-    ratio = std::sin(lifeTime.ratio() * GE_PI);
+    ratio = std::sin(lifeTime.ratio() * pi);
 }
 
 void StarBlink::onRender() const

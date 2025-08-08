@@ -19,40 +19,41 @@ Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
 
 void Asteroid::create()
 {
-    Float DegDelta{0.0f};
+    Float degDelta{0.0f};
     Float R{1.0f};
     if (level == 1)
     {
         scoreReward = GE_SCRVAL_ASTER1;
         R = 3.9f;
-        DegDelta = 36.0f;
-        setRotSpeed(RAND(60) - 120.0f);
+        degDelta = 36.0f;
+        setRotSpeedDeg(RAND(60) - 120.0f);
         sndCrash.init(SND_ASTER_CRASH1, SND_VOL_ASTER_CRASH1);
     }
     else if (level == 2)
     {
         scoreReward = GE_SCRVAL_ASTER2;
-        R = 2.8;
-        DegDelta = 52.0;
-        setRotSpeed(RAND(80) - 160.0f);
+        R = 2.8f;
+        degDelta = 52.0f;
+        setRotSpeedDeg(RAND(80) - 160.0f);
         sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
     }
     else if (level >= 3)
     {
         scoreReward = GE_SCRVAL_ASTER3;
-        R = 1.7;
-        DegDelta = 72.0;
-        setRotSpeed(RAND(100) - 200.0f);
+        R = 1.7f;
+        degDelta = 72.0f;
+        setRotSpeedDeg(RAND(100) - 200.0f);
         sndCrash.init(SND_ASTER_CRASH3, SND_VOL_ASTER_CRASH3);
     }
 
     verts.clear();
-    for (Float deg = 0.0; deg < 310.0f; deg += DegDelta + (RAND(18) - 9))
+    for (Float deg = 0.0f; deg < 310.0f; deg += degDelta + (RAND(18) - 9))
     {
         PointF pt;
-        Float R2 = R * (static_cast<Float>(0.7) + RAND(30) / 100.0f);
-        pt.x = R2 * std::cos(deg * GE_PIover180);
-        pt.y = R2 * std::sin(deg * GE_PIover180);
+        Float R2 = R * (0.7f + RAND(30) / 100.0f);
+        const auto angleRad = degToRad(deg);
+        pt.x = R2 * std::cos(angleRad);
+        pt.y = R2 * std::sin(angleRad);
         verts.push_back(pt);
     }
     calcBounds(verts);
@@ -156,9 +157,10 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     for (int i = 0; i < iAsterCount; ++i)
     {
         Asteroid* pAster = new Asteroid(level + 1);
-        pAster->setAlfa(getAlfa() + i * 180.0 - 90.0 + rand() % 50 - 25.0);
-        Float x = pos.x + 3.0f * std::cos(pAster->getAlfa() * GE_PIover180);
-        Float y = pos.y + 3.0f * std::sin(pAster->getAlfa() * GE_PIover180);
+        pAster->setAngleDeg(getAngleDeg() + i * 180.0f - 90.0f + RAND(50) - 25.0f);
+        const auto angleRad = pAster->getAngleRad();
+        Float x = pos.x + 3.0f * std::cos(angleRad);
+        Float y = pos.y + 3.0f * std::sin(angleRad);
         pAster->setXY(x, y);
         pAster->setV(getV() * 1.3);
         asteroids.push_back(pAster);
@@ -167,12 +169,13 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     for (int i = 0; i < iDebCount; ++i)
     {
         AsterShards* pDeb = new AsterShards;
-        pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
         pDeb->setXY(pos);
         pDeb->lifeTime.interval = LifeTime;
-        Float vRand = 5.0f + rand() % 15;
-        Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
-        Float vy = 0.8f * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
+        Float vRand = 5.0f + RAND(15);
+        const auto angleRad = pDeb->getAngleRad();
+        Float vx = 0.8f * getVX() + vRand * std::cos(angleRad);
+        Float vy = 0.8f * getVY() + vRand * std::sin(angleRad);
         pDeb->setV(vx, vy);
         shards.push_back(pDeb);
     }

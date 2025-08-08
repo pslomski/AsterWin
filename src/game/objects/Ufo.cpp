@@ -75,12 +75,12 @@ void Ufo::action(Bullets& bullets)
         if (pShip and RShp < SafeDist)
         {
             int sgn = RAND(2) ? -1 : 1;
-            setVA(10.0f, pShip->getAlfa() + 90 * sgn);
+            setVA(10.0f, degToRad(pShip->getAngleDeg() + 90.0f * sgn));
         }
         if (pAster and RAst < SafeDist)
         {
             int sgn = RAND(2) ? -1 : 1;
-            setVA(10.0f, pAster->getAlfa() + 90 * sgn);
+            setVA(10.0f, degToRad(pAster->getAngleDeg() + 90.0f * sgn));
         }
         else
         {
@@ -118,13 +118,13 @@ void Ufo::action(Bullets& bullets)
 
 Bullet* Ufo::fireBullet(const PointF& pt)
 {
-    Float Speed = 22.0f;
+    Float speed = 22.0f;
     Bullet* bullet = new Bullet;
     bullet->lifeTime.interval = 3.0f;
     bullet->setXY(pos);
-    Float alfa = std::atan2(pt.y - pos.y, pt.x - pos.x) * GE_180overPI;
-    bullet->setAlfa(alfa + RAND(6) - 3.0f);
-    bullet->setV(Speed);
+    const auto angleDeg = std::atan2f(pt.y - pos.y, pt.x - pos.x) * 180.0f / pi;
+    bullet->setAngleDeg(angleDeg + RAND(6) - 3.0f);
+    bullet->setV(speed);
     bullet->setColor(color);
     return bullet;
 }
@@ -137,13 +137,13 @@ void Ufo::crash(TempObjects& vecObiekty)
     {
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
-        pDeb->setAlfa(getAlfa() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
         pDeb->setXY(pos);
         const Float vRand = 3.0f + RAND(15);
-        const Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
-        const Float vy = 0.8f * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
+        const Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAngleRad());
+        const Float vy = 0.8f * getVY() + vRand * std::sin(pDeb->getAngleRad());
         pDeb->setV(vx, vy);
-        pDeb->setRotSpeed(rand() / 200 - 400.0f); // TODO: check this formula
+        pDeb->setRotSpeedDeg(rand() / 200 - 400.0f); // TODO: check this formula
         vecObiekty.push_back(pDeb);
     }
 }

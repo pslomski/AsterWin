@@ -6,6 +6,8 @@
 #include <gmock/gmock.h>
 #include "game/types/Types.hpp"
 
+namespace game::objects
+{
 class Object
 {
 public:
@@ -16,5 +18,6 @@ public:
 };
 
 inline Float Object::dt = 0.0f;
+} // namespace game::objects
 
 #endif // game_objects_Object

@@ -1,6 +1,7 @@
+#include "game/ScoreCounter.cpp"
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include "game/ScoreCounter.hpp"
 
 using namespace testing;
 

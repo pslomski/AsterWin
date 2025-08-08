@@ -2,8 +2,8 @@
 #include <cassert>
 #include <cmath>
 #include <gl/gl.h>
-#include "game/Consts.hpp"
 #include "game/GameArea.hpp"
+#include "game/Rand.hpp"
 #include "game/Time.hpp"
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PolygWithPointCheck.hpp"
@@ -28,28 +28,28 @@ Float Object::distance(const Object* object) const
 void Object::setA(const Float aa)
 {
     fa = aa;
-    a.x = fa * std::cos(angle * GE_PIover180);
-    a.y = fa * std::sin(angle * GE_PIover180);
+    a.x = fa * std::cos(angleRad);
+    a.y = fa * std::sin(angleRad);
 }
 
 void Object::setV(const Float av)
 {
-    v.x = av * std::cos(angle * GE_PIover180);
-    v.y = av * std::sin(angle * GE_PIover180);
+    v.x = av * std::cos(angleRad);
+    v.y = av * std::sin(angleRad);
 }
 
-void Object::setVA(const Float av, const Float alfa)
+void Object::setVA(const Float av, const Float angleRad)
 {
-    v.x = av * std::cos(alfa * GE_PIover180);
-    v.y = av * std::sin(alfa * GE_PIover180);
+    v.x = av * std::cos(angleRad);
+    v.y = av * std::sin(angleRad);
 }
 
 void Object::setRandV(const Float vmin, const Float vmax)
 {
-    Float vRand = rand() % int(vmax - vmin) + vmin;
-    Float alfa = rand() % 360;
-    Float vx = vRand * std::cos(alfa * GE_PIover180);
-    Float vy = vRand * std::sin(alfa * GE_PIover180);
+    const Float vRand = rand() % int(vmax - vmin) + vmin;
+    const auto angleRad = degToRad(RAND(360));
+    Float vx = vRand * std::cos(angleRad);
+    Float vy = vRand * std::sin(angleRad);
     setV(vx, vy);
 }
 
@@ -58,21 +58,12 @@ Float Object::getV() const
     return std::sqrt(v.x * v.x + v.y * v.y);
 }
 
-Float Object::correctAlfa(Float alfa)
-{
-    while (alfa < 0.0)
-        alfa += 360.0;
-    while (alfa > 360.0)
-        alfa -= 360.0;
-    return alfa;
-}
-
 void Object::move()
 {
     posp = pos;
-    alphap = angle;
+    angleRadPrev = angleRad;
 
-    angle += omega * time.dt;
+    angleRad += omegaRad * time.dt;
     if (std::abs(friction) > 1e-6)
     {
         v.x += (a.x - friction * v.x * std::abs(v.x)) * time.dt;
@@ -111,8 +102,8 @@ void Object::move()
 BoxF Object::transform(const BoxF& seg) const
 {
     BoxF res;
-    Float sinalfa = std::sin(-angle * GE_PIover180);
-    Float cosalfa = std::cos(-angle * GE_PIover180);
+    Float sinalfa = std::sin(-getAngleRad());
+    Float cosalfa = std::cos(-getAngleRad());
     res.x0 = pos.x + seg.x0 * cosalfa + seg.y0 * sinalfa;
     res.y0 = pos.y - seg.x0 * sinalfa + seg.y0 * cosalfa;
     res.x1 = pos.x + seg.x1 * cosalfa + seg.y1 * sinalfa;
@@ -196,10 +187,10 @@ void Object::draw() const
     const auto minterp = 1.0 - interp;
     const auto x = pos.x * interp + posp.x * minterp;
     const auto y = pos.y * interp + posp.y * minterp;
-    const auto alfa = angle * interp + alphap * minterp;
+    const auto alfa = angleRad * interp + angleRadPrev * minterp;
     glPushMatrix();
     glTranslated(x, y, 0.0);
-    glRotated(alfa, 0.0, 0.0, 1.0);
+    glRotatef(radToDeg(alfa), 0.0f, 0.0f, 1.0f);
     onRender();
     glPopMatrix();
 }
@@ -211,6 +202,8 @@ void Object::render()
 
 void Object::calcBounds(const PointsF& points)
 {
+    // TODO: use std::minmax_element
+    // TODO: correct bounds taking possible rotation into account.
     Float max = 0.0;
     for (const auto& point : points)
     {

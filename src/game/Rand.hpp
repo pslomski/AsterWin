@@ -9,4 +9,5 @@ inline void randSeed()
 }
 
 // random integer number 0..n-1
+// TODO: replace with std::uniform_int_distribution
 #define RAND(n) (rand() % (n))

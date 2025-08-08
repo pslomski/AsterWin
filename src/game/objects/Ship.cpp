@@ -3,6 +3,7 @@
 #include <cmath>
 #include "audio/Sound.hpp"
 #include "game/Consts.hpp"
+#include "game/Rand.hpp"
 #include "game/Time.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "game/objects/ShipShards.hpp"
@@ -16,8 +17,8 @@ Ship::Ship(const Float xArg, const Float yArg, const Float angleArg)
     geometryType = GeometryType::Polyg;
     friction = 0.05f;
     setXY(xArg, yArg);
-    setAlfa(angleArg);
-    setRotSpeed(0.0f);
+    setAngleDeg(angleArg);
+    setRotSpeedDeg(0.0f);
     setColor(GE_SHIP_COLOR);
 
     puAddBullet.pShip = this;
@@ -69,14 +70,14 @@ void Ship::update()
 
     if (faccelerated)
     {
-        boostLength = getA() / accelBurst * 2.0 + 0.25 * sin(tiEngineBlink.ratio() * 2 * GE_PI);
+        boostLength = getA() / accelBurst * 2.0f + 0.25f * std::sinf(tiEngineBlink.ratio() * 2.0f * pi);
     }
 
     // ustalanie koloru
     colorCurr = color;
     if (puAddBullet.isActive())
     {
-        Float alfa = 2 * GE_PI * puAddBullet.duration.elapsed;
+        Float alfa = 2.0f * pi * puAddBullet.duration.elapsed;
         Float sina = std::sin(alfa);
         sina *= sina;
         Float cosa = std::cos(alfa);
@@ -91,7 +92,7 @@ void Ship::update()
     }
     if (puBulletSpeed.isActive())
     {
-        Float alfa = 2 * GE_PI * puBulletSpeed.duration.elapsed;
+        Float alfa = 2.0f * pi * puBulletSpeed.duration.elapsed;
         Float sina = std::sin(alfa);
         sina *= sina;
         Float cosa = std::cos(alfa);
@@ -154,13 +155,13 @@ void Ship::accelerationOff()
 void Ship::rotateLeft()
 {
     tiRotateLeft.inc(time.dt);
-    setAlfa(getAlfa() + std::min(0.5f * (1.0f + tiRotateLeft.ratio()), 1.0f) * rotationSpeed * time.dt);
+    setAngleDeg(getAngleDeg() + std::min(0.5f * (1.0f + tiRotateLeft.ratio()), 1.0f) * rotationSpeedDeg * time.dt);
 }
 
 void Ship::rotateRight()
 {
     tiRotateRight.inc(time.dt);
-    setAlfa(getAlfa() - std::min(0.5f * (1.0f + tiRotateRight.ratio()), 1.0f) * rotationSpeed * time.dt);
+    setAngleDeg(getAngleDeg() - std::min(0.5f * (1.0f + tiRotateRight.ratio()), 1.0f) * rotationSpeedDeg * time.dt);
 }
 
 Bullet* Ship::fireBullet()
@@ -172,9 +173,10 @@ Bullet* Ship::fireBullet()
 
     Bullet* bullet = new Bullet;
     bullet->setXY(pos);
-    bullet->setAlfa(getAlfa());
-    Float vx = getVX() + bulletSpeed * std::cos(getAlfa() * GE_PIover180);
-    Float vy = getVY() + bulletSpeed * std::sin(getAlfa() * GE_PIover180);
+    const auto angleRad = getAngleRad();
+    bullet->setAngleRad(angleRad);
+    Float vx = getVX() + bulletSpeed * std::cos(angleRad);
+    Float vy = getVY() + bulletSpeed * std::sin(angleRad);
     bullet->setV(vx, vy);
     bullet->setColor(color);
     return bullet;
@@ -189,11 +191,11 @@ void Ship::crash(TempObjects& vecObiekty)
     {
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
-        pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
         pDeb->setXY(pos);
-        Float vRand = 15.0 + rand() % 5;
-        Float vx = getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
-        Float vy = getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
+        Float vRand = 15.0F + RAND(5);
+        Float vx = getVX() + vRand * std::cos(pDeb->getAngleRad());
+        Float vy = getVY() + vRand * std::sin(pDeb->getAngleRad());
         pDeb->setV(vx, vy);
         vecObiekty.push_back(pDeb);
     }
@@ -203,11 +205,11 @@ void Ship::crash(TempObjects& vecObiekty)
     {
         ShipShards* pDeb = new ShipShards;
         pDeb->setColor(color);
-        pDeb->setAlfa(getAlfa() + i * 360.0 / iDebCount + rand() % 16 - 8.0);
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0F / iDebCount + RAND(16) - 8.0f);
         pDeb->setXY(pos);
         Float vRand = 3.0 + rand() % 15;
-        Float vx = 0.8 * getVX() + vRand * std::cos(pDeb->getAlfa() * GE_PIover180);
-        Float vy = 0.8 * getVY() + vRand * std::sin(pDeb->getAlfa() * GE_PIover180);
+        Float vx = 0.8 * getVX() + vRand * std::cos(pDeb->getAngleRad());
+        Float vy = 0.8 * getVY() + vRand * std::sin(pDeb->getAngleRad());
         pDeb->setV(vx, vy);
         vecObiekty.push_back(pDeb);
     }

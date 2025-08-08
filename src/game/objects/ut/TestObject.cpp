@@ -16,11 +16,39 @@ protected:
     Object object;
 };
 
+TEST_F(TestObject, testSetAngleRadGetAngleRad)
+{
+    object.setAngleRad(pi);
+    ASSERT_THAT(object.getAngleRad(), FloatEq(pi));
+    ASSERT_THAT(object.getAngleDeg(), FloatEq(180.0f));
+}
+
+TEST_F(TestObject, testSetAngleDegGetAngleDeg)
+{
+    object.setAngleDeg(180.0f);
+    ASSERT_THAT(object.getAngleDeg(), FloatEq(180.0f));
+    ASSERT_THAT(object.getAngleRad(), FloatEq(pi));
+}
+
+TEST_F(TestObject, testSetRotSpeedDegGetRotSpeedDeg)
+{
+    object.setRotSpeedDeg(180.0f);
+    ASSERT_THAT(object.getRotSpeedDeg(), FloatEq(180.0f));
+    ASSERT_THAT(object.getRotSpeedRad(), FloatEq(pi));
+}
+
+TEST_F(TestObject, testSetRotSpeedRadGetRotSpeedRad)
+{
+    object.setRotSpeedRad(pi);
+    ASSERT_THAT(object.getRotSpeedRad(), FloatEq(pi));
+    ASSERT_THAT(object.getRotSpeedDeg(), FloatEq(180.0f));
+}
+
 TEST_F(TestObject, distance)
 {
     Object object2;
     object.setXY(0.0f, 0.0f);
     object2.setXY(1.0f, 0.0f);
-    ASSERT_THAT(object.distance(&object2), Eq(1.0f));
+    ASSERT_THAT(object.distance(&object2), FloatEq(1.0f));
 }
 } // namespace game::objects
