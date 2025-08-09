@@ -122,7 +122,7 @@ Bullet* Ufo::fireBullet(const PointF& pt)
     Float speed = 22.0f;
     Bullet* bullet = new Bullet;
     bullet->lifeTime.interval = 3.0f;
-    bullet->setXY(pos);
+    bullet->setPosition(pos);
     const auto angleDeg = std::atan2f(pt.y - pos.y, pt.x - pos.x) * 180.0f / pi;
     bullet->setAngleDeg(angleDeg + RAND(6) - 3.0f);
     bullet->setV(speed);
@@ -139,7 +139,7 @@ void Ufo::crash(TempObjects& vecObiekty)
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
         pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
-        pDeb->setXY(pos);
+        pDeb->setPosition(pos);
         const Float vRand = 3.0f + RAND(15);
         const Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAngleRad());
         const Float vy = 0.8f * getVY() + vRand * std::sin(pDeb->getAngleRad());

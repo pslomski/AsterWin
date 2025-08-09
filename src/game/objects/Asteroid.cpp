@@ -149,7 +149,7 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
         BonusObject* bonus = createBonusObj(BonusType);
         if (bonus)
         {
-            bonus->setXY(pos);
+            bonus->setPosition(pos);
             bonus->setRandV(2.0, 3.0);
             bonuses.push_back(bonus);
         }
@@ -171,7 +171,7 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     {
         AsterShards* pDeb = new AsterShards;
         pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
-        pDeb->setXY(pos);
+        pDeb->setPosition(pos);
         pDeb->lifeTime.interval = LifeTime;
         Float vRand = 5.0f + RAND(15);
         const auto angleRad = pDeb->getAngleRad();

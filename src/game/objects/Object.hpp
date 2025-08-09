@@ -33,7 +33,7 @@ public:
         pos.y = y;
         posp = pos;
     }
-    void setXY(const PointF& pt)
+    void setPosition(const PointF& pt)
     {
         pos = pt;
         posp = pt;

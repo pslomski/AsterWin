@@ -378,7 +378,7 @@ void Game::analyzeGameState()
                         const Float maxRespownTime{15};
                         tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
                         pUfo = new objects::Ufo;
-                        pUfo->setXY(gameArea.randomPosAtEdge());
+                        pUfo->setPosition(gameArea.randomPosAtEdge());
                     }
                 }
             }
