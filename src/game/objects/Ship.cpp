@@ -17,7 +17,7 @@ Ship::Ship(const Float xArg, const Float yArg, const Float angleArg)
 {
     geometryType = GeometryType::Polyg;
     friction = 0.05f;
-    setXY(xArg, yArg);
+    setPosition(xArg, yArg);
     setAngleDeg(angleArg);
     setRotSpeedDeg(0.0f);
     setColor(GE_SHIP_COLOR);
@@ -173,7 +173,7 @@ Bullet* Ship::fireBullet()
         sndFire.play();
 
     Bullet* bullet = new Bullet;
-    bullet->setPosition(pos);
+    bullet->setPosition(state.pos);
     const auto angleRad = getAngleRad();
     bullet->setAngleRad(angleRad);
     Float vx = getVX() + bulletSpeed * std::cos(angleRad);
@@ -193,7 +193,7 @@ void Ship::crash(TempObjects& vecObiekty)
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
         pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
-        pDeb->setPosition(pos);
+        pDeb->setPosition(state.pos);
         Float vRand = 15.0F + RAND(5);
         Float vx = getVX() + vRand * std::cos(pDeb->getAngleRad());
         Float vy = getVY() + vRand * std::sin(pDeb->getAngleRad());
@@ -207,8 +207,8 @@ void Ship::crash(TempObjects& vecObiekty)
         ShipShards* pDeb = new ShipShards;
         pDeb->setColor(color);
         pDeb->setAngleDeg(getAngleDeg() + i * 360.0F / iDebCount + RAND(16) - 8.0f);
-        pDeb->setPosition(pos);
-        Float vRand = 3.0 + rand() % 15;
+        pDeb->setPosition(state.pos);
+        Float vRand = 3.0f + RAND(15);
         Float vx = 0.8 * getVX() + vRand * std::cos(pDeb->getAngleRad());
         Float vy = 0.8 * getVY() + vRand * std::sin(pDeb->getAngleRad());
         pDeb->setV(vx, vy);

@@ -37,8 +37,8 @@ class TestPolygWithPointCheck : public TestWithParam<PolygWithPointCheckParam>
 protected:
     void setupObjects(const PointF& pointArg, const PointsF& polygArg)
     {
-        point.pos = pointArg;
-        point.posp = pointArg;
+        point.state.pos = pointArg;
+        point.statep.pos = pointArg;
         polyg.verts = polygArg;
     }
 

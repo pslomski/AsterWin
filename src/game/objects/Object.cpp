@@ -20,22 +20,22 @@ Object::~Object()
 
 Float Object::distance(const Object* object) const
 {
-    const auto dx = object->pos.x - pos.x;
-    const auto dy = object->pos.y - pos.y;
+    const auto dx = object->state.pos.x - state.pos.x;
+    const auto dy = object->state.pos.y - state.pos.y;
     return std::sqrt(dx * dx + dy * dy);
 }
 
 void Object::setA(const Float aa)
 {
     fa = aa;
-    a.x = fa * std::cos(angleRad);
-    a.y = fa * std::sin(angleRad);
+    a.x = fa * std::cos(state.angleRad);
+    a.y = fa * std::sin(state.angleRad);
 }
 
 void Object::setV(const Float av)
 {
-    v.x = av * std::cos(angleRad);
-    v.y = av * std::sin(angleRad);
+    v.x = av * std::cos(state.angleRad);
+    v.y = av * std::sin(state.angleRad);
 }
 
 void Object::setVA(const Float av, const Float angleRad)
@@ -60,10 +60,9 @@ Float Object::getV() const
 
 void Object::move()
 {
-    posp = pos;
-    angleRadPrev = angleRad;
+    statep = state;
 
-    angleRad += omegaRad * time.dt;
+    state.angleRad += omegaRad * time.dt;
     if (std::abs(friction) > 1e-6)
     {
         v.x += (a.x - friction * v.x * std::abs(v.x)) * time.dt;
@@ -74,28 +73,28 @@ void Object::move()
         v.x += a.x * time.dt;
         v.y += a.y * time.dt;
     }
-    pos.x += v.x * time.dt;
-    pos.y += v.y * time.dt;
+    state.pos.x += v.x * time.dt;
+    state.pos.y += v.y * time.dt;
 
-    if (pos.x < gameArea.bounds.x0)
+    if (state.pos.x < gameArea.bounds.x0)
     {
-        pos.x += gameArea.bounds.x1;
-        posp.x += gameArea.bounds.x1;
+        state.pos.x += gameArea.bounds.x1;
+        statep.pos.x += gameArea.bounds.x1;
     }
-    if (pos.x > gameArea.bounds.x1)
+    if (state.pos.x > gameArea.bounds.x1)
     {
-        pos.x -= gameArea.bounds.x1;
-        posp.x -= gameArea.bounds.x1;
+        state.pos.x -= gameArea.bounds.x1;
+        statep.pos.x -= gameArea.bounds.x1;
     }
-    if (pos.y < gameArea.bounds.y0)
+    if (state.pos.y < gameArea.bounds.y0)
     {
-        pos.y += gameArea.bounds.y1;
-        posp.y += gameArea.bounds.y1;
+        state.pos.y += gameArea.bounds.y1;
+        statep.pos.y += gameArea.bounds.y1;
     }
-    if (pos.y > gameArea.bounds.y1)
+    if (state.pos.y > gameArea.bounds.y1)
     {
-        pos.y -= gameArea.bounds.y1;
-        posp.y -= gameArea.bounds.y1;
+        state.pos.y -= gameArea.bounds.y1;
+        statep.pos.y -= gameArea.bounds.y1;
     }
 }
 
@@ -104,10 +103,10 @@ BoxF Object::transform(const BoxF& seg) const
     BoxF res;
     Float sinalfa = std::sin(-getAngleRad());
     Float cosalfa = std::cos(-getAngleRad());
-    res.x0 = pos.x + seg.x0 * cosalfa + seg.y0 * sinalfa;
-    res.y0 = pos.y - seg.x0 * sinalfa + seg.y0 * cosalfa;
-    res.x1 = pos.x + seg.x1 * cosalfa + seg.y1 * sinalfa;
-    res.y1 = pos.y - seg.x1 * sinalfa + seg.y1 * cosalfa;
+    res.x0 = state.pos.x + seg.x0 * cosalfa + seg.y0 * sinalfa;
+    res.y0 = state.pos.y - seg.x0 * sinalfa + seg.y0 * cosalfa;
+    res.x1 = state.pos.x + seg.x1 * cosalfa + seg.y1 * sinalfa;
+    res.y1 = state.pos.y - seg.x1 * sinalfa + seg.y1 * cosalfa;
     return res;
 }
 
@@ -115,10 +114,10 @@ bool Object::checkCollision(Object* pObiekt)
 {
     assert(nullptr != pObiekt);
 
-    if (((pos.x + bounds.x0) > (pObiekt->pos.x + pObiekt->bounds.x1)) ||
-        ((pos.x + bounds.x1) < (pObiekt->pos.x + pObiekt->bounds.x0)) ||
-        ((pos.y + bounds.y0) > (pObiekt->pos.y + pObiekt->bounds.y1)) ||
-        ((pos.y + bounds.y1) < (pObiekt->pos.y + pObiekt->bounds.y0)))
+    if (((state.pos.x + bounds.x0) > (pObiekt->state.pos.x + pObiekt->bounds.x1)) ||
+        ((state.pos.x + bounds.x1) < (pObiekt->state.pos.x + pObiekt->bounds.x0)) ||
+        ((state.pos.y + bounds.y0) > (pObiekt->state.pos.y + pObiekt->bounds.y1)) ||
+        ((state.pos.y + bounds.y1) < (pObiekt->state.pos.y + pObiekt->bounds.y0)))
         return false;
     else
     {
@@ -185,9 +184,9 @@ void Object::draw() const
 {
     // State state = currentState * alpha + previousState * (1.0 - alpha);
     const auto minterp = 1.0 - interp;
-    const auto x = pos.x * interp + posp.x * minterp;
-    const auto y = pos.y * interp + posp.y * minterp;
-    const auto alfa = angleRad * interp + angleRadPrev * minterp;
+    const auto x = state.pos.x * interp + statep.pos.x * minterp;
+    const auto y = state.pos.y * interp + statep.pos.y * minterp;
+    const auto alfa = state.angleRad * interp + statep.angleRad * minterp;
     glPushMatrix();
     glTranslated(x, y, 0.0);
     glRotatef(radToDeg(alfa), 0.0f, 0.0f, 1.0f);

@@ -23,7 +23,7 @@ void StarBlink::init()
     size = 1.0f + RAND(2);
     lifeTime.reset();
     lifeTime.interval = 2.0f + 1.0f * RAND(30);
-    setXY(RAND(gameArea.widthi()), RAND(gameArea.heighti()));
+    setPosition(RAND(gameArea.widthi()), RAND(gameArea.heighti()));
 }
 
 void StarBlink::update()

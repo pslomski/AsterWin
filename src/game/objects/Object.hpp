@@ -7,6 +7,7 @@
 #include <gl/gl.h>
 #include "game/Math.hpp"
 #include "game/objects/Object.fwd.hpp"
+#include "game/objects/ObjectState.hpp"
 #include "game/types/Bounds.hpp"
 #include "game/types/Box.hpp"
 #include "game/types/Color.hpp"
@@ -27,16 +28,11 @@ public:
     void move();
     BoxF transform(const BoxF& seg) const;
     bool checkCollision(Object* pObiekt);
-    void setXY(const Float x, const Float y)
-    {
-        pos.x = x;
-        pos.y = y;
-        posp = pos;
-    }
+    void setPosition(const Float x, const Float y) { setPosition({x, y}); }
     void setPosition(const PointF& pt)
     {
-        pos = pt;
-        posp = pt;
+        state.pos = pt;
+        statep.pos = pt;
     }
     void setV(const Float avx, const Float avy)
     {
@@ -53,12 +49,12 @@ public:
     Float getA() const { return fa; }
     void setAngleRad(const Float angleRadArg)
     {
-        angleRad = normalizeAngleRad(angleRadArg);
-        angleRadPrev = angleRad;
+        state.angleRad = normalizeAngleRad(angleRadArg);
+        statep.angleRad = state.angleRad;
     }
     void setAngleDeg(const Float angleDegArg) { setAngleRad(degToRad(angleDegArg)); }
-    Float getAngleDeg() const { return radToDeg(angleRad); }
-    Float getAngleRad() const { return angleRad; }
+    Float getAngleDeg() const { return radToDeg(state.angleRad); }
+    Float getAngleRad() const { return state.angleRad; }
     void setRotSpeedRad(const Float omegaRadArg) { omegaRad = omegaRadArg; }
     void setRotSpeedDeg(const Float omegaDegArg) { setRotSpeedRad(degToRad(omegaDegArg)); }
     Float getRotSpeedRad() const { return omegaRad; }
@@ -75,9 +71,8 @@ public:
     void render();
 
     static double interp;
-
-    types::Position pos{}; // current pos
-    types::Position posp{}; // previous pos
+    ObjectState state{};
+    ObjectState statep{};
     GLint glList{};
     PointsF verts;
     GeometryType geometryType{GeometryType::Point};
@@ -91,8 +86,6 @@ protected:
 private:
     virtual void onRender() const {} // Draws Object in its own coordinate system
 
-    Float angleRad{};
-    Float angleRadPrev{};
     Float omegaRad{};
     types::Vector v{};
     types::Vector a{};

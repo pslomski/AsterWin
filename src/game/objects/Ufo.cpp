@@ -87,7 +87,7 @@ void Ufo::action(Bullets& bullets)
         {
             setRandV(9.0f, 13.0f);
         }
-        bullets.push_back(fireBullet({pos.x + getVX(), pos.y + getVY()})); // shoot in a velocity direction
+        bullets.push_back(fireBullet({state.pos.x + getVX(), state.pos.y + getVY()})); // shoot in a velocity direction
         FireTimeElapsed = 0.0f;
         MoveTimeElapsed = 0.0f;
     }
@@ -103,14 +103,14 @@ void Ufo::action(Bullets& bullets)
         {
             if (pShip and RShp < 35.0f)
             {
-                bullets.push_back(fireBullet(pShip->pos));
+                bullets.push_back(fireBullet(pShip->state.pos));
             }
         }
         else
         {
             if (pAster and RAst < 20.0f)
             {
-                bullets.push_back(fireBullet(pAster->pos));
+                bullets.push_back(fireBullet(pAster->state.pos));
             }
         }
         FireTimeElapsed = 0.0f;
@@ -122,8 +122,8 @@ Bullet* Ufo::fireBullet(const PointF& pt)
     Float speed = 22.0f;
     Bullet* bullet = new Bullet;
     bullet->lifeTime.interval = 3.0f;
-    bullet->setPosition(pos);
-    const auto angleDeg = std::atan2f(pt.y - pos.y, pt.x - pos.x) * 180.0f / pi;
+    bullet->setPosition(state.pos);
+    const auto angleDeg = std::atan2f(pt.y - state.pos.y, pt.x - state.pos.x) * 180.0f / pi;
     bullet->setAngleDeg(angleDeg + RAND(6) - 3.0f);
     bullet->setV(speed);
     bullet->setColor(color);
@@ -139,7 +139,7 @@ void Ufo::crash(TempObjects& vecObiekty)
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
         pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
-        pDeb->setPosition(pos);
+        pDeb->setPosition(state.pos);
         const Float vRand = 3.0f + RAND(15);
         const Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAngleRad());
         const Float vy = 0.8f * getVY() + vRand * std::sin(pDeb->getAngleRad());

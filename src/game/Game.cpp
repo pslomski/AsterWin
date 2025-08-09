@@ -188,22 +188,22 @@ void Game::generateAsters(int iCount, int iGameLevel)
         iAngle = rand() % iAngle - iAngle / 2;
         if (0 == iSide)
         {
-            pAster->setXY(bounds.x0, iPart / 4.0f * (bounds.y0 + bounds.y1));
+            pAster->setPosition(bounds.x0, iPart / 4.0f * (bounds.y0 + bounds.y1));
             pAster->setAngleDeg(iAngle);
         }
         else if (1 == iSide)
         {
-            pAster->setXY(bounds.x1, iPart / 4.0f * (bounds.y0 + bounds.y1));
+            pAster->setPosition(bounds.x1, iPart / 4.0f * (bounds.y0 + bounds.y1));
             pAster->setAngleDeg(iAngle + 180.0f);
         }
         else if (2 == iSide)
         {
-            pAster->setXY(iPart / 4.0f * (bounds.x0 + bounds.x1), bounds.y0);
+            pAster->setPosition(iPart / 4.0f * (bounds.x0 + bounds.x1), bounds.y0);
             pAster->setAngleDeg(iAngle + 90.0f);
         }
         else if (3 == iSide)
         {
-            pAster->setXY(iPart / 4.0f * (bounds.x0 + bounds.x1), bounds.y1);
+            pAster->setPosition(iPart / 4.0f * (bounds.x0 + bounds.x1), bounds.y1);
             pAster->setAngleDeg(iAngle - 90.0f);
         }
         pAster->setV(3.0f + rand() % 5 + iGameLevel * 0.25f);

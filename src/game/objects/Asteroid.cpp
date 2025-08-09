@@ -127,20 +127,20 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     {
         iAsterCount = 2;
         iDebCount = GE_ASTER1_DEBR_COUNT;
-        LifeTime = 1.1 + rand() % 7 * 0.1;
+        LifeTime = 1.1f + RAND(7) * 0.1f;
     }
     else if (level == 2)
     {
         iAsterCount = 2;
         iDebCount = GE_ASTER2_DEBR_COUNT;
-        LifeTime = 0.8 + rand() % 7 * 0.1;
+        LifeTime = 0.8f + RAND(7) * 0.1F;
         BonusType = BonusType::Points;
     }
     else
     {
         iAsterCount = 0;
         iDebCount = GE_ASTER3_DEBR_COUNT;
-        LifeTime = 0.5 + rand() % 7 * 0.1;
+        LifeTime = 0.5f + RAND(7) * 0.1f;
         BonusType = getBonusType();
     }
 
@@ -149,8 +149,8 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
         BonusObject* bonus = createBonusObj(BonusType);
         if (bonus)
         {
-            bonus->setPosition(pos);
-            bonus->setRandV(2.0, 3.0);
+            bonus->setPosition(state.pos);
+            bonus->setRandV(2.0f, 3.0f);
             bonuses.push_back(bonus);
         }
     }
@@ -160,9 +160,9 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
         Asteroid* pAster = new Asteroid(level + 1);
         pAster->setAngleDeg(getAngleDeg() + i * 180.0f - 90.0f + RAND(50) - 25.0f);
         const auto angleRad = pAster->getAngleRad();
-        Float x = pos.x + 3.0f * std::cos(angleRad);
-        Float y = pos.y + 3.0f * std::sin(angleRad);
-        pAster->setXY(x, y);
+        Float x = state.pos.x + 3.0f * std::cos(angleRad);
+        Float y = state.pos.y + 3.0f * std::sin(angleRad);
+        pAster->setPosition(x, y);
         pAster->setV(getV() * 1.3);
         asteroids.push_back(pAster);
     }
@@ -171,7 +171,7 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     {
         AsterShards* pDeb = new AsterShards;
         pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + RAND(16) - 8.0f);
-        pDeb->setPosition(pos);
+        pDeb->setPosition(state.pos);
         pDeb->lifeTime.interval = LifeTime;
         Float vRand = 5.0f + RAND(15);
         const auto angleRad = pDeb->getAngleRad();

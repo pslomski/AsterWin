@@ -47,8 +47,8 @@ TEST_F(TestObject, testSetRotSpeedRadGetRotSpeedRad)
 TEST_F(TestObject, distance)
 {
     Object object2;
-    object.setXY(0.0f, 0.0f);
-    object2.setXY(1.0f, 0.0f);
+    object.setPosition(0.0f, 0.0f);
+    object2.setPosition(1.0f, 0.0f);
     ASSERT_THAT(object.distance(&object2), FloatEq(1.0f));
 }
 } // namespace game::objects
