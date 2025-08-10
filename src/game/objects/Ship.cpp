@@ -20,11 +20,11 @@ Ship::Ship(const Float xArg, const Float yArg, const Float angleArg)
     setPosition(xArg, yArg);
     setAngleDeg(angleArg);
     setRotSpeedDeg(0.0f);
-    setColor(GE_SHIP_COLOR);
+    setColor(colorShip);
 
     puAddBullet.pShip = this;
     puBulletSpeed.pShip = this;
-    clEngine.set({GE_SHIP_ENGINE_COLOR});
+    clEngine.set(colorShipEngine);
     verts.push_back(PointF(2.0f, 0.0f));
     verts.push_back(PointF(-1.5f, -1.0f));
     verts.push_back(PointF(-1.0f, 0.0f));
@@ -83,7 +83,7 @@ void Ship::update()
         sina *= sina;
         Float cosa = std::cos(alfa);
         cosa *= cosa;
-        Color cl1{GE_BONUS_ADD_BULLETS_COLOR};
+        Color cl1{colorBonusPoints};
         cl1 = cl1 * sina;
         Color cl2{colorCurr};
         cl2 = cl2 * cosa;
@@ -98,7 +98,7 @@ void Ship::update()
         sina *= sina;
         Float cosa = std::cos(alfa);
         cosa *= cosa;
-        Color cl1{GE_BONUS_BULLET_SPEED_COLOR};
+        Color cl1{colorBonusBulletSpeed};
         cl1 = cl1 * sina;
         Color cl2{colorCurr};
         cl2 = cl2 * cosa;

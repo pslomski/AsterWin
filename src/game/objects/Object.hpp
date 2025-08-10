@@ -59,13 +59,7 @@ public:
     void setRotSpeedDeg(const Float omegaDegArg) { setRotSpeedRad(degToRad(omegaDegArg)); }
     Float getRotSpeedRad() const { return omegaRad; }
     Float getRotSpeedDeg() const { return radToDeg(omegaRad); }
-    void setColor(const Float aRed = 1, const Float aGreen = 1, const Float aBlue = 1)
-    {
-        color.red = aRed;
-        color.green = aGreen;
-        color.blue = aBlue;
-    }
-    void setColor(const Color& in_clr) { color = in_clr; }
+    void setColor(const Color& colorArg) { color = colorArg; }
     virtual void update() { move(); }
     void draw() const;
     void render();

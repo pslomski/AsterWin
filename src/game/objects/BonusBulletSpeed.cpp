@@ -6,7 +6,7 @@ namespace game::objects
 {
 BonusBulletSpeed::BonusBulletSpeed() : BonusObject(BonusType::BulletSpeed)
 {
-    color = {GE_BONUS_BULLET_SPEED_COLOR};
+    color = colorBonusBulletSpeed;
     constexpr auto d = 0.5f;
     glList = glGenLists(1);
     glNewList(glList, GL_COMPILE);

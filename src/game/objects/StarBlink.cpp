@@ -10,7 +10,7 @@ namespace game::objects
 {
 StarBlink::StarBlink() : TempObject()
 {
-    setColor();
+    setColor(colorWhite);
     bounds.x0 = -0.1f;
     bounds.x1 = 0.1f;
     bounds.y0 = -0.1f;

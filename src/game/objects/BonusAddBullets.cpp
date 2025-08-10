@@ -29,7 +29,7 @@ namespace game::objects
 {
 BonusAddBullets::BonusAddBullets() : BonusObject(BonusType::Bullets)
 {
-    color = {GE_BONUS_ADD_BULLETS_COLOR};
+    color = colorBonusAddBullets;
     glList = glGenLists(1);
     glNewList(glList, GL_COMPILE);
     glRotatef(31.0f, 0.0f, 0.0f, 1.0f);

@@ -16,7 +16,7 @@ Ufo::Ufo() : Object()
     geometryType = GeometryType::Polyg;
     scoreReward = GE_SCRVAL_UFO;
     setRandV(10.0f, 15.0f);
-    setColor(GE_UFO_COLOR);
+    setColor(colorUfo);
 
     verts.push_back(PointF(2.0f, 0.0f));
     verts.push_back(PointF(0.8f, -0.75f));

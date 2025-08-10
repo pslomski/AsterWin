@@ -1,12 +1,13 @@
 #include "BonusPoints.hpp"
 #include "game/GameConsts.hpp"
+#include "game/types/Color.hpp"
 
 namespace game::objects
 {
 BonusPoints::BonusPoints() : BonusObject(BonusType::Points)
 {
     scoreReward = GE_SCRVAL_BONUS;
-    color = {GE_BONUS_POINTS_COLOR};
+    color = colorBonusPoints;
     constexpr auto d = 0.25f;
     glList = glGenLists(1);
     glNewList(glList, GL_COMPILE);

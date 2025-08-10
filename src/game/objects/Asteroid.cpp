@@ -7,6 +7,7 @@
 #include "game/geom/Bounds.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "game/rand.hpp"
+#include "game/types/Color.hpp"
 #include "gl/Utils.hpp"
 
 namespace game::objects
@@ -14,7 +15,7 @@ namespace game::objects
 Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
 {
     geometryType = GeometryType::Polyg;
-    Color(GE_COLOR_ASTER);
+    setColor(colorAster);
     create();
 }
 
