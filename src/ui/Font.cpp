@@ -1,4 +1,5 @@
 #include "Font.hpp"
+#include "gl/Utils.hpp"
 #include "utils/Exception.hpp"
 
 HDC Font::hDeviceContext = NULL;
@@ -61,9 +62,9 @@ ui::Rectanglei Font::GetTextSize(const std::string& strText) const
     return newTextSize;
 }
 
-void Font::drawText(const std::string& text, int x, int y, const gl::Color& color) const
+void Font::drawText(const std::string& text, int x, int y, const Color& color) const
 {
-    glColor4fv(color);
+    setGlColor(color);
     glRasterPos2i(x, y);
     glPushAttrib(GL_LIST_BIT);
     glListBase(listBase);
@@ -71,7 +72,7 @@ void Font::drawText(const std::string& text, int x, int y, const gl::Color& colo
     glPopAttrib();
 }
 
-void Font::drawTextFmt(const int x, const int y, const gl::Color& color, const char* fmt, ...) const
+void Font::drawTextFmt(const int x, const int y, const Color& color, const char* fmt, ...) const
 {
     if (fmt == nullptr)
     {

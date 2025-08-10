@@ -3,6 +3,7 @@
 #include "MenuState.hpp"
 #include "StateManager.hpp"
 #include "audio/Sound.hpp"
+#include "gl/Utils.hpp"
 #include "log/Log.hpp"
 #include "ui/Viewport.hpp"
 
@@ -114,16 +115,15 @@ void PlayState::draw()
     glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glColor4fv(gl::colorWhite);
+    setGlColor(colorWhite);
     GLint w = GLint(ui::viewport.width);
     GLint y = FNTSIZESMALL + 5;
-    gl::Color color(1.0, 1.0, 1.0);
-    fontSmall->drawTextFmt(10, y, color, "Level: %d", asterGame.gameLevel);
-    fontSmall->drawTextFmt(w / 2 - 80, y, color, "Score: %d", asterGame.scoreCounter.get());
-    fontSmall->drawTextFmt(w - 150, y, color, "Lives: %d", asterGame.lives);
+    fontSmall->drawTextFmt(10, y, colorWhite, "Level: %d", asterGame.gameLevel);
+    fontSmall->drawTextFmt(w / 2 - 80, y, colorWhite, "Score: %d", asterGame.scoreCounter.get());
+    fontSmall->drawTextFmt(w - 150, y, colorWhite, "Lives: %d", asterGame.lives);
     if (isDisplayFps)
     {
-        fontSmall->drawTextFmt(w / 2 - 80, y + 20, color, "FPS: %.0f", asterGame.fps);
+        fontSmall->drawTextFmt(w / 2 - 80, y + 20, colorWhite, "FPS: %.0f", asterGame.fps);
     }
     if (isGameOver())
     {

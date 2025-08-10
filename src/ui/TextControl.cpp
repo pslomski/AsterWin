@@ -35,13 +35,12 @@ void TextControl::draw()
     }
     int xPos = position.left + xOffset;
     int yPos = position.top + yOffset - 5;
-    GLfloat fFact = 1.0f;
+    float factor = 1.0f;
     if (isBlink)
     {
-        fFact = GLfloat(0.25f * (2.0f + std::sin(2.0f * pi * tiBlink.ratio())));
+        factor = 0.25f * (2.0f + std::sinf(2.0f * pi * tiBlink.ratio()));
     }
-    gl::Color glColor(fFact * color.red, fFact * color.green, fFact * color.blue);
-    font->drawText(text, xPos, yPos, glColor);
+    font->drawText(text, xPos, yPos, color * factor);
 }
 
 void TextControl::setTextColor(Float fRed, Float fGreen, Float fBlue)

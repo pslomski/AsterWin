@@ -5,7 +5,7 @@
 
 using namespace testing;
 
-namespace game::objects
+namespace game::types
 {
 constexpr auto r{0.1f};
 constexpr auto g{0.2f};
@@ -43,4 +43,4 @@ TEST_F(TestColor, testMultiply)
     ASSERT_THAT(color2.green, Eq(g * 2.0f));
     ASSERT_THAT(color2.blue, Eq(b * 2.0f));
 }
-} // namespace game::objects
+} // namespace game::types
