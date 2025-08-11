@@ -64,7 +64,7 @@ public:
     void draw() const;
     void render();
 
-    static double interp;
+    static float interp;
     ObjectState state{};
     ObjectState statep{};
     GLint glList{};

@@ -182,13 +182,13 @@ bool Object::checkCollision(Object* pObiekt)
 
 void Object::draw() const
 {
-    // State state = currentState * alpha + previousState * (1.0 - alpha);
-    const auto minterp = 1.0 - interp;
+    // State state = currentState * interp + previousState * (1.0 - interp);
+    const auto minterp = 1.0f - interp;
     const auto x = state.pos.x * interp + statep.pos.x * minterp;
     const auto y = state.pos.y * interp + statep.pos.y * minterp;
     const auto alfa = state.angleRad * interp + statep.angleRad * minterp;
     glPushMatrix();
-    glTranslated(x, y, 0.0);
+    glTranslatef(x, y, 0.0f);
     glRotatef(radToDeg(alfa), 0.0f, 0.0f, 1.0f);
     onRender();
     glPopMatrix();
@@ -199,5 +199,5 @@ void Object::render()
     onRender();
 }
 
-double Object::interp = 0.0;
+float Object::interp = 0.0;
 } // namespace game::objects
