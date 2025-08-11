@@ -1,93 +1,86 @@
 #include "Sound.hpp"
-#include <stdlib.h>
 
 namespace audio
 {
 
-MusicEngineBASS::MusicEngineBASS()
-{
-    m_Channel = 0;
-    m_hMus = 0;
-}
-
-bool MusicEngineBASS::open()
+bool MusicEngineBass::open()
 {
     return initSound();
 }
 
-void MusicEngineBASS::close()
+void MusicEngineBass::close()
 {
     freeSound();
 }
 
-bool MusicEngineBASS::initSound()
+bool MusicEngineBass::initSound()
 {
-    if (m_hMus) return true;
-    m_hMus = BASS_StreamCreateFile(false, "sound/BWV1052.ogg", 0, 0, BASS_SAMPLE_LOOP);
-    if (m_hMus) BASS_ChannelSetAttribute(m_hMus, BASS_ATTRIB_VOL, 0.4f);
+    if (hMus) return true;
+    hMus = BASS_StreamCreateFile(false, "sound/BWV1052.ogg", 0, 0, BASS_SAMPLE_LOOP);
+    if (hMus) BASS_ChannelSetAttribute(hMus, BASS_ATTRIB_VOL, 0.4f);
     return true;
 }
 
-void MusicEngineBASS::freeSound()
+void MusicEngineBass::freeSound()
 {
-    if (m_hMus)
+    if (hMus)
     {
-        BASS_StreamFree(m_hMus);
-        m_hMus = 0;
+        BASS_StreamFree(hMus);
+        hMus = 0;
     }
 }
 
-void MusicEngineBASS::setVolume(const float volumeNew)
+void MusicEngineBass::setVolume(const float volumeNew)
 {
     volume = volumeNew;
     BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, DWORD(volume * 10000));
     BASS_SetConfig(BASS_CONFIG_GVOL_STREAM, DWORD(volume * 10000));
 }
 
-void MusicEngineBASS::play()
+void MusicEngineBass::play()
 {
-    if (m_hMus)
+    if (hMus)
     {
-        m_Channel = BASS_ChannelPlay(m_hMus, TRUE);
+        channel = BASS_ChannelPlay(hMus, TRUE);
     }
 }
 
-void MusicEngineBASS::pause()
+void MusicEngineBass::pause()
 {
-    if (m_Channel)
+    if (channel)
     {
-        BASS_ChannelPause(m_hMus);
+        BASS_ChannelPause(hMus);
     }
 }
 
-void MusicEngineBASS::stop()
+void MusicEngineBass::stop()
 {
-    if (m_Channel)
+    if (channel)
     {
-        BASS_ChannelStop(m_hMus);
-        m_Channel = 0;
+        BASS_ChannelStop(hMus);
+        channel = 0;
     }
 }
 
-void MusicEngineBASS::mute()
+void MusicEngineBass::mute()
 {
     BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, 0);
 }
 
-void MusicEngineBASS::unmute()
+void MusicEngineBass::unmute()
 {
-    BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, DWORD(volume * 10000));
+    BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, volume * 10000u);
 }
 
-void MusicEngineBASS::slideVol(float in_NewVol, DWORD in_Time)
+void MusicEngineBass::slideVol(const float volumeNew, const DWORD time)
 {
-    if (BASS_ChannelIsActive(m_Channel) == BASS_ACTIVE_STOPPED) return;
-    BASS_ChannelSlideAttribute(m_Channel, BASS_ATTRIB_VOL, in_NewVol, in_Time);
+    if (BASS_ChannelIsActive(channel) == BASS_ACTIVE_STOPPED) return;
+    BASS_ChannelSlideAttribute(channel, BASS_ATTRIB_VOL, volumeNew, time);
 }
 
-bool MusicEngineBASS::isStarted()
+bool MusicEngineBass::isStarted() const
 {
-    DWORD r = BASS_ChannelIsActive(m_hMus);
+    DWORD r = BASS_ChannelIsActive(hMus);
     return r != BASS_ACTIVE_STOPPED;
 }
 } // namespace audio

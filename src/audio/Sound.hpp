@@ -5,21 +5,9 @@
 
 namespace audio
 {
-class MusicEngineBASS
+class MusicEngineBass
 {
-private:
-    HSTREAM m_hMus;
-    HCHANNEL m_Channel;
-
-protected:
-    bool initSound();
-    void freeSound();
-
-    bool isPause{false};
-    float volume{1.0f}; // range 0.0f - 1.0f
-
 public:
-    MusicEngineBASS();
     bool open();
     void close();
     void setVolume(const float volumeNew);
@@ -29,10 +17,19 @@ public:
     void play();
     void pause();
     void stop();
-    void slideVol(float in_NewVol, DWORD in_Time);
-    bool isStarted();
+    void slideVol(const float volumeNew, const DWORD time);
+    bool isStarted() const;
+
+private:
+    bool initSound();
+    void freeSound();
+
+    bool isPause{false};
+    float volume{1.0f}; // range 0.0f - 1.0f
+    HSTREAM hMus{};
+    HCHANNEL channel{};
 };
 } // namespace audio
 
-inline audio::MusicEngineBASS geMusic;
+inline audio::MusicEngineBass geMusic;
 inline audio::SfxController geSound;
