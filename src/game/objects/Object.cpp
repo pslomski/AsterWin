@@ -100,14 +100,14 @@ void Object::move()
 
 BoxF Object::transform(const BoxF& seg) const
 {
-    BoxF res;
-    Float sinalfa = std::sin(-getAngleRad());
-    Float cosalfa = std::cos(-getAngleRad());
-    res.x0 = state.pos.x + seg.x0 * cosalfa + seg.y0 * sinalfa;
-    res.y0 = state.pos.y - seg.x0 * sinalfa + seg.y0 * cosalfa;
-    res.x1 = state.pos.x + seg.x1 * cosalfa + seg.y1 * sinalfa;
-    res.y1 = state.pos.y - seg.x1 * sinalfa + seg.y1 * cosalfa;
-    return res;
+    const auto angle = -getAngleRad(); // negate angle for OpenGL coordinate system
+    const auto sinalfa = std::sinf(angle);
+    const auto cosalfa = std::cosf(angle);
+    return {
+        .x0 = state.pos.x + seg.x0 * cosalfa + seg.y0 * sinalfa,
+        .y0 = state.pos.y - seg.x0 * sinalfa + seg.y0 * cosalfa,
+        .x1 = state.pos.x + seg.x1 * cosalfa + seg.y1 * sinalfa,
+        .y1 = state.pos.y - seg.x1 * sinalfa + seg.y1 * cosalfa};
 }
 
 bool Object::checkCollision(Object* pObiekt)
