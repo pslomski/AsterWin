@@ -2,30 +2,33 @@
 
 #include <bass.h>
 #include "SfxController.hpp"
-#include "audio/AudioController.hpp"
 
 namespace audio
 {
-class MusicEngineBASS : public AudioController // TODO: remove inheritance from AudioController
+class MusicEngineBASS
 {
 private:
     HSTREAM m_hMus;
     HCHANNEL m_Channel;
 
 protected:
-    bool initSound() override;
-    void freeSound() override;
+    bool initSound();
+    void freeSound();
+
+    bool isPause{false};
+    float volume{1.0f}; // range 0.0f - 1.0f
 
 public:
     MusicEngineBASS();
-    bool open() override;
-    void close() override;
-    void setVolume(const float volumeNew) override;
-    void mute() override;
-    void unmute() override;
-    void play() override;
-    void pause() override;
-    void stop() override;
+    bool open();
+    void close();
+    void setVolume(const float volumeNew);
+    float getVolume() const { return volume; }
+    void mute();
+    void unmute();
+    void play();
+    void pause();
+    void stop();
     void slideVol(float in_NewVol, DWORD in_Time);
     bool isStarted();
 };

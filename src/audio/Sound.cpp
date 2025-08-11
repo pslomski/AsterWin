@@ -4,7 +4,7 @@
 namespace audio
 {
 
-MusicEngineBASS::MusicEngineBASS() : AudioController()
+MusicEngineBASS::MusicEngineBASS()
 {
     m_Channel = 0;
     m_hMus = 0;
