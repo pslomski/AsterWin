@@ -46,8 +46,8 @@ void Object::setVA(const Float av, const Float angleRad)
 
 void Object::setRandV(const Float vmin, const Float vmax)
 {
-    const Float vRand = rand() % int(vmax - vmin) + vmin;
-    const auto angleRad = degToRad(RAND(360));
+    const Float vRand = randi(vmax - vmin) + vmin;
+    const auto angleRad = degToRad(randi(360));
     Float vx = vRand * std::cos(angleRad);
     Float vy = vRand * std::sin(angleRad);
     setV(vx, vy);

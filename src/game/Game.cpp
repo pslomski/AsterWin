@@ -83,12 +83,12 @@ void Game::generateBackground()
     {
         listBkg1 = glGenLists(1);
         glNewList(listBkg1, GL_COMPILE);
-        col = 0.4 + RAND(21) / 20;
+        col = 0.4 + randi(21) / 20;
         setGlColor(col);
         glBegin(GL_POINTS);
         for (int i = 0; i < 50; ++i)
         {
-            glVertex2d(RAND(gameArea.widthi()), RAND(gameArea.heighti()));
+            glVertex2d(randi(gameArea.widthi()), randi(gameArea.heighti()));
         }
         glEnd();
         glEndList();
@@ -98,11 +98,11 @@ void Game::generateBackground()
         listBkg2 = glGenLists(1);
         glNewList(listBkg2, GL_COMPILE);
         glBegin(GL_POINTS);
-        col = 0.6 + RAND(21) / 20;
+        col = 0.6 + randi(21) / 20;
         setGlColor(col);
         for (int i = 0; i < 50; ++i)
         {
-            glVertex2d(RAND(gameArea.widthi()), RAND(gameArea.heighti()));
+            glVertex2d(randi(gameArea.widthi()), randi(gameArea.heighti()));
         }
         glEnd();
         glEndList();
@@ -183,9 +183,9 @@ void Game::generateAsters(int iCount, int iGameLevel)
     {
         objects::Asteroid* pAster = new objects::Asteroid(1);
         int iSide = i % 4;
-        int iPart = rand() % 4;
+        int iPart = randi(4);
         int iAngle = std::min(170, 110 + 10 * iGameLevel);
-        iAngle = rand() % iAngle - iAngle / 2;
+        iAngle = randi(iAngle) - iAngle / 2;
         if (0 == iSide)
         {
             pAster->setPosition(bounds.x0, iPart / 4.0f * (bounds.y0 + bounds.y1));
@@ -206,7 +206,7 @@ void Game::generateAsters(int iCount, int iGameLevel)
             pAster->setPosition(iPart / 4.0f * (bounds.x0 + bounds.x1), bounds.y1);
             pAster->setAngleDeg(iAngle - 90.0f);
         }
-        pAster->setV(3.0f + rand() % 5 + iGameLevel * 0.25f);
+        pAster->setV(3.0f + randi(5) + iGameLevel * 0.25f);
         asteroids.push_back(pAster);
     }
 };
@@ -221,7 +221,6 @@ void Game::playStartBeep(float pitch, float gain)
 bool Game::reset()
 {
     clear();
-    randSeed();
     astersCount = GE_INITIAL_ASTER_COUNT; //(4) poczatkowa liczba asteroidow. wzrasta o 1 z
                                           // kazdym poziomem do max 6
     beepCount = 0;
@@ -239,7 +238,7 @@ bool Game::reset()
     tiBroomSound.reset(GE_TI_BROOM_SOUND);
     bPitchBroomSound = false;
     tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
-    tiUfoRespawn.reset(GE_BASE_UFO_TIME + RAND(4));
+    tiUfoRespawn.reset(GE_BASE_UFO_TIME + randi(4));
     for (int i = 0; i < 20; ++i)
         starBlinks.push_back(new objects::StarBlink());
     return true;
@@ -367,7 +366,7 @@ void Game::analyzeGameState()
                 // przejscie na wyzszy poziom
                 gameState = GameState::NextLevelPause;
                 tiPause.reset(GE_PAUSE_TIME);
-                tiUfoRespawn.reset(GE_BASE_UFO_TIME + rand() % 4 - 2);
+                tiUfoRespawn.reset(GE_BASE_UFO_TIME + randi(4) - 2);
             }
             else
             {
