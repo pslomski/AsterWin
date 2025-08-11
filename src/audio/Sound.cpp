@@ -33,8 +33,8 @@ void MusicEngineBass::freeSound()
 void MusicEngineBass::setVolume(const float volumeNew)
 {
     volume = volumeNew;
-    BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, DWORD(volume * 10000));
-    BASS_SetConfig(BASS_CONFIG_GVOL_STREAM, DWORD(volume * 10000));
+    BASS_SetConfig(BASS_CONFIG_GVOL_MUSIC, volume * 10000u);
+    BASS_SetConfig(BASS_CONFIG_GVOL_STREAM, volume * 10000u);
 }
 
 void MusicEngineBass::play()
