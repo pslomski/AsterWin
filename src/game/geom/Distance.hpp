@@ -1,6 +1,5 @@
 #pragma once
 
-#include "game/objects/Object.hpp"
 #include "game/types/Position.hpp"
 
 namespace game::geom

@@ -7,4 +7,5 @@ target_sources(${ASTER_EXE}
         LineIntersection.cpp
         PointInPolygon.cpp
         PolygWithPointCheck.cpp
+        Transform.cpp
 )

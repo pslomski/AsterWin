@@ -3,12 +3,12 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include "game/geom/Transform.cpp"
 
 using namespace testing;
 
 namespace game::objects
 {
-constexpr float epsilon = 1.0e-6f;
 class TestObject : public Test
 {
 protected:
@@ -41,17 +41,5 @@ TEST_F(TestObject, testSetRotSpeedRadGetRotSpeedRad)
     object.setRotSpeedRad(pi);
     ASSERT_THAT(object.getRotSpeedRad(), FloatEq(pi));
     ASSERT_THAT(object.getRotSpeedDeg(), FloatEq(180.0f));
-}
-
-TEST_F(TestObject, transform)
-{
-    object.setPosition(1.0f, 2.0f);
-    object.setAngleRad(pi / 2.0f);
-    const BoxF seg{.x0 = 0.0f, .y0 = 0.0f, .x1 = 1.0f, .y1 = 0.0f};
-    const auto transformed = object.transform(seg);
-    ASSERT_THAT(transformed.x0, FloatNear(1.0f, epsilon));
-    ASSERT_THAT(transformed.y0, FloatNear(2.0f, epsilon));
-    ASSERT_THAT(transformed.x1, FloatNear(1.0f, epsilon));
-    ASSERT_THAT(transformed.y1, FloatNear(3.0f, epsilon));
 }
 } // namespace game::objects

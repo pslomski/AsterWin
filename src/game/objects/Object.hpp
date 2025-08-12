@@ -9,7 +9,6 @@
 #include "game/objects/Object.fwd.hpp"
 #include "game/objects/ObjectState.hpp"
 #include "game/types/Bounds.hpp"
-#include "game/types/Box.hpp"
 #include "game/types/Color.hpp"
 #include "game/types/ObjectGeom.hpp"
 #include "game/types/Point.hpp"
@@ -25,7 +24,6 @@ public:
     virtual ~Object();
 
     void move();
-    BoxF transform(const BoxF& seg) const;
     bool checkCollision(Object* pObiekt);
     void setPosition(const Float x, const Float y) { setPosition({x, y}); }
     void setPosition(const PointF& pt)

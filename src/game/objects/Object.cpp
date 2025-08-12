@@ -7,6 +7,8 @@
 #include "game/Time.hpp"
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PolygWithPointCheck.hpp"
+#include "game/geom/Transform.hpp"
+#include "game/types/Box.hpp"
 
 namespace game::objects
 {
@@ -91,18 +93,6 @@ void Object::move()
     }
 }
 
-BoxF Object::transform(const BoxF& seg) const
-{
-    const auto angle = -getAngleRad(); // negate angle for OpenGL coordinate system
-    const auto sinalfa = std::sinf(angle);
-    const auto cosalfa = std::cosf(angle);
-    return {
-        .x0 = state.pos.x + seg.x0 * cosalfa + seg.y0 * sinalfa,
-        .y0 = state.pos.y - seg.x0 * sinalfa + seg.y0 * cosalfa,
-        .x1 = state.pos.x + seg.x1 * cosalfa + seg.y1 * sinalfa,
-        .y1 = state.pos.y - seg.x1 * sinalfa + seg.y1 * cosalfa};
-}
-
 bool Object::checkCollision(Object* pObiekt)
 {
     assert(nullptr != pObiekt);
@@ -123,24 +113,37 @@ bool Object::checkCollision(Object* pObiekt)
                 for (unsigned int i1 = 0; i1 < verts.size(); ++i1)
                 {
                     if (0 == i1)
-                        o1 = transform(
+                    {
+                        o1 = geom::transform(
+                            getAngleRad(),
+                            state.pos,
                             BoxF(verts[0].x, verts[0].y, verts[verts.size() - 1].x, verts[verts.size() - 1].y));
+                    }
                     else
-                        o1 = transform(BoxF(verts[i1 - 1].x, verts[i1 - 1].y, verts[i1].x, verts[i1].y));
+                    {
+                        o1 = geom::transform(
+                            getAngleRad(), state.pos, BoxF(verts[i1 - 1].x, verts[i1 - 1].y, verts[i1].x, verts[i1].y));
+                    }
                     for (unsigned int i2 = 0; i2 < pObiekt->verts.size(); ++i2)
                     {
                         if (0 == i2)
-                            o2 = pObiekt->transform(BoxF(
-                                pObiekt->verts[0].x,
-                                pObiekt->verts[0].y,
-                                pObiekt->verts[pObiekt->verts.size() - 1].x,
-                                pObiekt->verts[pObiekt->verts.size() - 1].y));
+                            o2 = geom::transform(
+                                pObiekt->getAngleRad(),
+                                pObiekt->state.pos,
+                                BoxF(
+                                    pObiekt->verts[0].x,
+                                    pObiekt->verts[0].y,
+                                    pObiekt->verts[pObiekt->verts.size() - 1].x,
+                                    pObiekt->verts[pObiekt->verts.size() - 1].y));
                         else
-                            o2 = pObiekt->transform(BoxF(
-                                pObiekt->verts[i2 - 1].x,
-                                pObiekt->verts[i2 - 1].y,
-                                pObiekt->verts[i2].x,
-                                pObiekt->verts[i2].y));
+                            o2 = geom::transform(
+                                pObiekt->getAngleRad(),
+                                pObiekt->state.pos,
+                                BoxF(
+                                    pObiekt->verts[i2 - 1].x,
+                                    pObiekt->verts[i2 - 1].y,
+                                    pObiekt->verts[i2].x,
+                                    pObiekt->verts[i2].y));
                         if (linesIntersection(o1, o2, _x, _y) == 0) return true;
                     }
                 }

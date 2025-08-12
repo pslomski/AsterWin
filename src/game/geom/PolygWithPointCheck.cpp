@@ -3,6 +3,7 @@
 #include "game/Consts.hpp"
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PointInPolygon.hpp"
+#include "game/geom/Transform.hpp"
 
 namespace
 {
@@ -29,15 +30,20 @@ bool checkPolygWithPoint(const objects::Object* point, const objects::Object* po
     {
         if (0 == i1)
         {
-            o1 = polygon->transform(BoxF(
-                polygon->verts[0].x,
-                polygon->verts[0].y,
-                polygon->verts[polygon->verts.size() - 1].x,
-                polygon->verts[polygon->verts.size() - 1].y));
+            o1 = geom::transform(
+                polygon->getAngleRad(),
+                polygon->state.pos,
+                BoxF(
+                    polygon->verts[0].x,
+                    polygon->verts[0].y,
+                    polygon->verts[polygon->verts.size() - 1].x,
+                    polygon->verts[polygon->verts.size() - 1].y));
         }
         else
         {
-            o1 = polygon->transform(
+            o1 = geom::transform(
+                polygon->getAngleRad(),
+                polygon->state.pos,
                 BoxF{polygon->verts[i1 - 1].x, polygon->verts[i1 - 1].y, polygon->verts[i1].x, polygon->verts[i1].y});
         }
         if (linesIntersection(o1, o2, x, y) == 0)

@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 #include "game/geom/LineIntersection.cpp"
 #include "game/geom/PointInPolygon.cpp"
+#include "game/geom/Transform.cpp"
 #include "game/objects/Object.cpp"
 #include "game/types/Point.hpp"
 
