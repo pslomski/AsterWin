@@ -5,7 +5,6 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include "game/Time.cpp"
 #include "game/geom/LineIntersection.cpp"
 #include "game/geom/PointInPolygon.cpp"
 #include "game/objects/Object.cpp"

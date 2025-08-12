@@ -10,8 +10,9 @@ Time::Time()
     frequency = f.QuadPart;
 }
 
-double Time::getCurrentTime()
+double Time::getCurrentTime() const
 {
+    // TODO: use std::chrono
     LARGE_INTEGER t;
     QueryPerformanceCounter(&t);
     return t.QuadPart / frequency;

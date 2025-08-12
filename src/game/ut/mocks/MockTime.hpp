@@ -1,24 +1,22 @@
 #pragma once
 
 #include "common/testing/mocks.hpp"
-#include "ut/mocks/MockTime.hpp"
-#if USE_ORIG(game_Time)
+#if not USE_ORIG(game_Time)
 
+#include <gmock/gmock.h>
 #include "game/TimeDelta.hpp"
+
 namespace game
 {
 class Time
 {
 public:
-    Time();
+    Time() {}
 
-    double getCurrentTime() const;
+    MOCK_METHOD(double, getCurrentTime, (), (const));
 
     TimeDelta dt{0.001}; // simulation step
     double accumulator{0.0};
-
-private:
-    double frequency{1.0};
 };
 
 inline Time time;

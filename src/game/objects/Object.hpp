@@ -24,7 +24,6 @@ class Object
 public:
     virtual ~Object();
 
-    Float distance(const Object* object) const;
     void move();
     BoxF transform(const BoxF& seg) const;
     bool checkCollision(Object* pObiekt);

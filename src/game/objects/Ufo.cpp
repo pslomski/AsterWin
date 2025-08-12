@@ -6,6 +6,7 @@
 #include "game/Rand.hpp"
 #include "game/Time.hpp"
 #include "game/geom/Bounds.hpp"
+#include "game/geom/Distance.hpp"
 #include "game/objects/AsterShards.hpp"
 #include "gl/Utils.hpp"
 
@@ -61,8 +62,8 @@ void Ufo::action(Bullets& bullets)
         CheckTimeElapsed = 0.0f;
         Float RShp = 2e6f;
         Float RAst = 1e6f;
-        if (pShip) RShp = distance(pShip);
-        if (pAster) RAst = distance(pAster);
+        if (pShip) RShp = geom::distance(state.pos, pShip->state.pos);
+        if (pAster) RAst = geom::distance(state.pos, pAster->state.pos);
         if ((RShp < SafeDist) || (RAst < SafeDist)) MoveTimeElapsed = MoveTime;
     }
 
@@ -71,8 +72,8 @@ void Ufo::action(Bullets& bullets)
     {
         Float RShp = 2e6f;
         Float RAst = 1e6f;
-        if (pShip) RShp = distance(pShip);
-        if (pAster) RAst = distance(pAster);
+        if (pShip) RShp = geom::distance(state.pos, pShip->state.pos);
+        if (pAster) RAst = geom::distance(state.pos, pAster->state.pos);
         if (pShip and RShp < SafeDist)
         {
             int sgn = randi(2) ? -1 : 1;
@@ -97,8 +98,8 @@ void Ufo::action(Bullets& bullets)
     {
         Float RShp = 2e6f;
         Float RAst = 1e6f;
-        if (pShip) RShp = distance(pShip);
-        if (pAster) RAst = distance(pAster);
+        if (pShip) RShp = geom::distance(state.pos, pShip->state.pos);
+        if (pAster) RAst = geom::distance(state.pos, pAster->state.pos);
         if (RShp < RAst)
         {
             if (pShip and RShp < 35.0f)

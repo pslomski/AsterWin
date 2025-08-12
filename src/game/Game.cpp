@@ -8,6 +8,7 @@
 #include "game/Rand.hpp"
 #include "game/ScoreCounter.hpp"
 #include "game/Time.hpp"
+#include "game/geom/Distance.hpp"
 #include "game/objects/Asteroid.hpp"
 #include "game/objects/StarBlink.hpp"
 #include "gl/Utils.hpp"
@@ -441,10 +442,10 @@ void Game::updateObjects()
         (*itAster)->update();
         if (pUfo)
         {
-            Float Dist = pUfo->distance(*itAster);
-            if (Dist < Rmin)
+            const auto dist = geom::distance(pUfo->state.pos, (*itAster)->state.pos);
+            if (dist < Rmin)
             {
-                Rmin = Dist;
+                Rmin = dist;
                 pUfo->pAster = (*itAster);
             }
         }

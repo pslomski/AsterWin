@@ -1,7 +1,7 @@
+#include "game/geom/PointInPolygon.cpp"
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include "game/geom/PointInPolygon.hpp"
 
 using namespace testing;
 

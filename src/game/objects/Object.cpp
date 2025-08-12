@@ -18,13 +18,6 @@ Object::~Object()
     }
 }
 
-Float Object::distance(const Object* object) const
-{
-    const auto dx = object->state.pos.x - state.pos.x;
-    const auto dy = object->state.pos.y - state.pos.y;
-    return std::sqrt(dx * dx + dy * dy);
-}
-
 void Object::setA(const Float aa)
 {
     fa = aa;
@@ -186,10 +179,10 @@ void Object::draw() const
     const auto minterp = 1.0f - interp;
     const auto x = state.pos.x * interp + statep.pos.x * minterp;
     const auto y = state.pos.y * interp + statep.pos.y * minterp;
-    const auto alfa = state.angleRad * interp + statep.angleRad * minterp;
+    const auto angle = state.angleRad * interp + statep.angleRad * minterp;
     glPushMatrix();
     glTranslatef(x, y, 0.0f);
-    glRotatef(radToDeg(alfa), 0.0f, 0.0f, 1.0f);
+    glRotatef(radToDeg(angle), 0.0f, 0.0f, 1.0f);
     onRender();
     glPopMatrix();
 }
