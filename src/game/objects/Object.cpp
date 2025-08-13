@@ -7,7 +7,6 @@
 #include "game/Time.hpp"
 #include "game/geom/LineIntersection.hpp"
 #include "game/geom/PolygWithPointCheck.hpp"
-#include "game/geom/Transform.hpp"
 #include "game/types/Box.hpp"
 
 namespace game::objects

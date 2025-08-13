@@ -62,12 +62,10 @@ Game::Game() : scoreCounter(std::bind(&Game::onIncrementLives, this))
     tiChangeBroomSoundFreq.interval = GE_TI_CHANGE_BROOM_FREQ;
     tiFPS.interval = 1.0;
     ship = nullptr;
-    pUfo = nullptr;
+    ufo = nullptr;
     gameState = GameState::Run;
     gameLevel = 1;
     lives = GE_INITIAL_LIVES;
-    astersCount = GE_INITIAL_ASTER_COUNT; //(4) poczatkowa ilosc asteroidow. wzrasta o 1 z
-                                          // kazdym poziomem do max 6
     listBkg1 = 0;
     listBkg2 = 0;
     tiPause.reset(GE_PAUSE_TIME);
@@ -121,9 +119,9 @@ void Game::clearBackground()
 
 void Game::enterState()
 {
-    if (pUfo)
+    if (ufo)
     {
-        pUfo->sndEngine.play();
+        ufo->sndEngine.play();
     }
     if (ship)
     {
@@ -133,9 +131,9 @@ void Game::enterState()
 
 void Game::leaveState()
 {
-    if (pUfo)
+    if (ufo)
     {
-        pUfo->sndEngine.pause();
+        ufo->sndEngine.pause();
     }
 }
 
@@ -167,8 +165,8 @@ void Game::clear()
     if (ship) delete ship;
     ship = nullptr;
 
-    if (pUfo) delete pUfo;
-    pUfo = nullptr;
+    if (ufo) delete ufo;
+    ufo = nullptr;
 
     ::clear(bullets);
     ::clear(bulletsUfo);
@@ -223,8 +221,7 @@ void Game::playStartBeep(float pitch, float gain)
 bool Game::reset()
 {
     clear();
-    astersCount = GE_INITIAL_ASTER_COUNT; //(4) poczatkowa liczba asteroidow. wzrasta o 1 z
-                                          // kazdym poziomem do max 6
+    astersCount = GE_INITIAL_ASTER_COUNT;
     beepCount = 0;
     gameState = GameState::StartGame;
     gameLevel = 1;
@@ -363,7 +360,7 @@ void Game::analyzeGameState()
                     tiPause.reset(GE_GAMEOVER_PAUSE_TIME);
                 }
             }
-            else if (asteroids.empty() && !pUfo)
+            else if (asteroids.empty() && !ufo)
             {
                 // przejscie na wyzszy poziom
                 gameState = GameState::NextLevelPause;
@@ -372,14 +369,14 @@ void Game::analyzeGameState()
             }
             else
             {
-                if (!pUfo)
+                if (!ufo)
                 {
                     if (tiUfoRespawn.inc(time.dt))
                     {
                         const Float maxRespownTime{15};
                         tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
-                        pUfo = new objects::Ufo;
-                        pUfo->setPosition(gameArea.randomPosAtEdge());
+                        ufo = new objects::Ufo;
+                        ufo->setPosition(gameArea.randomPosAtEdge());
                     }
                 }
             }
@@ -431,23 +428,23 @@ void Game::updateObjects()
         ship->update();
     }
 
-    if (pUfo)
+    if (ufo)
     {
-        pUfo->update();
-        pUfo->pAster = nullptr;
+        ufo->update();
+        ufo->pAster = nullptr;
     }
 
     Float Rmin = 1e6;
     for (auto itAster = asteroids.begin(); itAster != asteroids.end(); itAster++)
     {
         (*itAster)->update();
-        if (pUfo)
+        if (ufo)
         {
-            const auto dist = geom::distance(pUfo->state.pos, (*itAster)->state.pos);
+            const auto dist = geom::distance(ufo->state.pos, (*itAster)->state.pos);
             if (dist < Rmin)
             {
                 Rmin = dist;
-                pUfo->pAster = (*itAster);
+                ufo->pAster = (*itAster);
             }
         }
     }
@@ -508,10 +505,10 @@ void Game::updateObjects()
         }
     }
 
-    if (pUfo)
+    if (ufo)
     {
-        pUfo->pShip = ship;
-        pUfo->action(bulletsUfo);
+        ufo->pShip = ship;
+        ufo->action(bulletsUfo);
     }
 
     ::update(starBlinks);
@@ -522,33 +519,33 @@ void Game::checkCollisions()
     objects::Asteroids vecAstersTmp;
 
     // ufo-ship collision
-    if (pUfo)
+    if (ufo)
     {
-        if (ship && !ship->respawning && geom::checkCollision(ship, pUfo))
+        if (ship && !ship->respawning && geom::checkCollision(ship, ufo))
         {
             ship->crash(shards);
             delete ship;
             ship = nullptr;
-            pUfo->crash(shards);
-            delete pUfo;
-            pUfo = nullptr;
+            ufo->crash(shards);
+            delete ufo;
+            ufo = nullptr;
             tiUfoRespawn.reset();
         }
     }
 
     // ufo-our_shot collision
-    if (pUfo)
+    if (ufo)
     {
         for (auto itBullet = bullets.begin(); itBullet != bullets.end();)
         {
-            if (geom::checkCollision(pUfo, *itBullet))
+            if (geom::checkCollision(ufo, *itBullet))
             {
-                scoreCounter.inc(pUfo->scoreReward);
+                scoreCounter.inc(ufo->scoreReward);
                 delete (*itBullet);
                 itBullet = bullets.erase(itBullet);
-                pUfo->crash(shards);
-                delete pUfo;
-                pUfo = nullptr;
+                ufo->crash(shards);
+                delete ufo;
+                ufo = nullptr;
                 break;
             }
             else
@@ -596,11 +593,11 @@ void Game::checkCollisions()
             if (itAster == asteroids.end()) break;
         };
 
-        if (pUfo && geom::checkCollision(pUfo, *itAster))
+        if (ufo && geom::checkCollision(ufo, *itAster))
         {
-            pUfo->crash(shards);
-            delete pUfo;
-            pUfo = nullptr;
+            ufo->crash(shards);
+            delete ufo;
+            ufo = nullptr;
             tiUfoRespawn.reset();
 
             (*itAster)->crash(vecAstersTmp, shards, bonuses, false);
@@ -701,7 +698,7 @@ void Game::draw()
     glCallList(listBkg2);
 
     if (ship) ship->draw();
-    if (pUfo) pUfo->draw();
+    if (ufo) ufo->draw();
     ::draw(asteroids);
     ::draw(bullets);
     ::draw(bulletsUfo);
