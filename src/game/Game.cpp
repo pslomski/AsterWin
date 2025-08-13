@@ -8,6 +8,7 @@
 #include "game/Rand.hpp"
 #include "game/ScoreCounter.hpp"
 #include "game/Time.hpp"
+#include "game/geom/CheckCollision.hpp"
 #include "game/geom/Distance.hpp"
 #include "game/objects/Asteroid.hpp"
 #include "game/objects/StarBlink.hpp"
@@ -523,7 +524,7 @@ void Game::checkCollisions()
     // ufo-ship collision
     if (pUfo)
     {
-        if (ship && !ship->respawning && ship->checkCollision(pUfo))
+        if (ship && !ship->respawning && geom::checkCollision(ship, pUfo))
         {
             ship->crash(shards);
             delete ship;
@@ -540,7 +541,7 @@ void Game::checkCollisions()
     {
         for (auto itBullet = bullets.begin(); itBullet != bullets.end();)
         {
-            if (pUfo->checkCollision(*itBullet))
+            if (geom::checkCollision(pUfo, *itBullet))
             {
                 scoreCounter.inc(pUfo->scoreReward);
                 delete (*itBullet);
@@ -562,7 +563,7 @@ void Game::checkCollisions()
     {
         for (auto itBullet = bulletsUfo.begin(); itBullet != bulletsUfo.end();)
         {
-            if (ship->checkCollision(*itBullet))
+            if (geom::checkCollision(ship, *itBullet))
             {
                 delete (*itBullet);
                 itBullet = bulletsUfo.erase(itBullet);
@@ -582,7 +583,7 @@ void Game::checkCollisions()
     for (auto itAster = asteroids.begin(); itAster != asteroids.end();)
     {
         bool bIncrement = true;
-        if (ship && !ship->respawning && ship->checkCollision(*itAster))
+        if (ship && !ship->respawning && geom::checkCollision(ship, *itAster))
         {
             ship->crash(shards);
             delete ship;
@@ -595,7 +596,7 @@ void Game::checkCollisions()
             if (itAster == asteroids.end()) break;
         };
 
-        if (pUfo && pUfo->checkCollision(*itAster))
+        if (pUfo && geom::checkCollision(pUfo, *itAster))
         {
             pUfo->crash(shards);
             delete pUfo;
@@ -611,7 +612,7 @@ void Game::checkCollisions()
 
         for (auto itBullet = bullets.begin(); itBullet != bullets.end();)
         {
-            if ((*itAster)->checkCollision(*itBullet))
+            if (geom::checkCollision(*itAster, *itBullet))
             {
                 delete (*itBullet);
                 itBullet = bullets.erase(itBullet);
@@ -632,7 +633,7 @@ void Game::checkCollisions()
         {
             for (auto itBullet = bulletsUfo.begin(); itBullet != bulletsUfo.end();)
             {
-                if ((*itAster)->checkCollision(*itBullet))
+                if (geom::checkCollision(*itAster, *itBullet))
                 {
                     delete (*itBullet);
                     itBullet = bulletsUfo.erase(itBullet);
@@ -662,7 +663,7 @@ void Game::checkCollisions()
     {
         for (auto it = bonuses.begin(); it != bonuses.end();)
         {
-            if (ship->checkCollision(*it))
+            if (geom::checkCollision(ship, *it))
             {
                 scoreCounter.inc((*it)->scoreReward);
                 if ((*it)->getBonusType() == BonusType::Points)

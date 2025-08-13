@@ -24,7 +24,6 @@ public:
     virtual ~Object();
 
     void move();
-    bool checkCollision(Object* pObiekt);
     void setPosition(const Float x, const Float y) { setPosition({x, y}); }
     void setPosition(const PointF& pt)
     {
@@ -66,13 +65,13 @@ public:
     ObjectState statep{};
     GLint glList{};
     PointsF verts;
+    types::Bounds bounds;
     GeometryType geometryType{GeometryType::Point};
     int scoreReward{};
 
 protected:
     Float friction{};
     Color color;
-    types::Bounds bounds;
 
 private:
     virtual void onRender() const {} // Draws Object in its own coordinate system

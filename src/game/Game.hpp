@@ -51,7 +51,7 @@ private:
     objects::Bonuses bonuses; // bonuses from destroyed asteroids
     objects::Objects starBlinks;
     objects::Ship* ship; // our ship
-    objects::Ufo* pUfo; // enemy ufo
+    objects::Ufo* pUfo; // enemy ufo //TODO: rename to ufo
     GameState gameState;
     int astersCount; // (4) poczatkowa ilosc asteroidow. wzrasta o 1 z
                      // kazdym poziomem do max 6
