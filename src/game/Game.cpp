@@ -162,8 +162,7 @@ void Game::clear()
 
     clearBackground();
 
-    if (ship) delete ship;
-    ship = nullptr;
+    ship.reset();
 
     if (ufo) delete ufo;
     ufo = nullptr;
@@ -230,7 +229,7 @@ bool Game::reset()
     tiPause.reset(GE_PAUSE_TIME);
 
     const auto pt = gameArea.center();
-    ship = new objects::Ship(pt.x, pt.y, 90.0f);
+    ship = std::make_unique<objects::Ship>(pt.x, pt.y, 90.0f);
     generateBackground();
     geSound.unmute();
     geMusic.stop();
@@ -401,12 +400,12 @@ void Game::analyzeGameState()
             if (tiPause.inc(time.dt))
             {
                 tiPause.reset();
-                assert(nullptr == ship);
-                if (nullptr == ship)
+                assert(not ship);
+                if (not ship)
                 {
                     gameState = GameState::Run;
                     const auto pt = gameArea.center();
-                    ship = new objects::Ship(pt.x, pt.y, 90.0f);
+                    ship = std::make_unique<objects::Ship>(pt.x, pt.y, 90.0f);
                     ship->respawning = true;
                 }
             }
@@ -507,7 +506,7 @@ void Game::updateObjects()
 
     if (ufo)
     {
-        ufo->pShip = ship;
+        ufo->pShip = ship.get();
         ufo->action(bulletsUfo);
     }
 
@@ -521,11 +520,10 @@ void Game::checkCollisions()
     // ufo-ship collision
     if (ufo)
     {
-        if (ship && !ship->respawning && geom::checkCollision(ship, ufo))
+        if (ship && !ship->respawning && geom::checkCollision(ship.get(), ufo))
         {
             ship->crash(shards);
-            delete ship;
-            ship = nullptr;
+            ship.reset();
             ufo->crash(shards);
             delete ufo;
             ufo = nullptr;
@@ -560,13 +558,12 @@ void Game::checkCollisions()
     {
         for (auto itBullet = bulletsUfo.begin(); itBullet != bulletsUfo.end();)
         {
-            if (geom::checkCollision(ship, *itBullet))
+            if (geom::checkCollision(ship.get(), *itBullet))
             {
                 delete (*itBullet);
                 itBullet = bulletsUfo.erase(itBullet);
                 ship->crash(shards);
-                delete ship;
-                ship = nullptr;
+                ship.reset();
                 break;
             }
             else
@@ -580,11 +577,10 @@ void Game::checkCollisions()
     for (auto itAster = asteroids.begin(); itAster != asteroids.end();)
     {
         bool bIncrement = true;
-        if (ship && !ship->respawning && geom::checkCollision(ship, *itAster))
+        if (ship && !ship->respawning && geom::checkCollision(ship.get(), *itAster))
         {
             ship->crash(shards);
-            delete ship;
-            ship = nullptr;
+            ship.reset();
 
             (*itAster)->crash(vecAstersTmp, shards, bonuses, true);
             delete (*itAster);
@@ -660,7 +656,7 @@ void Game::checkCollisions()
     {
         for (auto it = bonuses.begin(); it != bonuses.end();)
         {
-            if (geom::checkCollision(ship, *it))
+            if (geom::checkCollision(ship.get(), *it))
             {
                 scoreCounter.inc((*it)->scoreReward);
                 if ((*it)->getBonusType() == BonusType::Points)
