@@ -60,7 +60,7 @@ private:
     utils::TimeInterval tiRotateLeft{0.5f};
     utils::TimeInterval tiRotateRight{0.5f};
     utils::TimeInterval tiRespawnBlink{0.3f};
-    utils::TimeInterval tiRespawn{0.3f};
+    utils::TimeInterval tiRespawn{3.0f};
     Float sndEngineGain{};
     SfxSample sndFire;
     SfxSample sndFirePow;
