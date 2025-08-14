@@ -51,8 +51,8 @@ private:
     objects::TempObjects shards; // particles of destroyed objects
     objects::Bonuses bonuses; // bonuses from destroyed asteroids
     objects::Objects starBlinks;
-    std::unique_ptr<objects::Ship> ship; // our ship //TODO: use std::unique_ptr
-    objects::Ufo* ufo; // enemy ufo //TODO: use std::unique_ptr
+    std::unique_ptr<objects::Ship> ship; // our ship
+    std::unique_ptr<objects::Ufo> ufo; // enemy ufo
     GameState gameState;
     int astersCount; // Asteroids starting count. Increases by 1 for level to max 6
     GLuint listBkg1;

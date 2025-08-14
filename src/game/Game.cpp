@@ -163,9 +163,7 @@ void Game::clear()
     clearBackground();
 
     ship.reset();
-
-    if (ufo) delete ufo;
-    ufo = nullptr;
+    ufo.reset();
 
     ::clear(bullets);
     ::clear(bulletsUfo);
@@ -374,7 +372,7 @@ void Game::analyzeGameState()
                     {
                         const Float maxRespownTime{15};
                         tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
-                        ufo = new objects::Ufo;
+                        ufo = std::make_unique<objects::Ufo>();
                         ufo->setPosition(gameArea.randomPosAtEdge());
                     }
                 }
@@ -520,13 +518,12 @@ void Game::checkCollisions()
     // ufo-ship collision
     if (ufo)
     {
-        if (ship && !ship->respawning && geom::checkCollision(ship.get(), ufo))
+        if (ship && !ship->respawning && geom::checkCollision(ship.get(), ufo.get()))
         {
             ship->crash(shards);
             ship.reset();
             ufo->crash(shards);
-            delete ufo;
-            ufo = nullptr;
+            ufo.reset();
             tiUfoRespawn.reset();
         }
     }
@@ -536,14 +533,13 @@ void Game::checkCollisions()
     {
         for (auto itBullet = bullets.begin(); itBullet != bullets.end();)
         {
-            if (geom::checkCollision(ufo, *itBullet))
+            if (geom::checkCollision(ufo.get(), *itBullet))
             {
                 scoreCounter.inc(ufo->scoreReward);
                 delete (*itBullet);
                 itBullet = bullets.erase(itBullet);
                 ufo->crash(shards);
-                delete ufo;
-                ufo = nullptr;
+                ufo.reset();
                 break;
             }
             else
@@ -589,11 +585,10 @@ void Game::checkCollisions()
             if (itAster == asteroids.end()) break;
         };
 
-        if (ufo && geom::checkCollision(ufo, *itAster))
+        if (ufo && geom::checkCollision(ufo.get(), *itAster))
         {
             ufo->crash(shards);
-            delete ufo;
-            ufo = nullptr;
+            ufo.reset();
             tiUfoRespawn.reset();
 
             (*itAster)->crash(vecAstersTmp, shards, bonuses, false);
