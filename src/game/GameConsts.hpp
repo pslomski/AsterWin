@@ -13,7 +13,7 @@
 #define GE_BULLET_SPEED_INC 30.0 // zwiekszenie przedkosci przez PowerUp
 #define GE_BONUS_LIFETIME 15.0 // czas zycia bonusu
 #define GE_NEXT_LIFE_SCORE 2000 // dodatkowe zycie co GE_NEXT_LIFE_SCORE punktow
-#define GE_PAUSE_TIME 2.0
+#define GE_PAUSE_TIME 2.0f
 #define GE_GAMEOVER_PAUSE_TIME 5.0
 #define GE_POWERUP_DURATION_TIME 20.0
 #else
@@ -27,7 +27,7 @@
 #define GE_BULLET_SPEED_INC 30.0 // zwiekszenie przedkosci przez PowerUp
 #define GE_BONUS_LIFETIME 15.0 // czas zycia bonusu
 #define GE_NEXT_LIFE_SCORE 2000 // dodatkowe zycie co GE_NEXT_LIFE_SCORE punktow
-#define GE_PAUSE_TIME 2.0
+#define GE_PAUSE_TIME 2.0f
 #define GE_GAMEOVER_PAUSE_TIME 5.0
 #define GE_POWERUP_DURATION_TIME 20.0
 #endif

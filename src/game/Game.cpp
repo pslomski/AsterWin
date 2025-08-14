@@ -59,31 +59,18 @@ Game::Game() : scoreCounter(std::bind(&Game::onIncrementLives, this))
     sndStartBeep.init(SND_START_BEEP, SND_VOL_START_BEEP);
     sndBonusBeep.init(SND_BONUS_BEEP, SND_VOL_BONUS_BEEP);
     sndPowerUp.init(SND_POWERUP, SND_VOL_POWERUP);
-    tiChangeBroomSoundFreq.interval = GE_TI_CHANGE_BROOM_FREQ;
-    tiFPS.interval = 1.0;
-    ship = nullptr;
-    ufo = nullptr;
-    gameState = GameState::Run;
-    gameLevel = 1;
-    lives = GE_INITIAL_LIVES;
-    listBkg1 = 0;
-    listBkg2 = 0;
-    tiPause.reset(GE_PAUSE_TIME);
-    tiGameStart.reset(1.2);
-    tiUfoRespawn.interval = GE_BASE_UFO_TIME;
-    beepCount = 0;
 }
 
 Game::~Game() {}
 
 void Game::generateBackground()
 {
-    Float col;
+    float col;
     if (!listBkg1)
     {
         listBkg1 = glGenLists(1);
         glNewList(listBkg1, GL_COMPILE);
-        col = 0.4 + randi(21) / 20;
+        col = 0.4 + randi(21) / 20; // TODO: check this formula
         setGlColor(col);
         glBegin(GL_POINTS);
         for (int i = 0; i < 50; ++i)
@@ -98,7 +85,7 @@ void Game::generateBackground()
         listBkg2 = glGenLists(1);
         glNewList(listBkg2, GL_COMPILE);
         glBegin(GL_POINTS);
-        col = 0.6 + randi(21) / 20;
+        col = 0.6 + randi(21) / 20; // TODO: check this formula
         setGlColor(col);
         for (int i = 0; i < 50; ++i)
         {

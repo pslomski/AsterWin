@@ -23,9 +23,9 @@ public:
     Game();
     ~Game();
 
-    int gameLevel;
+    int gameLevel{1};
     ScoreCounter scoreCounter;
-    int lives;
+    int lives{GE_INITIAL_LIVES};
     bool isMusic;
     Float fps{0};
 
@@ -53,22 +53,22 @@ private:
     objects::Objects starBlinks;
     std::unique_ptr<objects::Ship> ship; // our ship
     std::unique_ptr<objects::Ufo> ufo; // enemy ufo
-    GameState gameState;
+    GameState gameState{GameState::Run};
     int astersCount; // Asteroids starting count. Increases by 1 for level to max 6
-    GLuint listBkg1;
-    GLuint listBkg2;
+    GLuint listBkg1{};
+    GLuint listBkg2{};
 
-    utils::TimeInterval tiPause;
-    utils::TimeInterval tiGameStart;
-    utils::TimeInterval tiUfoRespawn;
-    utils::TimeInterval tiFPS;
+    utils::TimeInterval tiPause{GE_PAUSE_TIME};
+    utils::TimeInterval tiGameStart{1.2f};
+    utils::TimeInterval tiUfoRespawn{GE_BASE_UFO_TIME};
+    utils::TimeInterval tiFPS{1.0f};
     int frameCount{0};
     int beepCount{0};
     float pitch{0.5f};
     float gain{0.5f};
     utils::TimeInterval tiBroomSound;
     bool bPitchBroomSound;
-    utils::TimeInterval tiChangeBroomSoundFreq;
+    utils::TimeInterval tiChangeBroomSoundFreq{GE_TI_CHANGE_BROOM_FREQ};
 
     void playStartBeep(float pitch, float gain);
     void generateAsters(int iCount, int iGameLevel);
