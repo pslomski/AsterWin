@@ -110,11 +110,7 @@ void PlayState::draw()
 {
     asterGame.draw();
 
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    setGlView(ui::viewport.width, ui::viewport.height);
     setGlColor(colorWhite);
     GLint w = GLint(ui::viewport.width);
     GLint y = FNTSIZESMALL + 5;

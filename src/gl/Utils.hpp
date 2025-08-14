@@ -18,5 +18,6 @@ inline void setGlColor(const float gray)
 }
 
 bool setVSync(const int interval = 1);
+void setGlView(const int width, const int height, const bool topDown = true);
 
 #endif // USE_ORIG(gl_Utils)

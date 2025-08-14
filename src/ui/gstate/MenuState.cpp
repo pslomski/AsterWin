@@ -3,6 +3,7 @@
 #include "OptionsState.hpp"
 #include "PlayState.hpp"
 #include "StateManager.hpp"
+#include "gl/Utils.hpp"
 #include "log/Log.hpp"
 #include "ui/Viewport.hpp"
 
@@ -103,11 +104,7 @@ void CMenuState::update(const game::TimeDelta dt)
 
 void CMenuState::draw()
 {
-    glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
-    glLoadIdentity(); // Reset The Projection Matrix
-    glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
-    glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
-    glLoadIdentity(); // Reset The Modelview Matrix
+    setGlView(ui::viewport.width, ui::viewport.height);
 
     titleText->draw();
     newGameText->draw();

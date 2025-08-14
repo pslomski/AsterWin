@@ -3,6 +3,7 @@
 #include <basetsd.h>
 #include "MenuState.hpp"
 #include "audio/Sound.hpp"
+#include "gl/Utils.hpp"
 #include "log/Log.hpp"
 #include "ui/Viewport.hpp"
 
@@ -97,21 +98,17 @@ void OptionsState::update(const game::TimeDelta dt)
 
 void OptionsState::draw()
 {
-    static const int BUF_SIZE = 128;
-    static char buf[BUF_SIZE];
+    constexpr auto bufSize{1024u};
+    static char buf[bufSize];
 
-    glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
-    glLoadIdentity(); // Reset The Projection Matrix
-    glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
-    glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
-    glLoadIdentity(); // Reset The Modelview Matrix
+    setGlView(ui::viewport.width, ui::viewport.height);
 
     mTitleText->draw();
 
-    sprintf_s(buf, BUF_SIZE, "Music volume: %d", settings.musicVol);
+    sprintf_s(buf, bufSize, "Music volume: %d", settings.musicVol);
     mMusicVolText->setText(std::string(buf).c_str());
     mMusicVolText->draw();
-    sprintf_s(buf, BUF_SIZE, "Sound volume: %d", settings.soundVol);
+    sprintf_s(buf, bufSize, "Sound volume: %d", settings.soundVol);
     mSoundVolText->setText(std::string(buf).c_str());
     mSoundVolText->draw();
 }

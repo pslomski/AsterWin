@@ -677,11 +677,7 @@ void Game::checkCollisions()
 
 void Game::draw()
 {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, gameArea.width(), 0, gameArea.height(), -1, 1);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    setGlView(gameArea.width(), gameArea.height(), false);
 
     glPointSize(1);
     glCallList(listBkg1);

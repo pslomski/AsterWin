@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include "MenuState.hpp"
+#include "gl/Utils.hpp"
 #include "log/Log.hpp"
 #include "ui/Viewport.hpp"
 
@@ -104,11 +105,7 @@ void HighScoreState::onChar(WPARAM wChar)
 
 void HighScoreState::draw()
 {
-    glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
-    glLoadIdentity(); // Reset The Projection Matrix
-    glOrtho(0, ui::viewport.width, ui::viewport.height, 0, -1, 1);
-    glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
-    glLoadIdentity(); // Reset The Modelview Matrix
+    setGlView(ui::viewport.width, ui::viewport.height);
 
     highScore->draw();
     ui::Rectanglei rcNum = entriesRect;
