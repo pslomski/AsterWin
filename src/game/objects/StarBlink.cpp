@@ -10,19 +10,16 @@ namespace game::objects
 {
 StarBlink::StarBlink() : TempObject()
 {
+    constexpr float d{0.1f};
+    bounds = {.x0 = -d, .y0 = -d, .x1 = d, .y1 = d};
     setColor(colorWhite);
-    bounds.x0 = -0.1f;
-    bounds.x1 = 0.1f;
-    bounds.y0 = -0.1f;
-    bounds.y1 = 0.1f;
     init();
 }
 
 void StarBlink::init()
 {
     size = 1.0f + randi(2);
-    lifeTime.reset();
-    lifeTime.interval = 2.0f + 1.0f * randi(30);
+    lifeTime.reset(2.0f + 0.1f * randi(20));
     setPosition(randi(gameArea.widthi()), randi(gameArea.heighti()));
 }
 
@@ -34,13 +31,13 @@ void StarBlink::update()
     }
 
     TempObject::update();
-    ratio = std::sin(lifeTime.ratio() * pi);
+    ratio = std::sinf(lifeTime.ratio() * pi);
 }
 
 void StarBlink::onRender() const
 {
     setGlColor(color * ratio);
-    glPointSize(GLfloat(size));
+    glPointSize(size);
     glBegin(GL_POINTS);
     glVertex2f(0.0f, 0.0f);
     glEnd();

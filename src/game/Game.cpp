@@ -222,7 +222,7 @@ bool Game::reset()
     bPitchBroomSound = false;
     tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
     tiUfoRespawn.reset(GE_BASE_UFO_TIME + randi(4));
-    for (int i = 0; i < 20; ++i)
+    for (int i = 0; i < 30; ++i)
         starBlinks.push_back(new objects::StarBlink());
     return true;
 };
