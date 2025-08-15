@@ -70,7 +70,7 @@ void Game::generateBackground()
     {
         listBkg1 = glGenLists(1);
         glNewList(listBkg1, GL_COMPILE);
-        col = 0.4 + randi(21) / 20; // TODO: check this formula
+        col = 0.4f + randi(4) / 10.0f;
         setGlColor(col);
         glBegin(GL_POINTS);
         for (int i = 0; i < 50; ++i)
@@ -85,7 +85,7 @@ void Game::generateBackground()
         listBkg2 = glGenLists(1);
         glNewList(listBkg2, GL_COMPILE);
         glBegin(GL_POINTS);
-        col = 0.6 + randi(21) / 20; // TODO: check this formula
+        col = 0.6f + randi(4) / 10.0f;
         setGlColor(col);
         for (int i = 0; i < 50; ++i)
         {

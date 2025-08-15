@@ -11,7 +11,7 @@ class TestRand : public Test
 {
 };
 
-TEST_F(TestRand, testRandu32InRange)
+TEST_F(TestRand, isInRange)
 {
     for (int i = 0; i < 100; ++i)
     {
