@@ -6,10 +6,10 @@ namespace game::objects
 {
 ShipShards::ShipShards() : TempObject()
 {
-    const auto d = 0.15f + 0.1f * randi(2);
-    lifeTime.interval = 1.3f + randi(9) * 0.1f;
+    lifeTime.interval = rand(1.3f, 2.1f);
+    const auto d = 0.1f;
     bounds = {.x0 = -d, .y0 = -d, .x1 = d, .y1 = d};
-    setRotSpeedDeg(720.0f + randi(300));
+    setRotSpeedDeg(rand(720.f, 1020.0f));
 }
 
 void ShipShards::update()

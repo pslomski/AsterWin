@@ -7,11 +7,9 @@ namespace game::objects
 {
 AsterShards::AsterShards() : TempObject()
 {
-    lifeTime.interval = 1.5f + 0.1f * randi(9);
-    bounds.x0 = -0.1f;
-    bounds.x1 = 0.1f;
-    bounds.y0 = -0.1f;
-    bounds.y1 = 0.1f;
+    lifeTime.interval = rand(1.5f, 2.3f);
+    constexpr auto r{0.1f};
+    bounds = {.x0 = -r, .y0 = -r, .x1 = r, .y1 = r};
 }
 
 void AsterShards::update()

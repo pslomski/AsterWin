@@ -31,25 +31,25 @@ PointF GameArea::center() const
 PointF GameArea::randomPosAtEdge() const
 {
     PointF pt;
-    int iSide = randi(4);
+    int iSide = rand(4);
     if (0 == iSide)
     {
         pt.x = bounds.x0;
-        pt.y = randi(static_cast<int>(bounds.height()));
+        pt.y = rand(static_cast<int>(bounds.height()));
     }
     else if (1 == iSide)
     {
         pt.x = bounds.x1;
-        pt.y = randi(static_cast<int>(bounds.height()));
+        pt.y = rand(static_cast<int>(bounds.height()));
     }
     else if (2 == iSide)
     {
-        pt.x = randi(static_cast<int>(bounds.width()));
+        pt.x = rand(static_cast<int>(bounds.width()));
         pt.y = bounds.y0;
     }
     else
     {
-        pt.x = randi(static_cast<int>(bounds.width()));
+        pt.x = rand(static_cast<int>(bounds.width()));
         pt.y = bounds.y1;
     }
     return pt;

@@ -37,7 +37,7 @@ public:
     }
     void setV(const Float av);
     void setVA(const Float av, const Float angleRad);
-    void setRandV(const Float vmin, const Float vmax);
+    void setRandV(const float vmin, const float vmax);
     Float getVX() const { return v.x; }
     Float getVY() const { return v.y; }
     Float getV() const;

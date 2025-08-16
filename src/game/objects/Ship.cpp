@@ -192,11 +192,11 @@ void Ship::crash(TempObjects& vecObiekty)
     {
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
-        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + randi(16) - 8.0f);
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + rand(-8.0f, 8.0f));
         pDeb->setPosition(state.pos);
-        Float vRand = 15.0F + randi(5);
-        Float vx = getVX() + vRand * std::cos(pDeb->getAngleRad());
-        Float vy = getVY() + vRand * std::sin(pDeb->getAngleRad());
+        const auto vRand = rand(15.0f, 20.0f);
+        const auto vx = getVX() + vRand * std::cosf(pDeb->getAngleRad());
+        const auto vy = getVY() + vRand * std::sinf(pDeb->getAngleRad());
         pDeb->setV(vx, vy);
         vecObiekty.push_back(pDeb);
     }
@@ -206,11 +206,11 @@ void Ship::crash(TempObjects& vecObiekty)
     {
         ShipShards* pDeb = new ShipShards;
         pDeb->setColor(color);
-        pDeb->setAngleDeg(getAngleDeg() + i * 360.0F / iDebCount + randi(16) - 8.0f);
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + rand(-8.0f, 8.0f));
         pDeb->setPosition(state.pos);
-        Float vRand = 3.0f + randi(15);
-        Float vx = 0.8 * getVX() + vRand * std::cos(pDeb->getAngleRad());
-        Float vy = 0.8 * getVY() + vRand * std::sin(pDeb->getAngleRad());
+        Float vRand = rand(3.0f, 18.0f);
+        Float vx = 0.8f * getVX() + vRand * std::cosf(pDeb->getAngleRad());
+        Float vy = 0.8f * getVY() + vRand * std::sinf(pDeb->getAngleRad());
         pDeb->setV(vx, vy);
         vecObiekty.push_back(pDeb);
     }

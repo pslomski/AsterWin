@@ -18,9 +18,9 @@ StarBlink::StarBlink() : TempObject()
 
 void StarBlink::init()
 {
-    size = 1.0f + randi(2);
-    lifeTime.reset(2.0f + 0.1f * randi(20));
-    setPosition(randi(gameArea.widthi()), randi(gameArea.heighti()));
+    size = rand(1.0f, 2.0f);
+    lifeTime.reset(rand(2.0f, 2.2f));
+    setPosition(rand(gameArea.widthi()), rand(gameArea.heighti()));
 }
 
 void StarBlink::update()

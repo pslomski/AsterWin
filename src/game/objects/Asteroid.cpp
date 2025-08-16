@@ -28,7 +28,7 @@ void Asteroid::create()
         scoreReward = GE_SCRVAL_ASTER1;
         R = 3.9f;
         degDelta = 36.0f;
-        setRotSpeedDeg(randi(60) - 120.0f);
+        setRotSpeedDeg(rand(-60.0f, 60.0f));
         sndCrash.init(SND_ASTER_CRASH1, SND_VOL_ASTER_CRASH1);
     }
     else if (level == 2)
@@ -36,7 +36,7 @@ void Asteroid::create()
         scoreReward = GE_SCRVAL_ASTER2;
         R = 2.8f;
         degDelta = 52.0f;
-        setRotSpeedDeg(randi(80) - 160.0f);
+        setRotSpeedDeg(rand(-80.0f, 80.0f));
         sndCrash.init(SND_ASTER_CRASH2, SND_VOL_ASTER_CRASH2);
     }
     else if (level >= 3)
@@ -44,18 +44,18 @@ void Asteroid::create()
         scoreReward = GE_SCRVAL_ASTER3;
         R = 1.7f;
         degDelta = 72.0f;
-        setRotSpeedDeg(randi(100) - 200.0f);
+        setRotSpeedDeg(rand(-100.0f, 100.0f));
         sndCrash.init(SND_ASTER_CRASH3, SND_VOL_ASTER_CRASH3);
     }
 
     verts.clear();
-    for (Float deg = 0.0f; deg < 310.0f; deg += degDelta + (randi(18) - 9))
+    for (float deg = 0.0f; deg < 310.0f; deg += degDelta + rand(-9.0f, 9.0f))
     {
         PointF pt;
-        Float R2 = R * (0.7f + randi(30) / 100.0f);
+        float R2 = R * (0.7f + rand(0.0f, 0.3f));
         const auto angleRad = degToRad(deg);
-        pt.x = R2 * std::cos(angleRad);
-        pt.y = R2 * std::sin(angleRad);
+        pt.x = R2 * std::cosf(angleRad);
+        pt.y = R2 * std::sinf(angleRad);
         verts.push_back(pt);
     }
     bounds = geom::calcBounds(verts);
@@ -87,12 +87,12 @@ BonusType getBonusType()
         ++AsterCount;
         return BonusType::None;
     }
-    int rnd = randi(40);
+    int rnd = rand(40);
     if (rnd < RandCount)
     {
         RandCount = 0;
         AsterCount = 0;
-        BonusType bt = BonusType(randi(2));
+        BonusType bt = BonusType(rand(2));
         if (bt == btLast)
         {
             switch (btLast)
@@ -128,20 +128,20 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     {
         iAsterCount = 2;
         iDebCount = GE_ASTER1_DEBR_COUNT;
-        LifeTime = 1.1f + randi(7) * 0.1f;
+        LifeTime = 1.1f + rand(0.0f, 0.7f);
     }
     else if (level == 2)
     {
         iAsterCount = 2;
         iDebCount = GE_ASTER2_DEBR_COUNT;
-        LifeTime = 0.8f + randi(7) * 0.1F;
+        LifeTime = 0.8f + rand(0.0f, 0.7f);
         BonusType = BonusType::Points;
     }
     else
     {
         iAsterCount = 0;
         iDebCount = GE_ASTER3_DEBR_COUNT;
-        LifeTime = 0.5f + randi(7) * 0.1f;
+        LifeTime = 0.5f + rand(0.0f, 0.7f);
         BonusType = getBonusType();
     }
 
@@ -159,7 +159,7 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     for (int i = 0; i < iAsterCount; ++i)
     {
         Asteroid* pAster = new Asteroid(level + 1);
-        pAster->setAngleDeg(getAngleDeg() + i * 180.0f - 90.0f + randi(50) - 25.0f);
+        pAster->setAngleDeg(getAngleDeg() + i * 180.0f - rand(65.0f, 115.0f));
         const auto angleRad = pAster->getAngleRad();
         Float x = state.pos.x + 3.0f * std::cos(angleRad);
         Float y = state.pos.y + 3.0f * std::sin(angleRad);
@@ -171,10 +171,10 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
     for (int i = 0; i < iDebCount; ++i)
     {
         AsterShards* pDeb = new AsterShards;
-        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + randi(16) - 8.0f);
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + rand(-8.0f, 8.0f));
         pDeb->setPosition(state.pos);
         pDeb->lifeTime.interval = LifeTime;
-        Float vRand = 5.0f + randi(15);
+        const auto vRand = rand(5.0f, 20.0f);
         const auto angleRad = pDeb->getAngleRad();
         Float vx = 0.8f * getVX() + vRand * std::cos(angleRad);
         Float vy = 0.8f * getVY() + vRand * std::sin(angleRad);

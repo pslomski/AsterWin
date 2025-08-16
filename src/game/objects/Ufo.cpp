@@ -76,12 +76,12 @@ void Ufo::action(Bullets& bullets)
         if (pAster) RAst = geom::distance(state.pos, pAster->state.pos);
         if (pShip and RShp < SafeDist)
         {
-            int sgn = randi(2) ? -1 : 1;
+            int sgn = rand(2) ? -1 : 1;
             setVA(10.0f, degToRad(pShip->getAngleDeg() + 90.0f * sgn));
         }
         if (pAster and RAst < SafeDist)
         {
-            int sgn = randi(2) ? -1 : 1;
+            int sgn = rand(2) ? -1 : 1;
             setVA(10.0f, degToRad(pAster->getAngleDeg() + 90.0f * sgn));
         }
         else
@@ -125,7 +125,7 @@ Bullet* Ufo::fireBullet(const PointF& pt)
     bullet->lifeTime.interval = 3.0f;
     bullet->setPosition(state.pos);
     const auto angleDeg = std::atan2f(pt.y - state.pos.y, pt.x - state.pos.x) * 180.0f / pi;
-    bullet->setAngleDeg(angleDeg + randi(6) - 3.0f);
+    bullet->setAngleDeg(angleDeg + rand(-3.0f, 3.0f));
     bullet->setV(speed);
     bullet->setColor(color);
     return bullet;
@@ -139,13 +139,13 @@ void Ufo::crash(TempObjects& vecObiekty)
     {
         AsterShards* pDeb = new AsterShards;
         pDeb->setColor(color);
-        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + randi(16) - 8.0f);
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + rand(-8.0f, 8.0f));
         pDeb->setPosition(state.pos);
-        const Float vRand = 3.0f + randi(15);
-        const Float vx = 0.8f * getVX() + vRand * std::cos(pDeb->getAngleRad());
-        const Float vy = 0.8f * getVY() + vRand * std::sin(pDeb->getAngleRad());
+        const auto vRand = rand(3.0f, 17.0f);
+        const auto vx = 0.8f * getVX() + vRand * std::cosf(pDeb->getAngleRad());
+        const auto vy = 0.8f * getVY() + vRand * std::sinf(pDeb->getAngleRad());
         pDeb->setV(vx, vy);
-        pDeb->setRotSpeedDeg(randi(200) - 400.0f);
+        pDeb->setRotSpeedDeg(rand(-200.0f, 200.0f));
         vecObiekty.push_back(pDeb);
     }
 }
