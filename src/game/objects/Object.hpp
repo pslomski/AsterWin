@@ -13,7 +13,6 @@
 #include "game/types/ObjectGeom.hpp"
 #include "game/types/Point.hpp"
 #include "game/types/Position.hpp"
-#include "game/types/Types.hpp"
 #include "game/types/Vector.hpp"
 
 namespace game::objects
@@ -24,37 +23,37 @@ public:
     virtual ~Object();
 
     void move();
-    void setPosition(const Float x, const Float y) { setPosition({x, y}); }
+    void setPosition(const float x, const float y) { setPosition({x, y}); }
     void setPosition(const PointF& pt)
     {
         state.pos = pt;
         statep.pos = pt;
     }
-    void setV(const Float avx, const Float avy)
+    void setV(const float avx, const float avy)
     {
         v.x = avx;
         v.y = avy;
     }
-    void setV(const Float av);
-    void setVA(const Float av, const Float angleRad);
+    void setV(const float av);
+    void setVA(const float av, const float angleRad);
     void setRandV(const float vmin, const float vmax);
-    Float getVX() const { return v.x; }
-    Float getVY() const { return v.y; }
-    Float getV() const;
-    void setA(const Float aa);
-    Float getA() const { return fa; }
-    void setAngleRad(const Float angleRadArg)
+    float getVX() const { return v.x; }
+    float getVY() const { return v.y; }
+    float getV() const;
+    void setA(const float aa);
+    float getA() const { return fa; }
+    void setAngleRad(const float angleRadArg)
     {
         state.angleRad = normalizeAngleRad(angleRadArg);
         statep.angleRad = state.angleRad;
     }
-    void setAngleDeg(const Float angleDegArg) { setAngleRad(degToRad(angleDegArg)); }
-    Float getAngleDeg() const { return radToDeg(state.angleRad); }
-    Float getAngleRad() const { return state.angleRad; }
-    void setRotSpeedRad(const Float omegaRadArg) { omegaRad = omegaRadArg; }
-    void setRotSpeedDeg(const Float omegaDegArg) { setRotSpeedRad(degToRad(omegaDegArg)); }
-    Float getRotSpeedRad() const { return omegaRad; }
-    Float getRotSpeedDeg() const { return radToDeg(omegaRad); }
+    void setAngleDeg(const float angleDegArg) { setAngleRad(degToRad(angleDegArg)); }
+    float getAngleDeg() const { return radToDeg(state.angleRad); }
+    float getAngleRad() const { return state.angleRad; }
+    void setRotSpeedRad(const float omegaRadArg) { omegaRad = omegaRadArg; }
+    void setRotSpeedDeg(const float omegaDegArg) { setRotSpeedRad(degToRad(omegaDegArg)); }
+    float getRotSpeedRad() const { return omegaRad; }
+    float getRotSpeedDeg() const { return radToDeg(omegaRad); }
     void setColor(const Color& colorArg) { color = colorArg; }
     virtual void update() { move(); }
     void draw() const;
@@ -70,16 +69,16 @@ public:
     int scoreReward{};
 
 protected:
-    Float friction{};
+    float friction{};
     Color color;
 
 private:
     virtual void onRender() const {} // Draws Object in its own coordinate system
 
-    Float omegaRad{};
+    float omegaRad{};
     types::Vector v{};
     types::Vector a{};
-    Float fa{};
+    float fa{};
 };
 } // namespace game::objects
 

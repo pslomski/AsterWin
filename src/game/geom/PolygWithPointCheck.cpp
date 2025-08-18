@@ -7,11 +7,11 @@
 
 namespace
 {
-PointF rotate(const PointF& pt, const Float angleRad)
+PointF rotate(const PointF& pt, const float angleRad)
 {
     PointF res;
-    Float sinalfa = std::sin(-angleRad);
-    Float cosalfa = std::cos(-angleRad);
+    float sinalfa = std::sin(-angleRad);
+    float cosalfa = std::cos(-angleRad);
     res.x = pt.x * cosalfa + pt.y * sinalfa;
     res.y = pt.x * sinalfa + pt.y * cosalfa;
     return res;
@@ -23,7 +23,7 @@ namespace game::geom
 bool checkPolygWithPoint(const objects::Object* point, const objects::Object* polygon)
 {
     BoxF o1;
-    Float x, y;
+    float x, y;
     // take the displacement vector of the point
     const BoxF o2{point->statep.pos.x, point->statep.pos.y, point->state.pos.x, point->state.pos.y};
     for (unsigned int i1 = 0; i1 < polygon->verts.size(); ++i1)

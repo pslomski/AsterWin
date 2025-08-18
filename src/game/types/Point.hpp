@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include "Types.hpp"
 
 template <class T>
 struct Point
@@ -10,5 +9,5 @@ struct Point
     T y;
 };
 
-using PointF = Point<Float>;
+using PointF = Point<float>;
 using PointsF = std::vector<PointF>;

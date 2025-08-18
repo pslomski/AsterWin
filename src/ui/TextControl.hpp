@@ -21,9 +21,9 @@ public:
 
     void setText(const std::string& strText) { text = strText; }
     void setAlignement(const TextAlignement Alignement) { alignement = Alignement; }
-    void update(const Float timeDelta);
+    void update(const float timeDelta);
     void draw();
-    void setTextColor(Float fRed, Float fGreen, Float fBlue);
+    void setTextColor(const float red, const float green, const float blue);
     void setBlink(bool in_bBlink);
     ui::Rectanglei position;
 

@@ -9,7 +9,7 @@ class TempObject : public Object
 {
 public:
     TempObject();
-    explicit TempObject(const Float lifeTimeArg);
+    explicit TempObject(const float lifeTimeArg);
     virtual bool expired();
 
     utils::TimeInterval lifeTime;

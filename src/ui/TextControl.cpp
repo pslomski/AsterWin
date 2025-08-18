@@ -9,7 +9,7 @@ TextControl::TextControl(Font* pFont, const ui::Rectanglei& rectPosition)
 
 TextControl::~TextControl() {}
 
-void TextControl::update(const Float timeDelta)
+void TextControl::update(const float timeDelta)
 {
     if (tiBlink.inc(timeDelta))
     {
@@ -43,11 +43,11 @@ void TextControl::draw()
     font->drawText(text, xPos, yPos, color * factor);
 }
 
-void TextControl::setTextColor(Float fRed, Float fGreen, Float fBlue)
+void TextControl::setTextColor(const float red, const float green, const float blue)
 {
-    color.red = fRed;
-    color.green = fGreen;
-    color.blue = fBlue;
+    color.red = red;
+    color.green = green;
+    color.blue = blue;
 }
 
 void TextControl::setBlink(bool in_bBlink)

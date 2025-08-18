@@ -6,7 +6,7 @@
 // result:
 // true - is inside the polygon
 // false - is outside the polygon
-bool isPointInPolygon(const int nvert, const PointsF& verts, const Float testx, const Float testy)
+bool isPointInPolygon(const int nvert, const PointsF& verts, const float testx, const float testy)
 {
     bool c = false;
     int i, j = 0;

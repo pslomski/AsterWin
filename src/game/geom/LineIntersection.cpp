@@ -8,10 +8,10 @@
 // 2 - intersection lies on o2 but outside o1; x, y contain the intersection point
 // 3 - lines intersect but outside the segments; x, y contain the intersection point
 // 4 - segments are parallel
-int linesIntersection(const BoxF& o1, const BoxF& o2, Float& x, Float& y)
+int linesIntersection(const BoxF& o1, const BoxF& o2, float& x, float& y)
 {
-    Float ua, ub;
-    Float la, lb, m; // numerator and denominator
+    float ua, ub;
+    float la, lb, m; // numerator and denominator
     m = (o2.y1 - o2.y0) * (o1.x1 - o1.x0) - (o2.x1 - o2.x0) * (o1.y1 - o1.y0);
     if (std::fabs(m) < 1e-6)
     {

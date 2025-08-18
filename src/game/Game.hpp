@@ -12,7 +12,6 @@
 #include "game/objects/TempObjects.hpp"
 #include "game/objects/Ufo.hpp"
 #include "types/GameState.hpp"
-#include "types/Types.hpp"
 #include "utils/TimeInterval.hpp"
 
 namespace game
@@ -27,7 +26,7 @@ public:
     ScoreCounter scoreCounter;
     int lives{GE_INITIAL_LIVES};
     bool isMusic;
-    Float fps{0};
+    float fps{0};
 
     bool key[256]; // Array Used For The Keyboard Routine
     bool keypress[256]; // Array Used For The Keyboard Routine

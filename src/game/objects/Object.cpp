@@ -19,20 +19,20 @@ Object::~Object()
     }
 }
 
-void Object::setA(const Float aa)
+void Object::setA(const float aa)
 {
     fa = aa;
     a.x = fa * std::cos(state.angleRad);
     a.y = fa * std::sin(state.angleRad);
 }
 
-void Object::setV(const Float av)
+void Object::setV(const float av)
 {
     v.x = av * std::cos(state.angleRad);
     v.y = av * std::sin(state.angleRad);
 }
 
-void Object::setVA(const Float av, const Float angleRad)
+void Object::setVA(const float av, const float angleRad)
 {
     v.x = av * std::cos(angleRad);
     v.y = av * std::sin(angleRad);
@@ -45,7 +45,7 @@ void Object::setRandV(const float vmin, const float vmax)
     setV(vRand * std::cosf(angleRad), vRand * std::sinf(angleRad));
 }
 
-Float Object::getV() const
+float Object::getV() const
 {
     return std::sqrt(v.x * v.x + v.y * v.y);
 }

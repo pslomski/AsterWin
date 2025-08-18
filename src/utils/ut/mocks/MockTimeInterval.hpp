@@ -4,7 +4,6 @@
 #if not USE_ORIG(utils_TimeInterval)
 
 #include <gmock/gmock.h>
-#include "game/types/Types.hpp"
 
 namespace utils
 {
@@ -12,17 +11,17 @@ class TimeInterval
 {
 public:
     TimeInterval() {}
-    TimeInterval(const Float intervalArg) : interval{intervalArg} {}
+    TimeInterval(const float intervalArg) : interval{intervalArg} {}
 
-    MOCK_METHOD(Float, get, (), (const));
+    MOCK_METHOD(float, get, (), (const));
     MOCK_METHOD(void, reset, ());
-    MOCK_METHOD(void, reset, (const Float newInterval));
-    MOCK_METHOD(bool, inc, (const Float dt));
+    MOCK_METHOD(void, reset, (const float newInterval));
+    MOCK_METHOD(bool, inc, (const float dt));
     MOCK_METHOD(bool, expired, (), (const));
-    MOCK_METHOD(Float, ratio, (), (const));
+    MOCK_METHOD(float, ratio, (), (const));
 
-    Float interval;
-    Float elapsed{};
+    float interval;
+    float elapsed{};
 };
 } // namespace utils
 

@@ -9,10 +9,10 @@ namespace utils
 {
 struct TestIsPointInPolygonParam
 {
-    size_t npol{0};
+    size_t npol{};
     PointsF points{};
-    Float x{0.0};
-    Float y{0.0};
+    float x{};
+    float y{};
     bool expected{};
 };
 

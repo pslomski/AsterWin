@@ -5,7 +5,7 @@ namespace game::objects
 {
 TempObject::TempObject() : Object() {}
 
-TempObject::TempObject(const Float lifeTimeArg) : Object(), lifeTime{lifeTimeArg} {}
+TempObject::TempObject(const float lifeTimeArg) : Object(), lifeTime{lifeTimeArg} {}
 
 bool TempObject::expired()
 {

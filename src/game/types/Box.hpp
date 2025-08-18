@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cassert>
-#include "Types.hpp"
 
 template <class T>
 struct Box
@@ -24,4 +23,4 @@ struct Box
     T y1;
 };
 
-using BoxF = Box<Float>;
+using BoxF = Box<float>;

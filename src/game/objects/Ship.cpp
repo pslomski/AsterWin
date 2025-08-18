@@ -12,7 +12,7 @@
 
 namespace game::objects
 {
-Ship::Ship(const Float xArg, const Float yArg, const Float angleArg)
+Ship::Ship(const float xArg, const float yArg, const float angleArg)
     : Object(), puAddBullet(GE_POWERUP_DURATION_TIME), puBulletSpeed(GE_POWERUP_DURATION_TIME)
 {
     geometryType = GeometryType::Polyg;
@@ -56,7 +56,7 @@ void Ship::update()
             tiRespawnBlink.reset();
             bDarken = !bDarken;
         }
-        Float d = bDarken ? 0.5f : 1.0f;
+        float d = bDarken ? 0.5f : 1.0f;
         respBlinkColRatio = 0.5f * (1.0f + tiRespawnBlink.ratio()) * d;
     }
     else
@@ -78,10 +78,10 @@ void Ship::update()
     colorCurr = color;
     if (puAddBullet.isActive())
     {
-        Float alfa = 2.0f * pi * puAddBullet.duration.elapsed;
-        Float sina = std::sin(alfa);
+        const auto alfa = 2.0f * pi * puAddBullet.duration.elapsed;
+        float sina = std::sin(alfa);
         sina *= sina;
-        Float cosa = std::cos(alfa);
+        float cosa = std::cos(alfa);
         cosa *= cosa;
         Color cl1{colorBonusPoints};
         cl1 = cl1 * sina;
@@ -93,10 +93,10 @@ void Ship::update()
     }
     if (puBulletSpeed.isActive())
     {
-        Float alfa = 2.0f * pi * puBulletSpeed.duration.elapsed;
-        Float sina = std::sin(alfa);
+        const float alfa = 2.0f * pi * puBulletSpeed.duration.elapsed;
+        float sina = std::sin(alfa);
         sina *= sina;
-        Float cosa = std::cos(alfa);
+        float cosa = std::cos(alfa);
         cosa *= cosa;
         Color cl1{colorBonusBulletSpeed};
         cl1 = cl1 * sina;
@@ -176,8 +176,8 @@ Bullet* Ship::fireBullet()
     bullet->setPosition(state.pos);
     const auto angleRad = getAngleRad();
     bullet->setAngleRad(angleRad);
-    Float vx = getVX() + bulletSpeed * std::cos(angleRad);
-    Float vy = getVY() + bulletSpeed * std::sin(angleRad);
+    const auto vx = getVX() + bulletSpeed * std::cos(angleRad);
+    const auto vy = getVY() + bulletSpeed * std::sin(angleRad);
     bullet->setV(vx, vy);
     bullet->setColor(color);
     return bullet;
@@ -208,9 +208,9 @@ void Ship::crash(TempObjects& vecObiekty)
         pDeb->setColor(color);
         pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + rand(-8.0f, 8.0f));
         pDeb->setPosition(state.pos);
-        Float vRand = rand(3.0f, 18.0f);
-        Float vx = 0.8f * getVX() + vRand * std::cosf(pDeb->getAngleRad());
-        Float vy = 0.8f * getVY() + vRand * std::sinf(pDeb->getAngleRad());
+        const auto vRand = rand(3.0f, 18.0f);
+        const auto vx = 0.8f * getVX() + vRand * std::cosf(pDeb->getAngleRad());
+        const auto vy = 0.8f * getVY() + vRand * std::sinf(pDeb->getAngleRad());
         pDeb->setV(vx, vy);
         vecObiekty.push_back(pDeb);
     }

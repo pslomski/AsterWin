@@ -19,7 +19,7 @@ bool checkCollision(const objects::Object* pObiekt1, const objects::Object* pObi
         if (GeometryType::Polyg == pObiekt1->geometryType)
         {
             BoxF o1, o2;
-            Float _x, _y;
+            float _x, _y;
             if (GeometryType::Polyg == pObiekt->geometryType)
             {
                 for (unsigned int i1 = 0; i1 < pObiekt1->verts.size(); ++i1)

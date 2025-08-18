@@ -20,7 +20,7 @@ namespace game::objects
 class Ship : public Object
 {
 public:
-    Ship(const Float xArg, const Float yArg, const Float angleArg);
+    Ship(const float xArg, const float yArg, const float angleArg);
     ~Ship();
 
     void update() override;
@@ -37,7 +37,7 @@ public:
 
     bool respawning{false};
     unsigned int maxBullets{GE_INITIAL_MAX_BULLETS};
-    Float bulletSpeed{GE_INITIAL_BULLET_SPEED};
+    float bulletSpeed{GE_INITIAL_BULLET_SPEED};
     SfxSample sndEngine;
 
 private:
@@ -46,13 +46,13 @@ private:
     PowerUpAddBullets puAddBullet;
     PowerUpBulletSpeed puBulletSpeed;
     Color colorCurr;
-    Float boostLength{};
-    Float accel{20.0f}; // ~2g
-    Float accelBurst{15.0f};
-    Float accelMax{accel + accelBurst};
-    Float rotationSpeedDeg{GE_SHIP_ROT_SPEED};
+    float boostLength{};
+    float accel{20.0f}; // ~2g
+    float accelBurst{15.0f};
+    float accelMax{accel + accelBurst};
+    float rotationSpeedDeg{GE_SHIP_ROT_SPEED};
     bool faccelerated{false};
-    Float respBlinkColRatio{1.0f};
+    float respBlinkColRatio{1.0f};
     bool bDarken{false}; // temporary darkening of the ship
     Color clEngine;
     utils::TimeInterval tiAccel{0.5f};
@@ -61,7 +61,7 @@ private:
     utils::TimeInterval tiRotateRight{0.5f};
     utils::TimeInterval tiRespawnBlink{0.3f};
     utils::TimeInterval tiRespawn{3.0f};
-    Float sndEngineGain{};
+    float sndEngineGain{};
     SfxSample sndFire;
     SfxSample sndFirePow;
     SfxSample sndCrash;

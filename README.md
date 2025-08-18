@@ -42,7 +42,7 @@ output is
   Asteroids.exe
 
 ## Run UTs
-ctest --test-dir build --output-on-failure|tee out.txt
+ctest --test-dir build --output-on-failure -R TestCase|tee out.txt
 
 ## Links 
 Managing game states based on article "TetroGL: An OpenGL Game Tutorial in C++ for Win32 platforms - Part 3"

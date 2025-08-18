@@ -21,8 +21,8 @@ Asteroid::Asteroid(const int levelArg) : Object(), level{levelArg}
 
 void Asteroid::create()
 {
-    Float degDelta{0.0f};
-    Float R{1.0f};
+    float degDelta{0.0f};
+    float R{1.0f};
     if (level == 1)
     {
         scoreReward = GE_SCRVAL_ASTER1;
@@ -121,27 +121,27 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
 {
     sndCrash.play();
 
-    int iDebCount, iAsterCount;
-    Float LifeTime;
+    int debCount, asterCount;
+    float lifeTime;
     BonusType BonusType = BonusType::None;
     if (level == 1)
     {
-        iAsterCount = 2;
-        iDebCount = GE_ASTER1_DEBR_COUNT;
-        LifeTime = 1.1f + rand(0.0f, 0.7f);
+        asterCount = 2;
+        debCount = GE_ASTER1_DEBR_COUNT;
+        lifeTime = 1.1f + rand(0.0f, 0.7f);
     }
     else if (level == 2)
     {
-        iAsterCount = 2;
-        iDebCount = GE_ASTER2_DEBR_COUNT;
-        LifeTime = 0.8f + rand(0.0f, 0.7f);
+        asterCount = 2;
+        debCount = GE_ASTER2_DEBR_COUNT;
+        lifeTime = 0.8f + rand(0.0f, 0.7f);
         BonusType = BonusType::Points;
     }
     else
     {
-        iAsterCount = 0;
-        iDebCount = GE_ASTER3_DEBR_COUNT;
-        LifeTime = 0.5f + rand(0.0f, 0.7f);
+        asterCount = 0;
+        debCount = GE_ASTER3_DEBR_COUNT;
+        lifeTime = 0.5f + rand(0.0f, 0.7f);
         BonusType = getBonusType();
     }
 
@@ -156,28 +156,28 @@ void Asteroid::crash(Asteroids& asteroids, TempObjects& shards, Bonuses& bonuses
         }
     }
 
-    for (int i = 0; i < iAsterCount; ++i)
+    for (int i = 0; i < asterCount; ++i)
     {
         Asteroid* pAster = new Asteroid(level + 1);
         pAster->setAngleDeg(getAngleDeg() + i * 180.0f - rand(65.0f, 115.0f));
         const auto angleRad = pAster->getAngleRad();
-        Float x = state.pos.x + 3.0f * std::cos(angleRad);
-        Float y = state.pos.y + 3.0f * std::sin(angleRad);
+        const auto x = state.pos.x + 3.0f * std::cosf(angleRad);
+        const auto y = state.pos.y + 3.0f * std::sinf(angleRad);
         pAster->setPosition(x, y);
-        pAster->setV(getV() * 1.3);
+        pAster->setV(getV() * 1.3f);
         asteroids.push_back(pAster);
     }
 
-    for (int i = 0; i < iDebCount; ++i)
+    for (int i = 0; i < debCount; ++i)
     {
         AsterShards* pDeb = new AsterShards;
-        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / iDebCount + rand(-8.0f, 8.0f));
+        pDeb->setAngleDeg(getAngleDeg() + i * 360.0f / debCount + rand(-8.0f, 8.0f));
         pDeb->setPosition(state.pos);
-        pDeb->lifeTime.interval = LifeTime;
+        pDeb->lifeTime.interval = lifeTime;
         const auto vRand = rand(5.0f, 20.0f);
         const auto angleRad = pDeb->getAngleRad();
-        Float vx = 0.8f * getVX() + vRand * std::cos(angleRad);
-        Float vy = 0.8f * getVY() + vRand * std::sin(angleRad);
+        const auto vx = 0.8f * getVX() + vRand * std::cosf(angleRad);
+        const auto vy = 0.8f * getVY() + vRand * std::sinf(angleRad);
         pDeb->setV(vx, vy);
         shards.push_back(pDeb);
     }

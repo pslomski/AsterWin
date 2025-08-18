@@ -3,12 +3,12 @@
 
 namespace game
 {
-Float GameArea::width() const
+float GameArea::width() const
 {
     return bounds.width();
 }
 
-Float GameArea::height() const
+float GameArea::height() const
 {
     return bounds.height();
 }

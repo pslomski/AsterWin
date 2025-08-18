@@ -27,11 +27,11 @@ public:
 private:
     void onRender() const override;
 
-    Float CheckTime{0.7f};
-    Float CheckTimeElapsed{};
-    Float MoveTime{3.0f};
-    Float MoveTimeElapsed{};
-    Float FireTime{2.0f};
-    Float FireTimeElapsed{};
+    float CheckTime{0.7f};
+    float CheckTimeElapsed{};
+    float MoveTime{3.0f};
+    float MoveTimeElapsed{};
+    float FireTime{2.0f};
+    float FireTimeElapsed{};
 };
 } // namespace game::objects

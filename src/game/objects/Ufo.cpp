@@ -54,32 +54,32 @@ void Ufo::onRender() const
 
 void Ufo::action(Bullets& bullets)
 {
-    const Float SafeDist = 12.0f;
+    const auto safeDist = 12.0f;
 
     CheckTimeElapsed += time.dt;
     if (CheckTimeElapsed > CheckTime)
     {
         CheckTimeElapsed = 0.0f;
-        Float RShp = 2e6f;
-        Float RAst = 1e6f;
+        float RShp = 2e6f;
+        float RAst = 1e6f;
         if (pShip) RShp = geom::distance(state.pos, pShip->state.pos);
         if (pAster) RAst = geom::distance(state.pos, pAster->state.pos);
-        if ((RShp < SafeDist) || (RAst < SafeDist)) MoveTimeElapsed = MoveTime;
+        if ((RShp < safeDist) || (RAst < safeDist)) MoveTimeElapsed = MoveTime;
     }
 
     MoveTimeElapsed += time.dt;
     if (MoveTimeElapsed > MoveTime)
     {
-        Float RShp = 2e6f;
-        Float RAst = 1e6f;
+        auto RShp = 2e6f;
+        auto RAst = 1e6f;
         if (pShip) RShp = geom::distance(state.pos, pShip->state.pos);
         if (pAster) RAst = geom::distance(state.pos, pAster->state.pos);
-        if (pShip and RShp < SafeDist)
+        if (pShip and RShp < safeDist)
         {
             int sgn = rand(2) ? -1 : 1;
             setVA(10.0f, degToRad(pShip->getAngleDeg() + 90.0f * sgn));
         }
-        if (pAster and RAst < SafeDist)
+        if (pAster and RAst < safeDist)
         {
             int sgn = rand(2) ? -1 : 1;
             setVA(10.0f, degToRad(pAster->getAngleDeg() + 90.0f * sgn));
@@ -96,8 +96,8 @@ void Ufo::action(Bullets& bullets)
     FireTimeElapsed += time.dt;
     if (FireTimeElapsed > FireTime)
     {
-        Float RShp = 2e6f;
-        Float RAst = 1e6f;
+        auto RShp = 2e6f;
+        auto RAst = 1e6f;
         if (pShip) RShp = geom::distance(state.pos, pShip->state.pos);
         if (pAster) RAst = geom::distance(state.pos, pAster->state.pos);
         if (RShp < RAst)
@@ -120,7 +120,7 @@ void Ufo::action(Bullets& bullets)
 
 Bullet* Ufo::fireBullet(const PointF& pt)
 {
-    Float speed = 22.0f;
+    const auto speed = 22.0f;
     Bullet* bullet = new Bullet;
     bullet->lifeTime.interval = 3.0f;
     bullet->setPosition(state.pos);

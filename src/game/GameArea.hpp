@@ -2,15 +2,14 @@
 
 #include "types/Bounds.hpp"
 #include "types/Point.hpp"
-#include "types/Types.hpp"
 
 namespace game
 {
 class GameArea
 {
 public:
-    Float width() const;
-    Float height() const;
+    float width() const;
+    float height() const;
     int widthi() const;
     int heighti() const;
     PointF center() const;

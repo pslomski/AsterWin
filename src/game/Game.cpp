@@ -357,8 +357,8 @@ void Game::analyzeGameState()
                 {
                     if (tiUfoRespawn.inc(time.dt))
                     {
-                        const Float maxRespownTime{15};
-                        tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1));
+                        const auto maxRespownTime{15.0f};
+                        tiUfoRespawn.reset(std::max(maxRespownTime, tiUfoRespawn.interval - 1.0f));
                         ufo = std::make_unique<objects::Ufo>();
                         ufo->setPosition(gameArea.randomPosAtEdge());
                     }
@@ -418,7 +418,7 @@ void Game::updateObjects()
         ufo->pAster = nullptr;
     }
 
-    Float Rmin = 1e6;
+    auto Rmin = 1e6f;
     for (auto itAster = asteroids.begin(); itAster != asteroids.end(); itAster++)
     {
         (*itAster)->update();
