@@ -26,7 +26,7 @@ TEST_P(TestIsPointInPolygon, evaluate)
         isPointInPolygon(GetParam().npol, GetParam().points, GetParam().x, GetParam().y), Eq(GetParam().expected));
 }
 
-INSTANTIATE_TEST_CASE_P(
+INSTANTIATE_TEST_SUITE_P(
     ,
     TestIsPointInPolygon,
     Values(

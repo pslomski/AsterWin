@@ -47,3 +47,16 @@ ctest --test-dir build --output-on-failure -R TestCase|tee out.txt
 ## Links 
 Managing game states based on article "TetroGL: An OpenGL Game Tutorial in C++ for Win32 platforms - Part 3"
 https://www.codeproject.com/Articles/30775/TetroGL-An-OpenGL-Game-Tutorial-in-Cplusplus-for-W
+
+## clang
+To compile using clang
+
+### On Windows (cmd)
+set CC=clang
+set CXX=clang++
+cmake -S . -B build
+
+### On Unix/Linux/macOS
+export CC=clang
+export CXX=clang++
+cmake -S . -B build

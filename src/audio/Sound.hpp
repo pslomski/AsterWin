@@ -24,7 +24,6 @@ private:
     bool initSound();
     void freeSound();
 
-    bool isPause{false};
     float volume{1.0f}; // range 0.0f - 1.0f
     HSTREAM hMus{};
     HCHANNEL channel{};

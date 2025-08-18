@@ -7,7 +7,6 @@ project(Asteroids
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD_EXTENSIONS OFF)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_compile_options(-Wall)
@@ -17,6 +16,7 @@ add_compile_options(-Werror)
 add_compile_options(-O1)
 add_compile_options(-m64)
 add_compile_options(-Wno-expansion-to-defined)
+add_compile_options(-Wno-format-security)
 
 include_directories(src)
 

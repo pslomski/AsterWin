@@ -52,7 +52,7 @@ TEST_P(TestPolygWithPointCheck, evaluate)
     ASSERT_THAT(checkPolygWithPoint(&point, &polyg), Eq(GetParam().expected));
 }
 
-INSTANTIATE_TEST_CASE_P(
+INSTANTIATE_TEST_SUITE_P(
     ,
     TestPolygWithPointCheck,
     Values(

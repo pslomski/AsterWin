@@ -6,9 +6,9 @@
 #include "game/Rand.hpp"
 #include "game/geom/Bounds.hpp"
 #include "game/objects/AsterShards.hpp"
-#include "game/rand.hpp"
 #include "game/types/Color.hpp"
 #include "gl/Utils.hpp"
+
 
 namespace game::objects
 {

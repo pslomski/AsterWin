@@ -17,7 +17,6 @@ void SfxController::close()
 void SfxController::stop()
 {
     samples.stop();
-    isPause = false;
 }
 
 void SfxController::setVolume(const float volumeNew)

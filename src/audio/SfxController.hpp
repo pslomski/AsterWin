@@ -22,7 +22,6 @@ public:
     HSAMPLE getSample(int id) { return samples.get(static_cast<SampleId>(id)); }
 
 private:
-    bool isPause{false};
     float volume{1.0f}; // range 0.0f - 1.0f
     SfxSamples samples;
 };
