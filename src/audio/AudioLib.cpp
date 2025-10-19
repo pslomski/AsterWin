@@ -21,7 +21,7 @@ namespace audio
 {
 void AudioLib::init()
 {
-    BASS_Init(-1, 44100, BASS_DEVICE_3D, NULL, NULL);
+    BASS_Init(-1, 44100, BASS_DEVICE_3D, nullptr, nullptr);
 }
 
 void AudioLib::free()
