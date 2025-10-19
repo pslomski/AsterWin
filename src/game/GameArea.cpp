@@ -30,28 +30,17 @@ PointF GameArea::center() const
 
 PointF GameArea::randomPosAtEdge() const
 {
-    PointF pt;
-    int iSide = rand(4);
-    if (0 == iSide)
+    constexpr int nbrOfSides = 4;
+    switch (rand(nbrOfSides))
     {
-        pt.x = bounds.x0;
-        pt.y = rand(static_cast<int>(bounds.height()));
+        case 0:
+            return {.x = bounds.x0, .y = rand(bounds.y0, bounds.y1)};
+        case 1:
+            return {.x = bounds.x1, .y = rand(bounds.y0, bounds.y1)};
+        case 2:
+            return {.x = rand(bounds.x0, bounds.x1), .y = bounds.y0};
+        default:
+            return {.x = rand(bounds.x0, bounds.x1), .y = bounds.y1};
     }
-    else if (1 == iSide)
-    {
-        pt.x = bounds.x1;
-        pt.y = rand(static_cast<int>(bounds.height()));
-    }
-    else if (2 == iSide)
-    {
-        pt.x = rand(static_cast<int>(bounds.width()));
-        pt.y = bounds.y0;
-    }
-    else
-    {
-        pt.x = rand(static_cast<int>(bounds.width()));
-        pt.y = bounds.y1;
-    }
-    return pt;
 }
 } // namespace game
