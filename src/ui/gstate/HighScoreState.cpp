@@ -225,10 +225,10 @@ void HighScoreState::addNewScore(const std::string& playerName, uint32_t score)
     highScores.push_back(newHighScore);
 
     sort(highScores.begin(), highScores.end());
-
     while (highScores.size() > 10)
+    {
         highScores.pop_back();
-
+    }
     saveScores();
 }
 } // namespace ui

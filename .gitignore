@@ -29,6 +29,7 @@
 
 .cache/
 .vscode/
+_deps/
 build/
 buildl/
 build.txt
