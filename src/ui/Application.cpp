@@ -1,5 +1,5 @@
 #include "Application.hpp"
-#include <windows.h>
+#include <SDL3/SDL.h>
 #include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
 #include "game/Time.hpp"
@@ -34,17 +34,34 @@ Application::~Application()
 void Application::run()
 {
     MainWindow mainWindow(ui::viewport.width, ui::viewport.height);
-    MSG message{};
+    SDL_Event event{};
     const game::TimeDelta dt = 0.001; // 1 ms
     game::time.dt = dt;
     game::time.accumulator = 0.0;
     double currentTime = game::time.getCurrentTime();
-    while (message.message != WM_QUIT)
+    bool running = true;
+    while (running)
     {
-        while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+        while (SDL_PollEvent(&event))
         {
-            TranslateMessage(&message);
-            DispatchMessage(&message);
+            switch (event.type)
+            {
+                case SDL_EVENT_QUIT:
+                    running = false;
+                    break;
+                case SDL_EVENT_KEY_DOWN:
+                    mainWindow.onKeyDown(event.key.scancode);
+                    break;
+                case SDL_EVENT_KEY_UP:
+                    mainWindow.onKeyUp(event.key.scancode);
+                    break;
+                case SDL_EVENT_TEXT_INPUT:
+                    if (event.text.text[0]) mainWindow.onChar(event.text.text[0]);
+                    break;
+                case SDL_EVENT_WINDOW_RESIZED:
+                    mainWindow.onSize(event.window.data1, event.window.data2);
+                    break;
+            }
         }
         double newTime = game::time.getCurrentTime();
         double frameTime = newTime - currentTime;

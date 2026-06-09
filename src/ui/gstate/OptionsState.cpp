@@ -1,6 +1,5 @@
 #include "OptionsState.hpp"
 #include <algorithm>
-#include <basetsd.h>
 #include "MenuState.hpp"
 #include "audio/Sound.hpp"
 #include "gl/Utils.hpp"
@@ -68,24 +67,26 @@ void OptionsState::leaveState()
     LOG_INF("Leaving OptionsState");
 }
 
-void OptionsState::onKeyDown(WPARAM wKey)
+void OptionsState::onKeyDown(SDL_Scancode key)
 {
-    switch (wKey)
+    switch (key)
     {
-        case VK_DOWN:
+        case SDL_SCANCODE_DOWN:
             selectionDown();
             break;
-        case VK_UP:
+        case SDL_SCANCODE_UP:
             selectionUp();
             break;
-        case VK_LEFT:
+        case SDL_SCANCODE_LEFT:
             leftArrow();
             break;
-        case VK_RIGHT:
+        case SDL_SCANCODE_RIGHT:
             rightArrow();
             break;
-        case VK_ESCAPE:
+        case SDL_SCANCODE_ESCAPE:
             changeState(CMenuState::getInstance(stateManager));
+            break;
+        default:
             break;
     }
 }

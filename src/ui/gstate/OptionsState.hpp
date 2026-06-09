@@ -13,7 +13,7 @@ class OptionsState : public State
 public:
     ~OptionsState();
 
-    void onKeyDown(WPARAM wKey) override;
+    void onKeyDown(SDL_Scancode key) override;
     void update(const game::TimeDelta dt) override;
     void draw() override;
     void enterState() override;

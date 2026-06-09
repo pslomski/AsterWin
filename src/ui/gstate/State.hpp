@@ -1,6 +1,6 @@
 #pragma once
 
-#include <windows.h>
+#include <SDL3/SDL.h>
 #include "game/TimeDelta.hpp"
 
 namespace ui
@@ -13,9 +13,9 @@ public:
     State(StateManager* manager);
     virtual ~State(){};
 
-    virtual void onKeyDown(WPARAM) {}
-    virtual void onKeyUp(WPARAM) {}
-    virtual void onChar(WPARAM) {}
+    virtual void onKeyDown(SDL_Scancode) {}
+    virtual void onKeyUp(SDL_Scancode) {}
+    virtual void onChar(char) {}
     virtual void onResize([[maybe_unused]] const int cx, [[maybe_unused]] const int cy) {}
     virtual void update([[maybe_unused]] const game::TimeDelta dt) {}
     virtual void draw() {}

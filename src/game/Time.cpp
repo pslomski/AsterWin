@@ -1,20 +1,12 @@
 #include "Time.hpp"
-#include <windows.h>
+#include <chrono>
 
 namespace game
 {
-Time::Time()
-{
-    LARGE_INTEGER f;
-    QueryPerformanceFrequency(&f);
-    frequency = f.QuadPart;
-}
-
 double Time::getCurrentTime() const
 {
-    // TODO: use std::chrono
-    LARGE_INTEGER t;
-    QueryPerformanceCounter(&t);
-    return t.QuadPart / frequency;
+    using namespace std::chrono;
+    auto now = steady_clock::now().time_since_epoch();
+    return duration<double>(now).count();
 }
 } // namespace game

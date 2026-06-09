@@ -2,7 +2,7 @@
 
 #include <gl/gl.h>
 #include <string>
-#include <windows.h>
+// #include <windows.h>
 #include "Rectangle.hpp"
 #include "game/types/Color.hpp"
 

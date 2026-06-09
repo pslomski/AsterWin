@@ -1,17 +1,13 @@
-#include <windows.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
 #include "log/Log.hpp"
 #include "ui/Application.hpp"
 #include "utils/Tools.hpp"
 
-int APIENTRY WinMain(
-    [[maybe_unused]] HINSTANCE hInstance,
-    [[maybe_unused]] HINSTANCE hPrevInstance,
-    [[maybe_unused]] LPTSTR lpCmdLine,
-    [[maybe_unused]] int nCmdShow)
+int main(int, char**)
 {
     try
     {
-        SetCurrentDirectory(getAppDir().c_str());
         Application app;
         LOG_INF("Asteroids game started");
         LOG_INF("current directory: %s", getAppDir().c_str());
@@ -20,7 +16,7 @@ int APIENTRY WinMain(
     }
     catch (std::exception& e)
     {
-        MessageBox(NULL, e.what(), "Error", MB_OK | MB_ICONEXCLAMATION);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", e.what(), nullptr);
     }
     return 0;
 }

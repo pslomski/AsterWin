@@ -14,6 +14,7 @@ function(add_gtest test_name)
 
     target_link_libraries(${test_name}
       PRIVATE
+        project_warnings
         OpenGL::GL #TODO: Remove dependency to OpenGL in tests
         GTest::gtest_main
         GTest::gmock_main

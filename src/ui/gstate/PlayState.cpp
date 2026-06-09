@@ -71,16 +71,16 @@ void PlayState::reset()
     asterGame.reset();
 }
 
-void PlayState::onKeyDown(WPARAM wKey)
+void PlayState::onKeyDown(SDL_Scancode key)
 {
-    asterGame.key[wKey] = true;
-    switch (wKey)
+    asterGame.key[key] = true;
+    switch (key)
     {
-        case 'F':
+        case SDL_SCANCODE_F:
             isDisplayFps = !isDisplayFps;
             break;
-        case VK_ESCAPE:
-        case VK_RETURN:
+        case SDL_SCANCODE_ESCAPE:
+        case SDL_SCANCODE_RETURN:
             if (asterGame.isGameOver())
             {
                 HighScoreState* pHighScores = HighScoreState::getInstance(stateManager);
@@ -90,15 +90,17 @@ void PlayState::onKeyDown(WPARAM wKey)
             }
             else
             {
-                if (wKey == VK_ESCAPE) changeState(CMenuState::getInstance(stateManager));
+                if (key == SDL_SCANCODE_ESCAPE) changeState(CMenuState::getInstance(stateManager));
             }
+            break;
+        default:
             break;
     }
 }
 
-void PlayState::onKeyUp(WPARAM wKey)
+void PlayState::onKeyUp(SDL_Scancode key)
 {
-    asterGame.key[wKey] = false;
+    asterGame.key[key] = false;
 }
 
 void PlayState::update([[maybe_unused]] const game::TimeDelta dt)

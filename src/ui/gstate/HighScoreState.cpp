@@ -52,13 +52,13 @@ HighScoreState* HighScoreState::getInstance(StateManager* pManager)
     return &Instance;
 }
 
-void HighScoreState::onKeyDown(WPARAM wKey)
+void HighScoreState::onKeyDown(SDL_Scancode key)
 {
     if (isEnterName)
     {
-        switch (wKey)
+        switch (key)
         {
-            case VK_RETURN:
+            case SDL_SCANCODE_RETURN:
                 if (!std::string(currentName).empty())
                 {
                     addNewScore(currentName, newHighScore);
@@ -68,35 +68,38 @@ void HighScoreState::onKeyDown(WPARAM wKey)
                     currentName[0] = '\0';
                 }
                 break;
-            case VK_BACK:
+            case SDL_SCANCODE_BACKSPACE:
                 if (nameIndex > 0)
                 {
                     nameIndex--;
                     currentName[nameIndex] = '\0';
                 }
                 break;
+            default:
+                break;
         }
     }
     else
     {
-        switch (wKey)
+        switch (key)
         {
-            case VK_ESCAPE:
-            case VK_RETURN:
+            case SDL_SCANCODE_ESCAPE:
+            case SDL_SCANCODE_RETURN:
                 changeState(CMenuState::getInstance(stateManager));
+                break;
+            default:
                 break;
         }
     }
 }
 
-void HighScoreState::onChar(WPARAM wChar)
+void HighScoreState::onChar(char ch)
 {
     if (isEnterName && (nameIndex < 25))
     {
-        // Filter the characters for only alphabetical characters.
-        if ((wChar >= 64 && wChar <= 91) || (wChar >= 97 && wChar <= 122))
+        if ((ch >= 64 && ch <= 91) || (ch >= 97 && ch <= 122))
         {
-            currentName[nameIndex] = wChar;
+            currentName[nameIndex] = ch;
             nameIndex++;
             currentName[nameIndex] = '\0';
         }
@@ -116,7 +119,7 @@ void HighScoreState::draw()
     char buf[256];
     for (auto iter = highScores.begin(); iter != highScores.end(); iter++)
     {
-        _itoa_s(iCount, buf, 10);
+        snprintf(buf, sizeof(buf), "%d", iCount);
         TextControl txtEntryN(font, rcNum);
         txtEntryN.setAlignement(TextControl::TextAlignement::right);
         txtEntryN.setText(buf);

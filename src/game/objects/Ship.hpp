@@ -2,7 +2,7 @@
 
 #include <gl/gl.h>
 #include <math.h>
-#include <windows.h>
+// #include <windows.h>
 #include "Bullet.hpp"
 #include "audio/SfxSample.hpp"
 #include "game/GameConsts.hpp"

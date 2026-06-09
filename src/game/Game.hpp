@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SDL3/SDL.h>
 #include <memory>
 #include "GameConsts.hpp"
 #include "ScoreCounter.hpp"
@@ -28,8 +29,8 @@ public:
     bool isMusic;
     float fps{0};
 
-    bool key[256]; // Array Used For The Keyboard Routine
-    bool keypress[256]; // Array Used For The Keyboard Routine
+    bool key[SDL_SCANCODE_COUNT]{}; // Array Used For The Keyboard Routine
+    bool keypress[SDL_SCANCODE_COUNT]{}; // Array Used For The Keyboard Routine
 
     void clear();
     bool reset();

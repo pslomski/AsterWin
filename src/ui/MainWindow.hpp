@@ -1,32 +1,29 @@
 #pragma once
 
-#include <gl/gl.h>
-#include <windows.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_opengl.h>
 #include "game/TimeDelta.hpp"
 #include "ui/gstate/StateManager.hpp"
 
 class MainWindow
 {
 public:
-    MainWindow(int iWidth, int iHeight);
+    MainWindow(int width, int height);
     ~MainWindow();
 
     void update(const game::TimeDelta dt);
     void draw();
-    HDC getDC() { return hDeviceContext; }
+    void onKeyDown(SDL_Scancode key);
+    void onKeyUp(SDL_Scancode key);
+    void onChar(char ch);
+    void onSize(int width, int height);
 
     bool isActive{true};
 
 private:
-    void registerWindowClass();
-    void createContext();
     void initGL();
-    void onSize(GLsizei width, GLsizei height);
-    static LRESULT CALLBACK onEvent(HWND Handle, UINT Message, WPARAM wParam, LPARAM lParam);
-    void processEvent(UINT Message, WPARAM wParam, LPARAM lParam);
 
-    HWND hWindow{NULL};
-    HDC hDeviceContext{NULL};
-    HGLRC hGLContext{NULL};
+    SDL_Window* window{nullptr};
+    SDL_GLContext glContext{nullptr};
     ui::StateManager* stateManager{nullptr};
 };

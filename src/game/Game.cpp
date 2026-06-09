@@ -1,7 +1,6 @@
 #include "Game.hpp"
 #include <algorithm>
 #include <cassert>
-#include <process.h>
 #include "GameConsts.hpp"
 #include "audio/Sound.hpp"
 #include "game/GameArea.hpp"
@@ -229,15 +228,15 @@ bool Game::reset()
 
 void Game::processUserInput()
 {
-    if (key[VK_UP])
+    if (key[SDL_SCANCODE_UP])
     {
         if (ship) ship->accelerationOn();
     }
-    if (!key[VK_UP])
+    if (!key[SDL_SCANCODE_UP])
     {
         if (ship) ship->accelerationOff();
     }
-    if (key[VK_LEFT])
+    if (key[SDL_SCANCODE_LEFT])
     {
         if (ship) ship->rotateLeft();
     }
@@ -245,7 +244,7 @@ void Game::processUserInput()
     {
         if (ship) ship->rotateLeftStop();
     }
-    if (key[VK_RIGHT])
+    if (key[SDL_SCANCODE_RIGHT])
     {
         if (ship) ship->rotateRight();
     }
@@ -254,9 +253,9 @@ void Game::processUserInput()
         if (ship) ship->rotateRightStop();
     }
 
-    if (key[VK_SPACE] && !keypress[VK_SPACE])
+    if (key[SDL_SCANCODE_SPACE] && !keypress[SDL_SCANCODE_SPACE])
     {
-        keypress[VK_SPACE] = true;
+        keypress[SDL_SCANCODE_SPACE] = true;
         if (ship)
         {
             if (bullets.size() < ship->maxBullets)
@@ -266,9 +265,9 @@ void Game::processUserInput()
             }
         }
     }
-    if (!key[VK_SPACE])
+    if (!key[SDL_SCANCODE_SPACE])
     {
-        keypress[VK_SPACE] = false;
+        keypress[SDL_SCANCODE_SPACE] = false;
     }
 }
 

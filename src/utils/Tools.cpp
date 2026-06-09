@@ -1,11 +1,13 @@
 #include "Tools.hpp"
-#include <filesystem>
-#include <windows.h>
+#include <SDL3/SDL.h>
+#include <string>
 
 std::string getAppDir()
 {
-    char filepath[MAX_PATH];
-    GetModuleFileName(NULL, filepath, MAX_PATH);
-    std::filesystem::path path(filepath);
-    return path.parent_path().string();
+    const char* basePath = SDL_GetBasePath();
+    if (!basePath) return "";
+    std::string result = basePath;
+    while (!result.empty() && (result.back() == '/' || result.back() == '\\'))
+        result.pop_back();
+    return result;
 }

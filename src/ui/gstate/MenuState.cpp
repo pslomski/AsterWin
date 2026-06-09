@@ -77,21 +77,23 @@ CMenuState* CMenuState::getInstance(StateManager* pManager)
     return &Instance;
 }
 
-void CMenuState::onKeyDown(WPARAM wKey)
+void CMenuState::onKeyDown(SDL_Scancode key)
 {
-    switch (wKey)
+    switch (key)
     {
-        case VK_DOWN:
+        case SDL_SCANCODE_DOWN:
             selectionDown();
             break;
-        case VK_UP:
+        case SDL_SCANCODE_UP:
             selectionUp();
             break;
-        case VK_RETURN:
+        case SDL_SCANCODE_RETURN:
             selectionChosen();
             break;
-        case VK_ESCAPE:
+        case SDL_SCANCODE_ESCAPE:
             exitGame();
+            break;
+        default:
             break;
     }
 }
@@ -233,14 +235,22 @@ void CMenuState::selectionChosen()
             break;
 
         case 4:
-            PostQuitMessage(0);
+        {
+            SDL_Event quitEvent;
+            SDL_zero(quitEvent);
+            quitEvent.type = SDL_EVENT_QUIT;
+            SDL_PushEvent(&quitEvent);
             break;
+        }
     }
 }
 
 void CMenuState::exitGame()
 {
-    PostQuitMessage(0);
+    SDL_Event quitEvent;
+    SDL_zero(quitEvent);
+    quitEvent.type = SDL_EVENT_QUIT;
+    SDL_PushEvent(&quitEvent);
 }
 
 } // namespace ui

@@ -10,15 +10,10 @@ namespace game
 class Time
 {
 public:
-    Time();
-
     double getCurrentTime() const;
 
     TimeDelta dt{0.001}; // simulation step
     double accumulator{0.0};
-
-private:
-    double frequency{1.0};
 };
 
 inline Time time;

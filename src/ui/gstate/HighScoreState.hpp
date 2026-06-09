@@ -18,8 +18,8 @@ public:
 
     void setNewHighScore(uint32_t NewHighScore) { newHighScore = NewHighScore; }
 
-    void onKeyDown(WPARAM wKey) override;
-    void onChar(WPARAM wChar) override;
+    void onKeyDown(SDL_Scancode key) override;
+    void onChar(char ch) override;
     void draw() override;
     void enterState() override;
 

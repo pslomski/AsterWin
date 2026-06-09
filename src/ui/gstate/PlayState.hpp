@@ -12,8 +12,8 @@ class PlayState : public State
 public:
     ~PlayState();
 
-    void onKeyDown(WPARAM wKey) override;
-    void onKeyUp(WPARAM) override;
+    void onKeyDown(SDL_Scancode key) override;
+    void onKeyUp(SDL_Scancode key) override;
     void update(const game::TimeDelta dt) override;
     void draw() override;
     void enterState() override;

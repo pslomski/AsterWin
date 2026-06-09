@@ -10,19 +10,19 @@ void StateManager::changeState(State* newState)
     activeState->enterState();
 }
 
-void StateManager::onKeyDown(WPARAM wKey)
+void StateManager::onKeyDown(SDL_Scancode key)
 {
-    if (activeState) activeState->onKeyDown(wKey);
+    if (activeState) activeState->onKeyDown(key);
 }
 
-void StateManager::onKeyUp(WPARAM wKey)
+void StateManager::onKeyUp(SDL_Scancode key)
 {
-    if (activeState) activeState->onKeyUp(wKey);
+    if (activeState) activeState->onKeyUp(key);
 }
 
-void StateManager::onChar(WPARAM wChar)
+void StateManager::onChar(char ch)
 {
-    if (activeState) activeState->onChar(wChar);
+    if (activeState) activeState->onChar(ch);
 }
 
 void StateManager::onResize(int cx, int cy)
