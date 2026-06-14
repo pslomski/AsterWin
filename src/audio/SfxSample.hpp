@@ -15,7 +15,7 @@ public:
     void slideVol(const float volumeArg, const int timeMs);
 
 private:
-    MIX_Track* track{};
+    MIX_Track* loopTrack{}; // owned track for looping samples only; one-shots use the mixer pool
     int sampleId{-1};
     float volume{};
 };

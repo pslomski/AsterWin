@@ -12,6 +12,11 @@ void AudioLib::init()
 
 void AudioLib::free()
 {
+    for (MIX_Track* track : oneShotPool)
+    {
+        MIX_DestroyTrack(track);
+    }
+    oneShotPool.clear();
     if (mixerHandle)
     {
         MIX_DestroyMixer(mixerHandle);
@@ -29,6 +34,29 @@ MIX_Audio* AudioLib::loadSample(const char* name)
 void AudioLib::freeSample(MIX_Audio* sample)
 {
     if (sample) MIX_DestroyAudio(sample);
+}
+
+void AudioLib::playOneShot(MIX_Audio* sample, float gain)
+{
+    if (!mixerHandle || !sample) return;
+    MIX_Track* track = nullptr;
+    for (MIX_Track* candidate : oneShotPool)
+    {
+        if (!MIX_TrackPlaying(candidate))
+        {
+            track = candidate;
+            break;
+        }
+    }
+    if (!track)
+    {
+        track = MIX_CreateTrack(mixerHandle);
+        if (!track) return;
+        oneShotPool.push_back(track);
+    }
+    MIX_SetTrackAudio(track, sample);
+    MIX_SetTrackGain(track, gain);
+    MIX_PlayTrack(track, 0);
 }
 
 void AudioLib::stopAll()

@@ -1,18 +1,17 @@
 #include "SfxSample.hpp"
 #include <SDL3/SDL.h>
 #include <SDL3_mixer/SDL_mixer.h>
-#include <cassert>
 #include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
 
 SfxSample::~SfxSample()
 {
-    // SfxSample lives inside static-lifetime singletons, whose destructors run
-    // after the mixer has been torn down at exit; only free the track while the
-    // mixer is still alive.
-    if (track && audio::audioLib.isInitialized())
+    // SfxSample lives inside static-lifetime singletons / game objects, whose
+    // destructors can run after the mixer is torn down at exit; only free the
+    // track while the mixer is still alive.
+    if (loopTrack && audio::audioLib.isInitialized())
     {
-        MIX_DestroyTrack(track);
+        MIX_DestroyTrack(loopTrack);
     }
 }
 
@@ -27,51 +26,51 @@ void SfxSample::play()
     if (sampleId == -1) return;
     const audio::SampleRef ref = geSound.getSample(sampleId);
     if (!ref.audio) return;
-    if (!track)
+    if (!ref.loop)
     {
-        track = MIX_CreateTrack(audio::audioLib.mixer());
-        if (!track) return;
+        // Fire-and-forget: must outlive this object (e.g. an asteroid is
+        // deleted the instant its explosion sound starts).
+        audio::audioLib.playOneShot(ref.audio, volume);
+        return;
     }
-    MIX_SetTrackAudio(track, ref.audio);
-    MIX_SetTrackGain(track, volume);
-    if (ref.loop)
+    if (!loopTrack)
     {
-        const SDL_PropertiesID props = SDL_CreateProperties();
-        SDL_SetNumberProperty(props, MIX_PROP_PLAY_LOOPS_NUMBER, -1);
-        MIX_PlayTrack(track, props);
-        SDL_DestroyProperties(props);
+        loopTrack = MIX_CreateTrack(audio::audioLib.mixer());
+        if (!loopTrack) return;
     }
-    else
-    {
-        MIX_PlayTrack(track, 0);
-    }
+    MIX_SetTrackAudio(loopTrack, ref.audio);
+    MIX_SetTrackGain(loopTrack, volume);
+    const SDL_PropertiesID props = SDL_CreateProperties();
+    SDL_SetNumberProperty(props, MIX_PROP_PLAY_LOOPS_NUMBER, -1);
+    MIX_PlayTrack(loopTrack, props);
+    SDL_DestroyProperties(props);
 }
 
 void SfxSample::pause()
 {
-    if (track) MIX_PauseTrack(track);
+    if (loopTrack) MIX_PauseTrack(loopTrack);
 }
 
 void SfxSample::stop()
 {
-    if (track) MIX_StopTrack(track, 0);
+    if (loopTrack) MIX_StopTrack(loopTrack, 0);
 }
 
 void SfxSample::setVolume(const float volumeArg)
 {
     volume = volumeArg;
-    if (track) MIX_SetTrackGain(track, volume);
+    if (loopTrack) MIX_SetTrackGain(loopTrack, volume);
 }
 
 void SfxSample::slideVol(const float volumeArg, const int timeMs)
 {
-    if (!track) return;
+    if (!loopTrack) return;
     if (volumeArg <= 0.0f)
     {
-        MIX_StopTrack(track, MIX_TrackMSToFrames(track, timeMs));
+        MIX_StopTrack(loopTrack, MIX_TrackMSToFrames(loopTrack, timeMs));
     }
     else
     {
-        MIX_SetTrackGain(track, volumeArg);
+        MIX_SetTrackGain(loopTrack, volumeArg);
     }
 }
