@@ -6,12 +6,11 @@ void Settings::load()
     std::ifstream inputFile("settings.dat");
     if (inputFile.fail())
     {
-        musicVol = 5;
         soundVol = 5;
     }
     else
     {
-        inputFile >> musicVol >> soundVol;
+        inputFile >> soundVol;
     }
 }
 
@@ -22,5 +21,5 @@ void Settings::save()
     {
         return;
     }
-    outputFile << musicVol << " " << soundVol;
+    outputFile << soundVol;
 }

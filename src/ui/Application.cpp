@@ -12,16 +12,14 @@
 
 Application::Application()
 {
-    if (!SDL_Init(SDL_INIT_VIDEO))
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
     {
         throw EGenericError("Cannot initialize SDL");
     }
     audio::audioLib.init();
     geSound.open();
-    geMusic.open();
     Settings settings;
     settings.load();
-    geMusic.setVolume(0.1f * settings.musicVol);
     geSound.setVolume(0.1f * settings.soundVol);
 
     int screenHeight = 600; // fallback if the display size cannot be queried
@@ -36,7 +34,6 @@ Application::Application()
 Application::~Application()
 {
     geSound.close();
-    geMusic.close();
     audio::audioLib.free();
     SDL_Quit();
 }

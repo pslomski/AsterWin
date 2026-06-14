@@ -27,7 +27,6 @@ private:
     int mCurrentSelection;
     Font* mFont;
     TextControl* mTitleText;
-    TextControl* mMusicVolText;
     TextControl* mSoundVolText;
     SfxSample sndTest;
     Settings settings;

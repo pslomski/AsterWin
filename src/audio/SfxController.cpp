@@ -16,7 +16,7 @@ void SfxController::close()
 
 void SfxController::stop()
 {
-    samples.stop();
+    audioLib.stopAll();
 }
 
 void SfxController::setVolume(const float volumeNew)

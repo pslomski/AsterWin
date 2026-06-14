@@ -43,26 +43,13 @@ void PlayState::enterState()
 {
     LOG_INF("Entering PlayState");
     asterGame.enterState();
-    asterGame.isMusic = geMusic.getVolume() > 0.001;
     geSound.unmute();
-    if (geMusic.isStarted())
-    {
-        geMusic.play();
-    }
 }
 
 void PlayState::leaveState()
 {
     asterGame.leaveState();
     geSound.mute();
-    if (asterGame.isGameOver())
-    {
-        geMusic.stop();
-    }
-    else
-    {
-        geMusic.pause();
-    }
     LOG_INF("Leaving PlayState");
 }
 

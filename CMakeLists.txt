@@ -28,20 +28,9 @@ cmake_print_variables(CMAKE_MODULE_PATH)
 
 find_package(OpenGL REQUIRED)
 
-if(NOT DEFINED BASS_DIR)
-    if(WIN32)
-        set(BASS_DIR d:/dev/Bass)
-    else()
-        set(BASS_DIR /mnt/d/dev/bass24-linux)
-    endif()
-endif()
-find_package(BASS REQUIRED)
-include_directories(${BASS_INCLUDE_DIRS})
-
 include(FetchContent)
 
-# Build all dependencies statically so the game ships without their DLLs.
-# (BASS is closed-source and DLL-only, so bass.dll is the one exception.)
+# Build all dependencies statically so the game ships without any third-party DLLs.
 set(BUILD_SHARED_LIBS OFF)
 set(SDL_SHARED OFF CACHE BOOL "" FORCE)
 set(SDL_STATIC ON CACHE BOOL "" FORCE)
@@ -50,9 +39,37 @@ set(SDL_TEST OFF CACHE BOOL "" FORCE)
 FetchContent_Declare(
     SDL3
     GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
-    GIT_TAG        release-3.2.14
+    GIT_TAG        release-3.4.10
 )
 FetchContent_MakeAvailable(SDL3)
+
+# SDL3_mixer for sound effects. Only Ogg Vorbis is needed, decoded by the
+# bundled stb_vorbis (no external libs/submodules), so disable every other
+# codec and skip submodule fetching to keep the build self-contained.
+set(SDLMIXER_VENDORED OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_DEPS_SHARED OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_VORBIS_STB ON CACHE BOOL "" FORCE)
+set(SDLMIXER_VORBIS_VORBISFILE OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_WAVE ON CACHE BOOL "" FORCE)
+set(SDLMIXER_FLAC OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_MP3 OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_MOD OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_MIDI OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_OPUS OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_GME OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_WAVPACK OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_AIFF OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_VOC OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_AU OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_TESTS OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_SAMPLES OFF CACHE BOOL "" FORCE)
+FetchContent_Declare(
+    SDL3_mixer
+    GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
+    GIT_TAG        release-3.2.4
+    GIT_SUBMODULES ""
+)
+FetchContent_MakeAvailable(SDL3_mixer)
 
 FetchContent_Declare(
     googletest
@@ -70,22 +87,13 @@ target_link_libraries(${ASTER_EXE}
     project_warnings
     OpenGL::GL
     SDL3::SDL3-static
-    ${BASS_LIBRARIES}
+    SDL3_mixer::SDL3_mixer-static
 )
 
 # Link the C/C++ runtime statically so the exe does not depend on
 # libstdc++-6.dll / libwinpthread-1.dll / libgcc_s_seh-1.dll at runtime
-# (this is what removes the nanosleep64 loader error for good).
+# (this is what removes the nanosleep64 loader error for good). With every
+# dependency static, the game ships as a single self-contained executable.
 target_link_options(${ASTER_EXE} PRIVATE -static)
-
-if(WIN32)
-    # BASS is closed-source and ships only as a DLL, so copy bass.dll next to the
-    # executable. It is the sole remaining bundled DLL (besides system opengl32).
-    add_custom_command(TARGET ${ASTER_EXE} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${BASS_DIR}/lib/x64/bass.dll" "$<TARGET_FILE_DIR:${ASTER_EXE}>"
-        VERBATIM
-    )
-endif()
 
 include(GoogleTest)

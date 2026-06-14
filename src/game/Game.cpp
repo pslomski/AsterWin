@@ -1,8 +1,6 @@
 #include "Game.hpp"
 #include <algorithm>
 #include <cassert>
-#include <chrono>
-#include <thread>
 #include "GameConsts.hpp"
 #include "audio/Sound.hpp"
 #include "game/GameArea.hpp"
@@ -196,10 +194,9 @@ void Game::generateAsters(int iCount, int iGameLevel)
     }
 };
 
-void Game::playStartBeep(float pitch, float gain)
+void Game::playStartBeep(float gain)
 {
     sndStartBeep.setVolume(gain);
-    sndStartBeep.setPitch(pitch);
     sndStartBeep.play();
 }
 
@@ -218,9 +215,7 @@ bool Game::reset()
     ship = std::make_unique<objects::Ship>(pt.x, pt.y, 90.0f);
     generateBackground();
     geSound.unmute();
-    geMusic.stop();
     tiBroomSound.reset(GE_TI_BROOM_SOUND);
-    bPitchBroomSound = false;
     tiChangeBroomSoundFreq.reset(GE_TI_CHANGE_BROOM_FREQ);
     tiUfoRespawn.reset(GE_BASE_UFO_TIME + rand(4));
     for (int i = 0; i < 30; ++i)
@@ -273,12 +268,6 @@ void Game::processUserInput()
     }
 }
 
-void threadStartMusic()
-{
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    geMusic.play();
-}
-
 void Game::analyzeGameState()
 {
     switch (gameState)
@@ -290,18 +279,15 @@ void Game::analyzeGameState()
                 tiGameStart.reset();
                 if (beepCount > 2)
                 {
-                    pitch = pitch * 2.0f;
                     gain = gain * 1.5f;
                     gameState = GameState::Run;
                     generateAsters(astersCount, gameLevel);
-                    std::thread(threadStartMusic).detach();
                 }
                 else
                 {
-                    pitch = 0.5f;
                     gain = 0.5f;
                 }
-                playStartBeep(pitch, gain);
+                playStartBeep(gain);
                 ++beepCount;
             }
         }
@@ -318,16 +304,7 @@ void Game::analyzeGameState()
             if (tiBroomSound.inc(time.dt))
             {
                 tiBroomSound.reset();
-                if (bPitchBroomSound)
-                {
-                    sndBroom.setPitch(1.05f);
-                }
-                else
-                {
-                    sndBroom.setPitch(1.0f);
-                }
-                if (!isMusic) sndBroom.play();
-                bPitchBroomSound = !bPitchBroomSound;
+                sndBroom.play();
             }
 
             if (nullptr == ship)

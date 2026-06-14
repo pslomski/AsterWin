@@ -1,6 +1,20 @@
 #include "SfxSample.hpp"
+#include <SDL3/SDL.h>
+#include <SDL3_mixer/SDL_mixer.h>
 #include <cassert>
+#include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
+
+SfxSample::~SfxSample()
+{
+    // SfxSample lives inside static-lifetime singletons, whose destructors run
+    // after the mixer has been torn down at exit; only free the track while the
+    // mixer is still alive.
+    if (track && audio::audioLib.isInitialized())
+    {
+        MIX_DestroyTrack(track);
+    }
+}
 
 void SfxSample::init(const int sampleIdArg, const float volumeArg)
 {
@@ -10,43 +24,54 @@ void SfxSample::init(const int sampleIdArg, const float volumeArg)
 
 void SfxSample::play()
 {
-    assert(sampleId != -1);
     if (sampleId == -1) return;
-    channel = BASS_SampleGetChannel(geSound.getSample(sampleId), 0);
-    assert(channel != 0);
-    BASS_ChannelSetAttribute(channel, BASS_ATTRIB_VOL, volume);
-    [[maybe_unused]] const BOOL bRes = BASS_ChannelPlay(channel, FALSE);
-    assert(bRes == TRUE);
+    const audio::SampleRef ref = geSound.getSample(sampleId);
+    if (!ref.audio) return;
+    if (!track)
+    {
+        track = MIX_CreateTrack(audio::audioLib.mixer());
+        if (!track) return;
+    }
+    MIX_SetTrackAudio(track, ref.audio);
+    MIX_SetTrackGain(track, volume);
+    if (ref.loop)
+    {
+        const SDL_PropertiesID props = SDL_CreateProperties();
+        SDL_SetNumberProperty(props, MIX_PROP_PLAY_LOOPS_NUMBER, -1);
+        MIX_PlayTrack(track, props);
+        SDL_DestroyProperties(props);
+    }
+    else
+    {
+        MIX_PlayTrack(track, 0);
+    }
 }
 
 void SfxSample::pause()
 {
-    assert(sampleId != -1);
-    if (sampleId == -1) return;
-    BASS_ChannelPause(channel);
+    if (track) MIX_PauseTrack(track);
 }
 
 void SfxSample::stop()
 {
-    assert(sampleId != -1);
-    if (sampleId == -1) return;
-    BASS_ChannelStop(channel);
+    if (track) MIX_StopTrack(track, 0);
 }
 
 void SfxSample::setVolume(const float volumeArg)
 {
-    assert(sampleId != -1);
     volume = volumeArg;
-    if (sampleId == -1) return;
-    if (BASS_ChannelIsActive(channel) == BASS_ACTIVE_STOPPED)
-        channel = BASS_SampleGetChannel(geSound.getSample(sampleId), FALSE);
-    BASS_ChannelSetAttribute(channel, BASS_ATTRIB_VOL, volume);
+    if (track) MIX_SetTrackGain(track, volume);
 }
 
-void SfxSample::slideVol(const float volumeArg, const DWORD time)
+void SfxSample::slideVol(const float volumeArg, const int timeMs)
 {
-    assert(sampleId != -1);
-    if (sampleId == -1) return;
-    if (BASS_ChannelIsActive(channel) == BASS_ACTIVE_STOPPED) return;
-    BASS_ChannelSlideAttribute(channel, BASS_ATTRIB_VOL, volumeArg, time);
+    if (!track) return;
+    if (volumeArg <= 0.0f)
+    {
+        MIX_StopTrack(track, MIX_TrackMSToFrames(track, timeMs));
+    }
+    else
+    {
+        MIX_SetTrackGain(track, volumeArg);
+    }
 }

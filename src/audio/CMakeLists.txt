@@ -4,7 +4,6 @@ target_sources(${ASTER_EXE}
     SfxController.cpp
     SfxSample.cpp
     SfxSamples.cpp
-    Sound.cpp
 )
 
 add_subdirectory(ut)

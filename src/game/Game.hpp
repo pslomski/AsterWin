@@ -26,7 +26,6 @@ public:
     int gameLevel{1};
     ScoreCounter scoreCounter;
     int lives{GE_INITIAL_LIVES};
-    bool isMusic;
     float fps{0};
 
     bool key[SDL_SCANCODE_COUNT]{}; // Array Used For The Keyboard Routine
@@ -64,13 +63,11 @@ private:
     utils::TimeInterval tiFPS{1.0f};
     int frameCount{0};
     int beepCount{0};
-    float pitch{0.5f};
     float gain{0.5f};
     utils::TimeInterval tiBroomSound;
-    bool bPitchBroomSound;
     utils::TimeInterval tiChangeBroomSoundFreq{GE_TI_CHANGE_BROOM_FREQ};
 
-    void playStartBeep(float pitch, float gain);
+    void playStartBeep(float gain);
     void generateAsters(int iCount, int iGameLevel);
     void clearBackground();
     void generateBackground();

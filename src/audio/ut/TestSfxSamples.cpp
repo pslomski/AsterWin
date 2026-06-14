@@ -17,8 +17,9 @@ protected:
 TEST_F(TestSfxSamples, testInit)
 {
     constexpr auto sampleCount = 12;
-    EXPECT_CALL(audioLib, loadSample(_, _, _)).Times(sampleCount).WillRepeatedly(Return(1)).RetiresOnSaturation();
-    EXPECT_CALL(audioLib, sampleFree(1)).Times(sampleCount).RetiresOnSaturation();
+    auto* const dummy = reinterpret_cast<MIX_Audio*>(1);
+    EXPECT_CALL(audioLib, loadSample(_)).Times(sampleCount).WillRepeatedly(Return(dummy)).RetiresOnSaturation();
+    EXPECT_CALL(audioLib, freeSample(dummy)).Times(sampleCount).RetiresOnSaturation();
     sfxSamples.init();
 }
 } // namespace audio

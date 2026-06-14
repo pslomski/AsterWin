@@ -27,12 +27,6 @@ OptionsState::OptionsState(StateManager* pManager) : State(pManager)
     dy = 45;
     top = 135;
     bottom += dy;
-    mMusicVolText = new TextControl(mFont, ui::Rectanglei(top, bottom, left, right));
-    mMusicVolText->setAlignement(TextControl::TextAlignement::center);
-    mMusicVolText->setText("Music volume: ");
-
-    top += dy;
-    bottom += dy;
     mSoundVolText = new TextControl(mFont, ui::Rectanglei(top, bottom, left, right));
     mSoundVolText->setAlignement(TextControl::TextAlignement::center);
     mSoundVolText->setText("Sound volume: ");
@@ -44,7 +38,6 @@ OptionsState::~OptionsState()
 {
     delete mFont;
     delete mTitleText;
-    delete mMusicVolText;
     delete mSoundVolText;
 }
 
@@ -106,9 +99,6 @@ void OptionsState::draw()
 
     mTitleText->draw();
 
-    snprintf(buf, bufSize, "Music volume: %d", settings.musicVol);
-    mMusicVolText->setText(std::string(buf).c_str());
-    mMusicVolText->draw();
     snprintf(buf, bufSize, "Sound volume: %d", settings.soundVol);
     mSoundVolText->setText(std::string(buf).c_str());
     mSoundVolText->draw();
@@ -116,15 +106,7 @@ void OptionsState::draw()
 
 TextControl* OptionsState::GetTextControl(const int id)
 {
-    switch (id)
-    {
-        case 0:
-            return mMusicVolText;
-        case 1:
-            return mSoundVolText;
-        default:
-            return nullptr;
-    }
+    return (id == 0) ? mSoundVolText : nullptr;
 }
 
 void OptionsState::SetBlinkText(int id, bool isBlink)
@@ -133,52 +115,22 @@ void OptionsState::SetBlinkText(int id, bool isBlink)
     if (txtCtrl) txtCtrl->setBlink(isBlink);
 }
 
-void OptionsState::selectionUp()
-{
-    SetBlinkText(mCurrentSelection, false);
-    mCurrentSelection--;
-    if (mCurrentSelection == -1) mCurrentSelection = 1;
+// Only the sound volume remains, so there is nothing to move the selection to.
+void OptionsState::selectionUp() {}
 
-    SetBlinkText(mCurrentSelection, true);
-}
-
-void OptionsState::selectionDown()
-{
-    SetBlinkText(mCurrentSelection, false);
-    mCurrentSelection++;
-    if (mCurrentSelection == 2) mCurrentSelection = 0;
-    SetBlinkText(mCurrentSelection, true);
-}
+void OptionsState::selectionDown() {}
 
 void OptionsState::leftArrow()
 {
-    switch (mCurrentSelection)
-    {
-        case 0:
-            settings.musicVol = std::max(0, settings.musicVol - 1);
-            geMusic.setVolume(0.1f * settings.musicVol);
-            break;
-        case 1:
-            settings.soundVol = std::max(0, settings.soundVol - 1);
-            geSound.setVolume(0.1f * settings.soundVol);
-            sndTest.play();
-            break;
-    }
+    settings.soundVol = std::max(0, settings.soundVol - 1);
+    geSound.setVolume(0.1f * settings.soundVol);
+    sndTest.play();
 }
 
 void OptionsState::rightArrow()
 {
-    switch (mCurrentSelection)
-    {
-        case 0:
-            settings.musicVol = std::min(10, settings.musicVol + 1);
-            geMusic.setVolume(0.1f * settings.musicVol);
-            break;
-        case 1:
-            settings.soundVol = std::min(10, settings.soundVol + 1);
-            geSound.setVolume(0.1f * settings.soundVol);
-            sndTest.play();
-            break;
-    }
+    settings.soundVol = std::min(10, settings.soundVol + 1);
+    geSound.setVolume(0.1f * settings.soundVol);
+    sndTest.play();
 }
 } // namespace ui

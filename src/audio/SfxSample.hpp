@@ -1,20 +1,21 @@
 #pragma once
 
-#include "bass.h"
+typedef struct MIX_Track MIX_Track;
 
 class SfxSample
 {
 public:
+    ~SfxSample();
+
     void init(const int sampleIdArg, const float volumeArg);
     void play();
     void pause();
     void stop();
     void setVolume(const float volumeArg);
-    void setPitch([[maybe_unused]] const float pitch) {} // TODO: Implement pitch control if possible
-    void slideVol(const float volumeArg, const DWORD time);
+    void slideVol(const float volumeArg, const int timeMs);
 
 private:
+    MIX_Track* track{};
     int sampleId{-1};
     float volume{};
-    HCHANNEL channel{};
 };

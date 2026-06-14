@@ -132,7 +132,6 @@ void Ship::accelerationOn()
     if (tiAccel.inc(time.dt)) tiAccel.elapsed = tiAccel.interval;
     setA(accel + (1.0 - tiAccel.ratio()) * accelBurst);
     sndEngineGain = SND_VOL_SHIP_ENGINE * getA() / accelMax;
-    sndEngine.setPitch(float(getA() / accelMax));
     if (!faccelerated)
     {
         sndEngine.setVolume(float(sndEngineGain));

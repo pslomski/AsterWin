@@ -4,13 +4,20 @@
 #include "ut/mocks/MockSfxSamples.hpp"
 #if USE_ORIG(audio_SfxSamples)
 
-#include <bass.h>
 #include <map>
 #include "audio/SampleFlags.hpp"
 #include "audio/SampleId.hpp"
 
+typedef struct MIX_Audio MIX_Audio;
+
 namespace audio
 {
+struct SampleRef
+{
+    MIX_Audio* audio{};
+    bool loop{};
+};
+
 class SfxSamples
 {
 public:
@@ -18,13 +25,12 @@ public:
 
     void init();
     void free();
-    void stop();
-    HSAMPLE get(const SampleId id) { return samples[id]; }
+    SampleRef get(const SampleId id) { return samples[id]; }
 
 private:
-    void add(const SampleId sampleId, const char* name, const int maxSampleCount, const SampleFlags flags = 0);
+    void add(const SampleId sampleId, const char* name, const SampleFlags flags = 0);
 
-    std::map<SampleId, HSAMPLE> samples;
+    std::map<SampleId, SampleRef> samples;
 };
 } // namespace audio
 
