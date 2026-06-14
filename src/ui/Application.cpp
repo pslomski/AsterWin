@@ -1,6 +1,5 @@
 #include "Application.hpp"
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
 #include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
 #include "game/Time.hpp"
@@ -16,10 +15,6 @@ Application::Application()
     if (!SDL_Init(SDL_INIT_VIDEO))
     {
         throw EGenericError("Cannot initialize SDL");
-    }
-    if (!TTF_Init())
-    {
-        throw EGenericError("Cannot initialize SDL_ttf");
     }
     audio::audioLib.init();
     geSound.open();
@@ -43,7 +38,6 @@ Application::~Application()
     geSound.close();
     geMusic.close();
     audio::audioLib.free();
-    TTF_Quit();
     SDL_Quit();
 }
 

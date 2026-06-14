@@ -1,133 +1,117 @@
 #include "Font.hpp"
-#include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
-#include <algorithm>
+#include <cctype>
 #include <cstdarg>
 #include <cstdio>
+#include <unordered_map>
+#include <vector>
 #include "gl/Utils.hpp"
-#include "utils/Exception.hpp"
 
-Font::~Font()
+namespace
 {
-    // States that own fonts are static-lifetime singletons, so this destructor
-    // can run after the GL context and SDL_ttf have already been torn down at
-    // program exit. Only release resources while their owners are still alive.
-    if (texture && SDL_GL_GetCurrentContext())
-    {
-        glDeleteTextures(1, &texture);
-    }
-    if (font && TTF_WasInit())
-    {
-        TTF_CloseFont(font);
-    }
+struct Pt
+{
+    float x, y;
+};
+using Stroke = std::vector<Pt>;  // a polyline (pen down between consecutive points)
+using Glyph = std::vector<Stroke>; // pen lifts between strokes
+
+constexpr float gridHeight = 6.0f; // cap height in grid units
+constexpr float advance = 5.0f;    // monospaced cell width in grid units
+
+// Glyphs are defined on a grid: x in [0,4], y in [0,6] with y pointing up
+// (y = 0 is the baseline). Lowercase is mapped to uppercase before lookup.
+const std::unordered_map<char, Glyph>& glyphTable()
+{
+    static const std::unordered_map<char, Glyph> table = {
+        {' ', {}},
+        {'A', {{{0, 0}, {0, 4}, {2, 6}, {4, 4}, {4, 0}}, {{0, 2}, {4, 2}}}},
+        {'B', {{{0, 0}, {0, 6}, {3, 6}, {4, 5}, {4, 4}, {3, 3}, {0, 3}}, {{3, 3}, {4, 2}, {4, 1}, {3, 0}, {0, 0}}}},
+        {'C', {{{4, 5}, {3, 6}, {1, 6}, {0, 5}, {0, 1}, {1, 0}, {3, 0}, {4, 1}}}},
+        {'D', {{{0, 0}, {0, 6}, {2, 6}, {4, 4}, {4, 2}, {2, 0}, {0, 0}}}},
+        {'E', {{{4, 6}, {0, 6}, {0, 0}, {4, 0}}, {{0, 3}, {3, 3}}}},
+        {'F', {{{0, 0}, {0, 6}, {4, 6}}, {{0, 3}, {3, 3}}}},
+        {'G', {{{4, 5}, {3, 6}, {1, 6}, {0, 5}, {0, 1}, {1, 0}, {3, 0}, {4, 1}, {4, 3}, {2, 3}}}},
+        {'H', {{{0, 0}, {0, 6}}, {{4, 0}, {4, 6}}, {{0, 3}, {4, 3}}}},
+        {'I', {{{0, 6}, {4, 6}}, {{2, 6}, {2, 0}}, {{0, 0}, {4, 0}}}},
+        {'J', {{{4, 6}, {4, 1}, {3, 0}, {1, 0}, {0, 1}, {0, 2}}}},
+        {'K', {{{0, 0}, {0, 6}}, {{4, 6}, {0, 3}, {4, 0}}}},
+        {'L', {{{0, 6}, {0, 0}, {4, 0}}}},
+        {'M', {{{0, 0}, {0, 6}, {2, 3}, {4, 6}, {4, 0}}}},
+        {'N', {{{0, 0}, {0, 6}, {4, 0}, {4, 6}}}},
+        {'O', {{{1, 0}, {3, 0}, {4, 1}, {4, 5}, {3, 6}, {1, 6}, {0, 5}, {0, 1}, {1, 0}}}},
+        {'P', {{{0, 0}, {0, 6}, {3, 6}, {4, 5}, {4, 4}, {3, 3}, {0, 3}}}},
+        {'Q', {{{1, 0}, {3, 0}, {4, 1}, {4, 5}, {3, 6}, {1, 6}, {0, 5}, {0, 1}, {1, 0}}, {{2, 2}, {4, 0}}}},
+        {'R', {{{0, 0}, {0, 6}, {3, 6}, {4, 5}, {4, 4}, {3, 3}, {0, 3}}, {{2, 3}, {4, 0}}}},
+        {'S', {{{4, 5}, {3, 6}, {1, 6}, {0, 5}, {0, 4}, {1, 3}, {3, 3}, {4, 2}, {4, 1}, {3, 0}, {1, 0}, {0, 1}}}},
+        {'T', {{{0, 6}, {4, 6}}, {{2, 6}, {2, 0}}}},
+        {'U', {{{0, 6}, {0, 1}, {1, 0}, {3, 0}, {4, 1}, {4, 6}}}},
+        {'V', {{{0, 6}, {2, 0}, {4, 6}}}},
+        {'W', {{{0, 6}, {1, 0}, {2, 3}, {3, 0}, {4, 6}}}},
+        {'X', {{{0, 0}, {4, 6}}, {{0, 6}, {4, 0}}}},
+        {'Y', {{{0, 6}, {2, 3}, {4, 6}}, {{2, 3}, {2, 0}}}},
+        {'Z', {{{0, 6}, {4, 6}, {0, 0}, {4, 0}}}},
+        {'0', {{{1, 0}, {3, 0}, {4, 1}, {4, 5}, {3, 6}, {1, 6}, {0, 5}, {0, 1}, {1, 0}}, {{0, 1}, {4, 5}}}},
+        {'1', {{{1, 5}, {2, 6}, {2, 0}}, {{1, 0}, {3, 0}}}},
+        {'2', {{{0, 5}, {1, 6}, {3, 6}, {4, 5}, {4, 4}, {0, 0}, {4, 0}}}},
+        {'3', {{{0, 5}, {1, 6}, {3, 6}, {4, 5}, {4, 4}, {3, 3}, {1, 3}}, {{3, 3}, {4, 2}, {4, 1}, {3, 0}, {1, 0}, {0, 1}}}},
+        {'4', {{{3, 0}, {3, 6}, {0, 2}, {4, 2}}}},
+        {'5', {{{4, 6}, {0, 6}, {0, 3}, {3, 3}, {4, 2}, {4, 1}, {3, 0}, {0, 0}}}},
+        {'6', {{{4, 6}, {2, 6}, {0, 4}, {0, 1}, {1, 0}, {3, 0}, {4, 1}, {4, 2}, {3, 3}, {0, 3}}}},
+        {'7', {{{0, 6}, {4, 6}, {2, 0}}}},
+        {'8', {{{1, 3}, {3, 3}, {4, 4}, {4, 5}, {3, 6}, {1, 6}, {0, 5}, {0, 4}, {1, 3}}, {{1, 3}, {0, 2}, {0, 1}, {1, 0}, {3, 0}, {4, 1}, {4, 2}, {3, 3}}}},
+        {'9', {{{4, 3}, {1, 3}, {0, 4}, {0, 5}, {1, 6}, {3, 6}, {4, 5}, {4, 1}, {3, 0}, {1, 0}}}},
+        {':', {{{2, 1}, {2, 2}}, {{2, 4}, {2, 5}}}},
+        {',', {{{2, 1}, {2, 0}, {1, -1}}}},
+        {'.', {{{2, 0}, {2, 1}}}},
+        {'-', {{{1, 3}, {3, 3}}}},
+        {'!', {{{2, 6}, {2, 2}}, {{2, 0}, {2, 1}}}},
+        {'?', {{{0, 5}, {1, 6}, {3, 6}, {4, 5}, {4, 4}, {2, 3}, {2, 2}}, {{2, 0}, {2, 1}}}},
+        {'/', {{{0, 0}, {4, 6}}}},
+        {'(', {{{3, 6}, {1, 4}, {1, 2}, {3, 0}}}},
+        {')', {{{1, 6}, {3, 4}, {3, 2}, {1, 0}}}},
+        {'\'', {{{2, 6}, {2, 5}}}},
+    };
+    return table;
 }
+} // namespace
 
 void Font::createFont(const int height)
 {
-    static constexpr auto fontFile{"Vectorb.ttf"};
-    font = TTF_OpenFont(fontFile, float(height));
-    if (!font)
-    {
-        throw ECannotCreateFont("Impossible to create the font: TTF_OpenFont failed");
-    }
-    ascent = TTF_GetFontAscent(font);
-
-    // Render all printable ASCII glyphs and pack them into a single texture atlas.
-    static constexpr SDL_Color white{255, 255, 255, 255};
-    std::array<SDL_Surface*, glyphCount> surfaces{};
-    int atlasWidth = 1;
-    int atlasHeight = 1;
-    for (int i = 0; i < glyphCount; ++i)
-    {
-        const Uint32 ch = Uint32(firstGlyph + i);
-        int minx{}, maxx{}, miny{}, maxy{}, advance{};
-        TTF_GetGlyphMetrics(font, ch, &minx, &maxx, &miny, &maxy, &advance);
-        glyphs[i].xOffset = minx;
-        glyphs[i].advance = advance;
-        surfaces[i] = TTF_RenderGlyph_Blended(font, ch, white);
-        if (surfaces[i])
-        {
-            atlasWidth += surfaces[i]->w + 1;
-            atlasHeight = std::max(atlasHeight, surfaces[i]->h);
-        }
-    }
-
-    SDL_Surface* atlas = SDL_CreateSurface(atlasWidth, atlasHeight, SDL_PIXELFORMAT_RGBA32);
-    if (!atlas)
-    {
-        throw ECannotCreateFont("Impossible to create the font: cannot create the atlas surface");
-    }
-    int penX = 0;
-    for (int i = 0; i < glyphCount; ++i)
-    {
-        if (!surfaces[i]) continue;
-        // Copy straight (un-premultiplied) alpha into the atlas; a real alpha
-        // blit onto transparent black would premultiply and crush the thin
-        // anti-aliased strokes of this font to near-black in GL_MODULATE.
-        SDL_SetSurfaceBlendMode(surfaces[i], SDL_BLENDMODE_NONE);
-        SDL_Rect dstRect{penX, 0, surfaces[i]->w, surfaces[i]->h};
-        SDL_BlitSurface(surfaces[i], nullptr, atlas, &dstRect);
-        glyphs[i].width = surfaces[i]->w;
-        glyphs[i].height = surfaces[i]->h;
-        glyphs[i].u0 = float(penX) / float(atlasWidth);
-        glyphs[i].v0 = 0.0f;
-        glyphs[i].u1 = float(penX + surfaces[i]->w) / float(atlasWidth);
-        glyphs[i].v1 = float(surfaces[i]->h) / float(atlasHeight);
-        penX += surfaces[i]->w + 1;
-        SDL_DestroySurface(surfaces[i]);
-    }
-
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glPixelStorei(GL_UNPACK_ROW_LENGTH, atlas->pitch / 4);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, atlasWidth, atlasHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, atlas->pixels);
-    glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    SDL_DestroySurface(atlas);
+    scale = float(height) / gridHeight;
 }
 
 ui::Rectanglei Font::GetTextSize(const std::string& strText) const
 {
-    int width{};
-    int height{};
-    if (font)
-    {
-        TTF_GetStringSize(font, strText.c_str(), strText.size(), &width, &height);
-    }
+    const int width = int(float(strText.size()) * advance * scale);
+    const int height = int(gridHeight * scale);
     return ui::Rectanglei(0, height, 0, width);
 }
 
 void Font::drawText(const std::string& text, int x, int y, const Color& color) const
 {
-    if (!texture) return;
     setGlColor(color);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glBegin(GL_QUADS);
+    const auto& table = glyphTable();
+    const float baseY = float(y); // baseline; grid y points up, screen y points down
     float penX = float(x);
-    const float top = float(y - ascent); // (x, y) is the text baseline
+    glBegin(GL_LINES);
     for (const char ch : text)
     {
-        if (ch < firstGlyph or ch > lastGlyph) continue;
-        const Glyph& glyph = glyphs[ch - firstGlyph];
-        const float x0 = penX + float(glyph.xOffset);
-        const float x1 = x0 + float(glyph.width);
-        const float y1 = top + float(glyph.height);
-        glTexCoord2f(glyph.u0, glyph.v0);
-        glVertex2f(x0, top);
-        glTexCoord2f(glyph.u1, glyph.v0);
-        glVertex2f(x1, top);
-        glTexCoord2f(glyph.u1, glyph.v1);
-        glVertex2f(x1, y1);
-        glTexCoord2f(glyph.u0, glyph.v1);
-        glVertex2f(x0, y1);
-        penX += float(glyph.advance);
+        const char upper = char(std::toupper(static_cast<unsigned char>(ch)));
+        const auto it = table.find(upper);
+        if (it != table.end())
+        {
+            for (const Stroke& stroke : it->second)
+            {
+                for (size_t i = 0; i + 1 < stroke.size(); ++i)
+                {
+                    glVertex2f(penX + stroke[i].x * scale, baseY - stroke[i].y * scale);
+                    glVertex2f(penX + stroke[i + 1].x * scale, baseY - stroke[i + 1].y * scale);
+                }
+            }
+        }
+        penX += advance * scale;
     }
     glEnd();
-    glDisable(GL_TEXTURE_2D);
 }
 
 void Font::drawTextFmt(const int x, const int y, const Color& color, const char* fmt, ...) const

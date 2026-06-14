@@ -54,19 +54,6 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SDL3)
 
-# Build FreeType from SDL_ttf's vendored sources (static), and drop harfbuzz /
-# plutosvg so we do not pull in their system DLLs. The game only renders ASCII,
-# so text shaping and color-emoji support are unnecessary.
-set(SDLTTF_VENDORED ON CACHE BOOL "" FORCE)
-set(SDLTTF_HARFBUZZ OFF CACHE BOOL "" FORCE)
-set(SDLTTF_PLUTOSVG OFF CACHE BOOL "" FORCE)
-FetchContent_Declare(
-    SDL3_ttf
-    GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf.git
-    GIT_TAG        release-3.2.2
-)
-FetchContent_MakeAvailable(SDL3_ttf)
-
 FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
@@ -83,7 +70,6 @@ target_link_libraries(${ASTER_EXE}
     project_warnings
     OpenGL::GL
     SDL3::SDL3-static
-    SDL3_ttf::SDL3_ttf
     ${BASS_LIBRARIES}
 )
 
