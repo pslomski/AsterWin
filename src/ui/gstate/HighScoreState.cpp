@@ -12,11 +12,11 @@ namespace ui
 HighScoreState::HighScoreState(StateManager* pManager) : State(pManager)
 {
     font = new Font;
-    font->createFont(20, FW_NORMAL);
+    font->createFont(20);
     currentName[0] = '\0';
 
     fontSmall = new Font;
-    fontSmall->createFont(15, FW_NORMAL);
+    fontSmall->createFont(15);
 
     int dy = 20;
     int left = int(1.0 / 4.0 * ui::viewport.width);

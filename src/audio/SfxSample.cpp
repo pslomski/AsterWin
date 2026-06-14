@@ -15,7 +15,7 @@ void SfxSample::play()
     channel = BASS_SampleGetChannel(geSound.getSample(sampleId), 0);
     assert(channel != 0);
     BASS_ChannelSetAttribute(channel, BASS_ATTRIB_VOL, volume);
-    BOOL bRes = BASS_ChannelPlay(channel, FALSE);
+    [[maybe_unused]] const BOOL bRes = BASS_ChannelPlay(channel, FALSE);
     assert(bRes == TRUE);
 }
 

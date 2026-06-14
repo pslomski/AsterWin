@@ -1,6 +1,6 @@
 #include "StarBlink.hpp"
 #include <cmath>
-#include <gl/gl.h>
+#include "gl/OpenGl.hpp"
 #include "game/Consts.hpp"
 #include "game/GameArea.hpp"
 #include "game/Rand.hpp"

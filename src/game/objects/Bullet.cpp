@@ -1,5 +1,5 @@
 #include "Bullet.hpp"
-#include <gl/gl.h>
+#include "gl/OpenGl.hpp"
 #include "gl/Utils.hpp"
 
 namespace game::objects

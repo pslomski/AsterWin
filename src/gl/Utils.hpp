@@ -4,7 +4,7 @@
 #include "ut/mocks/MockUtils.hpp"
 #if USE_ORIG(gl_Utils)
 
-#include <gl/gl.h>
+#include "gl/OpenGl.hpp"
 #include "game/types/Color.hpp"
 
 inline void setGlColor(const Color& color)

@@ -13,7 +13,7 @@ OptionsState::OptionsState(StateManager* pManager) : State(pManager)
     mCurrentSelection = 0;
 
     mFont = new Font;
-    mFont->createFont(20, FW_NORMAL);
+    mFont->createFont(20);
 
     int dy = 20;
     int left = int(1.0 / 4.0 * ui::viewport.width);
@@ -106,10 +106,10 @@ void OptionsState::draw()
 
     mTitleText->draw();
 
-    sprintf_s(buf, bufSize, "Music volume: %d", settings.musicVol);
+    snprintf(buf, bufSize, "Music volume: %d", settings.musicVol);
     mMusicVolText->setText(std::string(buf).c_str());
     mMusicVolText->draw();
-    sprintf_s(buf, bufSize, "Sound volume: %d", settings.soundVol);
+    snprintf(buf, bufSize, "Sound volume: %d", settings.soundVol);
     mSoundVolText->setText(std::string(buf).c_str());
     mSoundVolText->draw();
 }

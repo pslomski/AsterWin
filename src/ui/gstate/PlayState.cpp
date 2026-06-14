@@ -16,10 +16,10 @@ PlayState::PlayState(StateManager* pManager) : State(pManager), fontSmall(nullpt
 {
     isDisplayFps = false;
     fontSmall = new Font;
-    fontSmall->createFont(FNTSIZESMALL, FW_NORMAL);
+    fontSmall->createFont(FNTSIZESMALL);
 
     fontLarge = new Font;
-    fontLarge->createFont(FNTSIZELARGE, FW_NORMAL);
+    fontLarge->createFont(FNTSIZELARGE);
 
     textGameOver = new TextControl(fontLarge, ui::Rectanglei(0, ui::viewport.height, 0, ui::viewport.width));
     textGameOver->setAlignement(TextControl::TextAlignement::center);

@@ -1,6 +1,8 @@
 #include "Game.hpp"
 #include <algorithm>
 #include <cassert>
+#include <chrono>
+#include <thread>
 #include "GameConsts.hpp"
 #include "audio/Sound.hpp"
 #include "game/GameArea.hpp"
@@ -271,9 +273,9 @@ void Game::processUserInput()
     }
 }
 
-void threadStartMusic(void*)
+void threadStartMusic()
 {
-    Sleep(1000);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     geMusic.play();
 }
 
@@ -292,7 +294,7 @@ void Game::analyzeGameState()
                     gain = gain * 1.5f;
                     gameState = GameState::Run;
                     generateAsters(astersCount, gameLevel);
-                    _beginthread(threadStartMusic, 0, NULL);
+                    std::thread(threadStartMusic).detach();
                 }
                 else
                 {

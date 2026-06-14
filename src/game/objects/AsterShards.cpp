@@ -1,5 +1,5 @@
 #include "AsterShards.hpp"
-#include <gl/gl.h>
+#include "gl/OpenGl.hpp"
 #include "game/Rand.hpp"
 #include "gl/Utils.hpp"
 

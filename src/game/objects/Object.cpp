@@ -1,7 +1,7 @@
 #include "Object.hpp"
 #include <cassert>
 #include <cmath>
-#include <gl/gl.h>
+#include "gl/OpenGl.hpp"
 #include "game/GameArea.hpp"
 #include "game/Rand.hpp"
 #include "game/Time.hpp"

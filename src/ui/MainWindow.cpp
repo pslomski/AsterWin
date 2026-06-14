@@ -36,7 +36,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::initGL()
 {
-    Font::SetDeviceContext(wglGetCurrentDC());
     const auto isVsync = setVSync(0);
     LOG_INF("isVsync:%d", isVsync);
     glClearColor(0.0, 0.0, 0.0, 0.0);

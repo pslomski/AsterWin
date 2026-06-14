@@ -28,12 +28,24 @@ cmake_print_variables(CMAKE_MODULE_PATH)
 
 find_package(OpenGL REQUIRED)
 
-set(BASS_DIR d:/dev/Bass)
-#set(BASS_DIR /mnt/d/dev/bass24-linux)
+if(NOT DEFINED BASS_DIR)
+    if(WIN32)
+        set(BASS_DIR d:/dev/Bass)
+    else()
+        set(BASS_DIR /mnt/d/dev/bass24-linux)
+    endif()
+endif()
 find_package(BASS REQUIRED)
 include_directories(${BASS_INCLUDE_DIRS})
 
 include(FetchContent)
+
+# Build all dependencies statically so the game ships without their DLLs.
+# (BASS is closed-source and DLL-only, so bass.dll is the one exception.)
+set(BUILD_SHARED_LIBS OFF)
+set(SDL_SHARED OFF CACHE BOOL "" FORCE)
+set(SDL_STATIC ON CACHE BOOL "" FORCE)
+set(SDL_TEST OFF CACHE BOOL "" FORCE)
 
 FetchContent_Declare(
     SDL3
@@ -42,8 +54,12 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SDL3)
 
-set(SDL3TTF_VENDORED ON CACHE BOOL "" FORCE)
-set(SDL3TTF_HARFBUZZ OFF CACHE BOOL "" FORCE)
+# Build FreeType from SDL_ttf's vendored sources (static), and drop harfbuzz /
+# plutosvg so we do not pull in their system DLLs. The game only renders ASCII,
+# so text shaping and color-emoji support are unnecessary.
+set(SDLTTF_VENDORED ON CACHE BOOL "" FORCE)
+set(SDLTTF_HARFBUZZ OFF CACHE BOOL "" FORCE)
+set(SDLTTF_PLUTOSVG OFF CACHE BOOL "" FORCE)
 FetchContent_Declare(
     SDL3_ttf
     GIT_REPOSITORY https://github.com/libsdl-org/SDL_ttf.git
@@ -66,9 +82,24 @@ target_link_libraries(${ASTER_EXE}
   PRIVATE
     project_warnings
     OpenGL::GL
-    SDL3::SDL3
+    SDL3::SDL3-static
     SDL3_ttf::SDL3_ttf
     ${BASS_LIBRARIES}
 )
+
+# Link the C/C++ runtime statically so the exe does not depend on
+# libstdc++-6.dll / libwinpthread-1.dll / libgcc_s_seh-1.dll at runtime
+# (this is what removes the nanosleep64 loader error for good).
+target_link_options(${ASTER_EXE} PRIVATE -static)
+
+if(WIN32)
+    # BASS is closed-source and ships only as a DLL, so copy bass.dll next to the
+    # executable. It is the sole remaining bundled DLL (besides system opengl32).
+    add_custom_command(TARGET ${ASTER_EXE} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${BASS_DIR}/lib/x64/bass.dll" "$<TARGET_FILE_DIR:${ASTER_EXE}>"
+        VERBATIM
+    )
+endif()
 
 include(GoogleTest)

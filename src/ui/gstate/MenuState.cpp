@@ -11,13 +11,13 @@ namespace ui
 {
 CMenuState::CMenuState(StateManager* pManager) : State(pManager)
 {
-    font.createFont(20, FW_NORMAL);
+    font.createFont(20);
     fontSmall = new Font;
-    fontSmall->createFont(15, FW_NORMAL);
+    fontSmall->createFont(15);
     fontLarge = new Font;
-    fontLarge->createFont(40, FW_NORMAL);
+    fontLarge->createFont(40);
     fontSmall2 = new Font;
-    fontSmall2->createFont(10, FW_NORMAL);
+    fontSmall2->createFont(10);
 
     int dy = int(1.0 / 12.0 * ui::viewport.height);
     int left = int(1.0 / 4.0 * ui::viewport.width);

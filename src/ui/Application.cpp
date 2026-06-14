@@ -1,5 +1,6 @@
 #include "Application.hpp"
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include "audio/AudioLib.hpp"
 #include "audio/Sound.hpp"
 #include "game/Time.hpp"
@@ -8,10 +9,18 @@
 #include "ui/MainWindow.hpp"
 #include "ui/Settings.hpp"
 #include "ui/Viewport.hpp"
+#include "utils/Exception.hpp"
 
 Application::Application()
 {
-    AddFontResourceEx("Vectorb.ttf", FR_PRIVATE, 0);
+    if (!SDL_Init(SDL_INIT_VIDEO))
+    {
+        throw EGenericError("Cannot initialize SDL");
+    }
+    if (!TTF_Init())
+    {
+        throw EGenericError("Cannot initialize SDL_ttf");
+    }
     audio::audioLib.init();
     geSound.open();
     geMusic.open();
@@ -19,7 +28,13 @@ Application::Application()
     settings.load();
     geMusic.setVolume(0.1f * settings.musicVol);
     geSound.setVolume(0.1f * settings.soundVol);
-    ui::viewport.height = 0.8f * GetSystemMetrics(SM_CYSCREEN);
+
+    int screenHeight = 600; // fallback if the display size cannot be queried
+    if (const SDL_DisplayMode* mode = SDL_GetDesktopDisplayMode(SDL_GetPrimaryDisplay()))
+    {
+        screenHeight = mode->h;
+    }
+    ui::viewport.height = 0.8f * screenHeight;
     ui::viewport.width = ui::viewport.height;
 }
 
@@ -28,7 +43,8 @@ Application::~Application()
     geSound.close();
     geMusic.close();
     audio::audioLib.free();
-    RemoveFontResource("Vectorb.ttf");
+    TTF_Quit();
+    SDL_Quit();
 }
 
 void Application::run()

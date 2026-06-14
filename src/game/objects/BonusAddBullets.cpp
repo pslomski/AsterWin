@@ -1,5 +1,5 @@
 #include "BonusAddBullets.hpp"
-#include <gl/gl.h>
+#include "gl/OpenGl.hpp"
 #include "game/GameConsts.hpp"
 
 namespace

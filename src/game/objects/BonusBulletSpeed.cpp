@@ -1,5 +1,5 @@
 #include "BonusBulletSpeed.hpp"
-#include <gl/gl.h>
+#include "gl/OpenGl.hpp"
 #include "game/GameConsts.hpp"
 
 namespace game::objects
