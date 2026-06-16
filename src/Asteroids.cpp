@@ -9,10 +9,10 @@ int main(int, char**)
     try
     {
         Application app;
-        LOG_INF("Asteroids game started");
-        LOG_INF("current directory: %s", getAppDir().c_str());
+        LOG_INFO("Asteroids game started");
+        LOG_INFO("current directory: %s", getAppDir().c_str());
         app.run();
-        LOG_INF("Asteroids game finished");
+        LOG_INFO("Asteroids game finished");
     }
     catch (std::exception& e)
     {

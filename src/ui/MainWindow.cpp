@@ -37,7 +37,7 @@ MainWindow::~MainWindow()
 void MainWindow::initGL()
 {
     const auto isVsync = setVSync(0);
-    LOG_INF("isVsync:%d", isVsync);
+    LOG_INFO("isVsync:%d", isVsync);
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);

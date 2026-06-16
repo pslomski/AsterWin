@@ -175,7 +175,7 @@ void HighScoreState::draw()
 
 void HighScoreState::enterState()
 {
-    LOG_INF("Entering HighScoreState");
+    LOG_INFO("Entering HighScoreState");
     highScores.clear();
     std::ifstream inputFile("HighScores.txt");
     if (inputFile.fail())

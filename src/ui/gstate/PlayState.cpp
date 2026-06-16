@@ -41,7 +41,7 @@ PlayState* PlayState::getInstance(StateManager* pManager)
 
 void PlayState::enterState()
 {
-    LOG_INF("Entering PlayState");
+    LOG_INFO("Entering PlayState");
     asterGame.enterState();
     geSound.unmute();
 }
@@ -50,7 +50,7 @@ void PlayState::leaveState()
 {
     asterGame.leaveState();
     geSound.mute();
-    LOG_INF("Leaving PlayState");
+    LOG_INFO("Leaving PlayState");
 }
 
 void PlayState::reset()

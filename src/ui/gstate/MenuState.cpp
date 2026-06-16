@@ -139,7 +139,7 @@ void CMenuState::draw()
 
 void CMenuState::enterState()
 {
-    LOG_INF("Entering MenuState");
+    LOG_INFO("Entering MenuState");
     // Checks whether there is a current game active
     setBlinkText(currentSelection, false);
     if (!currentGame or currentGame->isGameOver())

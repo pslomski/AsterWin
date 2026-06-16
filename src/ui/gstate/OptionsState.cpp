@@ -49,7 +49,7 @@ OptionsState* OptionsState::GetInstance(StateManager* pManager)
 
 void OptionsState::enterState()
 {
-    LOG_INF("Entering OptionsState");
+    LOG_INFO("Entering OptionsState");
     SetBlinkText(mCurrentSelection, true);
     settings.load();
 }
@@ -57,7 +57,7 @@ void OptionsState::enterState()
 void OptionsState::leaveState()
 {
     settings.save();
-    LOG_INF("Leaving OptionsState");
+    LOG_INFO("Leaving OptionsState");
 }
 
 void OptionsState::onKeyDown(SDL_Scancode key)
